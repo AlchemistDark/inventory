@@ -17,9 +17,16 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
-  path_provider: ^2.1.5 # for database
-  sqflite: ^2.4.2 # for database
-  path: ^1.9.0 # for path operations
+  path_provider: ^2.1.5 # For database
+  sqflite: ^2.4.2 # For database
+  path: ^1.9.0 # For database paths
+  flutter_bloc: ^8.1.6 # State management
+  equatable: ^2.0.5 # For value equality in Bloc states
+  get_it: ^8.0.2 # DI container
+  go_router: ^14.0.0 # Navigation
+  mobile_scanner: ^6.0.0 # Barcode scanner
+  package_info_plus: ^8.0.0 # App version info
+  intl: ^0.19.0 # Localization and date formatting
 
 dev_dependencies:
   flutter_test:

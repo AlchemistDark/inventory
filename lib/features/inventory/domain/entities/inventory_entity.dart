@@ -1,0 +1,42 @@
+import 'package:equatable/equatable.dart';
+
+/// Domain entity representing an inventory item
+class InventoryEntity extends Equatable {
+  final int id;
+  final String? barcode;
+  final String name;
+  final String? inventoryNumber;
+  final int quantity;
+  final String? description;
+  final DateTime dateAdded;
+  final int? employeeId;
+  final int? roomId;
+  final DateTime createdAt;
+
+  const InventoryEntity({
+    required this.id,
+    this.barcode,
+    required this.name,
+    this.inventoryNumber,
+    required this.quantity,
+    this.description,
+    required this.dateAdded,
+    this.employeeId,
+    this.roomId,
+    required this.createdAt,
+  });
+
+  @override
+  List<Object?> get props => [
+        id,
+        barcode,
+        name,
+        inventoryNumber,
+        quantity,
+        description,
+        dateAdded,
+        employeeId,
+        roomId,
+        createdAt,
+      ];
+}

@@ -1,3 +1,4 @@
+/// Base exception class for application exceptions
 class AppException implements Exception {
   final String message;
   final String? code;
@@ -8,11 +9,13 @@ class AppException implements Exception {
   String toString() => message;
 }
 
+/// Exception thrown when category validation fails
 class CategoryValidationException extends AppException {
   CategoryValidationException({required String message})
     : super(message: message, code: 'CATEGORY_VALIDATION_ERROR');
 }
 
+/// Exception thrown when category is not found
 class CategoryNotFoundException extends AppException {
   CategoryNotFoundException({required int id})
     : super(
@@ -21,6 +24,7 @@ class CategoryNotFoundException extends AppException {
       );
 }
 
+/// Exception thrown when category already exists
 class CategoryAlreadyExistsException extends AppException {
   CategoryAlreadyExistsException({required String name})
     : super(

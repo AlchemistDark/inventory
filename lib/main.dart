@@ -1,111 +1,106 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
-import 'cli/categories_cli.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inventory_p_shalaev/core/database/database_helper.dart';
+import 'package:inventory_p_shalaev/features/home/presentation/bloc/home_bloc.dart';
+import 'package:inventory_p_shalaev/features/home/presentation/pages/home_page.dart';
+import 'package:inventory_p_shalaev/features/inventory/data/datasources/inventory_local_datasource.dart';
+import 'package:inventory_p_shalaev/features/inventory/data/repositories/inventory_repository_impl.dart';
+import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
+import 'package:inventory_p_shalaev/features/inventory/domain/usecases/inventory_usecases.dart';
 
 void main() async {
-  // Включение консольного режима
-  const bool useConsoleMode = true; // Поменять на false для GUI режима
+  WidgetsFlutterBinding.ensureInitialized();
 
-  if (useConsoleMode) {
-    // Консольный режим (тестирование БД)
-    final cli = CategoriesCLI();
-    await cli.run();
-    exit(0);
-  } else {
-    // GUI режим (Flutter)
-    WidgetsFlutterBinding.ensureInitialized();
-    runApp(const MyApp());
+  // Initialize dependencies
+  final databaseHelper = DatabaseHelper();
+  final inventoryDataSource = InventoryLocalDataSourceImpl(databaseHelper);
+  final inventoryRepository = InventoryRepositoryImpl(inventoryDataSource);
+
+  // Initialize test data
+  await _initializeTestData(inventoryRepository);
+
+  runApp(MyApp(inventoryRepository: inventoryRepository));
+}
+
+/// Initializes the database with test data
+Future<void> _initializeTestData(InventoryRepositoryImpl repository) async {
+  try {
+    final existing = await repository.getInventories();
+    if (existing.isEmpty) {
+      await repository.createInventory(
+        InventoryEntity(
+          id: 0,
+          barcode: 'BARCODE001',
+          name: 'Dell Laptop',
+          inventoryNumber: 'INV-001',
+          quantity: 1,
+          description: 'Laptop for office',
+          dateAdded: DateTime.now(),
+          employeeId: null,
+          roomId: null,
+          createdAt: DateTime.now(),
+        ),
+      );
+
+      await repository.createInventory(
+        InventoryEntity(
+          id: 0,
+          barcode: 'BARCODE002',
+          name: 'LG Monitor',
+          inventoryNumber: 'INV-002',
+          quantity: 2,
+          description: '24-inch monitor',
+          dateAdded: DateTime.now(),
+          employeeId: null,
+          roomId: null,
+          createdAt: DateTime.now(),
+        ),
+      );
+
+      await repository.createInventory(
+        InventoryEntity(
+          id: 0,
+          barcode: 'BARCODE003',
+          name: 'Logitech Keyboard',
+          inventoryNumber: 'INV-003',
+          quantity: 3,
+          description: 'Mechanical keyboard',
+          dateAdded: DateTime.now(),
+          employeeId: null,
+          roomId: null,
+          createdAt: DateTime.now(),
+        ),
+      );
+    }
+  } catch (e) {
+    debugPrint('Error initializing test data: $e');
   }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final InventoryRepositoryImpl inventoryRepository;
+
+  const MyApp({super.key, required this.inventoryRepository});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Inventory App',
+      title: 'Inventory Management',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Inventory Management'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+      home: BlocProvider(
+        create: (context) => HomeBloc(
+          searchByBarcodeUseCase: SearchInventoryByBarcodeUseCase(
+            inventoryRepository,
+          ),
+          searchByNameUseCase: SearchInventoriesByNameUseCase(
+            inventoryRepository,
+          ),
+          getInventoriesUseCase: GetInventoriesUseCase(inventoryRepository),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const HomePage(),
       ),
     );
   }

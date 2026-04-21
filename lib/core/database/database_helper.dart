@@ -3,21 +3,25 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:path/path.dart' as path;
 
+/// Database helper class for managing SQLite database
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
   static Database? _database;
 
+  /// Factory constructor returns singleton instance
   factory DatabaseHelper() {
     return _instance;
   }
 
   DatabaseHelper._internal();
 
+  /// Returns the database instance, creating it if necessary
   Future<Database> get database async {
     _database ??= await _initializeDatabase();
     return _database!;
   }
 
+  /// Initializes the database with the given path
   Future<Database> _initializeDatabase() async {
     final Directory documentsDirectory =
         await getApplicationDocumentsDirectory();
@@ -26,6 +30,7 @@ class DatabaseHelper {
     return openDatabase(dbPath, version: 1, onCreate: _onCreate);
   }
 
+  /// Creates all tables on database initialization
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE categories (
@@ -35,7 +40,7 @@ class DatabaseHelper {
       )
     ''');
 
-    // Другие таблицы будут добавлены позже
+    // Other tables will be added later
     await db.execute('''
       CREATE TABLE positions (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -93,6 +98,7 @@ class DatabaseHelper {
     ''');
   }
 
+  /// Closes the database connection
   Future<void> closeDatabase() async {
     if (_database != null) {
       await _database!.close();
