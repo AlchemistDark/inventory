@@ -4,6 +4,7 @@ import 'package:inventory_p_shalaev/core/constants/home_strings.dart';
 import 'package:inventory_p_shalaev/features/home/presentation/bloc/home_bloc.dart';
 import 'package:inventory_p_shalaev/features/home/presentation/bloc/home_event.dart';
 import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 /// Home screen for inventory management
 class HomePage extends StatefulWidget {
@@ -16,7 +17,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _searchController = TextEditingController();
   final _barcodeController = TextEditingController();
+  final MobileScannerController _scannerController = MobileScannerController();
   int _selectedNavIndex = 0;
+  bool _isScanHandled = false;
 
   @override
   void initState() {
@@ -28,49 +31,104 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     _searchController.dispose();
     _barcodeController.dispose();
+    _scannerController.dispose();
     super.dispose();
   }
 
-  /// Shows dialog for barcode scanning/input
+  void _submitBarcodeSearch(String value, BuildContext modalContext) {
+    final barcode = value.trim();
+    if (barcode.isEmpty) return;
+
+    context.read<HomeBloc>().add(SearchInventoryByBarcodeEvent(barcode));
+    _barcodeController.clear();
+    Navigator.pop(modalContext);
+  }
+
+  void _handleScanResult(BarcodeCapture capture, BuildContext modalContext) {
+    if (_isScanHandled) return;
+    if (capture.barcodes.isEmpty) return;
+    final barcode = capture.barcodes.first.rawValue;
+    if (barcode == null || barcode.trim().isEmpty) return;
+
+    _isScanHandled = true;
+    _submitBarcodeSearch(barcode, modalContext);
+  }
+
+  /// Shows modal for barcode scanning/input
   void _showBarcodeDialog() {
+    _barcodeController.clear();
+    _isScanHandled = false;
+
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (modalContext) => AlertDialog(
         title: Text(AppStrings.home.barcodeDialogTitle),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 16),
-            TextField(
-              controller: _barcodeController,
-              decoration: InputDecoration(
-                labelText: AppStrings.home.barcodeFieldLabel,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                prefixIcon: const Icon(Icons.qr_code),
+        content: SizedBox(
+          width: 360,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                AppStrings.home.barcodeDialogHint,
+                style: Theme.of(context).textTheme.bodySmall,
+                textAlign: TextAlign.center,
               ),
-              autofocus: true,
-            ),
-          ],
+              const SizedBox(height: 12),
+              Container(
+                height: 220,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.black12,
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: MobileScanner(
+                  controller: _scannerController,
+                  onDetect: (capture) => _handleScanResult(capture, modalContext),
+                  errorBuilder: (context, error, child) {
+                    final message =
+                        error.errorCode == MobileScannerErrorCode.permissionDenied
+                        ? AppStrings.home.scannerPermissionDeniedMessage
+                        : AppStrings.home.scannerUnavailableMessage;
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Text(
+                          message,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: _barcodeController,
+                decoration: InputDecoration(
+                  labelText: AppStrings.home.barcodeFieldLabel,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  prefixIcon: const Icon(Icons.qr_code),
+                ),
+                autofocus: true,
+                onSubmitted: (value) => _submitBarcodeSearch(value, modalContext),
+              ),
+            ],
+          ),
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(modalContext),
             child: Text(AppStrings.home.cancelButton),
           ),
           ElevatedButton(
             onPressed: () {
-              final barcode = _barcodeController.text.trim();
-              if (barcode.isNotEmpty) {
-                context.read<HomeBloc>().add(
-                  SearchInventoryByBarcodeEvent(barcode),
-                );
-                _barcodeController.clear();
-                Navigator.pop(context);
-              }
+              _submitBarcodeSearch(_barcodeController.text, modalContext);
             },
-            child: Text(AppStrings.home.searchButtonDialog),
+            child: Text(AppStrings.home.saveButton),
           ),
         ],
       ),

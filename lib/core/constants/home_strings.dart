@@ -1,4 +1,4 @@
-/// String constants for the home screen
+// String constants for the home screen.
 
 class AppStrings {
   AppStrings();
@@ -20,8 +20,17 @@ class Home {
   final String searchButton = 'Search';
 
   // Barcode Dialog
-  final String barcodeDialogTitle = 'Barcode Scanning / Manual Input';
+  final String barcodeDialogTitle = 'Scan Barcode';
+  final String barcodeDialogHint =
+      'Point camera at barcode or enter it manually below';
   final String barcodeFieldLabel = 'Barcode or inventory number';
+  final String scannerUnavailableMessage =
+      'Camera unavailable. Use manual input.';
+  final String scannerPermissionDeniedMessage =
+      'Camera permission denied. Use manual input.';
+  final String scannerReadButton = 'Scan with camera';
+  final String scannerScanningLabel = 'Scanning...';
+  final String saveButton = 'Save';
   final String cancelButton = 'Cancel';
   final String searchButtonDialog = 'Search';
 
