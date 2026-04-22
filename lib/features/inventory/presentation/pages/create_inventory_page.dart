@@ -1,18 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
-import 'package:inventory_p_shalaev/features/inventory/presentation/bloc/inventory_bloc.dart';
-import 'package:inventory_p_shalaev/features/inventory/presentation/bloc/inventory_event.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-
-import '../../../../core/database/database_helper.dart';
-import '../../../employees/data/datasources/employees_local_datasource.dart';
-import '../../../employees/data/models/employee_model.dart';
-import '../../../rooms/data/datasources/rooms_local_datasource.dart';
-import '../../../rooms/data/models/room_model.dart';
-import '../../../categories/data/datasources/categories_local_datasource.dart';
-import '../../../categories/data/models/category_model.dart';
 
 class CreateInventoryPage extends StatefulWidget {
   final InventoryEntity? editTarget;

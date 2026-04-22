@@ -1,5 +1,5 @@
-import 'package:equatable/equatable.dart';
 import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
+import 'package:inventory_p_shalaev/features/inventory/presentation/bloc/inventory_common_models.dart';
 
 /// Base class for all home states
 abstract class HomeState extends Equatable {
@@ -15,7 +15,7 @@ class HomeInitial extends HomeState {
 }
 
 /// Loading state
-class HomeLoading extends HomeState {
+class HomeLoading extends HomeState with LoadingStateMixin {
   const HomeLoading();
 }
 
@@ -50,11 +50,10 @@ class HomeNotFound extends HomeState {
 }
 
 /// State when an error occurred
-class HomeError extends HomeState {
+class HomeError extends HomeState with ErrorStateMixin {
+  @override
   final String message;
 
   const HomeError(this.message);
-
-  @override
-  List<Object?> get props => [message];
 }
+

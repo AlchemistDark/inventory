@@ -19,11 +19,18 @@ export 'inventory/domain/usecases/get_inventories_use_case.dart';
 export 'inventory/domain/usecases/search_inventories_by_name_use_case.dart';
 export 'inventory/domain/usecases/search_inventory_by_barcode_use_case.dart';
 export 'inventory/domain/usecases/update_inventory_use_case.dart';
-
 export 'inventory/presentation/bloc/inventory_bloc.dart';
+export 'inventory/presentation/bloc/inventory_common_handler.dart';
+export 'inventory/presentation/bloc/inventory_common_models.dart';
+export 'inventory/presentation/bloc/inventory_event.dart';
+export 'inventory/presentation/bloc/inventory_state.dart';
+export 'inventory/presentation/pages/create_inventory_page.dart';
 
 export 'positions/data/datasources/positions_local_datasource.dart';
 export 'rooms/data/datasources/rooms_local_datasource.dart';
 export 'categories/data/datasources/categories_local_datasource.dart';
-
 export 'employees/data/datasources/employees_local_datasource.dart';
+export 'categories/data/models/category_model.dart';
+export 'employees/data/models/employee_model.dart';
+export 'rooms/data/models/room_model.dart';
+

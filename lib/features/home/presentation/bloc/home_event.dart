@@ -1,11 +1,8 @@
-import 'package:equatable/equatable.dart';
+import 'package:inventory_p_shalaev/features/inventory/presentation/bloc/inventory_common_models.dart';
 
 /// Base class for all home events
-abstract class HomeEvent extends Equatable {
+abstract class HomeEvent extends CoreInventoryEvent {
   const HomeEvent();
-
-  @override
-  List<Object?> get props => [];
 }
 
 /// Event to initialize the home screen
@@ -23,17 +20,8 @@ class SearchInventoryByBarcodeEvent extends HomeEvent {
   List<Object?> get props => [barcode];
 }
 
-/// Event to search inventory by name
-class SearchInventoriesByNameEvent extends HomeEvent {
-  final String query;
-
-  const SearchInventoriesByNameEvent(this.query);
-
-  @override
-  List<Object?> get props => [query];
-}
 
 /// Event to clear the search
 class ClearSearchEvent extends HomeEvent {
   const ClearSearchEvent();
-}
+}

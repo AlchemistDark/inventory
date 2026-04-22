@@ -2,7 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
 /// BLoC for managing home screen state
-class HomeBloc extends Bloc<HomeEvent, HomeState> {
+class HomeBloc extends Bloc<CoreInventoryEvent, HomeState>
+    with InventoryCommonHandler<HomeState> {
   final SearchInventoryByBarcodeUseCase searchByBarcodeUseCase;
   final SearchInventoriesByNameUseCase searchByNameUseCase;
   final GetInventoriesUseCase getInventoriesUseCase;
@@ -22,49 +23,54 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     InitializeEvent event,
     Emitter<HomeState> emit,
   ) async {
-    emit(const HomeLoading());
-    try {
-      await getInventoriesUseCase();
-      emit(const HomeInitial());
-    } catch (e) {
-      emit(HomeError(e.toString()));
-    }
+    await executeWithLoading(
+      emit: emit,
+      action: () => getInventoriesUseCase(),
+      onSuccess: (_) => const HomeInitial(),
+      onError: (msg) => HomeError(msg),
+      loadingState: const HomeLoading(),
+    );
   }
 
   Future<void> _onSearchByBarcode(
     SearchInventoryByBarcodeEvent event,
     Emitter<HomeState> emit,
   ) async {
-    emit(const HomeLoading());
-    try {
-      final result = await searchByBarcodeUseCase(event.barcode);
-      if (result != null) {
-        emit(HomeSearchSuccess(result));
-      } else {
-        emit(HomeNotFound(event.barcode));
-      }
-    } catch (e) {
-      emit(HomeError(e.toString()));
-    }
+    await executeWithLoading(
+      emit: emit,
+      action: () => searchByBarcodeUseCase(event.barcode),
+      onSuccess: (result) {
+        if (result != null) {
+          return HomeSearchSuccess(result);
+        } else {
+          return HomeNotFound(event.barcode);
+        }
+      },
+      onError: (msg) => HomeError(msg),
+      loadingState: const HomeLoading(),
+    );
   }
 
   Future<void> _onSearchByName(
     SearchInventoriesByNameEvent event,
     Emitter<HomeState> emit,
   ) async {
-    emit(const HomeLoading());
-    try {
-      final results = await searchByNameUseCase(event.query);
-      if (results.isEmpty) {
-        emit(HomeNotFound(event.query));
-      } else if (results.length == 1) {
-        emit(HomeSearchSuccess(results.first));
-      } else {
-        emit(HomeSearchMultipleResults(results));
-      }
-    } catch (e) {
-      emit(HomeError(e.toString()));
-    }
+    await performSearchByName(
+      searchUseCase: searchByNameUseCase,
+      query: event.query,
+      emit: emit,
+      onSuccess: (results) {
+        if (results.isEmpty) {
+          return HomeNotFound(event.query);
+        } else if (results.length == 1) {
+          return HomeSearchSuccess(results.first);
+        } else {
+          return HomeSearchMultipleResults(results);
+        }
+      },
+      onError: (msg) => HomeError(msg),
+      loadingState: const HomeLoading(),
+    );
   }
 
   Future<void> _onClearSearch(
@@ -74,3 +80,4 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(const HomeInitial());
   }
 }
+

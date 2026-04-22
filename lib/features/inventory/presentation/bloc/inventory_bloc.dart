@@ -1,11 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inventory_p_shalaev/features/inventory/domain/usecases/create_inventory_use_case.dart';
-import 'package:inventory_p_shalaev/features/inventory/domain/usecases/get_inventories_use_case.dart';
-import 'package:inventory_p_shalaev/features/inventory/domain/usecases/search_inventories_by_name_use_case.dart';
-import 'package:inventory_p_shalaev/features/inventory/domain/usecases/update_inventory_use_case.dart';
-import 'package:inventory_p_shalaev/features/inventory/presentation/bloc/inventory_event.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
-class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
+class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
+    with InventoryCommonHandler<InventoryState> {
   final SearchInventoriesByNameUseCase searchByNameUseCase;
   final GetInventoriesUseCase getInventoriesUseCase;
   final CreateInventoryUseCase createInventoryUseCase;
@@ -30,42 +27,43 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     InitializeInventoriesEvent event,
     Emitter<InventoryState> emit,
   ) async {
-    emit(const InventoryLoading());
-    try {
-      final inventories = await getInventoriesUseCase();
-      emit(InventoriesLoaded(inventories: inventories));
-    } catch (e) {
-      emit(InventoryError(e.toString()));
-    }
+    await executeWithLoading(
+      emit: emit,
+      action: () => getInventoriesUseCase(),
+      onSuccess: (results) => InventoriesLoaded(inventories: results),
+      onError: (msg) => InventoryError(msg),
+      loadingState: const InventoryLoading(),
+    );
   }
 
   Future<void> _onLoadInventories(
     LoadInventoriesEvent event,
     Emitter<InventoryState> emit,
   ) async {
-    emit(const InventoryLoading());
-    try {
-      final inventories = await getInventoriesUseCase();
-      emit(InventoriesLoaded(inventories: inventories));
-    } catch (e) {
-      emit(InventoryError(e.toString()));
-    }
+    await executeWithLoading(
+      emit: emit,
+      action: () => getInventoriesUseCase(),
+      onSuccess: (results) => InventoriesLoaded(inventories: results),
+      onError: (msg) => InventoryError(msg),
+      loadingState: const InventoryLoading(),
+    );
   }
 
   Future<void> _onSearchByName(
     SearchInventoriesByNameEvent event,
     Emitter<InventoryState> emit,
   ) async {
-    emit(const InventoryLoading());
-    try {
-      final inventories = await searchByNameUseCase(event.query);
-      emit(InventoriesLoaded(
-        inventories: inventories,
+    await performSearchByName(
+      searchUseCase: searchByNameUseCase,
+      query: event.query,
+      emit: emit,
+      onSuccess: (results) => InventoriesLoaded(
+        inventories: results,
         searchQuery: event.query,
-      ));
-    } catch (e) {
-      emit(InventoryError(e.toString()));
-    }
+      ),
+      onError: (msg) => InventoryError(msg),
+      loadingState: const InventoryLoading(),
+    );
   }
 
   Future<void> _onFilterByCategory(
@@ -74,7 +72,6 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
   ) async {
     if (state is InventoriesLoaded) {
       final currentState = state as InventoriesLoaded;
-      // Filter logic can be expanded
       emit(InventoriesLoaded(
         inventories: currentState.inventories,
         searchQuery: currentState.searchQuery,
@@ -87,12 +84,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     ClearFiltersEvent event,
     Emitter<InventoryState> emit,
   ) async {
-    try {
-      final inventories = await getInventoriesUseCase();
-      emit(InventoriesLoaded(inventories: inventories));
-    } catch (e) {
-      emit(InventoryError(e.toString()));
-    }
+    await _onLoadInventories(const LoadInventoriesEvent(), emit);
   }
 
   Future<void> _onCreateInventory(
@@ -100,8 +92,8 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     Emitter<InventoryState> emit,
   ) async {
     try {
-      final created = await createInventoryUseCase(event.inventory);
-      emit(InventoryCreated(created));
+      await createInventoryUseCase(event.inventory);
+      emit(InventoryCreated(event.inventory));
       // Reload list
       final inventories = await getInventoriesUseCase();
       emit(InventoriesLoaded(inventories: inventories));
@@ -124,3 +116,4 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     }
   }
 }
+

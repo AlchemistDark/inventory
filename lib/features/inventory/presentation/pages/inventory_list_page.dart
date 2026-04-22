@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
-import 'package:inventory_p_shalaev/features/inventory/presentation/bloc/inventory_bloc.dart';
-import 'package:inventory_p_shalaev/features/inventory/presentation/bloc/inventory_event.dart';
-import 'package:inventory_p_shalaev/features/inventory/presentation/pages/create_inventory_page.dart';
-
-import '../../../employees/data/datasources/employees_local_datasource.dart';
-import '../../../rooms/data/datasources/rooms_local_datasource.dart';
-import '../../../categories/data/datasources/categories_local_datasource.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
 class InventoryListPage extends StatefulWidget {
   const InventoryListPage({super.key});
