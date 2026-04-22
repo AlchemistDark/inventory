@@ -5,8 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/core/database/database_helper.dart';
 import 'package:inventory_p_shalaev/core/database/database_seeder.dart';
 import 'package:inventory_p_shalaev/features/employees/data/datasources/employees_local_datasource.dart';
-import 'package:inventory_p_shalaev/features/home/presentation/bloc/home_bloc.dart';
-import 'package:inventory_p_shalaev/features/home/presentation/pages/home_page.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:inventory_p_shalaev/features/inventory/data/datasources/inventory_local_datasource.dart';
 import 'package:inventory_p_shalaev/features/inventory/data/repositories/inventory_repository_impl.dart';
 import 'package:inventory_p_shalaev/features/inventory/domain/usecases/inventory_usecases.dart';
@@ -29,6 +28,7 @@ void main() async {
   final categoriesDataSource = CategoriesLocalDataSourceImpl(databaseHelper);
 
   // Initialize test data
+  // ToDo Убрать потом это отсюда
   await DatabaseSeeder.seedTestData(
     inventoryRepository,
     employeesDataSource,

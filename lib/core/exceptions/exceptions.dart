@@ -11,8 +11,8 @@ class AppException implements Exception {
 
 /// Exception thrown when category validation fails
 class CategoryValidationException extends AppException {
-  CategoryValidationException({required String message})
-    : super(message: message, code: 'CATEGORY_VALIDATION_ERROR');
+  CategoryValidationException({required super.message})
+    : super(code: 'CATEGORY_VALIDATION_ERROR');
 }
 
 /// Exception thrown when category is not found

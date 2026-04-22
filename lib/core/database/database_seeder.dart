@@ -1,15 +1,14 @@
 import 'package:flutter/foundation.dart';
-import '../../features/inventory/data/repositories/inventory_repository_impl.dart';
-import '../../features/employees/data/datasources/employees_local_datasource.dart';
-import '../../features/rooms/data/datasources/rooms_local_datasource.dart';
-import '../../features/positions/data/datasources/positions_local_datasource.dart';
-import '../../features/categories/data/datasources/categories_local_datasource.dart';
+import 'package:inventory_p_shalaev/features/categories/data/datasources/categories_local_datasource.dart';
+import 'package:inventory_p_shalaev/features/employees/data/datasources/employees_local_datasource.dart';
+import 'package:inventory_p_shalaev/features/employees/data/models/employee_model.dart';
+import 'package:inventory_p_shalaev/features/inventory/data/repositories/inventory_repository_impl.dart';
+import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
+import 'package:inventory_p_shalaev/features/positions/data/datasources/positions_local_datasource.dart';
+import 'package:inventory_p_shalaev/features/positions/data/models/position_model.dart';
+import 'package:inventory_p_shalaev/features/rooms/data/datasources/rooms_local_datasource.dart';
+import 'package:inventory_p_shalaev/features/rooms/data/models/room_model.dart';
 
-import '../../features/categories/data/models/category_model.dart';
-import '../../features/positions/data/models/position_model.dart';
-import '../../features/rooms/data/models/room_model.dart';
-import '../../features/employees/data/models/employee_model.dart';
-import '../../features/inventory/domain/entities/inventory_entity.dart';
 
 class DatabaseSeeder {
   /// Initializes the database with test data

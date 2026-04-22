@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/features/inventory/domain/usecases/inventory_usecases.dart';
-import 'home_event.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
 /// BLoC for managing home screen state
 class HomeBloc extends Bloc<HomeEvent, HomeState> {

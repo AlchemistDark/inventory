@@ -218,6 +218,7 @@ class _InventoryListPageState extends State<InventoryListPage> {
                     itemCount: displayList.length,
                     itemBuilder: (context, index) {
                       final item = displayList[index];
+                      // Возможно как-то разбить
                       final String qtyText = item.quantity > 0 ? '(${item.quantity}) ' : '';
                       final String invNumText = item.inventoryNumber != null ? '${item.inventoryNumber} ' : 'Без номера ';
                       final titleText = '$invNumText$qtyText${item.name}';
