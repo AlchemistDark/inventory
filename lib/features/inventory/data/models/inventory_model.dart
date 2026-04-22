@@ -10,6 +10,7 @@ class InventoryModel {
   final DateTime dateAdded;
   final int? employeeId;
   final int? roomId;
+  final int? categoryId;
   final DateTime createdAt;
 
   InventoryModel({
@@ -22,6 +23,7 @@ class InventoryModel {
     required this.dateAdded,
     this.employeeId,
     this.roomId,
+    this.categoryId,
     required this.createdAt,
   });
 
@@ -36,6 +38,7 @@ class InventoryModel {
       dateAdded: dateAdded,
       employeeId: employeeId,
       roomId: roomId,
+      categoryId: categoryId,
       createdAt: createdAt,
     );
   }
@@ -51,6 +54,7 @@ class InventoryModel {
       dateAdded: entity.dateAdded,
       employeeId: entity.employeeId,
       roomId: entity.roomId,
+      categoryId: entity.categoryId,
       createdAt: entity.createdAt,
     );
   }
@@ -66,6 +70,7 @@ class InventoryModel {
       dateAdded: DateTime.fromMillisecondsSinceEpoch(map['dateAdded'] as int),
       employeeId: map['employeeId'] as int?,
       roomId: map['roomId'] as int?,
+      categoryId: map['categoryId'] as int?,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
     );
   }
@@ -81,6 +86,7 @@ class InventoryModel {
       'dateAdded': dateAdded.millisecondsSinceEpoch,
       'employeeId': employeeId,
       'roomId': roomId,
+      'categoryId': categoryId,
       'createdAt': createdAt.millisecondsSinceEpoch,
     };
   }

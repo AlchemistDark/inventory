@@ -4,6 +4,8 @@ import 'package:inventory_p_shalaev/core/constants/home_strings.dart';
 import 'package:inventory_p_shalaev/features/home/presentation/bloc/home_bloc.dart';
 import 'package:inventory_p_shalaev/features/home/presentation/bloc/home_event.dart';
 import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
+import 'package:inventory_p_shalaev/features/inventory/presentation/pages/create_inventory_page.dart';
+import 'package:inventory_p_shalaev/features/inventory/presentation/pages/inventory_list_page.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 /// Home screen for inventory management
@@ -137,6 +139,8 @@ class _HomePageState extends State<HomePage> {
 
   /// Shows dialog when inventory item is not found
   void _showNotFoundDialog(String query) {
+    // If the query looks like an exact match for barcode, we pass it forward.
+    // In emulator or manual text, we treat query as barcode for creation.
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -151,8 +155,14 @@ class _HomePageState extends State<HomePage> {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context);
-              _showCreateInventoryDialog(query);
+              Navigator.pop(context); // Close dialog
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CreateInventoryPage(),
+                  settings: RouteSettings(arguments: {'initialBarcode': query}),
+                ),
+              );
             },
             child: Text(AppStrings.home.createButton),
           ),
@@ -161,7 +171,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// Shows dialog to create new inventory item
+  /// Shows dialog to create new inventory item (deprecated, see above)
   void _showCreateInventoryDialog(String barcode) {
     showDialog(
       context: context,
@@ -266,19 +276,27 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onNavTap(int index) {
+    if (index == 0) {
+      // Navigate to Inventory List
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const InventoryListPage()),
+      );
+    } else if (index == 1) {
+      // Employees
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppStrings.home.employeesUnderDevelopment)),
+      );
+    } else if (index == 2) {
+      // Rooms
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppStrings.home.roomsUnderDevelopment)),
+      );
+    }
+    
     setState(() {
       _selectedNavIndex = index;
     });
-
-    final message = switch (index) {
-      0 => AppStrings.home.inventoryUnderDevelopment,
-      1 => AppStrings.home.employeesUnderDevelopment,
-      2 => AppStrings.home.roomsUnderDevelopment,
-      _ => null,
-    };
-    if (message == null) return;
-
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -303,7 +321,14 @@ class _HomePageState extends State<HomePage> {
         child: BlocListener<HomeBloc, HomeState>(
           listener: (context, state) {
             if (state is HomeNotFound) {
-              _showNotFoundDialog(state.query);
+               // Only show not found if we searched for a specific barcode or query
+               if (_barcodeController.text.isNotEmpty || _searchController.text.isNotEmpty) {
+                 _showNotFoundDialog(state.query);
+                 _barcodeController.clear();
+               }
+            } else if (state is HomeSearchSuccess) {
+               // Immediately open detail view
+               _showInventoryDetails(state.inventory);
             } else if (state is HomeError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -382,9 +407,7 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 24),
 
                     // Search results
-                    if (state is HomeSearchSuccess)
-                      _buildSearchResult(state.inventory)
-                    else if (state is HomeSearchMultipleResults)
+                    if (state is HomeSearchMultipleResults)
                       _buildMultipleResults(state.inventories)
                     else if (state is HomeLoading)
                       const CircularProgressIndicator()

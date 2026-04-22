@@ -11,6 +11,7 @@ class InventoryEntity extends Equatable {
   final DateTime dateAdded;
   final int? employeeId;
   final int? roomId;
+  final int? categoryId;
   final DateTime createdAt;
 
   const InventoryEntity({
@@ -23,6 +24,7 @@ class InventoryEntity extends Equatable {
     required this.dateAdded,
     this.employeeId,
     this.roomId,
+    this.categoryId,
     required this.createdAt,
   });
 
@@ -37,6 +39,7 @@ class InventoryEntity extends Equatable {
         dateAdded,
         employeeId,
         roomId,
+        categoryId,
         createdAt,
       ];
 }

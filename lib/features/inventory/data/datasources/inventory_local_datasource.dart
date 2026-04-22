@@ -22,6 +22,7 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
     final db = await _databaseHelper.database;
 
     final id = await db.insert(
+      // Перенести в модель. To Json
       'inventory',
       {
         'barcode': model.barcode,
@@ -37,6 +38,17 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
 
+    if (model.categoryId != null) {
+      await db.insert(
+        'inventory_categories',
+        {
+          'inventoryId': id,
+          'categoryId': model.categoryId,
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
+
     return InventoryModel(
       id: id,
       barcode: model.barcode,
@@ -47,6 +59,7 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
       dateAdded: model.dateAdded,
       employeeId: model.employeeId,
       roomId: model.roomId,
+      categoryId: model.categoryId,
       createdAt: DateTime.now(),
     );
   }
@@ -55,10 +68,12 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
   Future<List<InventoryModel>> getInventories() async {
     final db = await _databaseHelper.database;
 
-    final List<Map<String, dynamic>> maps = await db.query(
-      'inventory',
-      orderBy: 'name ASC',
-    );
+    final List<Map<String, dynamic>> maps = await db.rawQuery('''
+      SELECT i.*, ic.categoryId 
+      FROM inventory i 
+      LEFT JOIN inventory_categories ic ON i.id = ic.inventoryId
+      ORDER BY i.name ASC
+    ''');
 
     return List<InventoryModel>.from(
       maps.map((map) => InventoryModel.fromMap(map)),
@@ -69,11 +84,12 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
   Future<InventoryModel?> getInventoryById(int id) async {
     final db = await _databaseHelper.database;
 
-    final List<Map<String, dynamic>> maps = await db.query(
-      'inventory',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    final List<Map<String, dynamic>> maps = await db.rawQuery('''
+      SELECT i.*, ic.categoryId 
+      FROM inventory i 
+      LEFT JOIN inventory_categories ic ON i.id = ic.inventoryId
+      WHERE i.id = ?
+    ''', [id]);
 
     if (maps.isEmpty) return null;
     return InventoryModel.fromMap(maps.first);
@@ -83,11 +99,12 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
   Future<InventoryModel?> getInventoryByBarcode(String barcode) async {
     final db = await _databaseHelper.database;
 
-    final List<Map<String, dynamic>> maps = await db.query(
-      'inventory',
-      where: 'barcode = ? OR inventoryNumber = ?',
-      whereArgs: [barcode, barcode],
-    );
+    final List<Map<String, dynamic>> maps = await db.rawQuery('''
+      SELECT i.*, ic.categoryId 
+      FROM inventory i 
+      LEFT JOIN inventory_categories ic ON i.id = ic.inventoryId
+      WHERE i.barcode = ? OR i.inventoryNumber = ?
+    ''', [barcode, barcode]);
 
     if (maps.isEmpty) return null;
     return InventoryModel.fromMap(maps.first);
@@ -97,12 +114,13 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
   Future<List<InventoryModel>> searchInventoriesByName(String query) async {
     final db = await _databaseHelper.database;
 
-    final List<Map<String, dynamic>> maps = await db.query(
-      'inventory',
-      where: 'name LIKE ? OR barcode LIKE ? OR inventoryNumber LIKE ?',
-      whereArgs: ['%$query%', '%$query%', '%$query%'],
-      orderBy: 'name ASC',
-    );
+    final List<Map<String, dynamic>> maps = await db.rawQuery('''
+      SELECT i.*, ic.categoryId 
+      FROM inventory i 
+      LEFT JOIN inventory_categories ic ON i.id = ic.inventoryId
+      WHERE i.name LIKE ? OR i.barcode LIKE ? OR i.inventoryNumber LIKE ?
+      ORDER BY i.name ASC
+    ''', ['%$query%', '%$query%', '%$query%']);
 
     return List<InventoryModel>.from(
       maps.map((map) => InventoryModel.fromMap(map)),
@@ -126,6 +144,15 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
       where: 'id = ?',
       whereArgs: [model.id],
     );
+
+    // Update category
+    await db.delete('inventory_categories', where: 'inventoryId = ?', whereArgs: [model.id]);
+    if (model.categoryId != null) {
+      await db.insert('inventory_categories', {
+        'inventoryId': model.id,
+        'categoryId': model.categoryId,
+      });
+    }
   }
 
   @override
