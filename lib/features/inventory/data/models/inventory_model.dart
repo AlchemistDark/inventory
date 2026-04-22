@@ -1,4 +1,4 @@
-import '../../domain/entities/inventory_entity.dart';
+import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
 
 class InventoryModel {
   final int id;
@@ -59,6 +59,11 @@ class InventoryModel {
     );
   }
 
+  factory InventoryModel.fromJson(Map<String, dynamic> json) =>
+      InventoryModel.fromMap(json);
+
+  Map<String, dynamic> toJson() => toMap();
+
   factory InventoryModel.fromMap(Map<String, dynamic> map) {
     return InventoryModel(
       id: map['id'] as int,
@@ -90,4 +95,22 @@ class InventoryModel {
       'createdAt': createdAt.millisecondsSinceEpoch,
     };
   }
+
+  /// Converts model to a map for database insertion/update in the 'inventory' table.
+  /// Note: 'categoryId' is stored in a separate join table.
+  Map<String, dynamic> toDbMap() {
+    return {
+      if (id > 0) 'id': id,
+      'barcode': barcode,
+      'name': name,
+      'inventoryNumber': inventoryNumber,
+      'quantity': quantity,
+      'description': description,
+      'dateAdded': dateAdded.millisecondsSinceEpoch,
+      'employeeId': employeeId,
+      'roomId': roomId,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+    };
+  }
 }
+

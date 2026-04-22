@@ -1,6 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/usecases/inventory_usecases.dart';
-import 'inventory_event.dart';
+import 'package:inventory_p_shalaev/features/inventory/domain/usecases/create_inventory_use_case.dart';
+import 'package:inventory_p_shalaev/features/inventory/domain/usecases/get_inventories_use_case.dart';
+import 'package:inventory_p_shalaev/features/inventory/domain/usecases/search_inventories_by_name_use_case.dart';
+import 'package:inventory_p_shalaev/features/inventory/domain/usecases/update_inventory_use_case.dart';
+import 'package:inventory_p_shalaev/features/inventory/presentation/bloc/inventory_event.dart';
 
 class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
   final SearchInventoriesByNameUseCase searchByNameUseCase;

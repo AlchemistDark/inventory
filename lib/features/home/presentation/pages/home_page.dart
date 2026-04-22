@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
-import 'package:inventory_p_shalaev/features/home/presentation/widgets/barcode_scanner_dialog.dart';
-import 'package:inventory_p_shalaev/features/home/presentation/widgets/home_bottom_navigation.dart';
-import 'package:inventory_p_shalaev/features/home/presentation/widgets/inventory_details_dialog.dart';
-import 'package:inventory_p_shalaev/features/home/presentation/widgets/inventory_not_found_dialog.dart';
-import 'package:inventory_p_shalaev/features/home/presentation/widgets/multiple_results_list.dart';
 import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
 import 'package:inventory_p_shalaev/features/inventory/presentation/pages/create_inventory_page.dart';
 
