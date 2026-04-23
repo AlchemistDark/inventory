@@ -4,12 +4,6 @@ import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 
 class FooterSection extends StatelessWidget {
-  final TextEditingController descriptionController;
-  final DateTime selectedDate;
-  final VoidCallback onSelectDate;
-  final VoidCallback onSubmit;
-  final VoidCallback onCancel;
-
   const FooterSection({
     required this.descriptionController,
     required this.selectedDate,
@@ -18,6 +12,12 @@ class FooterSection extends StatelessWidget {
     required this.onCancel,
     super.key,
   });
+
+  final TextEditingController descriptionController;
+  final DateTime selectedDate;
+  final VoidCallback onSelectDate;
+  final VoidCallback onSubmit;
+  final VoidCallback onCancel;
 
   @override
   Widget build(BuildContext context) {

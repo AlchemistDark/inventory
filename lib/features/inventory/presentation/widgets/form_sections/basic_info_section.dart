@@ -3,16 +3,16 @@ import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 
 class BasicInfoSection extends StatelessWidget {
-  final TextEditingController nameController;
-  final TextEditingController inventoryNumberController;
-  final TextEditingController quantityController;
-
   const BasicInfoSection({
     required this.nameController,
     required this.inventoryNumberController,
     required this.quantityController,
     super.key,
   });
+
+  final TextEditingController nameController;
+  final TextEditingController inventoryNumberController;
+  final TextEditingController quantityController;
 
   @override
   Widget build(BuildContext context) {

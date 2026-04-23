@@ -3,16 +3,6 @@ import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 
 class SelectionSection extends StatelessWidget {
-  final List<EmployeeModel> employees;
-  final List<CategoryModel> categories;
-  final List<RoomModel> rooms;
-  final int? selectedEmployeeId;
-  final int? selectedCategoryId;
-  final int? selectedRoomId;
-  final void Function(int?) onEmployeeSelected;
-  final void Function(int?) onCategorySelected;
-  final void Function(int?) onRoomSelected;
-
   const SelectionSection({
     required this.employees,
     required this.categories,
@@ -25,6 +15,16 @@ class SelectionSection extends StatelessWidget {
     this.selectedRoomId,
     super.key,
   });
+
+  final List<EmployeeModel> employees;
+  final List<CategoryModel> categories;
+  final List<RoomModel> rooms;
+  final int? selectedEmployeeId;
+  final int? selectedCategoryId;
+  final int? selectedRoomId;
+  final void Function(int?) onEmployeeSelected;
+  final void Function(int?) onCategorySelected;
+  final void Function(int?) onRoomSelected;
 
   @override
   Widget build(BuildContext context) {
