@@ -2,18 +2,32 @@ import 'package:sqflite/sqflite.dart';
 import '../models/category_model.dart';
 import '../../../../core/database/database_helper.dart';
 
+/// Abstract interface for category local data operations
 abstract class CategoriesLocalDataSource {
+  /// Creates a new category with the given name
   Future<CategoryModel> createCategory(String name);
+
+  /// Returns all categories sorted by name
   Future<List<CategoryModel>> getCategories();
+
+  /// Returns a category by its ID, or null if not found
   Future<CategoryModel?> getCategoryById(int id);
+
+  /// Updates the name of a category with the given ID
   Future<void> updateCategory(int id, String name);
+
+  /// Deletes a category by its ID
   Future<void> deleteCategory(int id);
+
+  /// Searches categories whose name contains the query string
   Future<List<CategoryModel>> searchCategories(String query);
 }
 
+/// SQLite implementation of [CategoriesLocalDataSource]
 class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
   final DatabaseHelper _databaseHelper;
 
+  /// Creates [CategoriesLocalDataSourceImpl] with a database helper
   CategoriesLocalDataSourceImpl(this._databaseHelper);
 
   @override

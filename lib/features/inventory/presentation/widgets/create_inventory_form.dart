@@ -59,7 +59,7 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
           employees: employees,
           categories: categories,
           rooms: rooms,
-          onSelectDate: selectDate,
+          onSelectDate: () => selectDate(),
           onSubmit: _submitForm,
           onCancel: () => Navigator.pop(context),
           onBarcodeSaved: (barcode) =>

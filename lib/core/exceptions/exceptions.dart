@@ -1,8 +1,14 @@
 /// Base exception class for application exceptions
+///
+/// Used as a parent class for all custom exceptions in the app
 class AppException implements Exception {
+  /// Error message describing the exception
   final String message;
+
+  /// Optional error code for programmatic handling
   final String? code;
 
+  /// Creates [AppException] with a message and optional code
   AppException({required this.message, this.code});
 
   @override
