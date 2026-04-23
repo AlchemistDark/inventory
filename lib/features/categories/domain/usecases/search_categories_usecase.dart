@@ -7,9 +7,6 @@ class SearchCategoriesUseCase {
   SearchCategoriesUseCase(this.repository);
 
   Future<List<CategoryEntity>> call(String query) async {
-    if (query.isEmpty) {
-      return await repository.getCategories();
-    }
     return await repository.searchCategories(query);
   }
 }

@@ -9,30 +9,35 @@ class InventoryRepositoryImpl implements InventoryRepository {
   Future<InventoryEntity> createInventory(InventoryEntity entity) async {
     final model = InventoryModel.fromEntity(entity);
     final created = await localDataSource.createInventory(model);
+
     return created.toEntity();
   }
 
   @override
   Future<List<InventoryEntity>> getInventories() async {
     final models = await localDataSource.getInventories();
+
     return models.map((m) => m.toEntity()).toList();
   }
 
   @override
   Future<InventoryEntity?> getInventoryById(int id) async {
     final model = await localDataSource.getInventoryById(id);
+
     return model?.toEntity();
   }
 
   @override
   Future<InventoryEntity?> getInventoryByBarcode(String barcode) async {
     final model = await localDataSource.getInventoryByBarcode(barcode);
+
     return model?.toEntity();
   }
 
   @override
   Future<List<InventoryEntity>> searchInventoriesByName(String query) async {
     final models = await localDataSource.searchInventoriesByName(query);
+    
     return models.map((m) => m.toEntity()).toList();
   }
 

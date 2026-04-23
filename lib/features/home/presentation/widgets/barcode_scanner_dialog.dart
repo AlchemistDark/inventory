@@ -3,9 +3,9 @@ import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class BarcodeScannerDialog extends StatefulWidget {
-  final void Function(String) onBarcodeSubmitted;
-
   const BarcodeScannerDialog({required this.onBarcodeSubmitted, super.key});
+
+  final void Function(String) onBarcodeSubmitted;
 
   @override
   State<BarcodeScannerDialog> createState() => _BarcodeScannerDialogState();
@@ -16,13 +16,6 @@ class _BarcodeScannerDialogState extends State<BarcodeScannerDialog> {
   final _scannerController = MobileScannerController();
   bool _isScanHandled = false;
 
-  @override
-  void dispose() {
-    _barcodeController.dispose();
-    _scannerController.dispose();
-    super.dispose();
-  }
-
   void _submitBarcode(String value) {
     final barcode = value.trim();
     if (barcode.isEmpty) {
@@ -30,6 +23,13 @@ class _BarcodeScannerDialogState extends State<BarcodeScannerDialog> {
     }
     widget.onBarcodeSubmitted(barcode);
     Navigator.pop(context);
+  }
+
+  @override
+  void dispose() {
+    _barcodeController.dispose();
+    _scannerController.dispose();
+    super.dispose();
   }
 
   @override
@@ -77,6 +77,7 @@ class _BarcodeScannerDialogState extends State<BarcodeScannerDialog> {
                       error.errorCode == MobileScannerErrorCode.permissionDenied
                       ? AppStrings.home.scannerPermissionDeniedMessage
                       : AppStrings.home.scannerUnavailableMessage;
+
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(12),

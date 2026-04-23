@@ -73,6 +73,7 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
     if (maps.isEmpty) {
       return null;
     }
+
     return InventoryModel.fromMap(maps.first);
   }
 
@@ -93,6 +94,7 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
     if (maps.isEmpty) {
       return null;
     }
+    
     return InventoryModel.fromMap(maps.first);
   }
 

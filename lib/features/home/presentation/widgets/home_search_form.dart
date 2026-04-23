@@ -47,6 +47,7 @@ class HomeSearchForm extends StatelessWidget {
           valueListenable: searchController,
           builder: (context, value, child) {
             final bool isNotEmpty = value.text.trim().isNotEmpty;
+            
             return SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(

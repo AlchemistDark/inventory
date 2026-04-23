@@ -11,6 +11,7 @@ class SearchInventoriesByNameUseCase {
     if (query.trim().isEmpty) {
       return await repository.getInventories();
     }
+    
     return await repository.searchInventoriesByName(query.trim());
   }
 }
