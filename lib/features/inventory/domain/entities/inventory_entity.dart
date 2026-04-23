@@ -16,30 +16,30 @@ class InventoryEntity extends Equatable {
 
   const InventoryEntity({
     required this.id,
-    this.barcode,
     required this.name,
-    this.inventoryNumber,
     required this.quantity,
-    this.description,
     required this.dateAdded,
+    required this.createdAt,
+    this.barcode,
+    this.inventoryNumber,
+    this.description,
     this.employeeId,
     this.roomId,
     this.categoryId,
-    required this.createdAt,
   });
 
   @override
   List<Object?> get props => [
-        id,
-        barcode,
-        name,
-        inventoryNumber,
-        quantity,
-        description,
-        dateAdded,
-        employeeId,
-        roomId,
-        categoryId,
-        createdAt,
-      ];
+    id,
+    barcode,
+    name,
+    inventoryNumber,
+    quantity,
+    description,
+    dateAdded,
+    employeeId,
+    roomId,
+    categoryId,
+    createdAt,
+  ];
 }

@@ -15,16 +15,16 @@ class InventoryModel {
 
   InventoryModel({
     required this.id,
-    this.barcode,
     required this.name,
-    this.inventoryNumber,
     required this.quantity,
-    this.description,
     required this.dateAdded,
+    required this.createdAt,
+    this.barcode,
+    this.inventoryNumber,
+    this.description,
     this.employeeId,
     this.roomId,
     this.categoryId,
-    required this.createdAt,
   });
 
   InventoryEntity toEntity() {
@@ -113,4 +113,3 @@ class InventoryModel {
     };
   }
 }
-

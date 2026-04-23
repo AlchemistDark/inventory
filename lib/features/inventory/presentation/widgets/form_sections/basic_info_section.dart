@@ -8,10 +8,10 @@ class BasicInfoSection extends StatelessWidget {
   final TextEditingController quantityController;
 
   const BasicInfoSection({
-    super.key,
     required this.nameController,
     required this.inventoryNumberController,
     required this.quantityController,
+    super.key,
   });
 
   @override
@@ -22,9 +22,15 @@ class BasicInfoSection extends StatelessWidget {
           controller: nameController,
           labelText: AppStrings.createInventory.nameFieldLabel,
           validator: (value) {
-            if (value == null || value.trim().isEmpty) return AppStrings.createInventory.nameRequiredError;
-            if (value.length < 3) return AppStrings.createInventory.minLength3Error;
-            if (value.length > 50) return AppStrings.createInventory.maxLength50Error;
+            if (value == null || value.trim().isEmpty) {
+              return AppStrings.createInventory.nameRequiredError;
+            }
+            if (value.length < 3) {
+              return AppStrings.createInventory.minLength3Error;
+            }
+            if (value.length > 50) {
+              return AppStrings.createInventory.maxLength50Error;
+            }
             return null;
           },
         ),
@@ -33,7 +39,13 @@ class BasicInfoSection extends StatelessWidget {
           controller: inventoryNumberController,
           labelText: AppStrings.createInventory.inventoryNumberFieldLabel,
           validator: (value) {
-            if (value != null && value.length > 50) return AppStrings.createInventory.maxLength50Error;
+            if (value == null || value.isEmpty) {
+              return AppStrings.createInventory.quantityRequiredError;
+            }
+            final qty = int.tryParse(value);
+            if (qty == null || qty < 1 || qty > 999) {
+              return AppStrings.createInventory.quantityRangeError;
+            }
             return null;
           },
         ),
@@ -43,9 +55,11 @@ class BasicInfoSection extends StatelessWidget {
           keyboardType: TextInputType.number,
           labelText: AppStrings.createInventory.quantityFieldLabel,
           validator: (value) {
-            if (value == null || value.isEmpty) return AppStrings.createInventory.quantityRequiredError;
+            if (value == null || value.isEmpty)
+              return AppStrings.createInventory.quantityRequiredError;
             final qty = int.tryParse(value);
-            if (qty == null || qty < 1 || qty > 999) return AppStrings.createInventory.quantityRangeError;
+            if (qty == null || qty < 1 || qty > 999)
+              return AppStrings.createInventory.quantityRangeError;
             return null;
           },
         ),
