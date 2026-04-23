@@ -2,12 +2,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
 /// BLoC for managing home screen state
+///
+/// Handles barcode search, name search, and initial data loading
 class HomeBloc extends Bloc<CoreInventoryEvent, HomeState>
     with InventoryCommonHandler<HomeState> {
+  /// Use case for searching inventory by barcode
   final SearchInventoryByBarcodeUseCase searchByBarcodeUseCase;
+
+  /// Use case for searching inventories by name
   final SearchInventoriesByNameUseCase searchByNameUseCase;
+
+  /// Use case for getting all inventories
   final GetInventoriesUseCase getInventoriesUseCase;
 
+  /// Creates [HomeBloc] with required use cases
   HomeBloc({
     required this.searchByBarcodeUseCase,
     required this.searchByNameUseCase,

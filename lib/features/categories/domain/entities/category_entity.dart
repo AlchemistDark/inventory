@@ -1,8 +1,15 @@
+/// Domain entity representing a category
 class CategoryEntity {
+  /// Unique identifier of the category
   final int id;
+
+  /// Name of the category
   final String name;
+
+  /// Timestamp of record creation
   final DateTime createdAt;
 
+  /// Creates a [CategoryEntity] with the given parameters
   CategoryEntity({
     required this.id,
     required this.name,

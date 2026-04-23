@@ -1,22 +1,29 @@
 import '../../domain/entities/category_entity.dart';
 
+/// Data model representing a category for data layer operations
 class CategoryModel {
+  /// Unique identifier of the category
   final int id;
+
+  /// Name of the category
   final String name;
+
+  /// Timestamp of record creation
   final DateTime createdAt;
 
+  /// Creates a [CategoryModel] with the given parameters
   CategoryModel({
     required this.id,
     required this.name,
     required this.createdAt,
   });
 
-  // Конвертация модели в entity
+  /// Converts the model to a domain entity
   CategoryEntity toEntity() {
     return CategoryEntity(id: id, name: name, createdAt: createdAt);
   }
 
-  // Конвертация из entity в модель
+  /// Creates a model from a domain entity
   factory CategoryModel.fromEntity(CategoryEntity entity) {
     return CategoryModel(
       id: entity.id,
@@ -25,7 +32,7 @@ class CategoryModel {
     );
   }
 
-  // Конвертация из map (из БД)
+  /// Creates a model from a database map
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
       id: map['id'] as int,
@@ -34,7 +41,7 @@ class CategoryModel {
     );
   }
 
-  // Конвертация в map (для БД)
+  /// Converts the model to a database map
   Map<String, dynamic> toMap() {
     return {
       'id': id,

@@ -1,12 +1,23 @@
 import '../../domain/entities/employee_entity.dart';
 
+/// Data model representing an employee for data layer operations
 class EmployeeModel {
+  /// Unique identifier of the employee
   final int id;
+
+  /// Full name of the employee
   final String name;
+
+  /// ID of the employee's position
   final int positionId;
+
+  /// ID of the employee's room (optional)
   final int? roomId;
+
+  /// Timestamp of record creation
   final DateTime createdAt;
 
+  /// Creates an [EmployeeModel] with the given parameters
   EmployeeModel({
     required this.id,
     required this.name,
