@@ -4,12 +4,12 @@ import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory
 
 class MultipleResultsList extends StatelessWidget {
   final List<InventoryEntity> inventories;
-  final Function(InventoryEntity) onInventoryTap;
+  final void Function(InventoryEntity) onInventoryTap;
 
   const MultipleResultsList({
-    super.key,
     required this.inventories,
     required this.onInventoryTap,
+    super.key,
   });
 
   @override

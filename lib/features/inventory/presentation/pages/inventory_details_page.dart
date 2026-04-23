@@ -6,10 +6,7 @@ import 'package:inventory_p_shalaev/features/features.dart';
 class InventoryDetailsPage extends StatefulWidget {
   final InventoryEntity inventory;
 
-  const InventoryDetailsPage({
-    super.key,
-    required this.inventory,
-  });
+  const InventoryDetailsPage({required this.inventory, super.key});
 
   @override
   State<InventoryDetailsPage> createState() => _InventoryDetailsPageState();
@@ -38,17 +35,20 @@ class _InventoryDetailsPageState extends State<InventoryDetailsPage> {
 
     if (mounted) {
       setState(() {
-        _employeeName = employees
+        _employeeName =
+            employees
                 .where((e) => e.id == widget.inventory.employeeId)
                 .firstOrNull
                 ?.name ??
             AppStrings.inventoryList.notSpecifiedMale;
-        _roomName = rooms
+        _roomName =
+            rooms
                 .where((r) => r.id == widget.inventory.roomId)
                 .firstOrNull
                 ?.name ??
             AppStrings.inventoryList.notSpecified;
-        _categoryName = categories
+        _categoryName =
+            categories
                 .where((c) => c.id == widget.inventory.categoryId)
                 .firstOrNull
                 ?.name ??
@@ -67,10 +67,11 @@ class _InventoryDetailsPageState extends State<InventoryDetailsPage> {
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () {
-              Navigator.push(
+              Navigator.push<void>(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => CreateInventoryPage(editTarget: widget.inventory),
+                MaterialPageRoute<void>(
+                  builder: (context) =>
+                      CreateInventoryPage(editTarget: widget.inventory),
                 ),
               );
             },
@@ -80,7 +81,7 @@ class _InventoryDetailsPageState extends State<InventoryDetailsPage> {
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -92,12 +93,14 @@ class _InventoryDetailsPageState extends State<InventoryDetailsPage> {
                   const Divider(),
                   _buildDetailRow(
                     AppStrings.inventoryList.detailBarcodeLabel,
-                    widget.inventory.barcode ?? AppStrings.inventoryList.notSpecifiedMale,
+                    widget.inventory.barcode ??
+                        AppStrings.inventoryList.notSpecifiedMale,
                     icon: Icons.qr_code,
                   ),
                   _buildDetailRow(
                     AppStrings.inventoryList.detailInventoryNumberLabel,
-                    widget.inventory.inventoryNumber ?? AppStrings.inventoryList.notSpecifiedMale,
+                    widget.inventory.inventoryNumber ??
+                        AppStrings.inventoryList.notSpecifiedMale,
                     icon: Icons.tag,
                   ),
                   _buildDetailRow(
@@ -125,7 +128,8 @@ class _InventoryDetailsPageState extends State<InventoryDetailsPage> {
                     widget.inventory.dateAdded.toString().split(' ')[0],
                     icon: Icons.calendar_today,
                   ),
-                  if (widget.inventory.description != null && widget.inventory.description!.isNotEmpty)
+                  if (widget.inventory.description != null &&
+                      widget.inventory.description!.isNotEmpty)
                     _buildDetailRow(
                       AppStrings.inventoryList.detailDescriptionLabel,
                       widget.inventory.description!,
@@ -137,9 +141,13 @@ class _InventoryDetailsPageState extends State<InventoryDetailsPage> {
     );
   }
 
-  Widget _buildDetailSection(String label, String value, {bool isTitle = false}) {
+  Widget _buildDetailSection(
+    String label,
+    String value, {
+    bool isTitle = false,
+  }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -166,7 +174,7 @@ class _InventoryDetailsPageState extends State<InventoryDetailsPage> {
 
   Widget _buildDetailRow(String label, String value, {IconData? icon}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -187,10 +195,7 @@ class _InventoryDetailsPageState extends State<InventoryDetailsPage> {
                   ),
                 ),
                 const SizedBox(height: 2),
-                Text(
-                  value,
-                  style: const TextStyle(fontSize: 16),
-                ),
+                Text(value, style: const TextStyle(fontSize: 16)),
               ],
             ),
           ),

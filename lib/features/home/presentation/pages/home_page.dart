@@ -42,9 +42,8 @@ class _HomePageState extends State<HomePage> {
   void _showBarcodeDialog() {
     showDialog(
       context: context,
-      builder: (context) => BarcodeScannerDialog(
-        onBarcodeSubmitted: _submitBarcode,
-      ),
+      builder: (context) =>
+          BarcodeScannerDialog(onBarcodeSubmitted: _submitBarcode),
     );
   }
 
@@ -58,7 +57,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.pop(context); // Close dialog
           Navigator.push(
             context,
-            MaterialPageRoute(
+            MaterialPageRoute<void>(
               builder: (context) => const CreateInventoryPage(),
               settings: RouteSettings(arguments: {'initialBarcode': query}),
             ),
@@ -72,7 +71,7 @@ class _HomePageState extends State<HomePage> {
   void _showInventoryDetails(InventoryEntity inventory) {
     Navigator.push(
       context,
-      MaterialPageRoute(
+      MaterialPageRoute<void>(
         builder: (context) => InventoryDetailsPage(inventory: inventory),
       ),
     );
@@ -106,9 +105,9 @@ class _HomePageState extends State<HomePage> {
         child: BlocListener<HomeBloc, HomeState>(
           listener: (context, state) {
             if (state is HomeNotFound) {
-               _showNotFoundDialog(state.query);
+              _showNotFoundDialog(state.query);
             } else if (state is HomeSearchSuccess) {
-               _showInventoryDetails(state.inventory);
+              _showInventoryDetails(state.inventory);
             } else if (state is HomeError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -155,5 +154,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-

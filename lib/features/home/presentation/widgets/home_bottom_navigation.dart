@@ -4,12 +4,12 @@ import 'package:inventory_p_shalaev/features/inventory/presentation/pages/invent
 
 class HomeBottomNavigation extends StatelessWidget {
   final int currentIndex;
-  final Function(int) onTap;
+  final void Function(int) onTap;
 
   const HomeBottomNavigation({
-    super.key,
     required this.currentIndex,
     required this.onTap,
+    super.key,
   });
 
   @override
@@ -40,7 +40,9 @@ class HomeBottomNavigation extends StatelessWidget {
     if (index == 0) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const InventoryListPage()),
+        MaterialPageRoute<void>(
+          builder: (context) => const InventoryListPage(),
+        ),
       );
     } else if (index == 1) {
       ScaffoldMessenger.of(context).showSnackBar(
