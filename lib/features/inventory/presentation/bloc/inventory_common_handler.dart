@@ -1,10 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/features/inventory/domain/usecases/search_inventories_by_name_use_case.dart';
 
-/// Mixin providing common inventory-related actions for BLoCs.
-/// This helps reduce duplication between HomeBloc and InventoryBloc.
+/// Mixin providing common inventory-related actions for BLoCs
+///
+/// This helps reduce duplication between [HomeBloc] and [InventoryBloc]
+/// by providing shared methods for loading states and error handling
 mixin InventoryCommonHandler<S> {
-  /// Common pattern for executing a use case and handling loading/error states.
+  /// Executes an action with loading and error state handling
+  ///
+  /// Emits [loadingState] before executing [action], then emits
+  /// the result of [onSuccess] or [onError] based on the outcome
   Future<void> executeWithLoading<T>({
     required Emitter<S> emit,
     required Future<T> Function() action,
@@ -21,7 +26,9 @@ mixin InventoryCommonHandler<S> {
     }
   }
 
-  /// Specialized search by name logic that can be shared.
+  /// Performs a search by name with loading and error handling
+  ///
+  /// Uses [executeWithLoading] to manage state during the search operation
   Future<void> performSearchByName({
     required SearchInventoriesByNameUseCase searchUseCase,
     required String query,

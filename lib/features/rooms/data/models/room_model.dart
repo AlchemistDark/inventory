@@ -1,11 +1,20 @@
 import '../../domain/entities/room_entity.dart';
 
+/// Data model representing a room for data layer operations
 class RoomModel {
+  /// Unique identifier of the room
   final int id;
+
+  /// Name of the room
   final String name;
+
+  /// Description of the room (optional)
   final String? description;
+
+  /// Timestamp of record creation
   final DateTime createdAt;
 
+  /// Creates a [RoomModel] with the given parameters
   RoomModel({
     required this.id,
     required this.name,

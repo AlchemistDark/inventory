@@ -1,17 +1,31 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
+/// BLoC for managing inventory list state and operations
 class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
     with InventoryCommonHandler<InventoryState> {
+  /// Use case for searching inventories by name
   final SearchInventoriesByNameUseCase searchByNameUseCase;
+
+  /// Use case for getting all inventories
   final GetInventoriesUseCase getInventoriesUseCase;
+
+  /// Use case for creating a new inventory
   final CreateInventoryUseCase createInventoryUseCase;
+
+  /// Use case for updating an existing inventory
   final UpdateInventoryUseCase updateInventoryUseCase;
 
+  /// Data source for employee data
   final EmployeesLocalDataSource employeesDataSource;
+
+  /// Data source for category data
   final CategoriesLocalDataSource categoriesDataSource;
+
+  /// Data source for room data
   final RoomsLocalDataSource roomsDataSource;
 
+  /// Creates [InventoryBloc] with required dependencies
   InventoryBloc({
     required this.searchByNameUseCase,
     required this.getInventoriesUseCase,
