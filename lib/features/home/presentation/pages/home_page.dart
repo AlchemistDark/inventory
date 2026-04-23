@@ -15,18 +15,6 @@ class _HomePageState extends State<HomePage> {
   final _searchController = TextEditingController();
   int _selectedNavIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    context.read<HomeBloc>().add(const InitializeEvent());
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
   void _submitBarcode(String barcode) {
     context.read<HomeBloc>().add(SearchInventoryByBarcodeEvent(barcode));
   }
@@ -81,6 +69,18 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _selectedNavIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeBloc>().add(const InitializeEvent());
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
