@@ -90,6 +90,7 @@ class _InventoryListHeaderState extends State<InventoryListHeader> {
                   },
                 );
               }
+              
               return const SizedBox();
             },
           ),

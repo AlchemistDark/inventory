@@ -11,6 +11,7 @@ class SearchInventoryByBarcodeUseCase {
     if (barcode.trim().isEmpty) {
       return null;
     }
+    
     return await repository.getInventoryByBarcode(barcode.trim());
   }
 }

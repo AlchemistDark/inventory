@@ -31,6 +31,7 @@ class FooterSection extends StatelessWidget {
             if (value != null && value.length > 500) {
               return AppStrings.createInventory.maxLength500Error;
             }
+            
             return null;
           },
         ),

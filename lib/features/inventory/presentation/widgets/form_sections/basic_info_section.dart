@@ -31,6 +31,7 @@ class BasicInfoSection extends StatelessWidget {
             if (value.length > 50) {
               return AppStrings.createInventory.maxLength50Error;
             }
+
             return null;
           },
         ),
@@ -46,6 +47,7 @@ class BasicInfoSection extends StatelessWidget {
             if (qty == null || qty < 1 || qty > 999) {
               return AppStrings.createInventory.quantityRangeError;
             }
+
             return null;
           },
         ),
@@ -60,6 +62,7 @@ class BasicInfoSection extends StatelessWidget {
             final qty = int.tryParse(value);
             if (qty == null || qty < 1 || qty > 999)
               return AppStrings.createInventory.quantityRangeError;
+              
             return null;
           },
         ),
