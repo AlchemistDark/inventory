@@ -38,21 +38,6 @@ class InventoryEntity extends Equatable {
   /// Timestamp of record creation
   final DateTime createdAt;
 
-  /// Creates an [InventoryEntity] with the given parameters
-  const InventoryEntity({
-    required this.id,
-    required this.name,
-    required this.quantity,
-    required this.dateAdded,
-    required this.createdAt,
-    this.barcode,
-    this.inventoryNumber,
-    this.description,
-    this.employeeId,
-    this.roomId,
-    this.categoryId,
-  });
-
   @override
   List<Object?> get props => [
     id,
@@ -67,4 +52,19 @@ class InventoryEntity extends Equatable {
     categoryId,
     createdAt,
   ];
+
+  /// Creates an [InventoryEntity] with the given parameters
+  const InventoryEntity({
+    required this.id,
+    required this.name,
+    required this.quantity,
+    required this.dateAdded,
+    required this.createdAt,
+    this.barcode,
+    this.inventoryNumber,
+    this.description,
+    this.employeeId,
+    this.roomId,
+    this.categoryId,
+  });
 }

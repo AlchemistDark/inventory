@@ -17,10 +17,10 @@ class LoadInventoriesEvent extends InventoryEvent {
 class FilterInventoriesByCategoryEvent extends InventoryEvent {
   final int categoryId;
 
-  const FilterInventoriesByCategoryEvent(this.categoryId);
-
   @override
   List<Object?> get props => [categoryId];
+
+  const FilterInventoriesByCategoryEvent(this.categoryId);
 }
 
 class ClearFiltersEvent extends InventoryEvent {
@@ -30,18 +30,18 @@ class ClearFiltersEvent extends InventoryEvent {
 class CreateInventoryEvent extends InventoryEvent {
   final InventoryEntity inventory;
 
-  const CreateInventoryEvent(this.inventory);
-
   @override
   List<Object?> get props => [inventory];
+
+  const CreateInventoryEvent(this.inventory);
 }
 
 class UpdateInventoryEvent extends InventoryEvent {
   final InventoryEntity inventory;
 
-  const UpdateInventoryEvent(this.inventory);
-
   @override
   List<Object?> get props => [inventory];
+
+  const UpdateInventoryEvent(this.inventory);
 }
 

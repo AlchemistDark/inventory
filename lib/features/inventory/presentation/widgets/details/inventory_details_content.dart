@@ -5,11 +5,6 @@ import 'detail_row.dart';
 import 'detail_section.dart';
 
 class InventoryDetailsContent extends StatelessWidget {
-  final InventoryEntity inventory;
-  final String employeeName;
-  final String roomName;
-  final String categoryName;
-
   const InventoryDetailsContent({
     required this.inventory,
     required this.employeeName,
@@ -17,6 +12,11 @@ class InventoryDetailsContent extends StatelessWidget {
     required this.categoryName,
     super.key,
   });
+
+  final InventoryEntity inventory;
+  final String employeeName;
+  final String roomName;
+  final String categoryName;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class InventoryDetailsContent extends StatelessWidget {
           ),
           DetailRow(
             label: AppStrings.inventoryList.detailDateLabel,
-            value: inventory.dateAdded.toString().split(' ')[0],
+            value: inventory.dateAdded.toString().split(' ').first,
             icon: Icons.calendar_today,
           ),
           if (inventory.description != null && inventory.description!.isNotEmpty)

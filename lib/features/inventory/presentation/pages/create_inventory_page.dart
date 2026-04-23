@@ -4,9 +4,9 @@ import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
 class CreateInventoryPage extends StatelessWidget {
-  final InventoryEntity? editTarget;
-
   const CreateInventoryPage({super.key, this.editTarget});
+
+  final InventoryEntity? editTarget;
 
   @override
   Widget build(BuildContext context) {

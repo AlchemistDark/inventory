@@ -5,9 +5,9 @@ import 'package:inventory_p_shalaev/features/features.dart';
 import '../widgets/details/inventory_details_content.dart';
 
 class InventoryDetailsPage extends StatelessWidget {
-  final InventoryEntity inventory;
-
   const InventoryDetailsPage({required this.inventory, super.key});
+
+  final InventoryEntity inventory;
 
   @override
   Widget build(BuildContext context) {

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class DetailSection extends StatelessWidget {
-  final String label;
-  final String value;
-  final bool isTitle;
-
   const DetailSection({
     required this.label,
     required this.value,
     this.isTitle = false,
     super.key,
   });
+
+  final String label;
+  final String value;
+  final bool isTitle;
 
   @override
   Widget build(BuildContext context) {

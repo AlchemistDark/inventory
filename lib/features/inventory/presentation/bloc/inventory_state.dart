@@ -5,10 +5,10 @@ import 'package:inventory_p_shalaev/features/categories/data/models/category_mod
 import 'package:inventory_p_shalaev/features/rooms/data/models/room_model.dart';
 
 abstract class InventoryState extends Equatable {
-  const InventoryState();
-
   @override
   List<Object?> get props => [];
+
+  const InventoryState();
 }
 
 class InventoryInitial extends InventoryState {
@@ -27,15 +27,6 @@ class InventoriesLoaded extends InventoryState {
   final String? searchQuery;
   final int? categoryFilter;
 
-  const InventoriesLoaded({
-    required this.inventories,
-    required this.employees,
-    required this.categories,
-    required this.rooms,
-    this.searchQuery,
-    this.categoryFilter,
-  });
-
   @override
   List<Object?> get props => [
         inventories,
@@ -45,15 +36,24 @@ class InventoriesLoaded extends InventoryState {
         searchQuery,
         categoryFilter,
       ];
+
+  const InventoriesLoaded({
+    required this.inventories,
+    required this.employees,
+    required this.categories,
+    required this.rooms,
+    this.searchQuery,
+    this.categoryFilter,
+  });
 }
 
 class InventoryCreated extends InventoryState {
   final InventoryEntity inventory;
 
-  const InventoryCreated(this.inventory);
-
   @override
   List<Object?> get props => [inventory];
+
+  const InventoryCreated(this.inventory);
 }
 
 class InventoryError extends InventoryState with ErrorStateMixin {

@@ -1,10 +1,10 @@
 import 'package:inventory_p_shalaev/features/features.dart';
 
 abstract class InventoryFormState extends Equatable {
-  const InventoryFormState();
-
   @override
   List<Object?> get props => [];
+
+  const InventoryFormState();
 }
 
 class InventoryFormInitial extends InventoryFormState {
@@ -23,15 +23,6 @@ class InventoryFormMetadataLoaded extends InventoryFormState {
   final int? defaultCategoryId;
   final int? defaultRoomId;
 
-  const InventoryFormMetadataLoaded({
-    required this.employees,
-    required this.categories,
-    required this.rooms,
-    this.defaultEmployeeId,
-    this.defaultCategoryId,
-    this.defaultRoomId,
-  });
-
   @override
   List<Object?> get props => [
         employees,
@@ -41,6 +32,15 @@ class InventoryFormMetadataLoaded extends InventoryFormState {
         defaultCategoryId,
         defaultRoomId,
       ];
+
+  const InventoryFormMetadataLoaded({
+    required this.employees,
+    required this.categories,
+    required this.rooms,
+    this.defaultEmployeeId,
+    this.defaultCategoryId,
+    this.defaultRoomId,
+  });
 }
 
 class InventoryFormSuccess extends InventoryFormState {
@@ -50,8 +50,8 @@ class InventoryFormSuccess extends InventoryFormState {
 class InventoryFormError extends InventoryFormState {
   final String message;
 
-  const InventoryFormError(this.message);
-
   @override
   List<Object?> get props => [message];
+
+  const InventoryFormError(this.message);
 }
