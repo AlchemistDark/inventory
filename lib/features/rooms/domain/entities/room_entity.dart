@@ -14,6 +14,9 @@ class RoomEntity extends Equatable {
   /// Timestamp of record creation
   final DateTime createdAt;
 
+  @override
+  List<Object?> get props => [id, name, description, createdAt];
+
   /// Creates a [RoomEntity] with the given parameters
   const RoomEntity({
     required this.id,
@@ -21,7 +24,4 @@ class RoomEntity extends Equatable {
     required this.createdAt,
     this.description,
   });
-
-  @override
-  List<Object?> get props => [id, name, description, createdAt];
 }

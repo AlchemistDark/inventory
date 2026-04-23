@@ -3,12 +3,12 @@ import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
 class InventoryListView extends StatelessWidget {
-  final InventoriesLoaded state;
-
   const InventoryListView({
     required this.state,
     super.key,
   });
+
+  final InventoriesLoaded state;
 
   @override
   Widget build(BuildContext context) {

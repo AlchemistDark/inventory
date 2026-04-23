@@ -11,12 +11,6 @@ class PositionModel {
     required this.createdAt,
   });
 
-  PositionEntity toEntity() => PositionEntity(
-    id: id,
-    name: name,
-    createdAt: createdAt,
-  );
-
   factory PositionModel.fromEntity(PositionEntity entity) => PositionModel(
     id: entity.id,
     name: entity.name,
@@ -27,6 +21,12 @@ class PositionModel {
     id: map['id'] as int,
     name: map['name'] as String,
     createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
+  );
+
+  PositionEntity toEntity() => PositionEntity(
+    id: id,
+    name: name,
+    createdAt: createdAt,
   );
 
   Map<String, dynamic> toMap() => {

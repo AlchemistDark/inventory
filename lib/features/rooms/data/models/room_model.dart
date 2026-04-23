@@ -22,13 +22,7 @@ class RoomModel {
     this.description,
   });
 
-  RoomEntity toEntity() => RoomEntity(
-    id: id,
-    name: name,
-    description: description,
-    createdAt: createdAt,
-  );
-
+  /// Creates a [RoomModel] from a domain entity
   factory RoomModel.fromEntity(RoomEntity entity) => RoomModel(
     id: entity.id,
     name: entity.name,
@@ -36,6 +30,7 @@ class RoomModel {
     createdAt: entity.createdAt,
   );
 
+  /// Creates a [RoomModel] from a database map
   factory RoomModel.fromMap(Map<String, dynamic> map) => RoomModel(
     id: map['id'] as int,
     name: map['name'] as String,
@@ -43,6 +38,15 @@ class RoomModel {
     createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
   );
 
+  /// Converts the model to a domain entity
+  RoomEntity toEntity() => RoomEntity(
+    id: id,
+    name: name,
+    description: description,
+    createdAt: createdAt,
+  );
+
+  /// Converts the model to a database map
   Map<String, dynamic> toMap() => {
     'id': id,
     'name': name,

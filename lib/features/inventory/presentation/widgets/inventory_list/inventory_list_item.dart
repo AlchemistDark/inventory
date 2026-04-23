@@ -3,16 +3,16 @@ import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
 class InventoryListItem extends StatelessWidget {
-  final InventoryEntity inventory;
-  final String employeeName;
-  final String roomName;
-
   const InventoryListItem({
     required this.inventory,
     required this.employeeName,
     required this.roomName,
     super.key,
   });
+
+  final InventoryEntity inventory;
+  final String employeeName;
+  final String roomName;
 
   @override
   Widget build(BuildContext context) {
