@@ -8,16 +8,16 @@ class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
   static Database? _database;
 
-  /// Factory constructor returns singleton instance
-  factory DatabaseHelper() {
-    return _instance;
-  }
-
   /// Returns the database instance, creating it if necessary
   Future<Database> get database async {
     _database ??= await _initializeDatabase();
 
     return _database!;
+  }
+
+  /// Factory constructor returns singleton instance
+  factory DatabaseHelper() {
+    return _instance;
   }
 
   DatabaseHelper._internal();

@@ -3,14 +3,35 @@ import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 import 'package:inventory_p_shalaev/features/inventory/presentation/pages/inventory_list_page.dart';
 
 class HomeBottomNavigation extends StatelessWidget {
-  final int currentIndex;
-  final void Function(int) onTap;
-
   const HomeBottomNavigation({
     required this.currentIndex,
     required this.onTap,
     super.key,
   });
+
+  final int currentIndex;
+  final void Function(int) onTap;
+
+  void _handleTap(BuildContext context, int index) {
+    onTap(index);
+
+    if (index == 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (context) => const InventoryListPage(),
+        ),
+      );
+    } else if (index == 1) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppStrings.home.employeesUnderDevelopment)),
+      );
+    } else if (index == 2) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppStrings.home.roomsUnderDevelopment)),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,26 +53,5 @@ class HomeBottomNavigation extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  void _handleTap(BuildContext context, int index) {
-    onTap(index);
-
-    if (index == 0) {
-      Navigator.push(
-        context,
-        MaterialPageRoute<void>(
-          builder: (context) => const InventoryListPage(),
-        ),
-      );
-    } else if (index == 1) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppStrings.home.employeesUnderDevelopment)),
-      );
-    } else if (index == 2) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppStrings.home.roomsUnderDevelopment)),
-      );
-    }
   }
 }

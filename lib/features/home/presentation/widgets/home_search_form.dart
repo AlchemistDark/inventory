@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 
 class HomeSearchForm extends StatelessWidget {
-  final TextEditingController searchController;
-  final VoidCallback onScanPressed;
-  final VoidCallback onSearchPressed;
-
   const HomeSearchForm({
     required this.searchController,
     required this.onScanPressed,
     required this.onSearchPressed,
     super.key,
   });
+
+  final TextEditingController searchController;
+  final VoidCallback onScanPressed;
+  final VoidCallback onSearchPressed;
 
   @override
   Widget build(BuildContext context) {
