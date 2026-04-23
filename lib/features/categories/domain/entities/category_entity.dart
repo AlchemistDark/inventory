@@ -9,6 +9,13 @@ class CategoryEntity {
   /// Timestamp of record creation
   final DateTime createdAt;
 
+  /// Creates a [CategoryEntity] with the given parameters
+  CategoryEntity({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+  });
+
   @override
   int get hashCode => id.hashCode ^ name.hashCode ^ createdAt.hashCode;
 
@@ -24,11 +31,4 @@ class CategoryEntity {
           id == other.id &&
           name == other.name &&
           createdAt == other.createdAt;
-
-  /// Creates a [CategoryEntity] with the given parameters
-  CategoryEntity({
-    required this.id,
-    required this.name,
-    required this.createdAt,
-  });
 }

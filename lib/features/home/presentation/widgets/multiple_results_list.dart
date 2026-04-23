@@ -3,14 +3,14 @@ import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
 
 class MultipleResultsList extends StatelessWidget {
-  final List<InventoryEntity> inventories;
-  final void Function(InventoryEntity) onInventoryTap;
-
   const MultipleResultsList({
     required this.inventories,
     required this.onInventoryTap,
     super.key,
   });
+
+  final List<InventoryEntity> inventories;
+  final void Function(InventoryEntity) onInventoryTap;
 
   @override
   Widget build(BuildContext context) {
