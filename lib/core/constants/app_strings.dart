@@ -1,16 +1,16 @@
 // String constants for the home screen.
 
+/// Application-wide string constants
 class AppStrings {
-  AppStrings();
-
   static Home home = Home();
   static InventoryList inventoryList = InventoryList();
   static CreateInventory createInventory = CreateInventory();
+
+  AppStrings();
 }
 
+/// Home screen string constants
 class Home {
-  Home();
-
   // App Bar
   final String appBarTitle = 'Управление Инвентарем';
   final String menuUnderDevelopment = 'Меню (в разработке)';
@@ -79,11 +79,12 @@ class Home {
 
   // Error Messages
   final String errorPrefix = 'Ошибка: ';
+
+  Home();
 }
 
+/// Inventory list page string constants
 class InventoryList {
-  InventoryList();
-
   final String appBarTitle = 'Список инвентаря';
   final String emptyStateMessage = 'Список инвентаря пуст';
   final String emptySearchMessage = 'По данному запросу ничего не найдено';
@@ -111,11 +112,12 @@ class InventoryList {
   final String detailCategoryLabel = 'Категория:';
   final String detailDateLabel = 'Дата постановки:';
   final String detailDescriptionLabel = 'Описание:';
+
+  InventoryList();
 }
 
+/// Create/Edit inventory form string constants
 class CreateInventory {
-  CreateInventory();
-
   final String appBarCreateTitle = 'Создание предмета';
   final String appBarEditTitle = 'Редактирование предмета';
   
@@ -152,4 +154,6 @@ class CreateInventory {
   final String cameraScanText = 'Или отсканируйте камерой:';
   final String resetScannerButton = 'Сбросить сканер';
   final String scannedSuccessMessage = 'Отсканировано!';
+
+  CreateInventory();
 }
