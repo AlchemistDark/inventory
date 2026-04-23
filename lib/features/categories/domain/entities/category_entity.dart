@@ -9,15 +9,15 @@ class CategoryEntity {
   /// Timestamp of record creation
   final DateTime createdAt;
 
+  @override
+  int get hashCode => id.hashCode ^ name.hashCode ^ createdAt.hashCode;
+
   /// Creates a [CategoryEntity] with the given parameters
   CategoryEntity({
     required this.id,
     required this.name,
     required this.createdAt,
   });
-
-  @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ createdAt.hashCode;
 
   @override
   String toString() =>

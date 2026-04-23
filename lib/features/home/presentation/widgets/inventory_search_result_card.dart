@@ -3,14 +3,14 @@ import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
 
 class InventorySearchResultCard extends StatelessWidget {
-  final InventoryEntity inventory;
-  final VoidCallback onTap;
-
   const InventorySearchResultCard({
     required this.inventory,
     required this.onTap,
     super.key,
   });
+
+  final InventoryEntity inventory;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {

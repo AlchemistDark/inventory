@@ -21,12 +21,6 @@ class _HomePageState extends State<HomePage> {
     context.read<HomeBloc>().add(const InitializeEvent());
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
   void _submitBarcode(String barcode) {
     context.read<HomeBloc>().add(SearchInventoryByBarcodeEvent(barcode));
   }
@@ -81,6 +75,12 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _selectedNavIndex = index;
     });
+  }
+
+    @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override

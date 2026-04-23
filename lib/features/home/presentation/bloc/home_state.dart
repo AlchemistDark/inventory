@@ -3,10 +3,10 @@ import 'package:inventory_p_shalaev/features/inventory/presentation/bloc/invento
 
 /// Base class for all home states
 abstract class HomeState extends Equatable {
-  const HomeState();
-
   @override
   List<Object?> get props => [];
+
+  const HomeState();
 }
 
 /// Initial state
