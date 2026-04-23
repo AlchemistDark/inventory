@@ -46,12 +46,12 @@ class MyApp extends StatelessWidget {
   final CategoriesLocalDataSourceImpl categoriesDataSource;
 
   const MyApp({
-    super.key,
     required this.inventoryRepository,
     required this.employeesDataSource,
     required this.roomsDataSource,
     required this.positionsDataSource,
     required this.categoriesDataSource,
+    super.key,
   });
 
   @override

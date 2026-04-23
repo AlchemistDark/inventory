@@ -9,8 +9,8 @@ class RoomModel {
   RoomModel({
     required this.id,
     required this.name,
-    this.description,
     required this.createdAt,
+    this.description,
   });
 
   RoomEntity toEntity() => RoomEntity(

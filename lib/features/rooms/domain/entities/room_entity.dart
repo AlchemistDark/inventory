@@ -9,8 +9,8 @@ class RoomEntity extends Equatable {
   const RoomEntity({
     required this.id,
     required this.name,
-    this.description,
     required this.createdAt,
+    this.description,
   });
 
   @override
