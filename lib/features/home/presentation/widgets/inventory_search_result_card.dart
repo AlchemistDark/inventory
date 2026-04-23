@@ -7,9 +7,9 @@ class InventorySearchResultCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const InventorySearchResultCard({
-    super.key,
     required this.inventory,
     required this.onTap,
+    super.key,
   });
 
   @override

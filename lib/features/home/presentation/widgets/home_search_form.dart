@@ -7,10 +7,10 @@ class HomeSearchForm extends StatelessWidget {
   final VoidCallback onSearchPressed;
 
   const HomeSearchForm({
-    super.key,
     required this.searchController,
     required this.onScanPressed,
     required this.onSearchPressed,
+    super.key,
   });
 
   @override
@@ -19,10 +19,7 @@ class HomeSearchForm extends StatelessWidget {
       children: [
         Text(
           AppStrings.home.searchTitle,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 24),
         ElevatedButton.icon(
@@ -40,9 +37,7 @@ class HomeSearchForm extends StatelessWidget {
           controller: searchController,
           decoration: InputDecoration(
             labelText: AppStrings.home.searchFieldLabel,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             prefixIcon: const Icon(Icons.search),
           ),
           onSubmitted: (_) => onSearchPressed(),

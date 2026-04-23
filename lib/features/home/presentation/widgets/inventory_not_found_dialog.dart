@@ -6,9 +6,9 @@ class InventoryNotFoundDialog extends StatelessWidget {
   final VoidCallback onCreate;
 
   const InventoryNotFoundDialog({
-    super.key,
     required this.query,
     required this.onCreate,
+    super.key,
   });
 
   @override

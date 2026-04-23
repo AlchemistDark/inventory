@@ -11,8 +11,8 @@ class EmployeeEntity extends Equatable {
     required this.id,
     required this.name,
     required this.positionId,
-    this.roomId,
     required this.createdAt,
+    this.roomId,
   });
 
   @override

@@ -52,7 +52,9 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
       whereArgs: [id],
     );
 
-    if (maps.isEmpty) return null;
+    if (maps.isEmpty) {
+      return null;
+    }
 
     return CategoryModel.fromMap(maps.first);
   }
