@@ -1,18 +1,43 @@
 import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
 
+/// Data model representing an inventory item for data layer operations
+///
+/// Used for database operations and data transfer between layers
 class InventoryModel {
+  /// Unique identifier of the inventory item
   final int id;
+
+  /// Barcode of the item (optional)
   final String? barcode;
+
+  /// Name of the inventory item
   final String name;
+
+  /// Inventory number (optional)
   final String? inventoryNumber;
+
+  /// Quantity of items
   final int quantity;
+
+  /// Description of the item (optional)
   final String? description;
+
+  /// Date when the item was added
   final DateTime dateAdded;
+
+  /// ID of the responsible employee (optional)
   final int? employeeId;
+
+  /// ID of the room where item is located (optional)
   final int? roomId;
+
+  /// ID of the category (optional)
   final int? categoryId;
+
+  /// Timestamp of record creation
   final DateTime createdAt;
 
+  /// Creates an [InventoryModel] with the given parameters
   InventoryModel({
     required this.id,
     required this.name,

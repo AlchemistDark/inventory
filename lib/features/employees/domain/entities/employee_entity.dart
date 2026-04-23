@@ -19,11 +19,12 @@ class EmployeeEntity extends Equatable {
 
   /// Creates an [EmployeeEntity] with the given parameters
   const EmployeeEntity({
+    required this.createdAt,
     required this.id,
     required this.name,
     required this.positionId,
     this.roomId,
-    required this.createdAt,
+    
   });
 
   @override
