@@ -11,15 +11,15 @@ class InventorySelectionField<T> extends StatelessWidget {
   final void Function(int) onSelected;
 
   const InventorySelectionField({
-    super.key,
     required this.label,
     required this.selectedName,
     required this.icon,
     required this.items,
-    required this.selectedId,
     required this.itemName,
     required this.itemId,
     required this.onSelected,
+    this.selectedId,
+    super.key,
   });
 
   @override

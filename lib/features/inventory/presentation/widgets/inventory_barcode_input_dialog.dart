@@ -7,9 +7,9 @@ class InventoryBarcodeInputDialog extends StatefulWidget {
   final ValueChanged<String> onBarcodeSaved;
 
   const InventoryBarcodeInputDialog({
-    super.key,
     required this.initialBarcode,
     required this.onBarcodeSaved,
+    super.key,
   });
 
   @override
@@ -68,19 +68,25 @@ class _InventoryBarcodeInputDialogState
               child: MobileScanner(
                 controller: _scannerController,
                 onDetect: (capture) {
-                  if (_isScanHandled) return;
-                  if (capture.barcodes.isEmpty) return;
+                  if (_isScanHandled || capture.barcodes.isEmpty) {
+                    return;
+                  }
 
                   final barcode = capture.barcodes.first.rawValue;
-                  if (barcode == null || barcode.trim().isEmpty) return;
+                  if (barcode == null || barcode.trim().isEmpty) {
+                    return;
+                  }
 
                   _isScanHandled = true;
                   // Scanning overrides the manual input
                   _barcodeController.text = barcode;
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                        content: Text(AppStrings.createInventory.scannedSuccessMessage),
-                        duration: const Duration(seconds: 1)),
+                      content: Text(
+                        AppStrings.createInventory.scannedSuccessMessage,
+                      ),
+                      duration: const Duration(seconds: 1),
+                    ),
                   );
                 },
               ),

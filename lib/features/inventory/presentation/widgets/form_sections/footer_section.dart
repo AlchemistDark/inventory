@@ -11,12 +11,12 @@ class FooterSection extends StatelessWidget {
   final VoidCallback onCancel;
 
   const FooterSection({
-    super.key,
     required this.descriptionController,
     required this.selectedDate,
     required this.onSelectDate,
     required this.onSubmit,
     required this.onCancel,
+    super.key,
   });
 
   @override
@@ -28,7 +28,9 @@ class FooterSection extends StatelessWidget {
           maxLines: 3,
           labelText: AppStrings.createInventory.descriptionFieldLabel,
           validator: (value) {
-            if (value != null && value.length > 500) return AppStrings.createInventory.maxLength500Error;
+            if (value != null && value.length > 500) {
+              return AppStrings.createInventory.maxLength500Error;
+            }
             return null;
           },
         ),

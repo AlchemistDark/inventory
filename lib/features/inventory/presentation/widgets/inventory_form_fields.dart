@@ -9,12 +9,12 @@ class InventoryTextField extends StatelessWidget {
   final int maxLines;
 
   const InventoryTextField({
-    super.key,
     required this.controller,
     required this.labelText,
     this.validator,
     this.keyboardType,
     this.maxLines = 1,
+    super.key,
   });
 
   @override
@@ -41,11 +41,11 @@ class InventoryActionField extends StatelessWidget {
   final VoidCallback onTap;
 
   const InventoryActionField({
-    super.key,
     required this.label,
     required this.valueText,
     required this.icon,
     required this.onTap,
+    super.key,
   });
 
   @override
@@ -82,9 +82,9 @@ class InventoryBarcodeField extends StatelessWidget {
   final VoidCallback onScanPressed;
 
   const InventoryBarcodeField({
-    super.key,
     required this.controller,
     required this.onScanPressed,
+    super.key,
   });
 
   @override
