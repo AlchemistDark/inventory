@@ -16,13 +16,14 @@ class InventoryListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String qtyText = inventory.quantity > 0 ? '(${inventory.quantity}) ' : '';
-    final String invNumText = inventory.inventoryNumber != null 
-        ? '${inventory.inventoryNumber} ' 
+    final qtyText = inventory.quantity > 0 ? '(${inventory.quantity}) ' : '';
+    final invNumText = inventory.inventoryNumber != null
+        ? '${inventory.inventoryNumber} '
         : '${AppStrings.inventoryList.noInventoryNumber} ';
-    
+
     final titleText = '$invNumText$qtyText${inventory.name}';
-    final subtitleText = '${AppStrings.inventoryList.detailRoomLabel} $roomName, ${AppStrings.inventoryList.detailResponsibleLabel} $employeeName';
+    final subtitleText =
+        '${AppStrings.inventoryList.detailRoomLabel} $roomName, ${AppStrings.inventoryList.detailResponsibleLabel} $employeeName';
 
     return GestureDetector(
       onTap: () {

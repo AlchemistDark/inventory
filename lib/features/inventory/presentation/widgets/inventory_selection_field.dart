@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 
 class InventorySelectionField<T> extends StatelessWidget {
-  final String label;
-  final String selectedName;
-  final IconData icon;
-  final List<T> items;
-  final int? selectedId;
-  final String Function(T) itemName;
-  final int Function(T) itemId;
-  final void Function(int) onSelected;
-
   const InventorySelectionField({
     required this.label,
     required this.selectedName,
@@ -21,6 +12,36 @@ class InventorySelectionField<T> extends StatelessWidget {
     this.selectedId,
     super.key,
   });
+
+  final String label;
+  final String selectedName;
+  final IconData icon;
+  final List<T> items;
+  final int? selectedId;
+  final String Function(T) itemName;
+  final int Function(T) itemId;
+  final void Function(int) onSelected;
+
+  void _showSelectionSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => ListView(
+        children: items.map((item) {
+          final id = itemId(item);
+          final name = itemName(item);
+
+          return ListTile(
+            title: Text(name),
+            selected: selectedId == id,
+            onTap: () {
+              onSelected(id);
+              Navigator.pop(context);
+            },
+          );
+        }).toList(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,26 +68,6 @@ class InventorySelectionField<T> extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  void _showSelectionSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => ListView(
-        children: items.map((item) {
-          final id = itemId(item);
-          final name = itemName(item);
-          return ListTile(
-            title: Text(name),
-            selected: selectedId == id,
-            onTap: () {
-              onSelected(id);
-              Navigator.pop(context);
-            },
-          );
-        }).toList(),
-      ),
     );
   }
 }
