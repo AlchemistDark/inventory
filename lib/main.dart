@@ -22,7 +22,7 @@ void main() async {
   final categoriesDataSource = CategoriesLocalDataSourceImpl(databaseHelper);
 
   // Initialize test data
-  // ToDo Убрать потом это отсюда
+  // TODO: Remove this later
   await DatabaseSeeder.seedTestData(
     inventoryRepository,
     employeesDataSource,
@@ -46,6 +46,16 @@ void main() async {
 ///
 /// Configures providers, repositories, BLoCs, and navigation
 class MyApp extends StatelessWidget {
+  /// Creates [MyApp] with required dependencies
+  const MyApp({
+    required this.inventoryRepository,
+    required this.employeesDataSource,
+    required this.roomsDataSource,
+    required this.positionsDataSource,
+    required this.categoriesDataSource,
+    super.key,
+  });
+
   /// Repository for inventory data operations
   final InventoryRepositoryImpl inventoryRepository;
 
