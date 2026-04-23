@@ -19,6 +19,7 @@ class RoomsLocalDataSourceImpl implements RoomsLocalDataSource {
   Future<RoomModel> createRoom(RoomModel model) async {
     final db = await _databaseHelper.database;
     final id = await db.insert('rooms', model.toMap());
+
     return RoomModel(
       id: id,
       name: model.name,
@@ -31,6 +32,7 @@ class RoomsLocalDataSourceImpl implements RoomsLocalDataSource {
   Future<List<RoomModel>> getRooms() async {
     final db = await _databaseHelper.database;
     final maps = await db.query('rooms', orderBy: 'name ASC');
+
     return List<RoomModel>.from(maps.map((m) => RoomModel.fromMap(m)));
   }
 
@@ -38,6 +40,7 @@ class RoomsLocalDataSourceImpl implements RoomsLocalDataSource {
   Future<RoomModel?> getRoomById(int id) async {
     final db = await _databaseHelper.database;
     final maps = await db.query('rooms', where: 'id = ?', whereArgs: [id]);
+
     return maps.isEmpty ? null : RoomModel.fromMap(maps.first);
   }
 
@@ -50,6 +53,7 @@ class RoomsLocalDataSourceImpl implements RoomsLocalDataSource {
       whereArgs: ['%$query%'],
       orderBy: 'name ASC',
     );
+    
     return List<RoomModel>.from(maps.map((m) => RoomModel.fromMap(m)));
   }
 

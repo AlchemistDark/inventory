@@ -27,6 +27,7 @@ class InventoryListPage extends StatelessWidget {
                     ),
                   );
                 }
+                
                 return const SizedBox();
               },
             ),

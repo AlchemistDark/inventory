@@ -19,6 +19,7 @@ class PositionsLocalDataSourceImpl implements PositionsLocalDataSource {
   Future<PositionModel> createPosition(PositionModel model) async {
     final db = await _databaseHelper.database;
     final id = await db.insert('positions', model.toMap());
+
     return PositionModel(
       id: id,
       name: model.name,
@@ -30,6 +31,7 @@ class PositionsLocalDataSourceImpl implements PositionsLocalDataSource {
   Future<List<PositionModel>> getPositions() async {
     final db = await _databaseHelper.database;
     final maps = await db.query('positions', orderBy: 'name ASC');
+
     return List<PositionModel>.from(maps.map((m) => PositionModel.fromMap(m)));
   }
 
@@ -37,6 +39,7 @@ class PositionsLocalDataSourceImpl implements PositionsLocalDataSource {
   Future<PositionModel?> getPositionById(int id) async {
     final db = await _databaseHelper.database;
     final maps = await db.query('positions', where: 'id = ?', whereArgs: [id]);
+
     return maps.isEmpty ? null : PositionModel.fromMap(maps.first);
   }
 
@@ -49,6 +52,7 @@ class PositionsLocalDataSourceImpl implements PositionsLocalDataSource {
       whereArgs: ['%$query%'],
       orderBy: 'name ASC',
     );
+    
     return List<PositionModel>.from(maps.map((m) => PositionModel.fromMap(m)));
   }
 
