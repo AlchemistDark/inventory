@@ -23,30 +23,30 @@ class HomeLoading extends HomeState with LoadingStateMixin {
 class HomeSearchSuccess extends HomeState {
   final InventoryEntity inventory;
 
-  const HomeSearchSuccess(this.inventory);
-
   @override
   List<Object?> get props => [inventory];
+
+  const HomeSearchSuccess(this.inventory);
 }
 
 /// State when search returned multiple results
 class HomeSearchMultipleResults extends HomeState {
   final List<InventoryEntity> inventories;
 
-  const HomeSearchMultipleResults(this.inventories);
-
   @override
   List<Object?> get props => [inventories];
+
+  const HomeSearchMultipleResults(this.inventories);
 }
 
 /// State when item was not found
 class HomeNotFound extends HomeState {
   final String query;
 
-  const HomeNotFound(this.query);
-
   @override
   List<Object?> get props => [query];
+
+  const HomeNotFound(this.query);
 }
 
 /// State when an error occurred
