@@ -26,14 +26,6 @@ class EmployeeModel {
     this.roomId,
   });
 
-  EmployeeEntity toEntity() => EmployeeEntity(
-    id: id,
-    name: name,
-    positionId: positionId,
-    roomId: roomId,
-    createdAt: createdAt,
-  );
-
   factory EmployeeModel.fromEntity(EmployeeEntity entity) => EmployeeModel(
     id: entity.id,
     name: entity.name,
@@ -48,6 +40,14 @@ class EmployeeModel {
     positionId: map['positionId'] as int,
     roomId: map['roomId'] as int?,
     createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
+  );
+
+  EmployeeEntity toEntity() => EmployeeEntity(
+    id: id,
+    name: name,
+    positionId: positionId,
+    roomId: roomId,
+    createdAt: createdAt,
   );
 
   Map<String, dynamic> toMap() => {

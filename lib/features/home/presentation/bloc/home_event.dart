@@ -14,14 +14,14 @@ class InitializeEvent extends HomeEvent {
 class SearchInventoryByBarcodeEvent extends HomeEvent {
   final String barcode;
 
-  const SearchInventoryByBarcodeEvent(this.barcode);
-
   @override
   List<Object?> get props => [barcode];
+
+  const SearchInventoryByBarcodeEvent(this.barcode);
 }
 
 
 /// Event to clear the search
 class ClearSearchEvent extends HomeEvent {
   const ClearSearchEvent();
-}
+}

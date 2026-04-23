@@ -19,6 +19,7 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
   Future<EmployeeModel> createEmployee(EmployeeModel model) async {
     final db = await _databaseHelper.database;
     final id = await db.insert('employees', model.toMap());
+
     return EmployeeModel(
       id: id,
       name: model.name,
@@ -32,6 +33,7 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
   Future<List<EmployeeModel>> getEmployees() async {
     final db = await _databaseHelper.database;
     final maps = await db.query('employees', orderBy: 'name ASC');
+
     return List<EmployeeModel>.from(maps.map((m) => EmployeeModel.fromMap(m)));
   }
 
@@ -39,6 +41,7 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
   Future<EmployeeModel?> getEmployeeById(int id) async {
     final db = await _databaseHelper.database;
     final maps = await db.query('employees', where: 'id = ?', whereArgs: [id]);
+
     return maps.isEmpty ? null : EmployeeModel.fromMap(maps.first);
   }
 
@@ -51,6 +54,7 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
       whereArgs: ['%$query%'],
       orderBy: 'name ASC',
     );
+
     return List<EmployeeModel>.from(maps.map((m) => EmployeeModel.fromMap(m)));
   }
 

@@ -17,6 +17,9 @@ class EmployeeEntity extends Equatable {
   /// Timestamp of record creation
   final DateTime createdAt;
 
+  @override
+  List<Object?> get props => [id, name, positionId, roomId, createdAt];
+
   /// Creates an [EmployeeEntity] with the given parameters
   const EmployeeEntity({
     required this.createdAt,
@@ -26,7 +29,4 @@ class EmployeeEntity extends Equatable {
     this.roomId,
     
   });
-
-  @override
-  List<Object?> get props => [id, name, positionId, roomId, createdAt];
 }
