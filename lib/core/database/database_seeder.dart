@@ -1,17 +1,15 @@
 import 'package:flutter/foundation.dart';
-import 'package:inventory_p_shalaev/features/categories/data/datasources/categories_local_datasource.dart';
-import 'package:inventory_p_shalaev/features/employees/data/datasources/employees_local_datasource.dart';
-import 'package:inventory_p_shalaev/features/employees/data/models/employee_model.dart';
-import 'package:inventory_p_shalaev/features/inventory/data/repositories/inventory_repository_impl.dart';
-import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
-import 'package:inventory_p_shalaev/features/positions/data/datasources/positions_local_datasource.dart';
-import 'package:inventory_p_shalaev/features/positions/data/models/position_model.dart';
-import 'package:inventory_p_shalaev/features/rooms/data/datasources/rooms_local_datasource.dart';
-import 'package:inventory_p_shalaev/features/rooms/data/models/room_model.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
-
+/// Utility class for seeding test data into the database
+///
+/// Used for development and testing purposes to populate the database
+/// with sample data for employees, rooms, positions, categories, and inventory
 class DatabaseSeeder {
-  /// Initializes the database with test data
+  /// Initializes the database with test data if tables are empty
+  ///
+  /// Creates default records for categories, positions, rooms, employees,
+  /// and sample inventory items
   static Future<void> seedTestData(
     InventoryRepositoryImpl inventoryRepository,
     EmployeesLocalDataSourceImpl employeesDataSource,

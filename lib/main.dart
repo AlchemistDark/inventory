@@ -4,6 +4,10 @@ import 'package:inventory_p_shalaev/core/database/database_helper.dart';
 import 'package:inventory_p_shalaev/core/database/database_seeder.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
+/// Application entry point
+///
+/// Initializes database, data sources, repositories, and dependency injection
+/// before running the app with test data seeding
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -38,13 +42,26 @@ void main() async {
   );
 }
 
+/// Root widget of the application
+///
+/// Configures providers, repositories, BLoCs, and navigation
 class MyApp extends StatelessWidget {
+  /// Repository for inventory data operations
   final InventoryRepositoryImpl inventoryRepository;
+
+  /// Data source for employee data
   final EmployeesLocalDataSourceImpl employeesDataSource;
+
+  /// Data source for room data
   final RoomsLocalDataSourceImpl roomsDataSource;
+
+  /// Data source for position data
   final PositionsLocalDataSourceImpl positionsDataSource;
+
+  /// Data source for category data
   final CategoriesLocalDataSourceImpl categoriesDataSource;
 
+  /// Creates [MyApp] with required dependencies
   const MyApp({
     required this.inventoryRepository,
     required this.employeesDataSource,

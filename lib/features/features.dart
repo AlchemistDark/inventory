@@ -42,7 +42,7 @@ export 'inventory/presentation/widgets/inventory_list/inventory_list_item.dart';
 export 'inventory/presentation/widgets/inventory_list/inventory_list_view.dart';
 
 
-
+export 'positions/data/models/position_model.dart';
 export 'positions/data/datasources/positions_local_datasource.dart';
 export 'rooms/data/datasources/rooms_local_datasource.dart';
 export 'categories/data/datasources/categories_local_datasource.dart';
