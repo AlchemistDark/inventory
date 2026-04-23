@@ -37,7 +37,9 @@ export 'inventory/presentation/widgets/form_sections/selection_section.dart';
 export 'inventory/presentation/widgets/inventory_selection_field.dart';
 export 'inventory/presentation/widgets/inventory_barcode_input_dialog.dart';
 export 'inventory/presentation/widgets/inventory_form_fields.dart';
-
+export 'inventory/presentation/widgets/inventory_list/inventory_list_header.dart';
+export 'inventory/presentation/widgets/inventory_list/inventory_list_item.dart';
+export 'inventory/presentation/widgets/inventory_list/inventory_list_view.dart';
 
 
 

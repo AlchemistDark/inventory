@@ -96,7 +96,10 @@ class MyApp extends StatelessWidget {
               updateInventoryUseCase: UpdateInventoryUseCase(
                 inventoryRepository,
               ),
-            ),
+              employeesDataSource: employeesDataSource,
+              categoriesDataSource: categoriesDataSource,
+              roomsDataSource: roomsDataSource,
+            )..add(const InitializeInventoriesEvent()),
           ),
           BlocProvider(
             create: (context) => InventoryFormBloc(
