@@ -12,7 +12,7 @@ class InventoryListPage extends StatefulWidget {
 
 class _InventoryListPageState extends State<InventoryListPage> {
   final _searchController = TextEditingController();
-  
+
   Map<int, String> _employeeMap = {};
   Map<int, String> _roomMap = {};
   Map<int, String> _categoryMap = {};
@@ -23,7 +23,7 @@ class _InventoryListPageState extends State<InventoryListPage> {
     _loadMaps();
     context.read<InventoryBloc>().add(const InitializeInventoriesEvent());
   }
-  
+
   Future<void> _loadMaps() async {
     final empSource = context.read<EmployeesLocalDataSourceImpl>();
     final roomSource = context.read<RoomsLocalDataSourceImpl>();
@@ -34,9 +34,9 @@ class _InventoryListPageState extends State<InventoryListPage> {
     final categories = await catSource.getCategories();
 
     setState(() {
-      _employeeMap = {for (var e in employees) e.id: e.name};
-      _roomMap = {for (var r in rooms) r.id: r.name};
-      _categoryMap = {for (var c in categories) c.id: c.name};
+      _employeeMap = {for (final e in employees) e.id: e.name};
+      _roomMap = {for (final r in rooms) r.id: r.name};
+      _categoryMap = {for (final c in categories) c.id: c.name};
     });
   }
 
@@ -47,9 +47,9 @@ class _InventoryListPageState extends State<InventoryListPage> {
   }
 
   void _showDetail(InventoryEntity inventory) {
-    Navigator.push(
+    Navigator.push<void>(
       context,
-      MaterialPageRoute(
+      MaterialPageRoute<void>(
         builder: (context) => InventoryDetailsPage(inventory: inventory),
       ),
     );
@@ -58,9 +58,7 @@ class _InventoryListPageState extends State<InventoryListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppStrings.inventoryList.appBarTitle),
-      ),
+      appBar: AppBar(title: Text(AppStrings.inventoryList.appBarTitle)),
       body: Column(
         children: [
           // Filter section
@@ -77,7 +75,9 @@ class _InventoryListPageState extends State<InventoryListPage> {
                         ? IconButton(
                             onPressed: () {
                               _searchController.clear();
-                              context.read<InventoryBloc>().add(const LoadInventoriesEvent());
+                              context.read<InventoryBloc>().add(
+                                const LoadInventoriesEvent(),
+                              );
                               setState(() {});
                             },
                             icon: const Icon(Icons.clear),
@@ -88,12 +88,16 @@ class _InventoryListPageState extends State<InventoryListPage> {
                     ),
                   ),
                   onChanged: (value) {
-                    // ToDo Удалить
+                    // TODO: Удалить
                     setState(() {});
                     if (value.trim().isNotEmpty) {
-                      context.read<InventoryBloc>().add(SearchInventoriesByNameEvent(value));
+                      context.read<InventoryBloc>().add(
+                        SearchInventoriesByNameEvent(value),
+                      );
                     } else {
-                      context.read<InventoryBloc>().add(const LoadInventoriesEvent());
+                      context.read<InventoryBloc>().add(
+                        const LoadInventoriesEvent(),
+                      );
                     }
                   },
                 ),
@@ -104,28 +108,43 @@ class _InventoryListPageState extends State<InventoryListPage> {
                     if (state is InventoriesLoaded) {
                       currentCategory = state.categoryFilter;
                     }
-                    
+
                     return DropdownButtonFormField<int?>(
                       initialValue: currentCategory,
                       decoration: InputDecoration(
-                        labelText: AppStrings.inventoryList.filterByCategoryLabel,
+                        labelText:
+                            AppStrings.inventoryList.filterByCategoryLabel,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
                       ),
                       items: [
-                        DropdownMenuItem(value: null, child: Text(AppStrings.inventoryList.showAllCategories)),
-                        ..._categoryMap.entries.map((e) => DropdownMenuItem(
-                          value: e.key,
-                          child: Text(e.value),
-                        )),
+                        DropdownMenuItem(
+                          value: null,
+                          child: Text(
+                            AppStrings.inventoryList.showAllCategories,
+                          ),
+                        ),
+                        ..._categoryMap.entries.map(
+                          (e) => DropdownMenuItem(
+                            value: e.key,
+                            child: Text(e.value),
+                          ),
+                        ),
                       ],
                       onChanged: (val) {
                         if (val == null) {
-                          context.read<InventoryBloc>().add(const ClearFiltersEvent());
+                          context.read<InventoryBloc>().add(
+                            const ClearFiltersEvent(),
+                          );
                         } else {
-                          context.read<InventoryBloc>().add(FilterInventoriesByCategoryEvent(val));
+                          context.read<InventoryBloc>().add(
+                            FilterInventoriesByCategoryEvent(val),
+                          );
                         }
                       },
                     );
@@ -141,29 +160,38 @@ class _InventoryListPageState extends State<InventoryListPage> {
                   return const Center(child: CircularProgressIndicator());
                 } else if (state is InventoriesLoaded) {
                   var displayList = state.inventories;
-                  
-                  // Перенести в блок. ToDo
+
+                  // TODO: Перенести в блок
                   if (state.categoryFilter != null) {
-                    displayList = displayList.where((i) => i.categoryId == state.categoryFilter).toList();
+                    displayList = displayList
+                        .where((i) => i.categoryId == state.categoryFilter)
+                        .toList();
                   }
 
                   if (displayList.isEmpty) {
                     return Center(
-                      child: Text(AppStrings.inventoryList.noItemsFilterMessage),
+                      child: Text(
+                        AppStrings.inventoryList.noItemsFilterMessage,
+                      ),
                     );
                   }
-                  
+
                   return ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     itemCount: displayList.length,
                     itemBuilder: (context, index) {
                       final item = displayList[index];
                       // Возможно как-то разбить
-                      final String qtyText = item.quantity > 0 ? '(${item.quantity}) ' : '';
-                      final String invNumText = item.inventoryNumber != null ? '${item.inventoryNumber} ' : '${AppStrings.inventoryList.noInventoryNumber} ';
+                      final String qtyText = item.quantity > 0
+                          ? '(${item.quantity}) '
+                          : '';
+                      final String invNumText = item.inventoryNumber != null
+                          ? '${item.inventoryNumber} '
+                          : '${AppStrings.inventoryList.noInventoryNumber} ';
                       final titleText = '$invNumText$qtyText${item.name}';
-                      
-                      final String roomAndEmp = '${AppStrings.inventoryList.detailRoomLabel} ${_roomMap[item.roomId] ?? AppStrings.inventoryList.notSpecified}, ${AppStrings.inventoryList.detailResponsibleLabel} ${_employeeMap[item.employeeId] ?? AppStrings.inventoryList.notSpecifiedMale}';
+
+                      final String roomAndEmp =
+                          '${AppStrings.inventoryList.detailRoomLabel} ${_roomMap[item.roomId] ?? AppStrings.inventoryList.notSpecified}, ${AppStrings.inventoryList.detailResponsibleLabel} ${_employeeMap[item.employeeId] ?? AppStrings.inventoryList.notSpecifiedMale}';
 
                       return GestureDetector(
                         onTap: () => _showDetail(item),
@@ -175,7 +203,8 @@ class _InventoryListPageState extends State<InventoryListPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
                                       child: Text(
@@ -202,7 +231,11 @@ class _InventoryListPageState extends State<InventoryListPage> {
                     },
                   );
                 } else if (state is InventoryError) {
-                  return Center(child: Text('${AppStrings.inventoryList.errorMessagePrefix}${state.message}'));
+                  return Center(
+                    child: Text(
+                      '${AppStrings.inventoryList.errorMessagePrefix}${state.message}',
+                    ),
+                  );
                 }
                 return const SizedBox();
               },
@@ -212,9 +245,11 @@ class _InventoryListPageState extends State<InventoryListPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
+          Navigator.push<void>(
             context,
-            MaterialPageRoute(builder: (context) => const CreateInventoryPage()),
+            MaterialPageRoute<void>(
+              builder: (context) => const CreateInventoryPage(),
+            ),
           );
         },
         child: const Icon(Icons.add),

@@ -9,28 +9,34 @@ class SelectionSection extends StatelessWidget {
   final int? selectedEmployeeId;
   final int? selectedCategoryId;
   final int? selectedRoomId;
-  final Function(int?) onEmployeeSelected;
-  final Function(int?) onCategorySelected;
-  final Function(int?) onRoomSelected;
+  final void Function(int?) onEmployeeSelected;
+  final void Function(int?) onCategorySelected;
+  final void Function(int?) onRoomSelected;
 
   const SelectionSection({
-    super.key,
     required this.employees,
     required this.categories,
     required this.rooms,
-    this.selectedEmployeeId,
-    this.selectedCategoryId,
-    this.selectedRoomId,
     required this.onEmployeeSelected,
     required this.onCategorySelected,
     required this.onRoomSelected,
+    this.selectedEmployeeId,
+    this.selectedCategoryId,
+    this.selectedRoomId,
+    super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final empName = employees.where((e) => e.id == selectedEmployeeId).firstOrNull?.name ?? AppStrings.createInventory.notSelected;
-    final catName = categories.where((c) => c.id == selectedCategoryId).firstOrNull?.name ?? AppStrings.createInventory.notSelected;
-    final roomName = rooms.where((r) => r.id == selectedRoomId).firstOrNull?.name ?? AppStrings.createInventory.notSelected;
+    final empName =
+        employees.where((e) => e.id == selectedEmployeeId).firstOrNull?.name ??
+        AppStrings.createInventory.notSelected;
+    final catName =
+        categories.where((c) => c.id == selectedCategoryId).firstOrNull?.name ??
+        AppStrings.createInventory.notSelected;
+    final roomName =
+        rooms.where((r) => r.id == selectedRoomId).firstOrNull?.name ??
+        AppStrings.createInventory.notSelected;
 
     return Column(
       children: [

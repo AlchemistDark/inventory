@@ -3,12 +3,12 @@ import 'package:inventory_p_shalaev/features/features.dart';
 
 class BarcodeSection extends StatelessWidget {
   final TextEditingController controller;
-  final Function(String) onBarcodeSaved;
+  final void Function(String) onBarcodeSaved;
 
   const BarcodeSection({
-    super.key,
     required this.controller,
     required this.onBarcodeSaved,
+    super.key,
   });
 
   @override
