@@ -12,6 +12,7 @@ class GetCategoryUseCase {
     if (category == null) {
       throw CategoryNotFoundException(id: id);
     }
+
     return category;
   }
 }

@@ -17,6 +17,9 @@ class CategoryEntity {
   });
 
   @override
+  int get hashCode => id.hashCode ^ name.hashCode ^ createdAt.hashCode;
+
+  @override
   String toString() =>
       'CategoryEntity(id: $id, name: $name, createdAt: $createdAt)';
 
@@ -28,7 +31,4 @@ class CategoryEntity {
           id == other.id &&
           name == other.name &&
           createdAt == other.createdAt;
-
-  @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ createdAt.hashCode;
 }

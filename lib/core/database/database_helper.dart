@@ -13,12 +13,21 @@ class DatabaseHelper {
     return _instance;
   }
 
-  DatabaseHelper._internal();
-
   /// Returns the database instance, creating it if necessary
   Future<Database> get database async {
     _database ??= await _initializeDatabase();
+
     return _database!;
+  }
+
+  DatabaseHelper._internal();
+
+  /// Closes the database connection
+  Future<void> closeDatabase() async {
+    if (_database != null) {
+      await _database!.close();
+      _database = null;
+    }
   }
 
   /// Initializes the database with the given path
@@ -96,13 +105,5 @@ class DatabaseHelper {
         FOREIGN KEY(categoryId) REFERENCES categories(id) ON DELETE CASCADE
       )
     ''');
-  }
-
-  /// Closes the database connection
-  Future<void> closeDatabase() async {
-    if (_database != null) {
-      await _database!.close();
-      _database = null;
-    }
   }
 }

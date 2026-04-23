@@ -18,11 +18,6 @@ class CategoryModel {
     required this.createdAt,
   });
 
-  /// Converts the model to a domain entity
-  CategoryEntity toEntity() {
-    return CategoryEntity(id: id, name: name, createdAt: createdAt);
-  }
-
   /// Creates a model from a domain entity
   factory CategoryModel.fromEntity(CategoryEntity entity) {
     return CategoryModel(
@@ -39,6 +34,11 @@ class CategoryModel {
       name: map['name'] as String,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
     );
+  }
+
+  /// Converts the model to a domain entity
+  CategoryEntity toEntity() {
+    return CategoryEntity(id: id, name: name, createdAt: createdAt);
   }
 
   /// Converts the model to a database map

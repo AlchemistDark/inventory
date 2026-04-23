@@ -10,18 +10,21 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
   @override
   Future<CategoryEntity> createCategory(String name) async {
     final model = await localDataSource.createCategory(name);
+
     return model.toEntity();
   }
 
   @override
   Future<List<CategoryEntity>> getCategories() async {
     final models = await localDataSource.getCategories();
+
     return models.map((model) => model.toEntity()).toList();
   }
 
   @override
   Future<CategoryEntity?> getCategoryById(int id) async {
     final model = await localDataSource.getCategoryById(id);
+
     return model?.toEntity();
   }
 
@@ -38,6 +41,7 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
   @override
   Future<List<CategoryEntity>> searchCategories(String query) async {
     final models = await localDataSource.searchCategories(query);
+
     return models.map((model) => model.toEntity()).toList();
   }
 }
