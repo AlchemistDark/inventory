@@ -22,7 +22,6 @@ void main() async {
   final categoriesDataSource = CategoriesLocalDataSourceImpl(databaseHelper);
 
   // Initialize test data
-  // TODO: Remove this later
   await DatabaseSeeder.seedTestData(
     inventoryRepository,
     employeesDataSource,

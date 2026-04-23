@@ -2,27 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
 class CreateInventoryFormBody extends StatelessWidget {
-  final GlobalKey<FormState> formKey;
-  final TextEditingController barcodeController;
-  final TextEditingController nameController;
-  final TextEditingController inventoryNumberController;
-  final TextEditingController quantityController;
-  final TextEditingController descriptionController;
-  final DateTime selectedDate;
-  final int? selectedEmployeeId;
-  final int? selectedCategoryId;
-  final int? selectedRoomId;
-  final List<EmployeeModel> employees;
-  final List<CategoryModel> categories;
-  final List<RoomModel> rooms;
-  final VoidCallback onSelectDate;
-  final VoidCallback onSubmit;
-  final VoidCallback onCancel;
-  final ValueChanged<String> onBarcodeSaved;
-  final ValueChanged<int?> onEmployeeSelected;
-  final ValueChanged<int?> onCategorySelected;
-  final ValueChanged<int?> onRoomSelected;
-
   const CreateInventoryFormBody({
     required this.formKey,
     required this.barcodeController,
@@ -46,6 +25,27 @@ class CreateInventoryFormBody extends StatelessWidget {
     this.selectedRoomId,
     super.key,
   });
+
+  final GlobalKey<FormState> formKey;
+  final TextEditingController barcodeController;
+  final TextEditingController nameController;
+  final TextEditingController inventoryNumberController;
+  final TextEditingController quantityController;
+  final TextEditingController descriptionController;
+  final DateTime selectedDate;
+  final int? selectedEmployeeId;
+  final int? selectedCategoryId;
+  final int? selectedRoomId;
+  final List<EmployeeModel> employees;
+  final List<CategoryModel> categories;
+  final List<RoomModel> rooms;
+  final VoidCallback onSelectDate;
+  final VoidCallback onSubmit;
+  final VoidCallback onCancel;
+  final ValueChanged<String> onBarcodeSaved;
+  final ValueChanged<int?> onEmployeeSelected;
+  final ValueChanged<int?> onCategorySelected;
+  final ValueChanged<int?> onRoomSelected;
 
   @override
   Widget build(BuildContext context) {
