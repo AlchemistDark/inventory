@@ -8,6 +8,10 @@ export 'home/presentation/widgets/inventory_details_dialog.dart';
 export 'home/presentation/widgets/inventory_not_found_dialog.dart';
 export 'home/presentation/widgets/multiple_results_list.dart';
 
+export 'inventory/presentation/widgets/inventory_selection_field.dart';
+export 'inventory/presentation/widgets/inventory_barcode_input_dialog.dart';
+export 'inventory/presentation/widgets/inventory_form_fields.dart';
+
 export 'inventory/data/datasources/inventory_local_datasource.dart';
 export 'inventory/data/datasources/inventory_local_datasource_impl.dart';
 export 'inventory/data/models/inventory_model.dart';

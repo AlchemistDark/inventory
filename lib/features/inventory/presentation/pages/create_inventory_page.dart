@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 
 class CreateInventoryPage extends StatefulWidget {
   final InventoryEntity? editTarget;
@@ -30,8 +30,7 @@ class _CreateInventoryPageState extends State<CreateInventoryPage> {
   List<CategoryModel> _categories = [];
   List<RoomModel> _rooms = [];
 
-  final MobileScannerController _scannerController = MobileScannerController();
-  bool _isScanHandled = false;
+
   
   @override
   void initState() {
@@ -103,88 +102,7 @@ class _CreateInventoryPageState extends State<CreateInventoryPage> {
     _inventoryNumberController.dispose();
     _quantityController.dispose();
     _descriptionController.dispose();
-    _scannerController.dispose();
     super.dispose();
-  }
-
-  void _showBarcodeScanDialog() {
-    final localBarcodeController = TextEditingController(text: _barcodeController.text);
-    _isScanHandled = false;
-
-    showDialog(
-      context: context,
-      builder: (modalContext) => AlertDialog(
-        title: const Text('Ввод штрихкода'),
-        content: SizedBox(
-          width: 360,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: localBarcodeController,
-                decoration: InputDecoration(
-                  labelText: 'Штрихкод',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-              const Text('Или отсканируйте камерой:'),
-              const SizedBox(height: 12),
-              Container(
-                height: 200,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.black12,
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: MobileScanner(
-                  controller: _scannerController,
-                  onDetect: (capture) {
-                    if (_isScanHandled) return;
-                    if (capture.barcodes.isEmpty) return;
-                    
-                    final barcode = capture.barcodes.first.rawValue;
-                    if (barcode == null || barcode.trim().isEmpty) return;
-
-                    _isScanHandled = true;
-                    // Scanning overrides the manual input
-                    localBarcodeController.text = barcode;
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Отсканировано!'), duration: Duration(seconds: 1)),
-                    );
-                    // Do not close automatically, user must press Save per requirements
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          ElevatedButton.icon(
-            onPressed: () {
-               _isScanHandled = false; // allow scan again
-               _scannerController.start();
-            },
-            icon: const Icon(Icons.refresh),
-            label: const Text('Сбросить сканер'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(modalContext),
-            child: const Text('Отмена'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              _barcodeController.text = localBarcodeController.text;
-              Navigator.pop(modalContext);
-            },
-            child: const Text('Сохранить'),
-          ),
-        ],
-      ),
-    );
   }
 
   void _selectDate() async {
@@ -197,54 +115,6 @@ class _CreateInventoryPageState extends State<CreateInventoryPage> {
     if (picked != null && picked != _selectedDate) {
       setState(() => _selectedDate = picked);
     }
-  }
-  
-  void _selectEmployee() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => ListView(
-        children: _employees.map((e) => ListTile(
-          title: Text(e.name),
-          selected: _selectedEmployeeId == e.id,
-          onTap: () {
-            setState(() => _selectedEmployeeId = e.id);
-            Navigator.pop(context);
-          },
-        )).toList(),
-      ),
-    );
-  }
-
-  void _selectCategory() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => ListView(
-        children: _categories.map((c) => ListTile(
-          title: Text(c.name),
-          selected: _selectedCategoryId == c.id,
-          onTap: () {
-            setState(() => _selectedCategoryId = c.id);
-            Navigator.pop(context);
-          },
-        )).toList(),
-      ),
-    );
-  }
-
-  void _selectRoom() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => ListView(
-        children: _rooms.map((r) => ListTile(
-          title: Text(r.name),
-          selected: _selectedRoomId == r.id,
-          onTap: () {
-            setState(() => _selectedRoomId = r.id);
-            Navigator.pop(context);
-          },
-        )).toList(),
-      ),
-    );
   }
 
   void _submitForm() {
@@ -281,13 +151,13 @@ class _CreateInventoryPageState extends State<CreateInventoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    final empName = _employees.where((e) => e.id == _selectedEmployeeId).firstOrNull?.name ?? 'Не выбрано';
-    final catName = _categories.where((c) => c.id == _selectedCategoryId).firstOrNull?.name ?? 'Не выбрано';
-    final roomName = _rooms.where((r) => r.id == _selectedRoomId).firstOrNull?.name ?? 'Не выбрано';
+    final empName = _employees.where((e) => e.id == _selectedEmployeeId).firstOrNull?.name ?? AppStrings.createInventory.notSelected;
+    final catName = _categories.where((c) => c.id == _selectedCategoryId).firstOrNull?.name ?? AppStrings.createInventory.notSelected;
+    final roomName = _rooms.where((r) => r.id == _selectedRoomId).firstOrNull?.name ?? AppStrings.createInventory.notSelected;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.editTarget == null ? 'Создание предмета' : 'Редактирование предмета'),
+        title: Text(widget.editTarget == null ? AppStrings.createInventory.appBarCreateTitle : AppStrings.createInventory.appBarEditTitle),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -297,188 +167,119 @@ class _CreateInventoryPageState extends State<CreateInventoryPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Barcode output & scan button
-              const Text('Штрихкод', style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                   Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        _barcodeController.text.isEmpty ? 'Нет кода' : _barcodeController.text,
-                        style: const TextStyle(fontSize: 16),
-                      ),
+              InventoryBarcodeField(
+                controller: _barcodeController,
+                onScanPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => InventoryBarcodeInputDialog(
+                      initialBarcode: _barcodeController.text,
+                      onBarcodeSaved: (barcode) {
+                        setState(() {
+                          _barcodeController.text = barcode;
+                        });
+                      },
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  IconButton(
-                    onPressed: _showBarcodeScanDialog,
-                    icon: const Icon(Icons.qr_code_2),
-                    tooltip: 'Сканировать/Ввести',
-                  ),
-                ],
+                  );
+                },
               ),
               const SizedBox(height: 16),
 
               // Name field
-              TextFormField(
+              InventoryTextField(
                 controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: 'Название *',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
+                labelText: AppStrings.createInventory.nameFieldLabel,
                 validator: (value) {
-                  if (value == null || value.trim().isEmpty) return 'Введите название';
-                  if (value.length < 3) return 'Минимум 3 символа';
-                  if (value.length > 50) return 'Максимум 50 символов';
+                  if (value == null || value.trim().isEmpty) return AppStrings.createInventory.nameRequiredError;
+                  if (value.length < 3) return AppStrings.createInventory.minLength3Error;
+                  if (value.length > 50) return AppStrings.createInventory.maxLength50Error;
                   return null;
                 },
               ),
               const SizedBox(height: 16),
 
               // Inventory Number
-              TextFormField(
+              InventoryTextField(
                 controller: _inventoryNumberController,
-                decoration: InputDecoration(
-                  labelText: 'Инвентарный номер',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
+                labelText: AppStrings.createInventory.inventoryNumberFieldLabel,
                 validator: (value) {
-                  if (value != null && value.length > 50) return 'Максимум 50 символов';
+                  if (value != null && value.length > 50) return AppStrings.createInventory.maxLength50Error;
                   return null;
                 },
               ),
               const SizedBox(height: 16),
 
               // Quantity
-              TextFormField(
+              InventoryTextField(
                 controller: _quantityController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: 'Количество',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
+                labelText: AppStrings.createInventory.quantityFieldLabel,
                 validator: (value) {
-                  if (value == null || value.isEmpty) return 'Введите количество';
+                  if (value == null || value.isEmpty) return AppStrings.createInventory.quantityRequiredError;
                   final qty = int.tryParse(value);
-                  if (qty == null || qty < 1 || qty > 999) return 'От 1 до 999';
+                  if (qty == null || qty < 1 || qty > 999) return AppStrings.createInventory.quantityRangeError;
                   return null;
                 },
               ),
               const SizedBox(height: 16),
 
               // Responsible
-              const Text('Ответственный', style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              GestureDetector(
-                onTap: _selectEmployee,
-                child: Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(empName),
-                      const Icon(Icons.person),
-                    ],
-                  ),
-                ),
+              InventorySelectionField<EmployeeModel>(
+                label: AppStrings.createInventory.responsibleLabel,
+                selectedName: empName,
+                icon: Icons.person,
+                items: _employees,
+                selectedId: _selectedEmployeeId,
+                itemName: (e) => e.name,
+                itemId: (e) => e.id,
+                onSelected: (id) => setState(() => _selectedEmployeeId = id),
               ),
               const SizedBox(height: 16),
 
               // Category
-              const Text('Категория', style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              GestureDetector(
-                onTap: _selectCategory,
-                child: Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(catName),
-                      const Icon(Icons.category),
-                    ],
-                  ),
-                ),
+              InventorySelectionField<CategoryModel>(
+                label: AppStrings.createInventory.categoryLabel,
+                selectedName: catName,
+                icon: Icons.category,
+                items: _categories,
+                selectedId: _selectedCategoryId,
+                itemName: (c) => c.name,
+                itemId: (c) => c.id,
+                onSelected: (id) => setState(() => _selectedCategoryId = id),
               ),
               const SizedBox(height: 16),
 
               // Room
-              const Text('Помещение', style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              GestureDetector(
-                onTap: _selectRoom,
-                child: Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(roomName),
-                      const Icon(Icons.room),
-                    ],
-                  ),
-                ),
+              InventorySelectionField<RoomModel>(
+                label: AppStrings.createInventory.roomLabel,
+                selectedName: roomName,
+                icon: Icons.room,
+                items: _rooms,
+                selectedId: _selectedRoomId,
+                itemName: (r) => r.name,
+                itemId: (r) => r.id,
+                onSelected: (id) => setState(() => _selectedRoomId = id),
               ),
               const SizedBox(height: 16),
 
               // Description
-              TextFormField(
+              InventoryTextField(
                 controller: _descriptionController,
                 maxLines: 3,
-                decoration: InputDecoration(
-                  labelText: 'Описание',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
+                labelText: AppStrings.createInventory.descriptionFieldLabel,
                 validator: (value) {
-                  if (value != null && value.length > 500) return 'Максимум 500 символов';
+                  if (value != null && value.length > 500) return AppStrings.createInventory.maxLength500Error;
                   return null;
                 },
               ),
               const SizedBox(height: 16),
 
               // Date field
-              const Text('Дата постановки на учёт *', style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              GestureDetector(
+              InventoryActionField(
+                label: AppStrings.createInventory.dateAddedLabel,
+                valueText: DateFormat('dd.MM.yyyy').format(_selectedDate),
+                icon: Icons.calendar_today,
                 onTap: _selectDate,
-                child: Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(DateFormat('dd.MM.yyyy').format(_selectedDate)),
-                      const Icon(Icons.calendar_today),
-                    ],
-                  ),
-                ),
               ),
               const SizedBox(height: 24),
 
@@ -488,14 +289,14 @@ class _CreateInventoryPageState extends State<CreateInventoryPage> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: _submitForm,
-                      child: const Text('Сохранить'),
+                      child: Text(AppStrings.createInventory.saveButton),
                     ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () => Navigator.pop(context),
-                      child: const Text('Отмена'),
+                      child: Text(AppStrings.createInventory.cancelButton),
                     ),
                   ),
                 ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
+import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 
 class InventoryListPage extends StatefulWidget {
   const InventoryListPage({super.key});
@@ -71,23 +72,23 @@ class _InventoryListPageState extends State<InventoryListPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildDetailRow('Название:', inventory.name),
-              _buildDetailRow('Штрихкод:', inventory.barcode ?? 'Не указан'),
-              _buildDetailRow('Инвентарный №:', inventory.inventoryNumber ?? 'Не указан'),
-              _buildDetailRow('Количество:', '${inventory.quantity}'),
-              _buildDetailRow('Помещение:', _roomMap[inventory.roomId] ?? 'Не указано'),
-              _buildDetailRow('Ответственный:', _employeeMap[inventory.employeeId] ?? 'Не указан'),
-              _buildDetailRow('Категория:', _categoryMap[inventory.categoryId] ?? 'Не указана'),
-              _buildDetailRow('Дата постановки:', inventory.dateAdded.toString().split(' ')[0]),
+              _buildDetailRow(AppStrings.inventoryList.detailNameLabel, inventory.name),
+              _buildDetailRow(AppStrings.inventoryList.detailBarcodeLabel, inventory.barcode ?? AppStrings.inventoryList.notSpecifiedMale),
+              _buildDetailRow(AppStrings.inventoryList.detailInventoryNumberLabel, inventory.inventoryNumber ?? AppStrings.inventoryList.notSpecifiedMale),
+              _buildDetailRow(AppStrings.inventoryList.detailQuantityLabel, '${inventory.quantity}'),
+              _buildDetailRow(AppStrings.inventoryList.detailRoomLabel, _roomMap[inventory.roomId] ?? AppStrings.inventoryList.notSpecified),
+              _buildDetailRow(AppStrings.inventoryList.detailResponsibleLabel, _employeeMap[inventory.employeeId] ?? AppStrings.inventoryList.notSpecifiedMale),
+              _buildDetailRow(AppStrings.inventoryList.detailCategoryLabel, _categoryMap[inventory.categoryId] ?? AppStrings.inventoryList.notSpecifiedFemale),
+              _buildDetailRow(AppStrings.inventoryList.detailDateLabel, inventory.dateAdded.toString().split(' ')[0]),
               if (inventory.description != null)
-                _buildDetailRow('Описание:', inventory.description!),
+                _buildDetailRow(AppStrings.inventoryList.detailDescriptionLabel, inventory.description!),
             ],
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Закрыть'),
+            child: Text(AppStrings.inventoryList.closeButton),
           ),
         ],
       ),
@@ -112,7 +113,7 @@ class _InventoryListPageState extends State<InventoryListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Инвентарь'),
+        title: Text(AppStrings.inventoryList.appBarTitle),
       ),
       body: Column(
         children: [
@@ -124,7 +125,7 @@ class _InventoryListPageState extends State<InventoryListPage> {
                 TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    hintText: 'Поиск по штрихкоду, инвентарному номеру или названию',
+                    hintText: AppStrings.inventoryList.searchHint,
                     prefixIcon: const Icon(Icons.search),
                     suffixIcon: _searchController.text.isNotEmpty
                         ? IconButton(
@@ -161,14 +162,14 @@ class _InventoryListPageState extends State<InventoryListPage> {
                     return DropdownButtonFormField<int?>(
                       value: currentCategory,
                       decoration: InputDecoration(
-                        labelText: 'Фильтр по категории',
+                        labelText: AppStrings.inventoryList.filterByCategoryLabel,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       ),
                       items: [
-                        const DropdownMenuItem(value: null, child: Text('Все категории')),
+                        DropdownMenuItem(value: null, child: Text(AppStrings.inventoryList.showAllCategories)),
                         ..._categoryMap.entries.map((e) => DropdownMenuItem(
                           value: e.key,
                           child: Text(e.value),
@@ -201,8 +202,8 @@ class _InventoryListPageState extends State<InventoryListPage> {
                   }
 
                   if (displayList.isEmpty) {
-                    return const Center(
-                      child: Text('Нет предметов, удовлетворяющих фильтру'),
+                    return Center(
+                      child: Text(AppStrings.inventoryList.noItemsFilterMessage),
                     );
                   }
                   
@@ -213,10 +214,10 @@ class _InventoryListPageState extends State<InventoryListPage> {
                       final item = displayList[index];
                       // Возможно как-то разбить
                       final String qtyText = item.quantity > 0 ? '(${item.quantity}) ' : '';
-                      final String invNumText = item.inventoryNumber != null ? '${item.inventoryNumber} ' : 'Без номера ';
+                      final String invNumText = item.inventoryNumber != null ? '${item.inventoryNumber} ' : '${AppStrings.inventoryList.noInventoryNumber} ';
                       final titleText = '$invNumText$qtyText${item.name}';
                       
-                      final String roomAndEmp = 'Помещение: ${_roomMap[item.roomId] ?? "Не указано"}, Отв.: ${_employeeMap[item.employeeId] ?? "Не указан"}';
+                      final String roomAndEmp = '${AppStrings.inventoryList.detailRoomLabel} ${_roomMap[item.roomId] ?? AppStrings.inventoryList.notSpecified}, ${AppStrings.inventoryList.detailResponsibleLabel} ${_employeeMap[item.employeeId] ?? AppStrings.inventoryList.notSpecifiedMale}';
 
                       return GestureDetector(
                         onTap: () => _showDetail(item),
@@ -255,7 +256,7 @@ class _InventoryListPageState extends State<InventoryListPage> {
                     },
                   );
                 } else if (state is InventoryError) {
-                  return Center(child: Text('Ошибка: ${state.message}'));
+                  return Center(child: Text('${AppStrings.inventoryList.errorMessagePrefix}${state.message}'));
                 }
                 return const SizedBox();
               },

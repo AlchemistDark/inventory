@@ -4,77 +4,152 @@ class AppStrings {
   AppStrings();
 
   static Home home = Home();
+  static InventoryList inventoryList = InventoryList();
+  static CreateInventory createInventory = CreateInventory();
 }
 
 class Home {
   Home();
 
   // App Bar
-  final String appBarTitle = 'Inventory Management';
-  final String menuUnderDevelopment = 'Menu (under development)';
+  final String appBarTitle = 'Управление Инвентарем';
+  final String menuUnderDevelopment = 'Меню (в разработке)';
 
   // Search Section
-  final String searchTitle = 'Search for item';
-  final String scanButton = 'Scan';
-  final String searchFieldLabel = 'Enter name or number';
-  final String searchButton = 'Search';
+  final String searchTitle = 'Поиск предмета';
+  final String scanButton = 'Скан';
+  final String searchFieldLabel = 'Введите название или номер';
+  final String searchButton = 'Найти';
 
   // Barcode Dialog
-  final String barcodeDialogTitle = 'Scan Barcode';
+  final String barcodeDialogTitle = 'Сканирование штрихкода';
   final String barcodeDialogHint =
-      'Point camera at barcode or enter it manually below';
-  final String barcodeFieldLabel = 'Barcode or inventory number';
+      'Наведите камеру на штрихкод или введите его вручную ниже';
+  final String barcodeFieldLabel = 'Штрихкод или инв. номер';
   final String scannerUnavailableMessage =
-      'Camera unavailable. Use manual input.';
+      'Камера недоступна. Используйте ручной ввод.';
   final String scannerPermissionDeniedMessage =
-      'Camera permission denied. Use manual input.';
-  final String scannerReadButton = 'Scan with camera';
-  final String scannerScanningLabel = 'Scanning...';
-  final String saveButton = 'Save';
-  final String cancelButton = 'Cancel';
-  final String searchButtonDialog = 'Search';
+      'Нет доступа к камере. Используйте ручной ввод.';
+  final String scannerReadButton = 'Сканировать камерой';
+  final String scannerScanningLabel = 'Сканирование...';
+  final String saveButton = 'Сохранить';
+  final String cancelButton = 'Отмена';
+  final String searchButtonDialog = 'Поиск';
 
   // Not Found Dialog
-  final String notFoundDialogTitle = 'Inventory Item Not Found';
+  final String notFoundDialogTitle = 'Предмет не найден';
   final String notFoundDialogContent =
-      'Item with number "%s" not found in database.';
-  final String createButton = 'Create';
+      'Предмет с номером "%s" не найден в базе данных.';
+  final String createButton = 'Создать';
 
   // Create Inventory Dialog
-  final String createInventoryDialogTitle = 'Create New Item';
+  final String createInventoryDialogTitle = 'Создать новый предмет';
   final String createInventoryDialogContent =
-      'Navigate to "Inventory" section to create a new item?';
-  final String creatingItemMessage = 'Creating item with barcode: %s';
+      'Перейти в раздел "Инвентарь" для создания нового предмета?';
+  final String creatingItemMessage = 'Создание предмета со штрихкодом: %s';
 
   // Item Details Dialog
-  final String itemDetailsTitle = 'Item Details';
-  final String nameLabel = 'Name:';
-  final String barcodeLabel = 'Barcode:';
-  final String inventoryNumberLabel = 'Inventory #:';
-  final String quantityLabel = 'Quantity:';
-  final String descriptionLabel = 'Description:';
-  final String registrationDateLabel = 'Registration date:';
-  final String notSpecified = 'Not specified';
-  final String closeDialogButton = 'Close';
-  final String editButton = 'Edit';
-  final String editUnderDevelopment = 'Edit item (under development)';
+  final String itemDetailsTitle = 'Детали предмета';
+  final String nameLabel = 'Название:';
+  final String barcodeLabel = 'Штрихкод:';
+  final String inventoryNumberLabel = 'Инв. номер:';
+  final String quantityLabel = 'Количество:';
+  final String descriptionLabel = 'Описание:';
+  final String registrationDateLabel = 'Дата регистрации:';
+  final String notSpecified = 'Не указано';
+  final String closeDialogButton = 'Закрыть';
+  final String editButton = 'Изменить';
+  final String editUnderDevelopment = 'Редактирование (в разработке)';
 
   // Search Results
-  final String foundItemsTitle = 'Found %d items:';
-  final String quantityPrefix = 'Quantity: ';
+  final String foundItemsTitle = 'Найдено предметов: %d';
+  final String quantityPrefix = 'Кол-во: ';
 
   // Navigation Section
-  final String sectionsTitle = 'Sections';
-  final String inventoryButton = 'Inventory';
-  final String employeesButton = 'Employees';
-  final String roomsButton = 'Rooms';
+  final String sectionsTitle = 'Разделы';
+  final String inventoryButton = 'Инвентарь';
+  final String employeesButton = 'Сотрудники';
+  final String roomsButton = 'Помещения';
   final String inventoryUnderDevelopment =
-      'Inventory section (under development)';
+      'Раздел "Инвентарь" (в разработке)';
   final String employeesUnderDevelopment =
-      'Employees section (under development)';
+      'Раздел "Сотрудники" (в разработке)';
   final String roomsUnderDevelopment =
-      'Rooms section (under development)';
+      'Раздел "Помещения" (в разработке)';
 
   // Error Messages
-  final String errorPrefix = 'Error: ';
+  final String errorPrefix = 'Ошибка: ';
+}
+
+class InventoryList {
+  InventoryList();
+
+  final String appBarTitle = 'Список инвентаря';
+  final String emptyStateMessage = 'Список инвентаря пуст';
+  final String emptySearchMessage = 'По данному запросу ничего не найдено';
+  final String noBarcode = 'Нет кода';
+  final String noInventoryNumber = 'Б/Н';
+  final String inventoryNumberPrefix = 'Инв. №: ';
+  final String itemAddedMessage = 'Предмет добавлен';
+  final String filterByCategoryLabel = 'Фильтр по категории';
+  final String showAllCategories = 'Все категории';
+  
+  final String searchHint = 'Поиск по штрихкоду, инвентарному номеру или названию';
+  final String notSpecified = 'Не указано';
+  final String notSpecifiedMale = 'Не указан';
+  final String notSpecifiedFemale = 'Не указана';
+  final String closeButton = 'Закрыть';
+  final String noItemsFilterMessage = 'Нет предметов, удовлетворяющих фильтру';
+  final String errorMessagePrefix = 'Ошибка: ';
+  
+  final String detailNameLabel = 'Название:';
+  final String detailBarcodeLabel = 'Штрихкод:';
+  final String detailInventoryNumberLabel = 'Инвентарный №:';
+  final String detailQuantityLabel = 'Количество:';
+  final String detailRoomLabel = 'Помещение:';
+  final String detailResponsibleLabel = 'Ответственный:';
+  final String detailCategoryLabel = 'Категория:';
+  final String detailDateLabel = 'Дата постановки:';
+  final String detailDescriptionLabel = 'Описание:';
+}
+
+class CreateInventory {
+  CreateInventory();
+
+  final String appBarCreateTitle = 'Создание предмета';
+  final String appBarEditTitle = 'Редактирование предмета';
+  
+  final String barcodeLabel = 'Штрихкод';
+  final String noBarcode = 'Нет кода';
+  final String scanOrInputTooltip = 'Сканировать/Ввести';
+
+  final String nameFieldLabel = 'Название *';
+  final String nameRequiredError = 'Введите название';
+  final String minLength3Error = 'Минимум 3 символа';
+  final String maxLength50Error = 'Максимум 50 символов';
+
+  final String inventoryNumberFieldLabel = 'Инвентарный номер';
+  final String quantityFieldLabel = 'Количество';
+  final String quantityRequiredError = 'Введите количество';
+  final String quantityRangeError = 'От 1 до 999';
+
+  final String responsibleLabel = 'Ответственный';
+  final String categoryLabel = 'Категория';
+  final String roomLabel = 'Помещение';
+  final String notSelected = 'Не выбрано';
+
+  final String descriptionFieldLabel = 'Описание';
+  final String maxLength500Error = 'Максимум 500 символов';
+
+  final String dateAddedLabel = 'Дата постановки на учёт *';
+  
+  final String saveButton = 'Сохранить';
+  final String cancelButton = 'Отмена';
+  
+  // Barcode Input Dialog
+  final String barcodeDialogTitle = 'Ввод штрихкода';
+  final String barcodeFieldInDialog = 'Штрихкод';
+  final String cameraScanText = 'Или отсканируйте камерой:';
+  final String resetScannerButton = 'Сбросить сканер';
+  final String scannedSuccessMessage = 'Отсканировано!';
 }
