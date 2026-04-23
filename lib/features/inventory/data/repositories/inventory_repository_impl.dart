@@ -1,6 +1,4 @@
 import 'package:inventory_p_shalaev/features/features.dart';
-import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
-import 'package:inventory_p_shalaev/features/inventory/domain/repositories/inventory_repository.dart';
 
 class InventoryRepositoryImpl implements InventoryRepository {
   final InventoryLocalDataSource localDataSource;

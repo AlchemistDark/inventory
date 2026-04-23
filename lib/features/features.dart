@@ -4,13 +4,9 @@ export 'home/presentation/bloc/home_state.dart';
 export 'home/presentation/pages/home_page.dart';
 export 'home/presentation/widgets/barcode_scanner_dialog.dart';
 export 'home/presentation/widgets/home_bottom_navigation.dart';
-export 'home/presentation/widgets/inventory_details_dialog.dart';
+export 'home/presentation/widgets/home_search_form.dart';
 export 'home/presentation/widgets/inventory_not_found_dialog.dart';
 export 'home/presentation/widgets/multiple_results_list.dart';
-
-export 'inventory/presentation/widgets/inventory_selection_field.dart';
-export 'inventory/presentation/widgets/inventory_barcode_input_dialog.dart';
-export 'inventory/presentation/widgets/inventory_form_fields.dart';
 
 export 'inventory/data/datasources/inventory_local_datasource.dart';
 export 'inventory/data/datasources/inventory_local_datasource_impl.dart';
@@ -29,6 +25,13 @@ export 'inventory/presentation/bloc/inventory_common_models.dart';
 export 'inventory/presentation/bloc/inventory_event.dart';
 export 'inventory/presentation/bloc/inventory_state.dart';
 export 'inventory/presentation/pages/create_inventory_page.dart';
+export 'inventory/presentation/pages/inventory_details_page.dart';
+export 'inventory/presentation/widgets/inventory_selection_field.dart';
+export 'inventory/presentation/widgets/inventory_barcode_input_dialog.dart';
+export 'inventory/presentation/widgets/inventory_form_fields.dart';
+
+
+
 
 export 'positions/data/datasources/positions_local_datasource.dart';
 export 'rooms/data/datasources/rooms_local_datasource.dart';

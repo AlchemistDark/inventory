@@ -47,64 +47,10 @@ class _InventoryListPageState extends State<InventoryListPage> {
   }
 
   void _showDetail(InventoryEntity inventory) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Row(
-          children: [
-            Expanded(child: Text(inventory.name)),
-            IconButton(
-              icon: const Icon(Icons.edit),
-              onPressed: () {
-                Navigator.pop(context); // close dialog
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CreateInventoryPage(editTarget: inventory),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildDetailRow(AppStrings.inventoryList.detailNameLabel, inventory.name),
-              _buildDetailRow(AppStrings.inventoryList.detailBarcodeLabel, inventory.barcode ?? AppStrings.inventoryList.notSpecifiedMale),
-              _buildDetailRow(AppStrings.inventoryList.detailInventoryNumberLabel, inventory.inventoryNumber ?? AppStrings.inventoryList.notSpecifiedMale),
-              _buildDetailRow(AppStrings.inventoryList.detailQuantityLabel, '${inventory.quantity}'),
-              _buildDetailRow(AppStrings.inventoryList.detailRoomLabel, _roomMap[inventory.roomId] ?? AppStrings.inventoryList.notSpecified),
-              _buildDetailRow(AppStrings.inventoryList.detailResponsibleLabel, _employeeMap[inventory.employeeId] ?? AppStrings.inventoryList.notSpecifiedMale),
-              _buildDetailRow(AppStrings.inventoryList.detailCategoryLabel, _categoryMap[inventory.categoryId] ?? AppStrings.inventoryList.notSpecifiedFemale),
-              _buildDetailRow(AppStrings.inventoryList.detailDateLabel, inventory.dateAdded.toString().split(' ')[0]),
-              if (inventory.description != null)
-                _buildDetailRow(AppStrings.inventoryList.detailDescriptionLabel, inventory.description!),
-            ],
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(AppStrings.inventoryList.closeButton),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDetailRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-          const SizedBox(height: 2),
-          Text(value, style: const TextStyle(fontSize: 15)),
-        ],
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => InventoryDetailsPage(inventory: inventory),
       ),
     );
   }
@@ -160,7 +106,7 @@ class _InventoryListPageState extends State<InventoryListPage> {
                     }
                     
                     return DropdownButtonFormField<int?>(
-                      value: currentCategory,
+                      initialValue: currentCategory,
                       decoration: InputDecoration(
                         labelText: AppStrings.inventoryList.filterByCategoryLabel,
                         border: OutlineInputBorder(

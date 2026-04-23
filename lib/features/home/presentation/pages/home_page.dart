@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
-import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
-import 'package:inventory_p_shalaev/features/inventory/presentation/pages/create_inventory_page.dart';
-
-import '../widgets/home_search_form.dart';
 
 /// Home screen for inventory management
 class HomePage extends StatefulWidget {
@@ -72,18 +68,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// Shows dialog with inventory item details
+  /// Shows inventory item details screen
   void _showInventoryDetails(InventoryEntity inventory) {
-    showDialog(
-      context: context,
-      builder: (context) => InventoryDetailsDialog(
-        inventory: inventory,
-        onEdit: () {
-          Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(AppStrings.home.editUnderDevelopment)),
-          );
-        },
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => InventoryDetailsPage(inventory: inventory),
       ),
     );
   }

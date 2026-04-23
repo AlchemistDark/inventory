@@ -48,16 +48,22 @@ class HomeSearchForm extends StatelessWidget {
           onSubmitted: (_) => onSearchPressed(),
         ),
         const SizedBox(height: 12),
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton.icon(
-            onPressed: onSearchPressed,
-            icon: const Icon(Icons.search),
-            label: Text(AppStrings.home.searchButton),
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size.fromHeight(48),
-            ),
-          ),
+        ValueListenableBuilder<TextEditingValue>(
+          valueListenable: searchController,
+          builder: (context, value, child) {
+            final bool isNotEmpty = value.text.trim().isNotEmpty;
+            return SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: isNotEmpty ? onSearchPressed : null,
+                icon: const Icon(Icons.search),
+                label: Text(AppStrings.home.searchButton),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(48),
+                ),
+              ),
+            );
+          },
         ),
       ],
     );

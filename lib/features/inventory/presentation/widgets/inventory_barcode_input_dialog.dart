@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 
