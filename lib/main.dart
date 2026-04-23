@@ -61,16 +61,6 @@ class MyApp extends StatelessWidget {
   /// Data source for category data
   final CategoriesLocalDataSourceImpl categoriesDataSource;
 
-  /// Creates [MyApp] with required dependencies
-  const MyApp({
-    required this.inventoryRepository,
-    required this.employeesDataSource,
-    required this.roomsDataSource,
-    required this.positionsDataSource,
-    required this.categoriesDataSource,
-    super.key,
-  });
-
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
