@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
 class CreateInventoryForm extends StatefulWidget {
-  final InventoryEntity? editTarget;
-
   const CreateInventoryForm({super.key, this.editTarget});
+
+  final InventoryEntity? editTarget;
 
   @override
   State<CreateInventoryForm> createState() => _CreateInventoryFormState();
@@ -19,11 +19,55 @@ class _CreateInventoryFormState extends State<CreateInventoryForm> {
   final _quantityController = TextEditingController(text: '1');
   final _descriptionController = TextEditingController();
 
+  int _inventoryIdToEdit = 0;
   DateTime _selectedDate = DateTime.now();
   int? _selectedEmployeeId;
   int? _selectedCategoryId;
   int? _selectedRoomId;
-  late int _inventoryIdToEdit;
+
+  Future<void> _selectDate() async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime.now().subtract(const Duration(days: 36500)),
+      lastDate: DateTime.now(),
+    );
+    if (!mounted) return;
+    if (picked != null && picked != _selectedDate) {
+      setState(() => _selectedDate = picked);
+    }
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      final inventory = InventoryEntity(
+        id: _inventoryIdToEdit,
+        barcode: _barcodeController.text.trim().isEmpty
+            ? null
+            : _barcodeController.text.trim(),
+        name: _nameController.text.trim(),
+        inventoryNumber: _inventoryNumberController.text.trim().isEmpty
+            ? null
+            : _inventoryNumberController.text.trim(),
+        quantity: int.parse(_quantityController.text),
+        description: _descriptionController.text.trim().isEmpty
+            ? null
+            : _descriptionController.text.trim(),
+        dateAdded: _selectedDate,
+        employeeId: _selectedEmployeeId,
+        roomId: _selectedRoomId,
+        categoryId: _selectedCategoryId,
+        createdAt: widget.editTarget?.createdAt ?? DateTime.now(),
+      );
+
+      context.read<InventoryFormBloc>().add(
+        SubmitInventoryEvent(
+          inventory: inventory,
+          isEdit: widget.editTarget != null,
+        ),
+      );
+    }
+  }
 
   @override
   void initState() {
@@ -66,49 +110,6 @@ class _CreateInventoryFormState extends State<CreateInventoryForm> {
     _quantityController.dispose();
     _descriptionController.dispose();
     super.dispose();
-  }
-
-  Future<void> _selectDate() async {
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDate,
-      firstDate: DateTime.now().subtract(const Duration(days: 36500)),
-      lastDate: DateTime.now(),
-    );
-    if (picked != null && picked != _selectedDate) {
-      setState(() => _selectedDate = picked);
-    }
-  }
-
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      final inventory = InventoryEntity(
-        id: _inventoryIdToEdit,
-        barcode: _barcodeController.text.trim().isEmpty
-            ? null
-            : _barcodeController.text.trim(),
-        name: _nameController.text.trim(),
-        inventoryNumber: _inventoryNumberController.text.trim().isEmpty
-            ? null
-            : _inventoryNumberController.text.trim(),
-        quantity: int.parse(_quantityController.text),
-        description: _descriptionController.text.trim().isEmpty
-            ? null
-            : _descriptionController.text.trim(),
-        dateAdded: _selectedDate,
-        employeeId: _selectedEmployeeId,
-        roomId: _selectedRoomId,
-        categoryId: _selectedCategoryId,
-        createdAt: widget.editTarget?.createdAt ?? DateTime.now(),
-      );
-
-      context.read<InventoryFormBloc>().add(
-        SubmitInventoryEvent(
-          inventory: inventory,
-          isEdit: widget.editTarget != null,
-        ),
-      );
-    }
   }
 
   @override
@@ -174,7 +175,7 @@ class _CreateInventoryFormState extends State<CreateInventoryForm> {
                 FooterSection(
                   descriptionController: _descriptionController,
                   selectedDate: _selectedDate,
-                  onSelectDate: _selectDate,
+                  onSelectDate: () => _selectDate(),
                   onSubmit: _submitForm,
                   onCancel: () => Navigator.pop(context),
                 ),

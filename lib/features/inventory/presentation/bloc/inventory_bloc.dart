@@ -98,10 +98,10 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
     }
   }
 
-  Future<void> _onFilterByCategory(
+  void _onFilterByCategory(
     FilterInventoriesByCategoryEvent event,
     Emitter<InventoryState> emit,
-  ) async {
+  ) {
     if (state is InventoriesLoaded) {
       final currentState = state as InventoriesLoaded;
       emit(InventoriesLoaded(

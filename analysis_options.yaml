@@ -6,7 +6,6 @@ include:
 analyzer:
   errors:
     inference_failure_on_function_invocation: ignore
-    omit_obvious_local_variable_types: ignore
   language:
     # strict-casts: true
     strict-inference: true
@@ -58,7 +57,7 @@ linter:
 dcm:
   exclude:
     rules:
-      - "test/**"
+      - "test/**" 
   rules:
     - always-remove-listener
     #- avoid-border-all

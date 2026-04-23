@@ -47,13 +47,9 @@ class HomeBloc extends Bloc<CoreInventoryEvent, HomeState>
     await executeWithLoading(
       emit: emit,
       action: () => searchByBarcodeUseCase(event.barcode),
-      onSuccess: (result) {
-        if (result != null) {
-          return HomeSearchSuccess(result);
-        } else {
-          return HomeNotFound(event.barcode);
-        }
-      },
+      onSuccess: (result) => result != null
+          ? HomeSearchSuccess(result)
+          : HomeNotFound(event.barcode),
       onError: (msg) => HomeError(msg),
       loadingState: const HomeLoading(),
     );
@@ -81,10 +77,10 @@ class HomeBloc extends Bloc<CoreInventoryEvent, HomeState>
     );
   }
 
-  Future<void> _onClearSearch(
+  void _onClearSearch(
     ClearSearchEvent event,
     Emitter<HomeState> emit,
-  ) async {
+  ) {
     emit(const HomeInitial());
   }
 }

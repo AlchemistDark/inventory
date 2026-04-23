@@ -3,14 +3,14 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
 
 class InventoryBarcodeInputDialog extends StatefulWidget {
-  final String initialBarcode;
-  final ValueChanged<String> onBarcodeSaved;
-
   const InventoryBarcodeInputDialog({
     required this.initialBarcode,
     required this.onBarcodeSaved,
     super.key,
   });
+
+  final String initialBarcode;
+  final ValueChanged<String> onBarcodeSaved;
 
   @override
   State<InventoryBarcodeInputDialog> createState() =>
@@ -19,6 +19,7 @@ class InventoryBarcodeInputDialog extends StatefulWidget {
 
 class _InventoryBarcodeInputDialogState
     extends State<InventoryBarcodeInputDialog> {
+  // ignore: avoid-late-keyword
   late final TextEditingController _barcodeController;
   final MobileScannerController _scannerController = MobileScannerController();
   bool _isScanHandled = false;

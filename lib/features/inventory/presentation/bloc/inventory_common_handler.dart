@@ -36,7 +36,7 @@ mixin InventoryCommonHandler<S> {
     required S Function(dynamic results) onSuccess,
     required S Function(String message) onError,
     required S loadingState,
-  }) async {
+  }) {
     return executeWithLoading(
       emit: emit,
       action: () => searchUseCase(query),
