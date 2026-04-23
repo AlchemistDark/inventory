@@ -98,6 +98,15 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
+          BlocProvider(
+            create: (context) => InventoryFormBloc(
+              employeesDataSource: employeesDataSource,
+              categoriesDataSource: categoriesDataSource,
+              roomsDataSource: roomsDataSource,
+              createInventoryUseCase: CreateInventoryUseCase(inventoryRepository),
+              updateInventoryUseCase: UpdateInventoryUseCase(inventoryRepository),
+            ),
+          ),
         ],
         child: MaterialApp(
           title: 'Inventory Management',
