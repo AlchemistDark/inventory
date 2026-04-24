@@ -21,6 +21,7 @@ class InventoryLoading extends InventoryState with LoadingStateMixin {
 
 class InventoriesLoaded extends InventoryState {
   final List<InventoryEntity> inventories;
+  final List<InventoryEntity> filteredInventories;
   final List<EmployeeModel> employees;
   final List<CategoryModel> categories;
   final List<RoomModel> rooms;
@@ -30,6 +31,7 @@ class InventoriesLoaded extends InventoryState {
   @override
   List<Object?> get props => [
         inventories,
+        filteredInventories,
         employees,
         categories,
         rooms,
@@ -39,6 +41,7 @@ class InventoriesLoaded extends InventoryState {
 
   const InventoriesLoaded({
     required this.inventories,
+    required this.filteredInventories,
     required this.employees,
     required this.categories,
     required this.rooms,

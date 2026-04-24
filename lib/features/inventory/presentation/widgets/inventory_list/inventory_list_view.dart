@@ -13,11 +13,7 @@ class InventoryListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    var displayList = state.inventories;
-    
-    if (state.categoryFilter != null) {
-      displayList = displayList.where((i) => i.categoryId == state.categoryFilter).toList();
-    }
+    final displayList = state.filteredInventories;
 
     if (displayList.isEmpty) {
       return Center(child: Text(l10n.invList_noItemsFilterMessage));

@@ -64,6 +64,7 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
 
       emit(InventoriesLoaded(
         inventories: inventories,
+        filteredInventories: inventories,
         employees: employees,
         categories: categories,
         rooms: rooms,
@@ -82,8 +83,15 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
       emit(const InventoryLoading());
       try {
         final results = await searchByNameUseCase(event.query);
+        
+        var filtered = results;
+        if (currentState.categoryFilter != null) {
+          filtered = filtered.where((i) => i.categoryId == currentState.categoryFilter).toList();
+        }
+
         emit(InventoriesLoaded(
           inventories: results,
+          filteredInventories: filtered,
           employees: currentState.employees,
           categories: currentState.categories,
           rooms: currentState.rooms,
@@ -104,8 +112,13 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
   ) {
     if (state is InventoriesLoaded) {
       final currentState = state as InventoriesLoaded;
+      
+      var filtered = currentState.inventories;
+      filtered = filtered.where((i) => i.categoryId == event.categoryId).toList();
+
       emit(InventoriesLoaded(
         inventories: currentState.inventories,
+        filteredInventories: filtered,
         employees: currentState.employees,
         categories: currentState.categories,
         rooms: currentState.rooms,

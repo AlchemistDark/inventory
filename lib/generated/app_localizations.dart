@@ -98,137 +98,575 @@ abstract class AppLocalizations {
     Locale('ru'),
   ];
 
-  /// No description provided for @homeAppBarTitle.
+  /// No description provided for @home_appBarTitle.
   ///
   /// In ru, this message translates to:
   /// **'Управление Инвентарем'**
-  String get homeAppBarTitle;
+  String get home_appBarTitle;
 
-  /// No description provided for @menuUnderDevelopment.
+  /// No description provided for @home_menuUnderDevelopment.
   ///
   /// In ru, this message translates to:
   /// **'Меню (в разработке)'**
-  String get menuUnderDevelopment;
+  String get home_menuUnderDevelopment;
 
-  /// No description provided for @searchTitle.
+  /// No description provided for @home_searchTitle.
   ///
   /// In ru, this message translates to:
   /// **'Поиск предмета'**
-  String get searchTitle;
+  String get home_searchTitle;
 
-  /// No description provided for @scanButton.
+  /// No description provided for @home_scanButton.
   ///
   /// In ru, this message translates to:
   /// **'Скан'**
-  String get scanButton;
+  String get home_scanButton;
 
-  /// No description provided for @searchFieldLabel.
+  /// No description provided for @home_searchFieldLabel.
   ///
   /// In ru, this message translates to:
   /// **'Введите название или номер'**
-  String get searchFieldLabel;
+  String get home_searchFieldLabel;
 
-  /// No description provided for @searchButton.
+  /// No description provided for @home_searchButton.
   ///
   /// In ru, this message translates to:
   /// **'Найти'**
-  String get searchButton;
+  String get home_searchButton;
 
-  /// No description provided for @barcodeDialogTitle.
+  /// No description provided for @home_barcodeDialogTitle.
   ///
   /// In ru, this message translates to:
   /// **'Сканирование штрихкода'**
-  String get barcodeDialogTitle;
+  String get home_barcodeDialogTitle;
 
-  /// No description provided for @barcodeDialogHint.
+  /// No description provided for @home_barcodeDialogHint.
   ///
   /// In ru, this message translates to:
   /// **'Наведите камеру на штрихкод или введите его вручную ниже'**
-  String get barcodeDialogHint;
+  String get home_barcodeDialogHint;
 
-  /// No description provided for @barcodeFieldLabel.
+  /// No description provided for @home_barcodeFieldLabel.
   ///
   /// In ru, this message translates to:
   /// **'Штрихкод или инв. номер'**
-  String get barcodeFieldLabel;
+  String get home_barcodeFieldLabel;
 
-  /// No description provided for @scannerUnavailableMessage.
+  /// No description provided for @home_scannerUnavailableMessage.
   ///
   /// In ru, this message translates to:
   /// **'Камера недоступна. Используйте ручной ввод.'**
-  String get scannerUnavailableMessage;
+  String get home_scannerUnavailableMessage;
 
-  /// No description provided for @scannerPermissionDeniedMessage.
+  /// No description provided for @home_scannerPermissionDeniedMessage.
   ///
   /// In ru, this message translates to:
   /// **'Нет доступа к камере. Используйте ручной ввод.'**
-  String get scannerPermissionDeniedMessage;
+  String get home_scannerPermissionDeniedMessage;
 
-  /// No description provided for @scannerReadButton.
+  /// No description provided for @home_scannerReadButton.
   ///
   /// In ru, this message translates to:
   /// **'Сканировать камерой'**
-  String get scannerReadButton;
+  String get home_scannerReadButton;
 
-  /// No description provided for @scannerScanningLabel.
+  /// No description provided for @home_scannerScanningLabel.
   ///
   /// In ru, this message translates to:
   /// **'Сканирование...'**
-  String get scannerScanningLabel;
+  String get home_scannerScanningLabel;
 
-  /// No description provided for @saveButton.
+  /// No description provided for @home_saveButton.
   ///
   /// In ru, this message translates to:
   /// **'Сохранить'**
-  String get saveButton;
+  String get home_saveButton;
 
-  /// No description provided for @cancelButton.
+  /// No description provided for @home_cancelButton.
   ///
   /// In ru, this message translates to:
   /// **'Отмена'**
-  String get cancelButton;
+  String get home_cancelButton;
 
-  /// No description provided for @searchButtonDialog.
+  /// No description provided for @home_searchButtonDialog.
   ///
   /// In ru, this message translates to:
   /// **'Поиск'**
-  String get searchButtonDialog;
+  String get home_searchButtonDialog;
 
-  /// No description provided for @notFoundDialogTitle.
+  /// No description provided for @home_notFoundDialogTitle.
   ///
   /// In ru, this message translates to:
   /// **'Предмет не найден'**
-  String get notFoundDialogTitle;
+  String get home_notFoundDialogTitle;
 
-  /// No description provided for @notFoundDialogContent.
+  /// No description provided for @home_notFoundDialogContent.
   ///
   /// In ru, this message translates to:
   /// **'Предмет с номером \"{query}\" не найден в базе данных.'**
-  String notFoundDialogContent(String query);
+  String home_notFoundDialogContent(String query);
 
-  /// No description provided for @createButton.
+  /// No description provided for @home_createButton.
   ///
   /// In ru, this message translates to:
   /// **'Создать'**
-  String get createButton;
+  String get home_createButton;
 
-  /// No description provided for @inventoryButton.
+  /// No description provided for @home_createInventoryDialogTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Создать новый предмет'**
+  String get home_createInventoryDialogTitle;
+
+  /// No description provided for @home_createInventoryDialogContent.
+  ///
+  /// In ru, this message translates to:
+  /// **'Перейти в раздел \"Инвентарь\" для создания нового предмета?'**
+  String get home_createInventoryDialogContent;
+
+  /// No description provided for @home_creatingItemMessage.
+  ///
+  /// In ru, this message translates to:
+  /// **'Создание предмета со штрихкодом: {barcode}'**
+  String home_creatingItemMessage(String barcode);
+
+  /// No description provided for @home_itemDetailsTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Детали предмета'**
+  String get home_itemDetailsTitle;
+
+  /// No description provided for @home_nameLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Название:'**
+  String get home_nameLabel;
+
+  /// No description provided for @home_barcodeLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Штрихкод:'**
+  String get home_barcodeLabel;
+
+  /// No description provided for @home_inventoryNumberLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Инв. номер:'**
+  String get home_inventoryNumberLabel;
+
+  /// No description provided for @home_quantityLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Количество:'**
+  String get home_quantityLabel;
+
+  /// No description provided for @home_descriptionLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Описание:'**
+  String get home_descriptionLabel;
+
+  /// No description provided for @home_registrationDateLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Дата регистрации:'**
+  String get home_registrationDateLabel;
+
+  /// No description provided for @home_notSpecified.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не указано'**
+  String get home_notSpecified;
+
+  /// No description provided for @home_closeDialogButton.
+  ///
+  /// In ru, this message translates to:
+  /// **'Закрыть'**
+  String get home_closeDialogButton;
+
+  /// No description provided for @home_editButton.
+  ///
+  /// In ru, this message translates to:
+  /// **'Изменить'**
+  String get home_editButton;
+
+  /// No description provided for @home_editUnderDevelopment.
+  ///
+  /// In ru, this message translates to:
+  /// **'Редактирование (в разработке)'**
+  String get home_editUnderDevelopment;
+
+  /// No description provided for @home_foundItemsTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Найдено предметов: {count}'**
+  String home_foundItemsTitle(int count);
+
+  /// No description provided for @home_quantityPrefix.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кол-во: '**
+  String get home_quantityPrefix;
+
+  /// No description provided for @home_sectionsTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Разделы'**
+  String get home_sectionsTitle;
+
+  /// No description provided for @home_inventoryButton.
   ///
   /// In ru, this message translates to:
   /// **'Инвентарь'**
-  String get inventoryButton;
+  String get home_inventoryButton;
 
-  /// No description provided for @employeesButton.
+  /// No description provided for @home_employeesButton.
   ///
   /// In ru, this message translates to:
   /// **'Сотрудники'**
-  String get employeesButton;
+  String get home_employeesButton;
 
-  /// No description provided for @roomsButton.
+  /// No description provided for @home_roomsButton.
   ///
   /// In ru, this message translates to:
   /// **'Помещения'**
-  String get roomsButton;
+  String get home_roomsButton;
+
+  /// No description provided for @home_inventoryUnderDevelopment.
+  ///
+  /// In ru, this message translates to:
+  /// **'Раздел \"Инвентарь\" (в разработке)'**
+  String get home_inventoryUnderDevelopment;
+
+  /// No description provided for @home_employeesUnderDevelopment.
+  ///
+  /// In ru, this message translates to:
+  /// **'Раздел \"Сотрудники\" (в разработке)'**
+  String get home_employeesUnderDevelopment;
+
+  /// No description provided for @home_roomsUnderDevelopment.
+  ///
+  /// In ru, this message translates to:
+  /// **'Раздел \"Помещения\" (в разработке)'**
+  String get home_roomsUnderDevelopment;
+
+  /// No description provided for @home_errorPrefix.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка: '**
+  String get home_errorPrefix;
+
+  /// No description provided for @invList_appBarTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Список инвентаря'**
+  String get invList_appBarTitle;
+
+  /// No description provided for @invList_emptyStateMessage.
+  ///
+  /// In ru, this message translates to:
+  /// **'Список инвентаря пуст'**
+  String get invList_emptyStateMessage;
+
+  /// No description provided for @invList_emptySearchMessage.
+  ///
+  /// In ru, this message translates to:
+  /// **'По данному запросу ничего не найдено'**
+  String get invList_emptySearchMessage;
+
+  /// No description provided for @invList_noBarcode.
+  ///
+  /// In ru, this message translates to:
+  /// **'Нет кода'**
+  String get invList_noBarcode;
+
+  /// No description provided for @invList_noInventoryNumber.
+  ///
+  /// In ru, this message translates to:
+  /// **'Б/Н'**
+  String get invList_noInventoryNumber;
+
+  /// No description provided for @invList_inventoryNumberPrefix.
+  ///
+  /// In ru, this message translates to:
+  /// **'Инв. №: '**
+  String get invList_inventoryNumberPrefix;
+
+  /// No description provided for @invList_itemAddedMessage.
+  ///
+  /// In ru, this message translates to:
+  /// **'Предмет добавлен'**
+  String get invList_itemAddedMessage;
+
+  /// No description provided for @invList_filterByCategoryLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Фильтр по категории'**
+  String get invList_filterByCategoryLabel;
+
+  /// No description provided for @invList_showAllCategories.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все категории'**
+  String get invList_showAllCategories;
+
+  /// No description provided for @invList_searchHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Поиск по штрихкоду, инвентарному номеру или названию'**
+  String get invList_searchHint;
+
+  /// No description provided for @invList_notSpecified.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не указано'**
+  String get invList_notSpecified;
+
+  /// No description provided for @invList_notSpecifiedMale.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не указан'**
+  String get invList_notSpecifiedMale;
+
+  /// No description provided for @invList_notSpecifiedFemale.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не указана'**
+  String get invList_notSpecifiedFemale;
+
+  /// No description provided for @invList_closeButton.
+  ///
+  /// In ru, this message translates to:
+  /// **'Закрыть'**
+  String get invList_closeButton;
+
+  /// No description provided for @invList_noItemsFilterMessage.
+  ///
+  /// In ru, this message translates to:
+  /// **'Нет предметов, удовлетворяющих фильтру'**
+  String get invList_noItemsFilterMessage;
+
+  /// No description provided for @invList_errorMessagePrefix.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка: '**
+  String get invList_errorMessagePrefix;
+
+  /// No description provided for @invList_detailNameLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Название:'**
+  String get invList_detailNameLabel;
+
+  /// No description provided for @invList_detailBarcodeLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Штрихкод:'**
+  String get invList_detailBarcodeLabel;
+
+  /// No description provided for @invList_detailInventoryNumberLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Инвентарный №:'**
+  String get invList_detailInventoryNumberLabel;
+
+  /// No description provided for @invList_detailQuantityLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Количество:'**
+  String get invList_detailQuantityLabel;
+
+  /// No description provided for @invList_detailRoomLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Помещение:'**
+  String get invList_detailRoomLabel;
+
+  /// No description provided for @invList_detailResponsibleLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ответственный:'**
+  String get invList_detailResponsibleLabel;
+
+  /// No description provided for @invList_detailCategoryLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Категория:'**
+  String get invList_detailCategoryLabel;
+
+  /// No description provided for @invList_detailDateLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Дата постановки:'**
+  String get invList_detailDateLabel;
+
+  /// No description provided for @invList_detailDescriptionLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Описание:'**
+  String get invList_detailDescriptionLabel;
+
+  /// No description provided for @invForm_appBarCreateTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Создание предмета'**
+  String get invForm_appBarCreateTitle;
+
+  /// No description provided for @invForm_appBarEditTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Редактирование предмета'**
+  String get invForm_appBarEditTitle;
+
+  /// No description provided for @invForm_barcodeLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Штрихкод'**
+  String get invForm_barcodeLabel;
+
+  /// No description provided for @invForm_noBarcode.
+  ///
+  /// In ru, this message translates to:
+  /// **'Нет кода'**
+  String get invForm_noBarcode;
+
+  /// No description provided for @invForm_scanOrInputTooltip.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сканировать/Ввести'**
+  String get invForm_scanOrInputTooltip;
+
+  /// No description provided for @invForm_nameFieldLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Название *'**
+  String get invForm_nameFieldLabel;
+
+  /// No description provided for @invForm_nameRequiredError.
+  ///
+  /// In ru, this message translates to:
+  /// **'Введите название'**
+  String get invForm_nameRequiredError;
+
+  /// No description provided for @invForm_minLength3Error.
+  ///
+  /// In ru, this message translates to:
+  /// **'Минимум 3 символа'**
+  String get invForm_minLength3Error;
+
+  /// No description provided for @invForm_maxLength50Error.
+  ///
+  /// In ru, this message translates to:
+  /// **'Максимум 50 символов'**
+  String get invForm_maxLength50Error;
+
+  /// No description provided for @invForm_inventoryNumberFieldLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Инвентарный номер'**
+  String get invForm_inventoryNumberFieldLabel;
+
+  /// No description provided for @invForm_quantityFieldLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Количество'**
+  String get invForm_quantityFieldLabel;
+
+  /// No description provided for @invForm_quantityRequiredError.
+  ///
+  /// In ru, this message translates to:
+  /// **'Введите количество'**
+  String get invForm_quantityRequiredError;
+
+  /// No description provided for @invForm_quantityRangeError.
+  ///
+  /// In ru, this message translates to:
+  /// **'От 1 до 999'**
+  String get invForm_quantityRangeError;
+
+  /// No description provided for @invForm_responsibleLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ответственный'**
+  String get invForm_responsibleLabel;
+
+  /// No description provided for @invForm_categoryLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Категория'**
+  String get invForm_categoryLabel;
+
+  /// No description provided for @invForm_roomLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Помещение'**
+  String get invForm_roomLabel;
+
+  /// No description provided for @invForm_notSelected.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не выбрано'**
+  String get invForm_notSelected;
+
+  /// No description provided for @invForm_descriptionFieldLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Описание'**
+  String get invForm_descriptionFieldLabel;
+
+  /// No description provided for @invForm_maxLength500Error.
+  ///
+  /// In ru, this message translates to:
+  /// **'Максимум 500 символов'**
+  String get invForm_maxLength500Error;
+
+  /// No description provided for @invForm_dateAddedLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Дата постановки на учёт *'**
+  String get invForm_dateAddedLabel;
+
+  /// No description provided for @invForm_saveButton.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сохранить'**
+  String get invForm_saveButton;
+
+  /// No description provided for @invForm_cancelButton.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отмена'**
+  String get invForm_cancelButton;
+
+  /// No description provided for @invForm_barcodeDialogTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ввод штрихкода'**
+  String get invForm_barcodeDialogTitle;
+
+  /// No description provided for @invForm_barcodeFieldInDialog.
+  ///
+  /// In ru, this message translates to:
+  /// **'Штрихкод'**
+  String get invForm_barcodeFieldInDialog;
+
+  /// No description provided for @invForm_cameraScanText.
+  ///
+  /// In ru, this message translates to:
+  /// **'Или отсканируйте камерой:'**
+  String get invForm_cameraScanText;
+
+  /// No description provided for @invForm_resetScannerButton.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сбросить сканер'**
+  String get invForm_resetScannerButton;
+
+  /// No description provided for @invForm_scannedSuccessMessage.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отсканировано!'**
+  String get invForm_scannedSuccessMessage;
 }
 
 class _AppLocalizationsDelegate

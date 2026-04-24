@@ -15,7 +15,7 @@ class LoadInventoriesEvent extends InventoryEvent {
 
 
 class FilterInventoriesByCategoryEvent extends InventoryEvent {
-  final int categoryId;
+  final int? categoryId;
 
   @override
   List<Object?> get props => [categoryId];
@@ -44,4 +44,3 @@ class UpdateInventoryEvent extends InventoryEvent {
 
   const UpdateInventoryEvent(this.inventory);
 }
-

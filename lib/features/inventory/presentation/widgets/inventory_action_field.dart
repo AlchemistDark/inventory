@@ -28,10 +28,7 @@ class InventoryActionField extends StatelessWidget {
             decoration: AppTheme.fieldDecoration,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(valueText),
-                Icon(icon),
-              ],
+              children: [Text(valueText), Icon(icon)],
             ),
           ),
         ),

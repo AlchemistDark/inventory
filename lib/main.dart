@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/core/core.dart';
@@ -47,16 +45,6 @@ void main() async {
 ///
 /// Configures providers, repositories, BLoCs, and navigation
 class MyApp extends StatelessWidget {
-  /// Creates [MyApp] with required dependencies
-  const MyApp({
-    required this.inventoryRepository,
-    required this.employeesDataSource,
-    required this.roomsDataSource,
-    required this.positionsDataSource,
-    required this.categoriesDataSource,
-    super.key,
-  });
-
   /// Repository for inventory data operations
   final InventoryRepositoryImpl inventoryRepository;
 
@@ -71,6 +59,16 @@ class MyApp extends StatelessWidget {
 
   /// Data source for category data
   final CategoriesLocalDataSourceImpl categoriesDataSource;
+
+  /// Creates [MyApp] with required dependencies
+  const MyApp({
+    required this.inventoryRepository,
+    required this.employeesDataSource,
+    required this.roomsDataSource,
+    required this.positionsDataSource,
+    required this.categoriesDataSource,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +129,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) {
               final employeeRepo = EmployeeRepositoryImpl(employeesDataSource);
+
               return EmployeesBloc(
                 getEmployeesUseCase: GetEmployeesUseCase(employeeRepo),
                 createEmployeeUseCase: CreateEmployeeUseCase(employeeRepo),
@@ -142,6 +141,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) {
               final roomRepo = RoomRepositoryImpl(roomsDataSource);
+
               return RoomsBloc(
                 getRoomsUseCase: GetRoomsUseCase(roomRepo),
                 repository: roomRepo,
@@ -154,10 +154,7 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           locale: const Locale('ru', 'RU'),
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-            useMaterial3: true,
-          ),
+          theme: AppTheme.lightTheme,
           home: const HomePage(),
         ),
       ),

@@ -29,6 +29,7 @@ export 'inventory/presentation/bloc/inventory_form_event.dart';
 export 'inventory/presentation/bloc/inventory_form_state.dart';
 export 'inventory/presentation/pages/create_inventory_page.dart';
 export 'inventory/presentation/pages/inventory_details_page.dart';
+export 'inventory/presentation/pages/inventory_list_page.dart';
 export 'inventory/presentation/widgets/create_inventory_form.dart';
 export 'inventory/presentation/widgets/create_inventory_form_body.dart';
 export 'inventory/presentation/widgets/create_inventory_form_state_mixin.dart';
@@ -45,9 +46,9 @@ export 'inventory/presentation/widgets/inventory_list/inventory_list_header.dart
 export 'inventory/presentation/widgets/inventory_list/inventory_list_item.dart';
 export 'inventory/presentation/widgets/inventory_list/inventory_list_view.dart';
 
-
 export 'positions/data/models/position_model.dart';
 export 'positions/data/datasources/positions_local_datasource.dart';
+
 export 'rooms/presentation/pages/rooms_page.dart';
 export 'rooms/presentation/bloc/rooms_bloc.dart';
 export 'rooms/presentation/bloc/rooms_event.dart';
@@ -58,9 +59,10 @@ export 'rooms/data/repositories/room_repository_impl.dart';
 export 'rooms/domain/entities/room_entity.dart';
 export 'rooms/domain/repositories/room_repository.dart';
 export 'rooms/domain/usecases/get_rooms_usecase.dart';
+
 export 'categories/data/datasources/categories_local_datasource.dart';
-export 'employees/data/datasources/employees_local_datasource.dart';
 export 'categories/data/models/category_model.dart';
+
 export 'employees/presentation/pages/employees_page.dart';
 export 'employees/presentation/bloc/employees_bloc.dart';
 export 'employees/presentation/bloc/employees_event.dart';
@@ -74,5 +76,3 @@ export 'employees/domain/usecases/get_employees_usecase.dart';
 export 'employees/domain/usecases/create_employee_usecase.dart';
 export 'employees/domain/usecases/update_employee_usecase.dart';
 export 'employees/domain/usecases/delete_employee_usecase.dart';
-export 'rooms/data/models/room_model.dart';
-

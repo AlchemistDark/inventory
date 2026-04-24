@@ -12,6 +12,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
   Future<EmployeeEntity> createEmployee(EmployeeEntity employee) async {
     final model = EmployeeModel.fromEntity(employee);
     final createdModel = await localDataSource.createEmployee(model);
+
     return createdModel.toEntity();
   }
 
@@ -23,18 +24,21 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
   @override
   Future<EmployeeEntity?> getEmployeeById(int id) async {
     final model = await localDataSource.getEmployeeById(id);
+
     return model?.toEntity();
   }
 
   @override
   Future<List<EmployeeEntity>> getEmployees() async {
     final models = await localDataSource.getEmployees();
+
     return models.map((m) => m.toEntity()).toList();
   }
 
   @override
   Future<List<EmployeeEntity>> searchEmployees(String query) async {
     final models = await localDataSource.searchEmployees(query);
+
     return models.map((m) => m.toEntity()).toList();
   }
 

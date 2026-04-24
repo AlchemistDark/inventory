@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
-import 'package:inventory_p_shalaev/features/inventory/presentation/pages/inventory_list_page.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
 class HomeBottomNavigation extends StatelessWidget {
   const HomeBottomNavigation({
@@ -14,7 +14,6 @@ class HomeBottomNavigation extends StatelessWidget {
 
   void _handleTap(BuildContext context, int index) {
     onTap(index);
-    final l10n = AppLocalizations.of(context)!;
 
     if (index == 0) {
       Navigator.push(
@@ -43,6 +42,7 @@ class HomeBottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+
     return BottomNavigationBar(
       currentIndex: currentIndex,
       onTap: (index) => _handleTap(context, index),

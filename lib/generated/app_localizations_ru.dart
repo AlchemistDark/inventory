@@ -9,73 +9,303 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get homeAppBarTitle => 'Управление Инвентарем';
+  String get home_appBarTitle => 'Управление Инвентарем';
 
   @override
-  String get menuUnderDevelopment => 'Меню (в разработке)';
+  String get home_menuUnderDevelopment => 'Меню (в разработке)';
 
   @override
-  String get searchTitle => 'Поиск предмета';
+  String get home_searchTitle => 'Поиск предмета';
 
   @override
-  String get scanButton => 'Скан';
+  String get home_scanButton => 'Скан';
 
   @override
-  String get searchFieldLabel => 'Введите название или номер';
+  String get home_searchFieldLabel => 'Введите название или номер';
 
   @override
-  String get searchButton => 'Найти';
+  String get home_searchButton => 'Найти';
 
   @override
-  String get barcodeDialogTitle => 'Сканирование штрихкода';
+  String get home_barcodeDialogTitle => 'Сканирование штрихкода';
 
   @override
-  String get barcodeDialogHint =>
+  String get home_barcodeDialogHint =>
       'Наведите камеру на штрихкод или введите его вручную ниже';
 
   @override
-  String get barcodeFieldLabel => 'Штрихкод или инв. номер';
+  String get home_barcodeFieldLabel => 'Штрихкод или инв. номер';
 
   @override
-  String get scannerUnavailableMessage =>
+  String get home_scannerUnavailableMessage =>
       'Камера недоступна. Используйте ручной ввод.';
 
   @override
-  String get scannerPermissionDeniedMessage =>
+  String get home_scannerPermissionDeniedMessage =>
       'Нет доступа к камере. Используйте ручной ввод.';
 
   @override
-  String get scannerReadButton => 'Сканировать камерой';
+  String get home_scannerReadButton => 'Сканировать камерой';
 
   @override
-  String get scannerScanningLabel => 'Сканирование...';
+  String get home_scannerScanningLabel => 'Сканирование...';
 
   @override
-  String get saveButton => 'Сохранить';
+  String get home_saveButton => 'Сохранить';
 
   @override
-  String get cancelButton => 'Отмена';
+  String get home_cancelButton => 'Отмена';
 
   @override
-  String get searchButtonDialog => 'Поиск';
+  String get home_searchButtonDialog => 'Поиск';
 
   @override
-  String get notFoundDialogTitle => 'Предмет не найден';
+  String get home_notFoundDialogTitle => 'Предмет не найден';
 
   @override
-  String notFoundDialogContent(String query) {
+  String home_notFoundDialogContent(String query) {
     return 'Предмет с номером \"$query\" не найден в базе данных.';
   }
 
   @override
-  String get createButton => 'Создать';
+  String get home_createButton => 'Создать';
 
   @override
-  String get inventoryButton => 'Инвентарь';
+  String get home_createInventoryDialogTitle => 'Создать новый предмет';
 
   @override
-  String get employeesButton => 'Сотрудники';
+  String get home_createInventoryDialogContent =>
+      'Перейти в раздел \"Инвентарь\" для создания нового предмета?';
 
   @override
-  String get roomsButton => 'Помещения';
+  String home_creatingItemMessage(String barcode) {
+    return 'Создание предмета со штрихкодом: $barcode';
+  }
+
+  @override
+  String get home_itemDetailsTitle => 'Детали предмета';
+
+  @override
+  String get home_nameLabel => 'Название:';
+
+  @override
+  String get home_barcodeLabel => 'Штрихкод:';
+
+  @override
+  String get home_inventoryNumberLabel => 'Инв. номер:';
+
+  @override
+  String get home_quantityLabel => 'Количество:';
+
+  @override
+  String get home_descriptionLabel => 'Описание:';
+
+  @override
+  String get home_registrationDateLabel => 'Дата регистрации:';
+
+  @override
+  String get home_notSpecified => 'Не указано';
+
+  @override
+  String get home_closeDialogButton => 'Закрыть';
+
+  @override
+  String get home_editButton => 'Изменить';
+
+  @override
+  String get home_editUnderDevelopment => 'Редактирование (в разработке)';
+
+  @override
+  String home_foundItemsTitle(int count) {
+    return 'Найдено предметов: $count';
+  }
+
+  @override
+  String get home_quantityPrefix => 'Кол-во: ';
+
+  @override
+  String get home_sectionsTitle => 'Разделы';
+
+  @override
+  String get home_inventoryButton => 'Инвентарь';
+
+  @override
+  String get home_employeesButton => 'Сотрудники';
+
+  @override
+  String get home_roomsButton => 'Помещения';
+
+  @override
+  String get home_inventoryUnderDevelopment =>
+      'Раздел \"Инвентарь\" (в разработке)';
+
+  @override
+  String get home_employeesUnderDevelopment =>
+      'Раздел \"Сотрудники\" (в разработке)';
+
+  @override
+  String get home_roomsUnderDevelopment =>
+      'Раздел \"Помещения\" (в разработке)';
+
+  @override
+  String get home_errorPrefix => 'Ошибка: ';
+
+  @override
+  String get invList_appBarTitle => 'Список инвентаря';
+
+  @override
+  String get invList_emptyStateMessage => 'Список инвентаря пуст';
+
+  @override
+  String get invList_emptySearchMessage =>
+      'По данному запросу ничего не найдено';
+
+  @override
+  String get invList_noBarcode => 'Нет кода';
+
+  @override
+  String get invList_noInventoryNumber => 'Б/Н';
+
+  @override
+  String get invList_inventoryNumberPrefix => 'Инв. №: ';
+
+  @override
+  String get invList_itemAddedMessage => 'Предмет добавлен';
+
+  @override
+  String get invList_filterByCategoryLabel => 'Фильтр по категории';
+
+  @override
+  String get invList_showAllCategories => 'Все категории';
+
+  @override
+  String get invList_searchHint =>
+      'Поиск по штрихкоду, инвентарному номеру или названию';
+
+  @override
+  String get invList_notSpecified => 'Не указано';
+
+  @override
+  String get invList_notSpecifiedMale => 'Не указан';
+
+  @override
+  String get invList_notSpecifiedFemale => 'Не указана';
+
+  @override
+  String get invList_closeButton => 'Закрыть';
+
+  @override
+  String get invList_noItemsFilterMessage =>
+      'Нет предметов, удовлетворяющих фильтру';
+
+  @override
+  String get invList_errorMessagePrefix => 'Ошибка: ';
+
+  @override
+  String get invList_detailNameLabel => 'Название:';
+
+  @override
+  String get invList_detailBarcodeLabel => 'Штрихкод:';
+
+  @override
+  String get invList_detailInventoryNumberLabel => 'Инвентарный №:';
+
+  @override
+  String get invList_detailQuantityLabel => 'Количество:';
+
+  @override
+  String get invList_detailRoomLabel => 'Помещение:';
+
+  @override
+  String get invList_detailResponsibleLabel => 'Ответственный:';
+
+  @override
+  String get invList_detailCategoryLabel => 'Категория:';
+
+  @override
+  String get invList_detailDateLabel => 'Дата постановки:';
+
+  @override
+  String get invList_detailDescriptionLabel => 'Описание:';
+
+  @override
+  String get invForm_appBarCreateTitle => 'Создание предмета';
+
+  @override
+  String get invForm_appBarEditTitle => 'Редактирование предмета';
+
+  @override
+  String get invForm_barcodeLabel => 'Штрихкод';
+
+  @override
+  String get invForm_noBarcode => 'Нет кода';
+
+  @override
+  String get invForm_scanOrInputTooltip => 'Сканировать/Ввести';
+
+  @override
+  String get invForm_nameFieldLabel => 'Название *';
+
+  @override
+  String get invForm_nameRequiredError => 'Введите название';
+
+  @override
+  String get invForm_minLength3Error => 'Минимум 3 символа';
+
+  @override
+  String get invForm_maxLength50Error => 'Максимум 50 символов';
+
+  @override
+  String get invForm_inventoryNumberFieldLabel => 'Инвентарный номер';
+
+  @override
+  String get invForm_quantityFieldLabel => 'Количество';
+
+  @override
+  String get invForm_quantityRequiredError => 'Введите количество';
+
+  @override
+  String get invForm_quantityRangeError => 'От 1 до 999';
+
+  @override
+  String get invForm_responsibleLabel => 'Ответственный';
+
+  @override
+  String get invForm_categoryLabel => 'Категория';
+
+  @override
+  String get invForm_roomLabel => 'Помещение';
+
+  @override
+  String get invForm_notSelected => 'Не выбрано';
+
+  @override
+  String get invForm_descriptionFieldLabel => 'Описание';
+
+  @override
+  String get invForm_maxLength500Error => 'Максимум 500 символов';
+
+  @override
+  String get invForm_dateAddedLabel => 'Дата постановки на учёт *';
+
+  @override
+  String get invForm_saveButton => 'Сохранить';
+
+  @override
+  String get invForm_cancelButton => 'Отмена';
+
+  @override
+  String get invForm_barcodeDialogTitle => 'Ввод штрихкода';
+
+  @override
+  String get invForm_barcodeFieldInDialog => 'Штрихкод';
+
+  @override
+  String get invForm_cameraScanText => 'Или отсканируйте камерой:';
+
+  @override
+  String get invForm_resetScannerButton => 'Сбросить сканер';
+
+  @override
+  String get invForm_scannedSuccessMessage => 'Отсканировано!';
 }

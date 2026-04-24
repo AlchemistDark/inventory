@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../generated/app_localizations.dart';
 import '../../presentation/bloc/employees_bloc.dart';
-import '../../presentation/bloc/employees_event.dart';
 import '../../presentation/bloc/employees_state.dart';
 
 class EmployeesPage extends StatelessWidget {
@@ -11,7 +10,7 @@ class EmployeesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.home_employeesButton),
@@ -24,10 +23,12 @@ class EmployeesPage extends StatelessWidget {
             if (state.employees.isEmpty) {
               return const Center(child: Text('Список сотрудников пуст'));
             }
+
             return ListView.builder(
               itemCount: state.employees.length,
               itemBuilder: (context, index) {
                 final employee = state.employees[index];
+
                 return ListTile(
                   title: Text(employee.name),
                   subtitle: Text('ID: ${employee.id}'),
@@ -38,12 +39,13 @@ class EmployeesPage extends StatelessWidget {
           } else if (state is EmployeesError) {
             return Center(child: Text('Ошибка: ${state.message}'));
           }
+
           return const Center(child: Text('Нажмите для загрузки'));
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // TODO: Implement create employee dialog
+          // TODO(shalaev): Implement create employee dialog
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Создание сотрудника в разработке')),
           );

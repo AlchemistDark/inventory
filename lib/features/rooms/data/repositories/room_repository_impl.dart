@@ -12,6 +12,7 @@ class RoomRepositoryImpl implements RoomRepository {
   Future<RoomEntity> createRoom(RoomEntity room) async {
     final model = RoomModel.fromEntity(room);
     final createdModel = await localDataSource.createRoom(model);
+
     return createdModel.toEntity();
   }
 
@@ -23,18 +24,21 @@ class RoomRepositoryImpl implements RoomRepository {
   @override
   Future<RoomEntity?> getRoomById(int id) async {
     final model = await localDataSource.getRoomById(id);
+
     return model?.toEntity();
   }
 
   @override
   Future<List<RoomEntity>> getRooms() async {
     final models = await localDataSource.getRooms();
+
     return models.map((m) => m.toEntity()).toList();
   }
 
   @override
   Future<List<RoomEntity>> searchRooms(String query) async {
     final models = await localDataSource.searchRooms(query);
+
     return models.map((m) => m.toEntity()).toList();
   }
 

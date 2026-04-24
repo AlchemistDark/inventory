@@ -3,7 +3,6 @@ import 'rooms_event.dart';
 import 'rooms_state.dart';
 import '../../domain/usecases/get_rooms_usecase.dart';
 import '../../domain/repositories/room_repository.dart';
-import '../../domain/entities/room_entity.dart';
 
 class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
   final GetRoomsUseCase getRoomsUseCase;

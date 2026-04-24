@@ -17,6 +17,7 @@ class BasicInfoSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+
     return Column(
       children: [
         InventoryTextField(
@@ -30,6 +31,7 @@ class BasicInfoSection extends StatelessWidget {
             if (value.length < 3) {
               return l10n.invForm_minLength3Error;
             }
+
             return null;
           },
         ),

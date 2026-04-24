@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static const double borderRadiusValue = 8.0;
+  static const double borderRadiusValue = 8;
   static final BorderRadius borderRadius = BorderRadius.circular(borderRadiusValue);
 
   static final BoxDecoration fieldDecoration = BoxDecoration(
@@ -14,7 +14,7 @@ class AppTheme {
     borderRadius: borderRadius,
     boxShadow: [
       BoxShadow(
-        color: Colors.black.withOpacity(0.05),
+        color: Colors.black.withValues(alpha: 0.05),
         blurRadius: 10,
         offset: const Offset(0, 4),
       ),
@@ -38,7 +38,7 @@ class AppTheme {
           borderSide: const BorderSide(color: Colors.blue, width: 2),
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         shape: RoundedRectangleBorder(
           borderRadius: borderRadius,
         ),

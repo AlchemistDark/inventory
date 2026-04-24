@@ -16,16 +16,16 @@ class InventoryNotFoundDialog extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return AlertDialog(
-      title: Text(l10n.notFoundDialogTitle),
-      content: Text(l10n.notFoundDialogContent(query)),
+      title: Text(l10n.home_notFoundDialogTitle),
+      content: Text(l10n.home_notFoundDialogContent(query)),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text(l10n.cancelButton),
+          child: Text(l10n.home_cancelButton),
         ),
         ElevatedButton(
           onPressed: onCreate,
-          child: Text(l10n.createButton),
+          child: Text(l10n.home_createButton),
         ),
       ],
     );
