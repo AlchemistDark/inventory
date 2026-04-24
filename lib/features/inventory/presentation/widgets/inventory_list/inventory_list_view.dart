@@ -19,14 +19,17 @@ class InventoryListView extends StatelessWidget {
       return Center(child: Text(l10n.invList_noItemsFilterMessage));
     }
 
+    final employeeMap = {for (final e in state.employees) e.id: e.name};
+    final roomMap = {for (final r in state.rooms) r.id: r.name};
+
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       itemCount: displayList.length,
       itemBuilder: (context, index) {
         final item = displayList[index];
-        final employeeName = state.employees.where((e) => e.id == item.employeeId).firstOrNull?.name ?? l10n.invList_notSpecifiedMale;
-        final roomName = state.rooms.where((r) => r.id == item.roomId).firstOrNull?.name ?? l10n.invList_notSpecified;
-        
+        final employeeName = employeeMap[item.employeeId] ?? l10n.invList_notSpecifiedMale;
+        final roomName = roomMap[item.roomId] ?? l10n.invList_notSpecified;
+
         return InventoryListItem(
           inventory: item,
           employeeName: employeeName,

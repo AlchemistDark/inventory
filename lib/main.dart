@@ -21,7 +21,7 @@ void main() async {
   final categoriesDataSource = CategoriesLocalDataSourceImpl(databaseHelper);
 
   // Initialize test data
-  // TODO: Remove this later
+  // TODO(shalaev): Remove this later
   await DatabaseSeeder.seedTestData(
     inventoryRepository,
     employeesDataSource,
@@ -154,7 +154,7 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           locale: const Locale('ru', 'RU'),
-          theme: AppTheme.lightTheme,
+          theme: AppTheme.light,
           home: const HomePage(),
         ),
       ),
