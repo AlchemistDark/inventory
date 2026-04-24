@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
 
 class InventorySelectionField<T> extends StatelessWidget {
   const InventorySelectionField({
@@ -54,10 +54,7 @@ class InventorySelectionField<T> extends StatelessWidget {
           onTap: () => _showSelectionSheet(context),
           child: Container(
             padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(8),
-            ),
+            decoration: AppTheme.fieldDecoration,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
