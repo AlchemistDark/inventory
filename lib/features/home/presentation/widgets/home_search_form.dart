@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 class HomeSearchForm extends StatelessWidget {
   const HomeSearchForm({
@@ -15,17 +15,19 @@ class HomeSearchForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Column(
       children: [
         Text(
-          AppStrings.home.searchTitle,
+          l10n.home_searchTitle,
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 24),
         ElevatedButton.icon(
           onPressed: onScanPressed,
           icon: const Icon(Icons.qr_code_2),
-          label: Text(AppStrings.home.scanButton),
+          label: Text(l10n.home_scanButton),
           style: ElevatedButton.styleFrom(
             minimumSize: const Size.fromHeight(48),
           ),
@@ -36,7 +38,7 @@ class HomeSearchForm extends StatelessWidget {
         TextField(
           controller: searchController,
           decoration: InputDecoration(
-            labelText: AppStrings.home.searchFieldLabel,
+            labelText: l10n.home_searchFieldLabel,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             prefixIcon: const Icon(Icons.search),
           ),
@@ -53,7 +55,7 @@ class HomeSearchForm extends StatelessWidget {
               child: ElevatedButton.icon(
                 onPressed: isNotEmpty ? onSearchPressed : null,
                 icon: const Icon(Icons.search),
-                label: Text(AppStrings.home.searchButton),
+                label: Text(l10n.home_searchButton),
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(48),
                 ),

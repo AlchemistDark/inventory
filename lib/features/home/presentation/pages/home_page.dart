@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
 /// Home screen for inventory management
@@ -85,16 +85,18 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.home.appBarTitle),
+        title: Text(l10n.home_appBarTitle),
         centerTitle: true,
         elevation: 0,
         actions: [
           IconButton(
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(AppStrings.home.menuUnderDevelopment)),
+                SnackBar(content: Text(l10n.home_menuUnderDevelopment)),
               );
             },
             icon: const Icon(Icons.menu),
@@ -112,7 +114,7 @@ class _HomePageState extends State<HomePage> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
-                    '${AppStrings.home.errorPrefix}${state.message}',
+                    '${l10n.home_errorPrefix}${state.message}',
                   ),
                   backgroundColor: Colors.red,
                 ),

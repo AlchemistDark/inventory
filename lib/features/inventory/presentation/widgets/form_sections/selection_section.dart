@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 class SelectionSection extends StatelessWidget {
   const SelectionSection({
@@ -28,20 +28,21 @@ class SelectionSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final empName =
         employees.where((e) => e.id == selectedEmployeeId).firstOrNull?.name ??
-        AppStrings.createInventory.notSelected;
+        l10n.invForm_notSelected;
     final catName =
         categories.where((c) => c.id == selectedCategoryId).firstOrNull?.name ??
-        AppStrings.createInventory.notSelected;
+        l10n.invForm_notSelected;
     final roomName =
         rooms.where((r) => r.id == selectedRoomId).firstOrNull?.name ??
-        AppStrings.createInventory.notSelected;
+        l10n.invForm_notSelected;
 
     return Column(
       children: [
         InventorySelectionField<EmployeeModel>(
-          label: AppStrings.createInventory.responsibleLabel,
+          label: l10n.invForm_responsibleLabel,
           selectedName: empName,
           icon: Icons.person,
           items: employees,
@@ -52,7 +53,7 @@ class SelectionSection extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         InventorySelectionField<CategoryModel>(
-          label: AppStrings.createInventory.categoryLabel,
+          label: l10n.invForm_categoryLabel,
           selectedName: catName,
           icon: Icons.category,
           items: categories,
@@ -63,7 +64,7 @@ class SelectionSection extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         InventorySelectionField<RoomModel>(
-          label: AppStrings.createInventory.roomLabel,
+          label: l10n.invForm_roomLabel,
           selectedName: roomName,
           icon: Icons.room,
           items: rooms,

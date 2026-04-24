@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
 
 class MultipleResultsList extends StatelessWidget {
@@ -14,14 +14,12 @@ class MultipleResultsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppStrings.home.foundItemsTitle.replaceAll(
-            '%d',
-            inventories.length.toString(),
-          ),
+          l10n.home_foundItemsTitle(inventories.length),
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
@@ -32,7 +30,7 @@ class MultipleResultsList extends StatelessWidget {
               child: ListTile(
                 title: Text(inventory.name),
                 subtitle: Text(
-                  '${AppStrings.home.quantityPrefix}${inventory.quantity}',
+                  '${l10n.home_quantityPrefix}${inventory.quantity}',
                 ),
                 trailing: const Icon(Icons.chevron_right),
               ),

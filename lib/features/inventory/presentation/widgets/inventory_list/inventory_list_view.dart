@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
 class InventoryListView extends StatelessWidget {
@@ -12,6 +12,7 @@ class InventoryListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     var displayList = state.inventories;
     
     if (state.categoryFilter != null) {
@@ -19,7 +20,7 @@ class InventoryListView extends StatelessWidget {
     }
 
     if (displayList.isEmpty) {
-      return Center(child: Text(AppStrings.inventoryList.noItemsFilterMessage));
+      return Center(child: Text(l10n.invList_noItemsFilterMessage));
     }
 
     return ListView.builder(
@@ -27,8 +28,8 @@ class InventoryListView extends StatelessWidget {
       itemCount: displayList.length,
       itemBuilder: (context, index) {
         final item = displayList[index];
-        final employeeName = state.employees.where((e) => e.id == item.employeeId).firstOrNull?.name ?? AppStrings.inventoryList.notSpecifiedMale;
-        final roomName = state.rooms.where((r) => r.id == item.roomId).firstOrNull?.name ?? AppStrings.inventoryList.notSpecified;
+        final employeeName = state.employees.where((e) => e.id == item.employeeId).firstOrNull?.name ?? l10n.invList_notSpecifiedMale;
+        final roomName = state.rooms.where((r) => r.id == item.roomId).firstOrNull?.name ?? l10n.invList_notSpecified;
         
         return InventoryListItem(
           inventory: item,

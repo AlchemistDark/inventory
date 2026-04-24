@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 import 'detail_row.dart';
 import 'detail_section.dart';
@@ -20,55 +20,56 @@ class InventoryDetailsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DetailSection(
-            label: AppStrings.inventoryList.detailNameLabel,
+            label: l10n.invList_detailNameLabel,
             value: inventory.name,
             isTitle: true,
           ),
           const Divider(),
           DetailRow(
-            label: AppStrings.inventoryList.detailBarcodeLabel,
-            value: inventory.barcode ?? AppStrings.inventoryList.notSpecifiedMale,
+            label: l10n.invList_detailBarcodeLabel,
+            value: inventory.barcode ?? l10n.invList_notSpecifiedMale,
             icon: Icons.qr_code,
           ),
           DetailRow(
-            label: AppStrings.inventoryList.detailInventoryNumberLabel,
-            value: inventory.inventoryNumber ?? AppStrings.inventoryList.notSpecifiedMale,
+            label: l10n.invList_detailInventoryNumberLabel,
+            value: inventory.inventoryNumber ?? l10n.invList_notSpecifiedMale,
             icon: Icons.tag,
           ),
           DetailRow(
-            label: AppStrings.inventoryList.detailQuantityLabel,
+            label: l10n.invList_detailQuantityLabel,
             value: '${inventory.quantity}',
             icon: Icons.inventory_2,
           ),
           DetailRow(
-            label: AppStrings.inventoryList.detailRoomLabel,
+            label: l10n.invList_detailRoomLabel,
             value: roomName,
             icon: Icons.room,
           ),
           DetailRow(
-            label: AppStrings.inventoryList.detailResponsibleLabel,
+            label: l10n.invList_detailResponsibleLabel,
             value: employeeName,
             icon: Icons.person,
           ),
           DetailRow(
-            label: AppStrings.inventoryList.detailCategoryLabel,
+            label: l10n.invList_detailCategoryLabel,
             value: categoryName,
             icon: Icons.category,
           ),
           DetailRow(
-            label: AppStrings.inventoryList.detailDateLabel,
+            label: l10n.invList_detailDateLabel,
             value: inventory.dateAdded.toString().split(' ').first,
             icon: Icons.calendar_today,
           ),
           if (inventory.description != null && inventory.description!.isNotEmpty)
             DetailRow(
-              label: AppStrings.inventoryList.detailDescriptionLabel,
+              label: l10n.invList_detailDescriptionLabel,
               value: inventory.description!,
               icon: Icons.description,
             ),

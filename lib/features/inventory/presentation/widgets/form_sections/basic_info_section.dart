@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 class BasicInfoSection extends StatelessWidget {
   const BasicInfoSection({
@@ -16,20 +16,21 @@ class BasicInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       children: [
         InventoryTextField(
           controller: nameController,
-          labelText: AppStrings.createInventory.nameFieldLabel,
+          labelText: l10n.invForm_nameFieldLabel,
           validator: (value) {
             if (value == null || value.trim().isEmpty) {
-              return AppStrings.createInventory.nameRequiredError;
+              return l10n.invForm_nameRequiredError;
             }
             if (value.length < 3) {
-              return AppStrings.createInventory.minLength3Error;
+              return l10n.invForm_minLength3Error;
             }
             if (value.length > 50) {
-              return AppStrings.createInventory.maxLength50Error;
+              return l10n.invForm_maxLength50Error;
             }
 
             return null;
@@ -38,16 +39,11 @@ class BasicInfoSection extends StatelessWidget {
         const SizedBox(height: 16),
         InventoryTextField(
           controller: inventoryNumberController,
-          labelText: AppStrings.createInventory.inventoryNumberFieldLabel,
+          labelText: l10n.invForm_inventoryNumberFieldLabel,
           validator: (value) {
-            if (value == null || value.isEmpty) {
-              return AppStrings.createInventory.quantityRequiredError;
+            if (value != null && value.length > 50) {
+              return l10n.invForm_maxLength50Error;
             }
-            final qty = int.tryParse(value);
-            if (qty == null || qty < 1 || qty > 999) {
-              return AppStrings.createInventory.quantityRangeError;
-            }
-
             return null;
           },
         ),
@@ -55,13 +51,13 @@ class BasicInfoSection extends StatelessWidget {
         InventoryTextField(
           controller: quantityController,
           keyboardType: TextInputType.number,
-          labelText: AppStrings.createInventory.quantityFieldLabel,
+          labelText: l10n.invForm_quantityFieldLabel,
           validator: (value) {
             if (value == null || value.isEmpty)
-              return AppStrings.createInventory.quantityRequiredError;
+              return l10n.invForm_quantityRequiredError;
             final qty = int.tryParse(value);
             if (qty == null || qty < 1 || qty > 999)
-              return AppStrings.createInventory.quantityRangeError;
+              return l10n.invForm_quantityRangeError;
               
             return null;
           },

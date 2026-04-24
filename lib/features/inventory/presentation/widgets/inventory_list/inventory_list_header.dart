@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 class InventoryListHeader extends StatefulWidget {
   const InventoryListHeader({super.key});
@@ -21,6 +21,7 @@ class _InventoryListHeaderState extends State<InventoryListHeader> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -28,7 +29,7 @@ class _InventoryListHeaderState extends State<InventoryListHeader> {
           TextField(
             controller: _searchController,
             decoration: InputDecoration(
-              hintText: AppStrings.inventoryList.searchHint,
+              hintText: l10n.invList_searchHint,
               prefixIcon: const Icon(Icons.search),
               suffixIcon: ValueListenableBuilder<TextEditingValue>(
                 valueListenable: _searchController,
@@ -63,7 +64,7 @@ class _InventoryListHeaderState extends State<InventoryListHeader> {
                 return DropdownButtonFormField<int?>(
                   initialValue: state.categoryFilter,
                   decoration: InputDecoration(
-                    labelText: AppStrings.inventoryList.filterByCategoryLabel,
+                    labelText: l10n.invList_filterByCategoryLabel,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -72,7 +73,7 @@ class _InventoryListHeaderState extends State<InventoryListHeader> {
                   items: [
                     DropdownMenuItem(
                       value: null,
-                      child: Text(AppStrings.inventoryList.showAllCategories),
+                      child: Text(l10n.invList_showAllCategories),
                     ),
                     ...state.categories.map(
                       (c) => DropdownMenuItem(

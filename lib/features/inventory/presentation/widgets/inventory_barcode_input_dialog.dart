@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 class InventoryBarcodeInputDialog extends StatefulWidget {
   const InventoryBarcodeInputDialog({
@@ -39,8 +39,9 @@ class _InventoryBarcodeInputDialogState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return AlertDialog(
-      title: Text(AppStrings.createInventory.barcodeDialogTitle),
+      title: Text(l10n.invForm_barcodeDialogTitle),
       content: SizedBox(
         width: 360,
         child: Column(
@@ -49,14 +50,14 @@ class _InventoryBarcodeInputDialogState
             TextField(
               controller: _barcodeController,
               decoration: InputDecoration(
-                labelText: AppStrings.createInventory.barcodeFieldInDialog,
+                labelText: l10n.invForm_barcodeFieldInDialog,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ),
             const SizedBox(height: 12),
-            Text(AppStrings.createInventory.cameraScanText),
+            Text(l10n.invForm_cameraScanText),
             const SizedBox(height: 12),
             Container(
               height: 200,
@@ -84,7 +85,7 @@ class _InventoryBarcodeInputDialogState
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        AppStrings.createInventory.scannedSuccessMessage,
+                        l10n.invForm_scannedSuccessMessage,
                       ),
                       duration: const Duration(seconds: 1),
                     ),
@@ -102,18 +103,18 @@ class _InventoryBarcodeInputDialogState
             _scannerController.start();
           },
           icon: const Icon(Icons.refresh),
-          label: Text(AppStrings.createInventory.resetScannerButton),
+          label: Text(l10n.invForm_resetScannerButton),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text(AppStrings.createInventory.cancelButton),
+          child: Text(l10n.invForm_cancelButton),
         ),
         ElevatedButton(
           onPressed: () {
             widget.onBarcodeSaved(_barcodeController.text);
             Navigator.pop(context);
           },
-          child: Text(AppStrings.createInventory.saveButton),
+          child: Text(l10n.invForm_saveButton),
         ),
       ],
     );

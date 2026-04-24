@@ -1,0 +1,32 @@
+{
+  "@@locale": "en",
+  "homeAppBarTitle": "Inventory Management",
+  "menuUnderDevelopment": "Menu (under development)",
+  "searchTitle": "Find Item",
+  "scanButton": "Scan",
+  "searchFieldLabel": "Enter name or number",
+  "searchButton": "Search",
+  "barcodeDialogTitle": "Barcode Scan",
+  "barcodeDialogHint": "Point camera at barcode or enter manually below",
+  "barcodeFieldLabel": "Barcode or Inv. number",
+  "scannerUnavailableMessage": "Camera unavailable. Use manual input.",
+  "scannerPermissionDeniedMessage": "Camera permission denied. Use manual input.",
+  "scannerReadButton": "Scan with camera",
+  "scannerScanningLabel": "Scanning...",
+  "saveButton": "Save",
+  "cancelButton": "Cancel",
+  "searchButtonDialog": "Search",
+  "notFoundDialogTitle": "Item Not Found",
+  "notFoundDialogContent": "Item with number \"{query}\" was not found in database.",
+  "@notFoundDialogContent": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "createButton": "Create",
+  "inventoryButton": "Inventory",
+  "employeesButton": "Employees",
+  "roomsButton": "Rooms"
+}

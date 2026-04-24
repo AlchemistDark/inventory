@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/core/database/database_helper.dart';
 import 'package:inventory_p_shalaev/core/database/database_seeder.dart';
@@ -22,6 +24,7 @@ void main() async {
   final categoriesDataSource = CategoriesLocalDataSourceImpl(databaseHelper);
 
   // Initialize test data
+  // TODO: Remove this later
   await DatabaseSeeder.seedTestData(
     inventoryRepository,
     employeesDataSource,
@@ -126,9 +129,32 @@ class MyApp extends StatelessWidget {
               updateInventoryUseCase: UpdateInventoryUseCase(inventoryRepository),
             ),
           ),
+          BlocProvider(
+            create: (context) {
+              final employeeRepo = EmployeeRepositoryImpl(employeesDataSource);
+              return EmployeesBloc(
+                getEmployeesUseCase: GetEmployeesUseCase(employeeRepo),
+                createEmployeeUseCase: CreateEmployeeUseCase(employeeRepo),
+                updateEmployeeUseCase: UpdateEmployeeUseCase(employeeRepo),
+                deleteEmployeeUseCase: DeleteEmployeeUseCase(employeeRepo),
+              )..add(LoadEmployeesEvent());
+            },
+          ),
+          BlocProvider(
+            create: (context) {
+              final roomRepo = RoomRepositoryImpl(roomsDataSource);
+              return RoomsBloc(
+                getRoomsUseCase: GetRoomsUseCase(roomRepo),
+                repository: roomRepo,
+              )..add(LoadRoomsEvent());
+            },
+          ),
         ],
         child: MaterialApp(
           title: 'Inventory Management',
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: const Locale('ru', 'RU'),
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
             useMaterial3: true,

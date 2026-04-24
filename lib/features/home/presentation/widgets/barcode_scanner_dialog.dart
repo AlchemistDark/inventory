@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class BarcodeScannerDialog extends StatefulWidget {
@@ -34,15 +34,17 @@ class _BarcodeScannerDialogState extends State<BarcodeScannerDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return AlertDialog(
-      title: Text(AppStrings.home.barcodeDialogTitle),
+      title: Text(l10n.home_barcodeDialogTitle),
       content: SizedBox(
         width: 360,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              AppStrings.home.barcodeDialogHint,
+              l10n.home_barcodeDialogHint,
               style: Theme.of(context).textTheme.bodySmall,
               textAlign: TextAlign.center,
             ),
@@ -75,8 +77,8 @@ class _BarcodeScannerDialogState extends State<BarcodeScannerDialog> {
                 errorBuilder: (context, error, child) {
                   final message =
                       error.errorCode == MobileScannerErrorCode.permissionDenied
-                      ? AppStrings.home.scannerPermissionDeniedMessage
-                      : AppStrings.home.scannerUnavailableMessage;
+                      ? l10n.home_scannerPermissionDeniedMessage
+                      : l10n.home_scannerUnavailableMessage;
 
                   return Center(
                     child: Padding(
@@ -95,7 +97,7 @@ class _BarcodeScannerDialogState extends State<BarcodeScannerDialog> {
             TextField(
               controller: _barcodeController,
               decoration: InputDecoration(
-                labelText: AppStrings.home.barcodeFieldLabel,
+                labelText: l10n.home_barcodeFieldLabel,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -110,13 +112,13 @@ class _BarcodeScannerDialogState extends State<BarcodeScannerDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text(AppStrings.home.cancelButton),
+          child: Text(l10n.home_cancelButton),
         ),
         ElevatedButton(
           onPressed: () {
             _submitBarcode(_barcodeController.text);
           },
-          child: Text(AppStrings.home.saveButton),
+          child: Text(l10n.home_saveButton),
         ),
       ],
     );

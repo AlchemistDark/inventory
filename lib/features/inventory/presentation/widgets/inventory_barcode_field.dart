@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 class InventoryBarcodeField extends StatelessWidget {
   const InventoryBarcodeField({
@@ -13,11 +13,12 @@ class InventoryBarcodeField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppStrings.createInventory.barcodeLabel,
+          l10n.invForm_barcodeLabel,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
@@ -32,7 +33,7 @@ class InventoryBarcodeField extends StatelessWidget {
                 ),
                 child: Text(
                   controller.text.isEmpty
-                      ? AppStrings.createInventory.noBarcode
+                      ? l10n.invForm_noBarcode
                       : controller.text,
                   style: const TextStyle(fontSize: 16),
                 ),
@@ -42,7 +43,7 @@ class InventoryBarcodeField extends StatelessWidget {
             IconButton(
               onPressed: onScanPressed,
               icon: const Icon(Icons.qr_code_2),
-              tooltip: AppStrings.createInventory.scanOrInputTooltip,
+              tooltip: l10n.invForm_scanOrInputTooltip,
             ),
           ],
         ),

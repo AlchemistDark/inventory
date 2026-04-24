@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
 class CreateInventoryPage extends StatelessWidget {
@@ -11,13 +11,14 @@ class CreateInventoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<InventoryFormBloc>().add(const LoadFormMetadataEvent());
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
           editTarget == null
-              ? AppStrings.createInventory.appBarCreateTitle
-              : AppStrings.createInventory.appBarEditTitle,
+              ? l10n.invForm_appBarCreateTitle
+              : l10n.invForm_appBarEditTitle,
         ),
       ),
       body: BlocListener<InventoryFormBloc, InventoryFormState>(

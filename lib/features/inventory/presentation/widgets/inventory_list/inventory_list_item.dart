@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
 class InventoryListItem extends StatelessWidget {
@@ -16,14 +16,15 @@ class InventoryListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final qtyText = inventory.quantity > 0 ? '(${inventory.quantity}) ' : '';
     final invNumText = inventory.inventoryNumber != null
         ? '${inventory.inventoryNumber} '
-        : '${AppStrings.inventoryList.noInventoryNumber} ';
+        : '${l10n.invList_noInventoryNumber} ';
 
     final titleText = '$invNumText$qtyText${inventory.name}';
     final subtitleText =
-        '${AppStrings.inventoryList.detailRoomLabel} $roomName, ${AppStrings.inventoryList.detailResponsibleLabel} $employeeName';
+        '${l10n.invList_detailRoomLabel} $roomName, ${l10n.invList_detailResponsibleLabel} $employeeName';
 
     return GestureDetector(
       onTap: () {

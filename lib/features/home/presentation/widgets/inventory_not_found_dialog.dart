@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 class InventoryNotFoundDialog extends StatelessWidget {
   const InventoryNotFoundDialog({
@@ -13,19 +13,19 @@ class InventoryNotFoundDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return AlertDialog(
-      title: Text(AppStrings.home.notFoundDialogTitle),
-      content: Text(
-        AppStrings.home.notFoundDialogContent.replaceAll('%s', query),
-      ),
+      title: Text(l10n.notFoundDialogTitle),
+      content: Text(l10n.notFoundDialogContent(query)),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text(AppStrings.home.cancelButton),
+          child: Text(l10n.cancelButton),
         ),
         ElevatedButton(
           onPressed: onCreate,
-          child: Text(AppStrings.home.createButton),
+          child: Text(l10n.createButton),
         ),
       ],
     );

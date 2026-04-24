@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 class FooterSection extends StatelessWidget {
   const FooterSection({
@@ -21,15 +21,16 @@ class FooterSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       children: [
         InventoryTextField(
           controller: descriptionController,
           maxLines: 3,
-          labelText: AppStrings.createInventory.descriptionFieldLabel,
+          labelText: l10n.invForm_descriptionFieldLabel,
           validator: (value) {
             if (value != null && value.length > 500) {
-              return AppStrings.createInventory.maxLength500Error;
+              return l10n.invForm_maxLength500Error;
             }
             
             return null;
@@ -37,7 +38,7 @@ class FooterSection extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         InventoryActionField(
-          label: AppStrings.createInventory.dateAddedLabel,
+          label: l10n.invForm_dateAddedLabel,
           valueText: DateFormat('dd.MM.yyyy').format(selectedDate),
           icon: Icons.calendar_today,
           onTap: onSelectDate,
@@ -48,14 +49,14 @@ class FooterSection extends StatelessWidget {
             Expanded(
               child: ElevatedButton(
                 onPressed: onSubmit,
-                child: Text(AppStrings.createInventory.saveButton),
+                child: Text(l10n.invForm_saveButton),
               ),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: OutlinedButton(
                 onPressed: onCancel,
-                child: Text(AppStrings.createInventory.cancelButton),
+                child: Text(l10n.invForm_cancelButton),
               ),
             ),
           ],

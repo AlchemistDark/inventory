@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:inventory_p_shalaev/features/inventory/presentation/pages/inventory_list_page.dart';
 
 class HomeBottomNavigation extends StatelessWidget {
@@ -14,6 +14,7 @@ class HomeBottomNavigation extends StatelessWidget {
 
   void _handleTap(BuildContext context, int index) {
     onTap(index);
+    final l10n = AppLocalizations.of(context)!;
 
     if (index == 0) {
       Navigator.push(
@@ -23,33 +24,40 @@ class HomeBottomNavigation extends StatelessWidget {
         ),
       );
     } else if (index == 1) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppStrings.home.employeesUnderDevelopment)),
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (context) => const EmployeesPage(),
+        ),
       );
     } else if (index == 2) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppStrings.home.roomsUnderDevelopment)),
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (context) => const RoomsPage(),
+        ),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return BottomNavigationBar(
       currentIndex: currentIndex,
       onTap: (index) => _handleTap(context, index),
       items: [
         BottomNavigationBarItem(
           icon: const Icon(Icons.inventory_2),
-          label: AppStrings.home.inventoryButton,
+          label: l10n.home_inventoryButton,
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.people),
-          label: AppStrings.home.employeesButton,
+          label: l10n.home_employeesButton,
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.location_on),
-          label: AppStrings.home.roomsButton,
+          label: l10n.home_roomsButton,
         ),
       ],
     );

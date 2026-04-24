@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
-import 'package:inventory_p_shalaev/core/constants/app_strings.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 class InventoryListPage extends StatelessWidget {
   const InventoryListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(AppStrings.inventoryList.appBarTitle)),
+      appBar: AppBar(title: Text(l10n.invList_appBarTitle)),
       body: Column(
         children: [
           const InventoryListHeader(),
@@ -23,7 +24,7 @@ class InventoryListPage extends StatelessWidget {
                 } else if (state is InventoryError) {
                   return Center(
                     child: Text(
-                      '${AppStrings.inventoryList.errorMessagePrefix}${state.message}',
+                      '${l10n.invList_errorMessagePrefix}${state.message}',
                     ),
                   );
                 }
