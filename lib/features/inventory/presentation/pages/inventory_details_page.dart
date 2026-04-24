@@ -5,9 +5,9 @@ import 'package:inventory_p_shalaev/features/features.dart';
 import '../widgets/details/inventory_details_content.dart';
 
 class InventoryDetailsPage extends StatelessWidget {
-  const InventoryDetailsPage({required this.inventory, super.key});
-
   final InventoryEntity inventory;
+
+  const InventoryDetailsPage({required this.inventory, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +34,15 @@ class InventoryDetailsPage extends StatelessWidget {
       body: BlocBuilder<InventoryBloc, InventoryState>(
         builder: (context, state) {
           if (state is InventoriesLoaded) {
-            final employeeName = state.employees
-                    .where((e) => e.id == inventory.employeeId)
-                    .firstOrNull
-                    ?.name ??
+            final employeeMap = {for (final e in state.employees) e.id: e.name};
+            final roomMap = {for (final r in state.rooms) r.id: r.name};
+            final categoryMap = {for (final c in state.categories) c.id: c.name};
+
+            final employeeName = employeeMap[inventory.employeeId] ??
                 l10n.invList_notSpecifiedMale;
-            final roomName = state.rooms
-                    .where((r) => r.id == inventory.roomId)
-                    .firstOrNull
-                    ?.name ??
-                l10n.invList_notSpecified;
-            final categoryName = state.categories
-                    .where((c) => c.id == inventory.categoryId)
-                    .firstOrNull
-                    ?.name ??
+            final roomName =
+                roomMap[inventory.roomId] ?? l10n.invList_notSpecified;
+            final categoryName = categoryMap[inventory.categoryId] ??
                 l10n.invList_notSpecifiedFemale;
 
             return InventoryDetailsContent(
@@ -57,7 +52,7 @@ class InventoryDetailsPage extends StatelessWidget {
               categoryName: categoryName,
             );
           }
-          
+
           return const Center(child: CircularProgressIndicator());
         },
       ),
