@@ -1,5 +1,5 @@
 import '../models/room_model.dart';
-import '../../../../core/database/database_helper.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
 
 abstract class RoomsLocalDataSource {
   Future<RoomModel> createRoom(RoomModel model);

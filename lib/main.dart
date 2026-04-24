@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inventory_p_shalaev/core/database/database_helper.dart';
-import 'package:inventory_p_shalaev/core/database/database_seeder.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
 /// Application entry point

@@ -22,6 +22,7 @@ class BasicInfoSection extends StatelessWidget {
         InventoryTextField(
           controller: nameController,
           labelText: l10n.invForm_nameFieldLabel,
+          maxLength: 50,
           validator: (value) {
             if (value == null || value.trim().isEmpty) {
               return l10n.invForm_nameRequiredError;
@@ -29,10 +30,6 @@ class BasicInfoSection extends StatelessWidget {
             if (value.length < 3) {
               return l10n.invForm_minLength3Error;
             }
-            if (value.length > 50) {
-              return l10n.invForm_maxLength50Error;
-            }
-
             return null;
           },
         ),
@@ -40,10 +37,8 @@ class BasicInfoSection extends StatelessWidget {
         InventoryTextField(
           controller: inventoryNumberController,
           labelText: l10n.invForm_inventoryNumberFieldLabel,
+          maxLength: 50,
           validator: (value) {
-            if (value != null && value.length > 50) {
-              return l10n.invForm_maxLength50Error;
-            }
             return null;
           },
         ),
@@ -52,13 +47,16 @@ class BasicInfoSection extends StatelessWidget {
           controller: quantityController,
           keyboardType: TextInputType.number,
           labelText: l10n.invForm_quantityFieldLabel,
+          maxLength: 3,
           validator: (value) {
-            if (value == null || value.isEmpty)
+            if (value == null || value.trim().isEmpty) {
               return l10n.invForm_quantityRequiredError;
+            }
             final qty = int.tryParse(value);
-            if (qty == null || qty < 1 || qty > 999)
+            if (qty == null || qty < 1 || qty > 999) {
               return l10n.invForm_quantityRangeError;
-              
+            }
+
             return null;
           },
         ),
