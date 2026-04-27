@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Application costume theme.
 class AppTheme {
   static const double borderRadiusValue = 8;
   static final BorderRadius borderRadius = BorderRadius.circular(borderRadiusValue);
