@@ -2,14 +2,35 @@ import 'package:flutter/material.dart';
 
 /// Application costume theme.
 class AppTheme {
+  /// Default border radius value for cards and fields.
   static const double borderRadiusValue = 8;
-  static final BorderRadius borderRadius = BorderRadius.circular(borderRadiusValue);
 
+  /// Default border radius for widgets.
+  static final BorderRadius borderRadius =
+      BorderRadius.circular(borderRadiusValue);
+
+  /// Standard grey color for borders and hints.
+  static const Color greyColor = Colors.grey;
+
+  /// Slightly darker grey for icons in fields.
+  static final Color greyDarkColor = Colors.grey[600]!;
+
+  /// Light grey for grab handles and dividers.
+  static final Color greyLightColor = Colors.grey[300]!;
+
+  /// Standard decoration for input-like containers.
   static final BoxDecoration fieldDecoration = BoxDecoration(
-    border: Border.all(color: Colors.grey),
+    border: Border.all(color: greyColor),
     borderRadius: borderRadius,
   );
 
+  /// Decoration for the grab handle in bottom sheets.
+  static final BoxDecoration grabHandleDecoration = BoxDecoration(
+    color: greyLightColor,
+    borderRadius: BorderRadius.circular(2),
+  );
+
+  /// Standard decoration for cards with subtle shadow.
   static final BoxDecoration cardDecoration = BoxDecoration(
     color: Colors.white,
     borderRadius: borderRadius,
@@ -22,17 +43,19 @@ class AppTheme {
     ],
   );
 
+  /// Returns the light theme data for the application.
   static ThemeData get light {
     return ThemeData(
       colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       useMaterial3: true,
+      hintColor: greyColor,
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
           borderRadius: borderRadius,
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: borderRadius,
-          borderSide: const BorderSide(color: Colors.grey),
+          borderSide: const BorderSide(color: greyColor),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: borderRadius,
@@ -50,6 +73,17 @@ class AppTheme {
             borderRadius: borderRadius,
           ),
         ),
+      ),
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: Colors.red,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: borderRadius,
+        ),
+      ),
+      textTheme: const TextTheme(
+        bodyMedium: TextStyle(fontSize: 14),
+        bodySmall: TextStyle(fontSize: 12, color: greyColor),
       ),
     );
   }

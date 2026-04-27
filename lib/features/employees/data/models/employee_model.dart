@@ -1,4 +1,4 @@
-import '../../domain/entities/employee_entity.dart';
+import 'package:inventory_p_shalaev/features/employees/domain/entities/employee_entity.dart';
 
 /// Data model representing an employee for data layer operations
 class EmployeeModel {

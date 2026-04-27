@@ -1,10 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../generated/app_localizations.dart';
-import '../../presentation/bloc/employees_bloc.dart';
-import '../../presentation/bloc/employees_state.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
+/// Main page for managing employees.
+///
+/// Displays a searchable and filterable list of employees,
+/// allowing navigation to employee details and creation forms.
 class EmployeesPage extends StatelessWidget {
+  /// Creates an [EmployeesPage].
   const EmployeesPage({super.key});
 
   @override
@@ -19,36 +23,46 @@ class EmployeesPage extends StatelessWidget {
         builder: (context, state) {
           if (state is EmployeesLoading) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state is EmployeesLoaded) {
-            if (state.employees.isEmpty) {
-              return const Center(child: Text('Список сотрудников пуст'));
-            }
-
-            return ListView.builder(
-              itemCount: state.employees.length,
-              itemBuilder: (context, index) {
-                final employee = state.employees[index];
-
-                return ListTile(
-                  title: Text(employee.name),
-                  subtitle: Text('ID: ${employee.id}'),
-                  leading: const Icon(Icons.person),
-                );
-              },
-            );
-          } else if (state is EmployeesError) {
-            return Center(child: Text('Ошибка: ${state.message}'));
           }
 
-          return const Center(child: Text('Нажмите для загрузки'));
+          if (state is EmployeesLoaded) {
+
+            return Column(
+              children: [
+                EmployeesSearchAndFilter(state: state),
+                Expanded(
+                  child: state.filteredEmployees.isEmpty
+                      ? Center(child: Text(l10n.employees_notFound))
+                      : ListView.builder(
+                          padding: const EdgeInsets.only(top: 8),
+                          itemCount: state.filteredEmployees.length,
+                          itemBuilder: (context, index) {
+                            final employee = state.filteredEmployees[index];
+                            final positionName = ' ';
+
+                            return EmployeeListItem(
+                              employee: employee,
+                              positionName: positionName,
+                            );
+                          },
+                        ),
+                ),
+              ],
+            );
+          }
+
+          if (state is EmployeesError) {
+            return Center(
+                child: Text(
+                    l10n.common_error(state.failure.toLocalizedString(l10n))));
+          }
+
+          return const SizedBox.shrink();
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // TODO(shalaev): Implement create employee dialog
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Создание сотрудника в разработке')),
-          );
+          Navigator.push(context, EmployeeFormPage.route());
         },
         child: const Icon(Icons.add),
       ),

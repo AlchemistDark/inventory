@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
-import 'detail_row.dart';
-import 'detail_section.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
+/// The core content view for the inventory details page.
+///
+/// Orchestrates multiple [DetailRow] and [DetailSection] widgets to present
+/// all fields of an [InventoryEntity], including resolved metadata names.
 class InventoryDetailsContent extends StatelessWidget {
+  /// Creates an [InventoryDetailsContent] with the given [inventory] and metadata names.
   const InventoryDetailsContent({
     required this.inventory,
     required this.employeeName,
-    required this.roomName,
-    required this.categoryName,
     super.key,
   });
 
+  /// The inventory entity whose details are being displayed.
   final InventoryEntity inventory;
+
+  /// The name of the employee responsible for this item.
   final String employeeName;
-  final String roomName;
-  final String categoryName;
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +29,14 @@ class InventoryDetailsContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Primary item name as a title section.
           DetailSection(
             label: l10n.invList_detailNameLabel,
             value: inventory.name,
             isTitle: true,
           ),
           const Divider(),
+          // Secondary details displayed as rows with icons.
           DetailRow(
             label: l10n.invList_detailBarcodeLabel,
             value: inventory.barcode ?? l10n.invList_notSpecifiedMale,
@@ -50,7 +54,7 @@ class InventoryDetailsContent extends StatelessWidget {
           ),
           DetailRow(
             label: l10n.invList_detailRoomLabel,
-            value: roomName,
+            value: ' ',
             icon: Icons.room,
           ),
           DetailRow(
@@ -60,7 +64,7 @@ class InventoryDetailsContent extends StatelessWidget {
           ),
           DetailRow(
             label: l10n.invList_detailCategoryLabel,
-            value: categoryName,
+            value: ' ',
             icon: Icons.category,
           ),
           DetailRow(
@@ -68,7 +72,9 @@ class InventoryDetailsContent extends StatelessWidget {
             value: inventory.dateAdded.toString().split(' ').first,
             icon: Icons.calendar_today,
           ),
-          if (inventory.description != null && inventory.description!.isNotEmpty)
+          // Description section is only shown if it contains text.
+          if (inventory.description != null &&
+              inventory.description!.isNotEmpty)
             DetailRow(
               label: l10n.invList_detailDescriptionLabel,
               value: inventory.description!,

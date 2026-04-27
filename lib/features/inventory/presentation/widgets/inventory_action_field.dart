@@ -1,6 +1,11 @@
 import 'package:inventory_p_shalaev/core/core.dart';
 
+/// A custom widget for displaying a labeled value that triggers an action on tap.
+///
+/// Designed for the inventory form to show information like selected dates
+/// or other non-editable fields that open a picker or dialog.
 class InventoryActionField extends StatelessWidget {
+  /// Creates an [InventoryActionField].
   const InventoryActionField({
     required this.label,
     required this.valueText,
@@ -9,9 +14,16 @@ class InventoryActionField extends StatelessWidget {
     super.key,
   });
 
+  /// The label text displayed above the field.
   final String label;
+
+  /// The current value text displayed inside the field.
   final String valueText;
+
+  /// The icon displayed on the right side of the field.
   final IconData icon;
+
+  /// The callback triggered when the field is tapped.
   final VoidCallback onTap;
 
   @override

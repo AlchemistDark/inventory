@@ -356,6 +356,18 @@ abstract class AppLocalizations {
   /// **'Ошибка: '**
   String get home_errorPrefix;
 
+  /// No description provided for @home_categoriesButton.
+  ///
+  /// In ru, this message translates to:
+  /// **'Категории'**
+  String get home_categoriesButton;
+
+  /// No description provided for @home_positionsButton.
+  ///
+  /// In ru, this message translates to:
+  /// **'Должности'**
+  String get home_positionsButton;
+
   /// No description provided for @invList_appBarTitle.
   ///
   /// In ru, this message translates to:
@@ -443,7 +455,7 @@ abstract class AppLocalizations {
   /// No description provided for @invList_noItemsFilterMessage.
   ///
   /// In ru, this message translates to:
-  /// **'Нет предметов, удовлетворяющих фильтру'**
+  /// **'Нет предметов, удовлетворяющих фильтуру'**
   String get invList_noItemsFilterMessage;
 
   /// No description provided for @invList_errorMessagePrefix.
@@ -667,6 +679,294 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Отсканировано!'**
   String get invForm_scannedSuccessMessage;
+
+  /// No description provided for @categories_emptyList.
+  ///
+  /// In ru, this message translates to:
+  /// **'Список категорий пуст'**
+  String get categories_emptyList;
+
+  /// No description provided for @categories_newTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Новая категория'**
+  String get categories_newTitle;
+
+  /// No description provided for @categories_editTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Редактировать категорию'**
+  String get categories_editTitle;
+
+  /// No description provided for @categories_nameLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Название'**
+  String get categories_nameLabel;
+
+  /// No description provided for @categories_descriptionLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Описание'**
+  String get categories_descriptionLabel;
+
+  /// No description provided for @positions_emptyList.
+  ///
+  /// In ru, this message translates to:
+  /// **'Список должностей пуст'**
+  String get positions_emptyList;
+
+  /// No description provided for @positions_newTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Новая должность'**
+  String get positions_newTitle;
+
+  /// No description provided for @positions_editTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Редактировать должность'**
+  String get positions_editTitle;
+
+  /// No description provided for @positions_nameLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Название'**
+  String get positions_nameLabel;
+
+  /// No description provided for @rooms_emptyList.
+  ///
+  /// In ru, this message translates to:
+  /// **'Список помещений пуст'**
+  String get rooms_emptyList;
+
+  /// No description provided for @rooms_newTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Новое помещение'**
+  String get rooms_newTitle;
+
+  /// No description provided for @rooms_editTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Редактировать помещение'**
+  String get rooms_editTitle;
+
+  /// No description provided for @rooms_nameLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Название'**
+  String get rooms_nameLabel;
+
+  /// No description provided for @rooms_descriptionLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Описание'**
+  String get rooms_descriptionLabel;
+
+  /// No description provided for @common_error.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка: {message}'**
+  String common_error(String message);
+
+  /// No description provided for @common_cancel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отмена'**
+  String get common_cancel;
+
+  /// No description provided for @common_delete.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалить'**
+  String get common_delete;
+
+  /// No description provided for @common_save.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сохранить'**
+  String get common_save;
+
+  /// No description provided for @common_create.
+  ///
+  /// In ru, this message translates to:
+  /// **'Создать'**
+  String get common_create;
+
+  /// No description provided for @common_all.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все'**
+  String get common_all;
+
+  /// No description provided for @common_notSelected.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не выбрано'**
+  String get common_notSelected;
+
+  /// No description provided for @common_notDefined.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не определено'**
+  String get common_notDefined;
+
+  /// No description provided for @common_inventoryNumberPrefix.
+  ///
+  /// In ru, this message translates to:
+  /// **'Инв. №: '**
+  String get common_inventoryNumberPrefix;
+
+  /// No description provided for @common_deleteConfirmTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалить {itemType}?'**
+  String common_deleteConfirmTitle(String itemType);
+
+  /// No description provided for @common_deleteConfirmContent.
+  ///
+  /// In ru, this message translates to:
+  /// **'Вы уверены, что хотите удалить \"{name}\"?'**
+  String common_deleteConfirmContent(String name);
+
+  /// No description provided for @employees_searchHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Поиск сотрудника...'**
+  String get employees_searchHint;
+
+  /// No description provided for @employees_notFound.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сотрудники не найдены'**
+  String get employees_notFound;
+
+  /// No description provided for @employees_unknownPosition.
+  ///
+  /// In ru, this message translates to:
+  /// **'Неизвестная должность'**
+  String get employees_unknownPosition;
+
+  /// No description provided for @employees_createTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Создание сотрудника'**
+  String get employees_createTitle;
+
+  /// No description provided for @employees_editTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Редактирование сотрудника'**
+  String get employees_editTitle;
+
+  /// No description provided for @employees_created.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сотрудник создан'**
+  String get employees_created;
+
+  /// No description provided for @employees_updated.
+  ///
+  /// In ru, this message translates to:
+  /// **'Данные обновлены'**
+  String get employees_updated;
+
+  /// No description provided for @employees_nameLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'ФИО'**
+  String get employees_nameLabel;
+
+  /// No description provided for @employees_positionLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Должность'**
+  String get employees_positionLabel;
+
+  /// No description provided for @employees_roomLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Помещение'**
+  String get employees_roomLabel;
+
+  /// No description provided for @employees_assignedInventory.
+  ///
+  /// In ru, this message translates to:
+  /// **'Прикрепленный инвентарь'**
+  String get employees_assignedInventory;
+
+  /// No description provided for @employees_noInventory.
+  ///
+  /// In ru, this message translates to:
+  /// **'За сотрудником не закреплен инвентарь'**
+  String get employees_noInventory;
+
+  /// No description provided for @employees_selectPosition.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выберите должность'**
+  String get employees_selectPosition;
+
+  /// No description provided for @employees_minLength3.
+  ///
+  /// In ru, this message translates to:
+  /// **'Минимум 3 символа'**
+  String get employees_minLength3;
+
+  /// No description provided for @employees_maxLength50.
+  ///
+  /// In ru, this message translates to:
+  /// **'Максимум 50 символов'**
+  String get employees_maxLength50;
+
+  /// No description provided for @rooms_inventoryTab.
+  ///
+  /// In ru, this message translates to:
+  /// **'Инвентарь'**
+  String get rooms_inventoryTab;
+
+  /// No description provided for @rooms_employeesTab.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сотрудники'**
+  String get rooms_employeesTab;
+
+  /// No description provided for @rooms_noInventory.
+  ///
+  /// In ru, this message translates to:
+  /// **'В этом помещении нет инвентаря'**
+  String get rooms_noInventory;
+
+  /// No description provided for @rooms_noEmployees.
+  ///
+  /// In ru, this message translates to:
+  /// **'В этом помещении нет сотрудников'**
+  String get rooms_noEmployees;
+
+  /// No description provided for @error_database.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка доступа к базе данных'**
+  String get error_database;
+
+  /// No description provided for @error_notFound.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ресурс не найден'**
+  String get error_notFound;
+
+  /// No description provided for @error_validation.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка валидации данных'**
+  String get error_validation;
+
+  /// No description provided for @error_unknown.
+  ///
+  /// In ru, this message translates to:
+  /// **'Произошла неизвестная ошибка'**
+  String get error_unknown;
 }
 
 class _AppLocalizationsDelegate

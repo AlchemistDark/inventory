@@ -151,6 +151,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get home_errorPrefix => 'Ошибка: ';
 
   @override
+  String get home_categoriesButton => 'Категории';
+
+  @override
+  String get home_positionsButton => 'Должности';
+
+  @override
   String get invList_appBarTitle => 'Список инвентаря';
 
   @override
@@ -196,7 +202,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get invList_noItemsFilterMessage =>
-      'Нет предметов, удовлетворяющих фильтру';
+      'Нет предметов, удовлетворяющих фильтуру';
 
   @override
   String get invList_errorMessagePrefix => 'Ошибка: ';
@@ -308,4 +314,154 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get invForm_scannedSuccessMessage => 'Отсканировано!';
+
+  @override
+  String get categories_emptyList => 'Список категорий пуст';
+
+  @override
+  String get categories_newTitle => 'Новая категория';
+
+  @override
+  String get categories_editTitle => 'Редактировать категорию';
+
+  @override
+  String get categories_nameLabel => 'Название';
+
+  @override
+  String get categories_descriptionLabel => 'Описание';
+
+  @override
+  String get positions_emptyList => 'Список должностей пуст';
+
+  @override
+  String get positions_newTitle => 'Новая должность';
+
+  @override
+  String get positions_editTitle => 'Редактировать должность';
+
+  @override
+  String get positions_nameLabel => 'Название';
+
+  @override
+  String get rooms_emptyList => 'Список помещений пуст';
+
+  @override
+  String get rooms_newTitle => 'Новое помещение';
+
+  @override
+  String get rooms_editTitle => 'Редактировать помещение';
+
+  @override
+  String get rooms_nameLabel => 'Название';
+
+  @override
+  String get rooms_descriptionLabel => 'Описание';
+
+  @override
+  String common_error(String message) {
+    return 'Ошибка: $message';
+  }
+
+  @override
+  String get common_cancel => 'Отмена';
+
+  @override
+  String get common_delete => 'Удалить';
+
+  @override
+  String get common_save => 'Сохранить';
+
+  @override
+  String get common_create => 'Создать';
+
+  @override
+  String get common_all => 'Все';
+
+  @override
+  String get common_notSelected => 'Не выбрано';
+
+  @override
+  String get common_notDefined => 'Не определено';
+
+  @override
+  String get common_inventoryNumberPrefix => 'Инв. №: ';
+
+  @override
+  String common_deleteConfirmTitle(String itemType) {
+    return 'Удалить $itemType?';
+  }
+
+  @override
+  String common_deleteConfirmContent(String name) {
+    return 'Вы уверены, что хотите удалить \"$name\"?';
+  }
+
+  @override
+  String get employees_searchHint => 'Поиск сотрудника...';
+
+  @override
+  String get employees_notFound => 'Сотрудники не найдены';
+
+  @override
+  String get employees_unknownPosition => 'Неизвестная должность';
+
+  @override
+  String get employees_createTitle => 'Создание сотрудника';
+
+  @override
+  String get employees_editTitle => 'Редактирование сотрудника';
+
+  @override
+  String get employees_created => 'Сотрудник создан';
+
+  @override
+  String get employees_updated => 'Данные обновлены';
+
+  @override
+  String get employees_nameLabel => 'ФИО';
+
+  @override
+  String get employees_positionLabel => 'Должность';
+
+  @override
+  String get employees_roomLabel => 'Помещение';
+
+  @override
+  String get employees_assignedInventory => 'Прикрепленный инвентарь';
+
+  @override
+  String get employees_noInventory => 'За сотрудником не закреплен инвентарь';
+
+  @override
+  String get employees_selectPosition => 'Выберите должность';
+
+  @override
+  String get employees_minLength3 => 'Минимум 3 символа';
+
+  @override
+  String get employees_maxLength50 => 'Максимум 50 символов';
+
+  @override
+  String get rooms_inventoryTab => 'Инвентарь';
+
+  @override
+  String get rooms_employeesTab => 'Сотрудники';
+
+  @override
+  String get rooms_noInventory => 'В этом помещении нет инвентаря';
+
+  @override
+  String get rooms_noEmployees => 'В этом помещении нет сотрудников';
+
+  @override
+  String get error_database => 'Ошибка доступа к базе данных';
+
+  @override
+  String get error_notFound => 'Ресурс не найден';
+
+  @override
+  String get error_validation => 'Ошибка валидации данных';
+
+  @override
+  String get error_unknown => 'Произошла неизвестная ошибка';
 }

@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
+/// Bottom navigation bar for the home screen.
+///
+/// Handles navigation between main feature areas: Inventory, Employees, and Rooms.
 class HomeBottomNavigation extends StatelessWidget {
+  /// Creates a [HomeBottomNavigation].
   const HomeBottomNavigation({
     required this.currentIndex,
     required this.onTap,
     super.key,
   });
 
+  /// Currently selected navigation index.
   final int currentIndex;
+
+  /// Callback function triggered when a navigation item is tapped.
   final void Function(int) onTap;
 
   void _handleTap(BuildContext context, int index) {
@@ -33,7 +40,7 @@ class HomeBottomNavigation extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute<void>(
-          builder: (context) => const RoomsPage(),
+          builder: (context) => Text('Не реализовано'),
         ),
       );
     }

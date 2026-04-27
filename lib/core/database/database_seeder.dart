@@ -1,55 +1,21 @@
 import 'package:flutter/foundation.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
-/// Utility class for seeding test data into the database
+/// Utility class for seeding data into the database
 ///
-/// Used for development and testing purposes to populate the database
-/// with sample data for employees, rooms, positions, categories, and inventory
+/// Provides methods for initializing default records needed by the application
+/// and for seeding test inventory data during development
 class DatabaseSeeder {
-  /// Initializes the database with test data if tables are empty
+  /// Initializes default data required for the application to function
   ///
-  /// Creates default records for categories, positions, rooms, employees,
-  /// and sample inventory items
-  static Future<void> seedTestData(
-    InventoryRepositoryImpl inventoryRepository,
-    EmployeesLocalDataSourceImpl employeesDataSource,
-    RoomsLocalDataSourceImpl roomsDataSource,
-    PositionsLocalDataSourceImpl positionsDataSource,
-    CategoriesLocalDataSourceImpl categoriesDataSource,
+  /// Creates default records for categories, positions, rooms, and an
+  /// administrator employee if their respective tables are empty.
+  /// This should always run regardless of build mode.
+  static Future<void> seedDefaults(
+    EmployeesLocalDataSource employeesDataSource,
   ) async {
     try {
-      // Initialize categories if empty
-      final categories = await categoriesDataSource.getCategories();
-      if (categories.isEmpty) {
-        await categoriesDataSource.createCategory('Не определено');
-      }
-
-      // Initialize positions
-      final positions = await positionsDataSource.getPositions();
-      if (positions.isEmpty) {
-        await positionsDataSource.createPosition(
-          PositionModel(
-            id: 0,
-            name: 'Администратор',
-            createdAt: DateTime.now(),
-          ),
-        );
-      }
-
-      // Initialize rooms
-      final rooms = await roomsDataSource.getRooms();
-      if (rooms.isEmpty) {
-        await roomsDataSource.createRoom(
-          RoomModel(
-            id: 0,
-            name: 'Не определено',
-            description: 'Default room',
-            createdAt: DateTime.now(),
-          ),
-        );
-      }
-
-      // Initialize employees
+      // Initialize default employee if empty
       final employees = await employeesDataSource.getEmployees();
       if (employees.isEmpty) {
         await employeesDataSource.createEmployee(
@@ -62,8 +28,18 @@ class DatabaseSeeder {
           ),
         );
       }
+    } catch (e) {
+      debugPrint('Error initializing default data: $e');
+    }
+  }
 
-      // Initialize inventory
+  /// Seeds test inventory items for development and testing purposes
+  ///
+  /// Should only be called in debug mode (guarded by `kDebugMode` in `main()`)
+  static Future<void> seedTestInventory(
+    InventoryRepository inventoryRepository,
+  ) async {
+    try {
       final existing = await inventoryRepository.getInventories();
       if (existing.isEmpty) {
         await inventoryRepository.createInventory(
@@ -112,7 +88,7 @@ class DatabaseSeeder {
         );
       }
     } catch (e) {
-      debugPrint('Error initializing test data: $e');
+      debugPrint('Error seeding test inventory: $e');
     }
   }
 }

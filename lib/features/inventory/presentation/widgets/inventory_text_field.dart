@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
+/// A styled text input field for inventory-related forms.
+///
+/// Wraps [TextFormField] with a consistent border, label, and validation logic
+/// according to the application's design system.
 class InventoryTextField extends StatelessWidget {
+  /// Creates an [InventoryTextField].
   const InventoryTextField({
     required this.controller,
     required this.labelText,
@@ -11,11 +16,22 @@ class InventoryTextField extends StatelessWidget {
     super.key,
   });
 
+  /// Controller for the text being edited.
   final TextEditingController controller;
+
+  /// Label text shown as a hint or floating label.
   final String labelText;
+
+  /// Validation logic for the field input.
   final String? Function(String?)? validator;
+
+  /// The type of keyboard to display.
   final TextInputType? keyboardType;
+
+  /// Maximum number of lines (defaults to 1).
   final int maxLines;
+
+  /// Maximum character length allowed.
   final int? maxLength;
 
   @override
@@ -30,7 +46,8 @@ class InventoryTextField extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        counterText: '', // Скрываем счетчик символов снизу, если не нужен
+        // Hide the character counter if it's not explicitly needed for the design.
+        counterText: '',
       ),
       validator: validator,
     );

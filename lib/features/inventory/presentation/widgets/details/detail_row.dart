@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
+/// A reusable row for displaying a labeled value with an optional icon.
+///
+/// Designed for the details page, it shows a small label above a larger value.
 class DetailRow extends StatelessWidget {
+  /// Creates a [DetailRow].
   const DetailRow({
     required this.label,
     required this.value,
@@ -8,8 +12,13 @@ class DetailRow extends StatelessWidget {
     super.key,
   });
 
+  /// The label for the data point.
   final String label;
+
+  /// The value of the data point.
   final String value;
+
+  /// An optional icon to display to the left of the label/value.
   final IconData? icon;
 
   @override

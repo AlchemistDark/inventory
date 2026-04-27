@@ -1,20 +1,23 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/features/inventory/domain/usecases/search_inventories_by_name_use_case.dart';
 
-/// Mixin providing common inventory-related actions for BLoCs
+/// A mixin providing common inventory-related logic for BLoCs.
 ///
-/// This helps reduce duplication between [HomeBloc] and [InventoryBloc]
-/// by providing shared methods for loading states and error handling
+/// This mixin helps reduce code duplication by centralizing shared actions
+/// such as executing asynchronous tasks with loading and error handling.
 mixin InventoryCommonHandler<S> {
-  /// Executes an action with loading and error state handling
+  /// Executes a [action] with standard loading and error state management.
   ///
-  /// Emits [loadingState] before executing [action], then emits
-  /// the result of [onSuccess] or [onError] based on the outcome
+  /// 1. Emits [loadingState].
+  /// 2. Executes the [action] future.
+  /// 3. Emits state returned by [onSuccess] if the action succeeds.
+  /// 4. Emits state returned by [onError] if an exception is caught.
   Future<void> executeWithLoading<T>({
     required Emitter<S> emit,
     required Future<T> Function() action,
     required S Function(T result) onSuccess,
-    required S Function(String message) onError,
+    required S Function(AppFailure failure) onError,
     required S loadingState,
   }) async {
     emit(loadingState);
@@ -22,19 +25,19 @@ mixin InventoryCommonHandler<S> {
       final result = await action();
       emit(onSuccess(result));
     } catch (e) {
-      emit(onError(e.toString()));
+      emit(onError(AppFailure.database));
     }
   }
 
-  /// Performs a search by name with loading and error handling
+  /// Performs an inventory search by name with built-in state management.
   ///
-  /// Uses [executeWithLoading] to manage state during the search operation
+  /// Uses [executeWithLoading] to handle the lifecycle of the search operation.
   Future<void> performSearchByName({
     required SearchInventoriesByNameUseCase searchUseCase,
     required String query,
     required Emitter<S> emit,
     required S Function(dynamic results) onSuccess,
-    required S Function(String message) onError,
+    required S Function(AppFailure failure) onError,
     required S loadingState,
   }) {
     return executeWithLoading(

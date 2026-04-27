@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:inventory_p_shalaev/features/features.dart';
 
 /// BLoC for managing home screen state
@@ -35,7 +36,7 @@ class HomeBloc extends Bloc<CoreInventoryEvent, HomeState>
       emit: emit,
       action: () => getInventoriesUseCase(),
       onSuccess: (_) => const HomeInitial(),
-      onError: (msg) => HomeError(msg),
+      onError: (failure) => HomeError(failure),
       loadingState: const HomeLoading(),
     );
   }
@@ -50,7 +51,7 @@ class HomeBloc extends Bloc<CoreInventoryEvent, HomeState>
       onSuccess: (result) => result != null
           ? HomeSearchSuccess(result)
           : HomeNotFound(event.barcode),
-      onError: (msg) => HomeError(msg),
+      onError: (failure) => HomeError(failure),
       loadingState: const HomeLoading(),
     );
   }
@@ -72,7 +73,7 @@ class HomeBloc extends Bloc<CoreInventoryEvent, HomeState>
           return HomeSearchMultipleResults(results);
         }
       },
-      onError: (msg) => HomeError(msg),
+      onError: (failure) => HomeError(failure),
       loadingState: const HomeLoading(),
     );
   }
@@ -84,4 +85,3 @@ class HomeBloc extends Bloc<CoreInventoryEvent, HomeState>
     emit(const HomeInitial());
   }
 }
-

@@ -58,6 +58,8 @@
   "home_employeesUnderDevelopment": "Раздел \"Сотрудники\" (в разработке)",
   "home_roomsUnderDevelopment": "Раздел \"Помещения\" (в разработке)",
   "home_errorPrefix": "Ошибка: ",
+  "home_categoriesButton": "Категории",
+  "home_positionsButton": "Должности",
 
   "invList_appBarTitle": "Список инвентаря",
   "invList_emptyStateMessage": "Список инвентаря пуст",
@@ -73,7 +75,7 @@
   "invList_notSpecifiedMale": "Не указан",
   "invList_notSpecifiedFemale": "Не указана",
   "invList_closeButton": "Закрыть",
-  "invList_noItemsFilterMessage": "Нет предметов, удовлетворяющих фильтру",
+  "invList_noItemsFilterMessage": "Нет предметов, удовлетворяющих фильтуру",
   "invList_errorMessagePrefix": "Ошибка: ",
   "invList_detailNameLabel": "Название:",
   "invList_detailBarcodeLabel": "Штрихкод:",
@@ -111,5 +113,74 @@
   "invForm_barcodeFieldInDialog": "Штрихкод",
   "invForm_cameraScanText": "Или отсканируйте камерой:",
   "invForm_resetScannerButton": "Сбросить сканер",
-  "invForm_scannedSuccessMessage": "Отсканировано!"
+  "invForm_scannedSuccessMessage": "Отсканировано!",
+
+  "categories_emptyList": "Список категорий пуст",
+  "categories_newTitle": "Новая категория",
+  "categories_editTitle": "Редактировать категорию",
+  "categories_nameLabel": "Название",
+  "categories_descriptionLabel": "Описание",
+
+  "positions_emptyList": "Список должностей пуст",
+  "positions_newTitle": "Новая должность",
+  "positions_editTitle": "Редактировать должность",
+  "positions_nameLabel": "Название",
+
+  "rooms_emptyList": "Список помещений пуст",
+  "rooms_newTitle": "Новое помещение",
+  "rooms_editTitle": "Редактировать помещение",
+  "rooms_nameLabel": "Название",
+  "rooms_descriptionLabel": "Описание",
+
+  "common_error": "Ошибка: {message}",
+  "@common_error": {
+    "placeholders": {
+      "message": { "type": "String" }
+    }
+  },
+  "common_cancel": "Отмена",
+  "common_delete": "Удалить",
+  "common_save": "Сохранить",
+  "common_create": "Создать",
+  "common_all": "Все",
+  "common_notSelected": "Не выбрано",
+  "common_notDefined": "Не определено",
+  "common_inventoryNumberPrefix": "Инв. №: ",
+  "common_deleteConfirmTitle": "Удалить {itemType}?",
+  "@common_deleteConfirmTitle": {
+    "placeholders": {
+      "itemType": { "type": "String" }
+    }
+  },
+  "common_deleteConfirmContent": "Вы уверены, что хотите удалить \"{name}\"?",
+  "@common_deleteConfirmContent": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+
+  "employees_searchHint": "Поиск сотрудника...",
+  "employees_notFound": "Сотрудники не найдены",
+  "employees_unknownPosition": "Неизвестная должность",
+  "employees_createTitle": "Создание сотрудника",
+  "employees_editTitle": "Редактирование сотрудника",
+  "employees_created": "Сотрудник создан",
+  "employees_updated": "Данные обновлены",
+  "employees_nameLabel": "ФИО",
+  "employees_positionLabel": "Должность",
+  "employees_roomLabel": "Помещение",
+  "employees_assignedInventory": "Прикрепленный инвентарь",
+  "employees_noInventory": "За сотрудником не закреплен инвентарь",
+  "employees_selectPosition": "Выберите должность",
+  "employees_minLength3": "Минимум 3 символа",
+  "employees_maxLength50": "Максимум 50 символов",
+
+  "rooms_inventoryTab": "Инвентарь",
+  "rooms_employeesTab": "Сотрудники",
+  "rooms_noInventory": "В этом помещении нет инвентаря",
+  "rooms_noEmployees": "В этом помещении нет сотрудников",
+  "error_database": "Ошибка доступа к базе данных",
+  "error_notFound": "Ресурс не найден",
+  "error_validation": "Ошибка валидации данных",
+  "error_unknown": "Произошла неизвестная ошибка"
 }

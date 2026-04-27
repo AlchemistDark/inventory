@@ -36,6 +36,22 @@ flutter pub get
 flutter run
 ```
 
+### Build Configuration
+
+The application displays the current Git commit hash in the side drawer. To inject the actual hash during build or run, use the `GIT_SHA` environment variable:
+
+**PowerShell (Windows):**
+```powershell
+flutter run --dart-define=GIT_SHA=$(git rev-parse --short HEAD)
+```
+
+**Bash (macOS/Linux):**
+```bash
+flutter run --dart-define=GIT_SHA=$(git rev-parse --short HEAD)
+```
+
+If not provided, the application uses a default hardcoded value.
+
 ### Running Tests
 
 ```bash

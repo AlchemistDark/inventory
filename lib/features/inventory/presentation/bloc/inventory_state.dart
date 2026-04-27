@@ -1,68 +1,75 @@
-import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
-import 'package:inventory_p_shalaev/features/inventory/presentation/bloc/inventory_common_models.dart';
-import 'package:inventory_p_shalaev/features/employees/data/models/employee_model.dart';
-import 'package:inventory_p_shalaev/features/categories/data/models/category_model.dart';
-import 'package:inventory_p_shalaev/features/rooms/data/models/room_model.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
+/// Base class for all states of the inventory management feature.
 abstract class InventoryState extends Equatable {
   @override
   List<Object?> get props => [];
 
+  /// Creates an [InventoryState].
   const InventoryState();
 }
 
+/// Initial state of the inventory feature.
 class InventoryInitial extends InventoryState {
+  /// Creates an [InventoryInitial] state.
   const InventoryInitial();
 }
 
+/// State representing that an inventory operation is in progress.
 class InventoryLoading extends InventoryState with LoadingStateMixin {
+  /// Creates an [InventoryLoading] state.
   const InventoryLoading();
 }
 
+/// State containing the successfully loaded inventory data and active filters.
 class InventoriesLoaded extends InventoryState {
+  /// The full list of all inventory items.
   final List<InventoryEntity> inventories;
-  final List<InventoryEntity> filteredInventories;
+
+  /// List of available employees for selection.
   final List<EmployeeModel> employees;
-  final List<CategoryModel> categories;
-  final List<RoomModel> rooms;
+
+  /// The current active search query, if any.
   final String? searchQuery;
-  final int? categoryFilter;
+
+  /// A lookup map for employees by their ID.
+  final Map<int, String> employeeMap;
+
 
   @override
   List<Object?> get props => [
         inventories,
-        filteredInventories,
         employees,
-        categories,
-        rooms,
         searchQuery,
-        categoryFilter,
+        employeeMap,
       ];
 
-  const InventoriesLoaded({
+  /// Creates an [InventoriesLoaded] state with all required data.
+  InventoriesLoaded({
     required this.inventories,
-    required this.filteredInventories,
     required this.employees,
-    required this.categories,
-    required this.rooms,
     this.searchQuery,
-    this.categoryFilter,
-  });
+  })  : employeeMap = {for (final e in employees) e.id: e.name};
 }
 
+/// State representing that a new inventory item has been successfully created.
 class InventoryCreated extends InventoryState {
+  /// The newly created inventory item.
   final InventoryEntity inventory;
 
   @override
   List<Object?> get props => [inventory];
 
+  /// Creates an [InventoryCreated] state.
   const InventoryCreated(this.inventory);
 }
 
+/// State representing that an error occurred during an inventory operation.
 class InventoryError extends InventoryState with ErrorStateMixin {
   @override
-  final String message;
+  final AppFailure failure;
 
-  const InventoryError(this.message);
+  /// Creates an [InventoryError] state with the given [failure].
+  const InventoryError(this.failure);
 }
-

@@ -1,16 +1,12 @@
 import 'package:inventory_p_shalaev/core/core.dart';
-import 'package:inventory_p_shalaev/generated/app_localizations.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
+/// A generic selection field that opens a bottom sheet to pick an item from a list.
+///
+/// This widget is used for selecting employees, categories, or rooms in the form.
+/// It displays the current selection and handles triggering the selection sheet.
 class InventorySelectionField<T> extends StatelessWidget {
-  final String label;
-  final String selectedName;
-  final IconData icon;
-  final List<T> items;
-  final int? selectedId;
-  final String Function(T) itemName;
-  final int Function(T) itemId;
-  final void Function(int) onSelected;
-
+  /// Creates an [InventorySelectionField].
   const InventorySelectionField({
     required this.label,
     required this.selectedName,
@@ -23,99 +19,44 @@ class InventorySelectionField<T> extends StatelessWidget {
     super.key,
   });
 
-  void _showSelectionSheet(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
+  /// The label text displayed above the field.
+  final String label;
 
+  /// The name of the currently selected item to display in the field.
+  final String selectedName;
+
+  /// Icon representing the type of data being selected.
+  final IconData icon;
+
+  /// The full list of items available for selection.
+  final List<T> items;
+
+  /// The ID of the currently selected item, if any.
+  final int? selectedId;
+
+  /// Function to extract a display name from an item of type [T].
+  final String Function(T) itemName;
+
+  /// Function to extract a unique ID from an item of type [T].
+  final int Function(T) itemId;
+
+  /// Callback triggered when an item is selected from the bottom sheet.
+  final void Function(int) onSelected;
+
+  /// Shows the selection bottom sheet with a list of items.
+  void _showSelectionSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setState) {
-          return DraggableScrollableSheet(
-            initialChildSize: 0.6,
-            minChildSize: 0.4,
-            maxChildSize: 0.9,
-            builder: (context, scrollController) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surface,
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(AppTheme.borderRadiusValue * 2),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 12),
-                    Container(
-                      width: 40,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Text(
-                        label,
-                        style: theme.textTheme.titleLarge,
-                      ),
-                    ),
-                    const Divider(height: 1),
-                    Expanded(
-                      child: items.isEmpty
-                          ? Center(
-                              child: Text(l10n.invList_noItemsFilterMessage),
-                            )
-                          : ListView.builder(
-                              controller: scrollController,
-                              itemCount: items.length,
-                              itemBuilder: (context, index) {
-                                final item = items[index];
-                                final id = itemId(item);
-                                final name = itemName(item);
-                                final isSelected = selectedId == id;
-
-                                return ListTile(
-                                  leading: Icon(
-                                    icon,
-                                    color: isSelected
-                                        ? theme.colorScheme.primary
-                                        : null,
-                                  ),
-                                  title: Text(
-                                    name,
-                                    style: TextStyle(
-                                      color: isSelected
-                                          ? theme.colorScheme.primary
-                                          : null,
-                                      fontWeight: isSelected
-                                          ? FontWeight.bold
-                                          : null,
-                                    ),
-                                  ),
-                                  trailing: isSelected
-                                      ? Icon(
-                                          Icons.check,
-                                          color: theme.colorScheme.primary,
-                                        )
-                                      : null,
-                                  onTap: () {
-                                    onSelected(id);
-                                    Navigator.pop(context);
-                                  },
-                                );
-                              },
-                            ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
+      builder: (context) => InventorySelectionSheet<T>(
+        label: label,
+        items: items,
+        itemName: itemName,
+        itemId: itemId,
+        onSelected: onSelected,
+        icon: icon,
+        selectedId: selectedId,
       ),
     );
   }
@@ -138,7 +79,7 @@ class InventorySelectionField<T> extends StatelessWidget {
             decoration: AppTheme.fieldDecoration,
             child: Row(
               children: [
-                Icon(icon, color: Colors.grey[600], size: 20),
+                Icon(icon, color: AppTheme.greyDarkColor, size: 20),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
@@ -146,7 +87,7 @@ class InventorySelectionField<T> extends StatelessWidget {
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),
-                const Icon(Icons.arrow_drop_down, color: Colors.grey),
+                const Icon(Icons.arrow_drop_down, color: AppTheme.greyColor),
               ],
             ),
           ),

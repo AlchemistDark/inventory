@@ -1,17 +1,25 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
+/// BLoC for managing the logic of inventory creation and editing forms.
+///
+/// This BLoC is responsible for fetching required metadata (employees,
+/// categories, rooms) and handling the submission of new or updated
+/// inventory entities.
 class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
+  /// Data source for loading employees.
   final EmployeesLocalDataSource employeesDataSource;
-  final CategoriesLocalDataSource categoriesDataSource;
-  final RoomsLocalDataSource roomsDataSource;
+
+  /// Use case for creating a new inventory item.
   final CreateInventoryUseCase createInventoryUseCase;
+
+  /// Use case for updating an existing inventory item.
   final UpdateInventoryUseCase updateInventoryUseCase;
 
+  /// Creates an [InventoryFormBloc] with all required dependencies.
   InventoryFormBloc({
     required this.employeesDataSource,
-    required this.categoriesDataSource,
-    required this.roomsDataSource,
     required this.createInventoryUseCase,
     required this.updateInventoryUseCase,
   }) : super(const InventoryFormInitial()) {
@@ -26,23 +34,17 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
     emit(const InventoryFormLoading());
     try {
       final employees = await employeesDataSource.getEmployees();
-      final categories = await categoriesDataSource.getCategories();
-      final rooms = await roomsDataSource.getRooms();
 
-      final defaultEmployeeId = employees.where((e) => e.name == 'Администратор').firstOrNull?.id;
-      final defaultCategoryId = categories.where((c) => c.name == 'Не определено').firstOrNull?.id;
-      final defaultRoomId = rooms.where((r) => r.name == 'Не определено').firstOrNull?.id;
+      // Find default values based on conventional names
+      final defaultEmployeeId =
+          employees.where((e) => e.name == 'Администратор').firstOrNull?.id;
 
       emit(InventoryFormMetadataLoaded(
         employees: employees,
-        categories: categories,
-        rooms: rooms,
         defaultEmployeeId: defaultEmployeeId,
-        defaultCategoryId: defaultCategoryId,
-        defaultRoomId: defaultRoomId,
       ));
     } catch (e) {
-      emit(InventoryFormError(e.toString()));
+      emit(const InventoryFormError(AppFailure.database));
     }
   }
 
@@ -59,7 +61,7 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
       }
       emit(const InventoryFormSuccess());
     } catch (e) {
-      emit(InventoryFormError(e.toString()));
+      emit(const InventoryFormError(AppFailure.database));
     }
   }
 }

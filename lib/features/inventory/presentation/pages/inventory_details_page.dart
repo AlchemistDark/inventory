@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
-import '../widgets/details/inventory_details_content.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
+/// Page displaying detailed information about a specific inventory item.
+///
+/// Retrieves the item from the current [InventoryBloc] state based on [inventoryId].
+/// Provides an edit button to navigate to [CreateInventoryPage] in edit mode.
 class InventoryDetailsPage extends StatelessWidget {
-  final InventoryEntity inventory;
+  /// Creates an [InventoryDetailsPage].
+  const InventoryDetailsPage({required this.inventoryId, super.key});
 
-  const InventoryDetailsPage({required this.inventory, super.key});
+  /// The unique identifier of the inventory item to display.
+  final int inventoryId;
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +22,30 @@ class InventoryDetailsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(l10n.home_itemDetailsTitle),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {
-              Navigator.push<void>(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (context) =>
-                      CreateInventoryPage(editTarget: inventory),
-                ),
-              );
+          BlocBuilder<InventoryBloc, InventoryState>(
+            builder: (context, state) {
+              if (state is InventoriesLoaded) {
+                final currentInventory = state.inventories
+                    .where((item) => item.id == inventoryId)
+                    .firstOrNull;
+
+                if (currentInventory != null) {
+                  return IconButton(
+                    icon: const Icon(Icons.edit),
+                    onPressed: () {
+                      Navigator.push<void>(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (context) =>
+                              CreateInventoryPage(editTarget: currentInventory),
+                        ),
+                      );
+                    },
+                  );
+                }
+              }
+
+              return const SizedBox.shrink();
             },
           ),
         ],
@@ -34,22 +53,20 @@ class InventoryDetailsPage extends StatelessWidget {
       body: BlocBuilder<InventoryBloc, InventoryState>(
         builder: (context, state) {
           if (state is InventoriesLoaded) {
-            final employeeMap = {for (final e in state.employees) e.id: e.name};
-            final roomMap = {for (final r in state.rooms) r.id: r.name};
-            final categoryMap = {for (final c in state.categories) c.id: c.name};
+            final currentInventory = state.inventories
+                .where((item) => item.id == inventoryId)
+                .firstOrNull;
 
-            final employeeName = employeeMap[inventory.employeeId] ??
+            if (currentInventory == null) {
+              return Center(child: Text(l10n.invList_emptyStateMessage));
+            }
+
+            final employeeName = state.employeeMap[currentInventory.employeeId] ??
                 l10n.invList_notSpecifiedMale;
-            final roomName =
-                roomMap[inventory.roomId] ?? l10n.invList_notSpecified;
-            final categoryName = categoryMap[inventory.categoryId] ??
-                l10n.invList_notSpecifiedFemale;
 
             return InventoryDetailsContent(
-              inventory: inventory,
+              inventory: currentInventory,
               employeeName: employeeName,
-              roomName: roomName,
-              categoryName: categoryName,
             );
           }
 

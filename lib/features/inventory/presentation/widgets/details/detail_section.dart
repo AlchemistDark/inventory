@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
+/// A vertical layout widget for displaying a label and its corresponding value.
+///
+/// Similar to [DetailRow] but without icon support and with an optional title style
+/// for the value text.
 class DetailSection extends StatelessWidget {
+  /// Creates a [DetailSection].
   const DetailSection({
     required this.label,
     required this.value,
@@ -8,8 +13,13 @@ class DetailSection extends StatelessWidget {
     super.key,
   });
 
+  /// The label describing the value.
   final String label;
+
+  /// The value string to display.
   final String value;
+
+  /// Whether the value should be displayed with a large title font style.
   final bool isTitle;
 
   @override

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
+/// Form widget for searching inventory on the home screen.
+///
+/// Provides a barcode scanning button and a text field for name-based search.
 class HomeSearchForm extends StatelessWidget {
+  /// Creates a [HomeSearchForm].
   const HomeSearchForm({
     required this.searchController,
     required this.onScanPressed,
@@ -9,8 +13,13 @@ class HomeSearchForm extends StatelessWidget {
     super.key,
   });
 
+  /// Controller for the search text field.
   final TextEditingController searchController;
+
+  /// Callback triggered when the barcode scan button is pressed.
   final VoidCallback onScanPressed;
+
+  /// Callback triggered when the search button is pressed or form is submitted.
   final VoidCallback onSearchPressed;
 
   @override
@@ -49,7 +58,7 @@ class HomeSearchForm extends StatelessWidget {
           valueListenable: searchController,
           builder: (context, value, child) {
             final bool isNotEmpty = value.text.trim().isNotEmpty;
-            
+
             return SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(

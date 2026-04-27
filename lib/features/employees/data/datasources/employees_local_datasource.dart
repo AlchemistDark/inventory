@@ -1,18 +1,32 @@
-import '../models/employee_model.dart';
 import 'package:inventory_p_shalaev/core/core.dart';
+import 'package:inventory_p_shalaev/features/employees/data/models/employee_model.dart';
 
+/// Data source interface for managing local employee data.
 abstract class EmployeesLocalDataSource {
+  /// Creates a new employee record in the local database.
   Future<EmployeeModel> createEmployee(EmployeeModel model);
+
+  /// Retrieves all employee records from the local database.
   Future<List<EmployeeModel>> getEmployees();
+
+  /// Retrieves a specific employee by their unique identifier.
   Future<EmployeeModel?> getEmployeeById(int id);
+
+  /// Searches for employees whose names match the given query.
   Future<List<EmployeeModel>> searchEmployees(String query);
+
+  /// Updates an existing employee record in the local database.
   Future<void> updateEmployee(EmployeeModel model);
+
+  /// Deletes an employee record from the local database by ID.
   Future<void> deleteEmployee(int id);
 }
 
+/// Implementation of [EmployeesLocalDataSource] using SQLite.
 class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
   final DatabaseHelper _databaseHelper;
 
+  /// Creates an [EmployeesLocalDataSourceImpl] with the provided [DatabaseHelper].
   EmployeesLocalDataSourceImpl(this._databaseHelper);
 
   @override
@@ -61,7 +75,8 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
   @override
   Future<void> updateEmployee(EmployeeModel model) async {
     final db = await _databaseHelper.database;
-    await db.update('employees', model.toMap(), where: 'id = ?', whereArgs: [model.id]);
+    await db.update('employees', model.toMap(),
+        where: 'id = ?', whereArgs: [model.id]);
   }
 
   @override

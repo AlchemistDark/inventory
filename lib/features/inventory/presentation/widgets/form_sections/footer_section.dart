@@ -3,7 +3,11 @@ import 'package:intl/intl.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
+/// The final section of the inventory form containing additional info and actions.
+///
+/// Includes the description field, date selection, and the main Save/Cancel buttons.
 class FooterSection extends StatelessWidget {
+  /// Creates a [FooterSection].
   const FooterSection({
     required this.descriptionController,
     required this.selectedDate,
@@ -13,10 +17,19 @@ class FooterSection extends StatelessWidget {
     super.key,
   });
 
+  /// Controller for the optional description or notes field.
   final TextEditingController descriptionController;
+
+  /// The currently selected date for the inventory.
   final DateTime selectedDate;
+
+  /// Callback to open the date picker.
   final VoidCallback onSelectDate;
+
+  /// Callback to submit the entire form.
   final VoidCallback onSubmit;
+
+  /// Callback to cancel form entry and navigate back.
   final VoidCallback onCancel;
 
   @override
@@ -25,6 +38,7 @@ class FooterSection extends StatelessWidget {
 
     return Column(
       children: [
+        // Multi-line description field with length validation.
         InventoryTextField(
           controller: descriptionController,
           maxLines: 3,
@@ -33,11 +47,12 @@ class FooterSection extends StatelessWidget {
             if (value != null && value.length > 500) {
               return l10n.invForm_maxLength500Error;
             }
-            
+
             return null;
           },
         ),
         const SizedBox(height: 16),
+        // Interactive field for date selection.
         InventoryActionField(
           label: l10n.invForm_dateAddedLabel,
           valueText: DateFormat('dd.MM.yyyy').format(selectedDate),
@@ -45,6 +60,7 @@ class FooterSection extends StatelessWidget {
           onTap: onSelectDate,
         ),
         const SizedBox(height: 24),
+        // Primary action buttons (Save and Cancel).
         Row(
           children: [
             Expanded(

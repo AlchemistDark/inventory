@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
+/// A dialog providing barcode scanning via camera and manual barcode input.
 class BarcodeScannerDialog extends StatefulWidget {
+  /// Creates a [BarcodeScannerDialog].
+  ///
+  /// [onBarcodeSubmitted] is called when a barcode is successfully scanned or entered.
   const BarcodeScannerDialog({required this.onBarcodeSubmitted, super.key});
 
+  /// Callback function triggered on barcode submission.
   final void Function(String) onBarcodeSubmitted;
 
   @override
@@ -35,65 +40,69 @@ class _BarcodeScannerDialogState extends State<BarcodeScannerDialog> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
 
     return AlertDialog(
       title: Text(l10n.home_barcodeDialogTitle),
+      scrollable: true,
       content: SizedBox(
         width: 360,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              l10n.home_barcodeDialogHint,
-              style: Theme.of(context).textTheme.bodySmall,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 12),
-            Container(
-              height: 220,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Colors.black12,
+            if (!isKeyboardVisible) ...[
+              Text(
+                l10n.home_barcodeDialogHint,
+                style: Theme.of(context).textTheme.bodySmall,
+                textAlign: TextAlign.center,
               ),
-              clipBehavior: Clip.antiAlias,
-              child: MobileScanner(
-                controller: _scannerController,
-                onDetect: (capture) {
-                  if (_isScanHandled) {
-                    return;
-                  }
-                  if (capture.barcodes.isEmpty) {
-                    return;
-                  }
-                  final barcode = capture.barcodes.first.rawValue;
-                  if (barcode == null || barcode.trim().isEmpty) {
-                    return;
-                  }
+              const SizedBox(height: 12),
+              Container(
+                height: 200,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.black12,
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: MobileScanner(
+                  controller: _scannerController,
+                  onDetect: (capture) {
+                    if (_isScanHandled) {
+                      return;
+                    }
+                    if (capture.barcodes.isEmpty) {
+                      return;
+                    }
+                    final barcode = capture.barcodes.first.rawValue;
+                    if (barcode == null || barcode.trim().isEmpty) {
+                      return;
+                    }
 
-                  _isScanHandled = true;
-                  _submitBarcode(barcode);
-                },
-                errorBuilder: (context, error, child) {
-                  final message =
-                      error.errorCode == MobileScannerErrorCode.permissionDenied
-                      ? l10n.home_scannerPermissionDeniedMessage
-                      : l10n.home_scannerUnavailableMessage;
+                    _isScanHandled = true;
+                    _submitBarcode(barcode);
+                  },
+                  errorBuilder: (context, error, child) {
+                    final message = error.errorCode ==
+                            MobileScannerErrorCode.permissionDenied
+                        ? l10n.home_scannerPermissionDeniedMessage
+                        : l10n.home_scannerUnavailableMessage;
 
-                  return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Text(
-                        message,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Text(
+                          message,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
+              const SizedBox(height: 12),
+            ],
             TextField(
               controller: _barcodeController,
               decoration: InputDecoration(
@@ -103,7 +112,7 @@ class _BarcodeScannerDialogState extends State<BarcodeScannerDialog> {
                 ),
                 prefixIcon: const Icon(Icons.qr_code),
               ),
-              autofocus: true,
+              autofocus: false,
               onSubmitted: _submitBarcode,
             ),
           ],

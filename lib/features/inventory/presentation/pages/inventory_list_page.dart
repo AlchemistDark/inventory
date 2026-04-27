@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inventory_p_shalaev/core/error/app_failure.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
+/// Page displaying a list of all inventory items.
+///
+/// Provides filtering capabilities via [InventoryListHeader] and uses
+/// [InventoryListView] to render the actual list based on [InventoryBloc] state.
 class InventoryListPage extends StatelessWidget {
+  /// Creates an [InventoryListPage].
   const InventoryListPage({super.key});
 
   @override
@@ -25,11 +31,11 @@ class InventoryListPage extends StatelessWidget {
                 } else if (state is InventoryError) {
                   return Center(
                     child: Text(
-                      '${l10n.invList_errorMessagePrefix}${state.message}',
+                      '${l10n.invList_errorMessagePrefix}${state.failure.toLocalizedString(l10n)}',
                     ),
                   );
                 }
-                
+
                 return const SizedBox();
               },
             ),
@@ -37,7 +43,8 @@ class InventoryListPage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).cardTheme.color ??
+            Theme.of(context).colorScheme.surface,
         foregroundColor: Theme.of(context).colorScheme.primary,
         onPressed: () {
           Navigator.push<void>(

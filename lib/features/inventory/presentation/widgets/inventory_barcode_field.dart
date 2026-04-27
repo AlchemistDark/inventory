@@ -1,14 +1,22 @@
-import 'package:flutter/material.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
+/// A custom widget for displaying and interacting with an inventory item's barcode.
+///
+/// Shows the current barcode value and provides a scan button that triggers
+/// [onScanPressed].
 class InventoryBarcodeField extends StatelessWidget {
+  /// Creates an [InventoryBarcodeField].
   const InventoryBarcodeField({
     required this.controller,
     required this.onScanPressed,
     super.key,
   });
 
+  /// Controller whose text holds the current barcode value.
   final TextEditingController controller;
+
+  /// Callback triggered when the scan button is pressed.
   final VoidCallback onScanPressed;
 
   @override
@@ -28,10 +36,7 @@ class InventoryBarcodeField extends StatelessWidget {
             Expanded(
               child: Container(
                 padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(8),
-                ),
+                decoration: AppTheme.fieldDecoration,
                 child: Text(
                   controller.text.isEmpty
                       ? l10n.invForm_noBarcode

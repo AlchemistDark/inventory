@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
+/// A section of the inventory form for entering basic item details.
+///
+/// Includes fields for the item's name, inventory number, and quantity,
+/// each with their respective validation rules.
 class BasicInfoSection extends StatelessWidget {
+  /// Creates a [BasicInfoSection].
   const BasicInfoSection({
     required this.nameController,
     required this.inventoryNumberController,
@@ -10,8 +15,13 @@ class BasicInfoSection extends StatelessWidget {
     super.key,
   });
 
+  /// Controller for the item name input.
   final TextEditingController nameController;
+
+  /// Controller for the unique inventory number input.
   final TextEditingController inventoryNumberController;
+
+  /// Controller for the quantity input.
   final TextEditingController quantityController;
 
   @override
@@ -20,6 +30,7 @@ class BasicInfoSection extends StatelessWidget {
 
     return Column(
       children: [
+        // Name field with mandatory validation and minimum length check.
         InventoryTextField(
           controller: nameController,
           labelText: l10n.invForm_nameFieldLabel,
@@ -36,15 +47,14 @@ class BasicInfoSection extends StatelessWidget {
           },
         ),
         const SizedBox(height: 16),
+        // Inventory number field (optional).
         InventoryTextField(
           controller: inventoryNumberController,
           labelText: l10n.invForm_inventoryNumberFieldLabel,
           maxLength: 50,
-          validator: (value) {
-            return null;
-          },
         ),
         const SizedBox(height: 16),
+        // Quantity field with numeric keyboard and range validation (1-999).
         InventoryTextField(
           controller: quantityController,
           keyboardType: TextInputType.number,

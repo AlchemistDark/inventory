@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
+/// A stateful widget that provides a form for creating or editing inventory items.
+///
+/// This widget coordinates the form state through [CreateInventoryFormStateMixin]
+/// and interacts with [InventoryFormBloc] for data persistence and metadata loading.
 class CreateInventoryForm extends StatefulWidget {
+  /// Creates a [CreateInventoryForm].
+  ///
+  /// If [editTarget] is provided, the form will be initialized with its values.
   const CreateInventoryForm({super.key, this.editTarget});
 
+  /// The existing inventory item to be edited, if any.
   final InventoryEntity? editTarget;
 
   @override
@@ -13,6 +21,7 @@ class CreateInventoryForm extends StatefulWidget {
 
 class _CreateInventoryFormState extends State<CreateInventoryForm>
     with CreateInventoryFormStateMixin {
+  /// Validates the form and dispatches a submission event to the BLoC.
   void _submitForm() {
     if (formKey.currentState!.validate()) {
       context.read<InventoryFormBloc>().add(
@@ -28,11 +37,10 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
   Widget build(BuildContext context) {
     return BlocConsumer<InventoryFormBloc, InventoryFormState>(
       listener: (context, state) {
+        // Set default values when metadata is loaded if we are in creation mode.
         if (state is InventoryFormMetadataLoaded && widget.editTarget == null) {
           setState(() {
             selectedEmployeeId ??= state.defaultEmployeeId;
-            selectedCategoryId ??= state.defaultCategoryId;
-            selectedRoomId ??= state.defaultRoomId;
           });
         }
       },
@@ -41,9 +49,9 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
           return const Center(child: CircularProgressIndicator());
         }
 
-        final employees = state is InventoryFormMetadataLoaded ? state.employees : <EmployeeModel>[];
-        final categories = state is InventoryFormMetadataLoaded ? state.categories : <CategoryModel>[];
-        final rooms = state is InventoryFormMetadataLoaded ? state.rooms : <RoomModel>[];
+        final employees = state is InventoryFormMetadataLoaded
+            ? state.employees
+            : <EmployeeModel>[];
 
         return CreateInventoryFormBody(
           formKey: formKey,
@@ -57,8 +65,6 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
           selectedCategoryId: selectedCategoryId,
           selectedRoomId: selectedRoomId,
           employees: employees,
-          categories: categories,
-          rooms: rooms,
           onSelectDate: () => selectDate(),
           onSubmit: _submitForm,
           onCancel: () => Navigator.pop(context),

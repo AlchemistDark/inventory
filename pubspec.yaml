@@ -20,7 +20,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   get_it: ^8.0.2 # DI container
-  go_router: ^14.0.0 # Navigation
   intl: ^0.20.2 # Localization and date formatting
   mobile_scanner: ^6.0.0 # Barcode scanner
   package_info_plus: ^8.0.0 # App version info

@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
+/// A dialog that allows users to input a barcode manually or scan it using the camera.
+///
+/// Uses [MobileScanner] for camera-based scanning. When a barcode is detected
+/// or manually entered, it can be saved back to the form via [onBarcodeSaved].
 class InventoryBarcodeInputDialog extends StatefulWidget {
+  /// Creates an [InventoryBarcodeInputDialog].
   const InventoryBarcodeInputDialog({
     required this.initialBarcode,
     required this.onBarcodeSaved,
     super.key,
   });
 
+  /// The barcode value to show when the dialog opens.
   final String initialBarcode;
+
+  /// Callback triggered when the 'Save' button is pressed.
   final ValueChanged<String> onBarcodeSaved;
 
   @override
@@ -71,6 +79,7 @@ class _InventoryBarcodeInputDialogState
               child: MobileScanner(
                 controller: _scannerController,
                 onDetect: (capture) {
+                  // Prevent multiple detections for a single scan.
                   if (_isScanHandled || capture.barcodes.isEmpty) {
                     return;
                   }
@@ -81,7 +90,7 @@ class _InventoryBarcodeInputDialogState
                   }
 
                   _isScanHandled = true;
-                  // Scanning overrides the manual input
+                  // Scanning overrides the manual input.
                   _barcodeController.text = barcode;
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

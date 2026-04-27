@@ -1,11 +1,15 @@
 import 'package:inventory_p_shalaev/core/database/database_helper.dart';
-import 'package:inventory_p_shalaev/features/inventory/data/datasources/inventory_local_datasource.dart';
-import 'package:inventory_p_shalaev/features/inventory/data/models/inventory_model.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:sqflite/sqflite.dart';
 
+/// Implementation of [InventoryLocalDataSource] using SQLite database.
+///
+/// Handles all local CRUD operations for inventory items, including
+/// joining with category information and managing many-to-many/foreign keys.
 class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
   final DatabaseHelper _databaseHelper;
 
+  /// Creates an [InventoryLocalDataSourceImpl] with the provided [DatabaseHelper].
   InventoryLocalDataSourceImpl(this._databaseHelper);
 
   @override
@@ -19,10 +23,14 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
     );
 
     if (model.categoryId != null) {
-      await db.insert('inventory_categories', {
-        'inventoryId': id,
-        'categoryId': model.categoryId,
-      }, conflictAlgorithm: ConflictAlgorithm.replace);
+      await db.insert(
+        'inventory_categories',
+        {
+          'inventoryId': id,
+          'categoryId': model.categoryId,
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
     }
 
     return InventoryModel(
@@ -94,7 +102,7 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
     if (maps.isEmpty) {
       return null;
     }
-    
+
     return InventoryModel.fromMap(maps.first);
   }
 
@@ -119,6 +127,26 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
   }
 
   @override
+  Future<List<InventoryModel>> getInventoryByEmployeeId(int employeeId) async {
+    final db = await _databaseHelper.database;
+
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+      '''
+      SELECT i.*, ic.categoryId 
+      FROM inventory i 
+      LEFT JOIN inventory_categories ic ON i.id = ic.inventoryId
+      WHERE i.employeeId = ?
+      ORDER BY i.name ASC
+    ''',
+      [employeeId],
+    );
+
+    return List<InventoryModel>.from(
+      maps.map((map) => InventoryModel.fromMap(map)),
+    );
+  }
+
+  @override
   Future<void> updateInventory(InventoryModel model) async {
     final db = await _databaseHelper.database;
 
@@ -129,7 +157,7 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
       whereArgs: [model.id],
     );
 
-    // Update category
+    // Update category link
     await db.delete(
       'inventory_categories',
       where: 'inventoryId = ?',

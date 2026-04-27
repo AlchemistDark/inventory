@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
+/// A card-style widget representing a single inventory item in a list.
+///
+/// Displays basic information including the inventory number, name, quantity,
+/// responsible employee, and room. Tapping the item navigates to the
+/// [InventoryDetailsPage].
 class InventoryListItem extends StatelessWidget {
+  /// Creates an [InventoryListItem].
   const InventoryListItem({
     required this.inventory,
     required this.employeeName,
@@ -10,13 +16,20 @@ class InventoryListItem extends StatelessWidget {
     super.key,
   });
 
+  /// The inventory entity data to display.
   final InventoryEntity inventory;
+
+  /// The pre-resolved name of the responsible employee.
   final String employeeName;
+
+  /// The pre-resolved name of the room where the item is located.
   final String roomName;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+
+    // Format title and quantity string.
     final qtyText = inventory.quantity > 0 ? '(${inventory.quantity}) ' : '';
     final invNumText = inventory.inventoryNumber != null
         ? '${inventory.inventoryNumber} '
@@ -31,7 +44,8 @@ class InventoryListItem extends StatelessWidget {
         Navigator.push<void>(
           context,
           MaterialPageRoute<void>(
-            builder: (context) => InventoryDetailsPage(inventory: inventory),
+            builder: (context) =>
+                InventoryDetailsPage(inventoryId: inventory.id),
           ),
         );
       },
@@ -48,7 +62,8 @@ class InventoryListItem extends StatelessWidget {
                   Expanded(
                     child: Text(
                       titleText,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const Icon(Icons.chevron_right),

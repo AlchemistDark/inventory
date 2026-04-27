@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
 
+/// Card widget displaying summarized information for an inventory search result.
 class InventorySearchResultCard extends StatelessWidget {
+  /// Creates an [InventorySearchResultCard].
   const InventorySearchResultCard({
     required this.inventory,
     required this.onTap,
     super.key,
   });
 
+  /// The inventory entity to display.
   final InventoryEntity inventory;
+
+  /// Callback triggered when the card is tapped.
   final VoidCallback onTap;
 
   @override

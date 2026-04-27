@@ -1,5 +1,4 @@
-import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
-import 'package:inventory_p_shalaev/features/inventory/domain/repositories/inventory_repository.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
 /// Use case for searching inventory by name
 class SearchInventoriesByNameUseCase {

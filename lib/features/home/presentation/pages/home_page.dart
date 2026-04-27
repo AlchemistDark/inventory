@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inventory_p_shalaev/generated/app_localizations.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 /// Home screen for inventory management
 class HomePage extends StatefulWidget {
@@ -15,11 +16,6 @@ class _HomePageState extends State<HomePage> {
   final _searchController = TextEditingController();
   int _selectedNavIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    context.read<HomeBloc>().add(const InitializeEvent());
-  }
 
   void _submitBarcode(String barcode) {
     context.read<HomeBloc>().add(SearchInventoryByBarcodeEvent(barcode));
@@ -66,7 +62,7 @@ class _HomePageState extends State<HomePage> {
     Navigator.push(
       context,
       MaterialPageRoute<void>(
-        builder: (context) => InventoryDetailsPage(inventory: inventory),
+        builder: (context) => InventoryDetailsPage(inventoryId: inventory.id),
       ),
     );
   }
@@ -88,20 +84,11 @@ class _HomePageState extends State<HomePage> {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
+      drawer: const AppDrawer(),
       appBar: AppBar(
         title: Text(l10n.home_appBarTitle),
         centerTitle: true,
         elevation: 0,
-        actions: [
-          IconButton(
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(l10n.home_menuUnderDevelopment)),
-              );
-            },
-            icon: const Icon(Icons.menu),
-          ),
-        ],
       ),
       body: SafeArea(
         child: BlocListener<HomeBloc, HomeState>(
@@ -114,9 +101,8 @@ class _HomePageState extends State<HomePage> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
-                    '${l10n.home_errorPrefix}${state.message}',
+                    '${l10n.home_errorPrefix}${state.failure.toLocalizedString(l10n)}',
                   ),
-                  backgroundColor: Colors.red,
                 ),
               );
             }

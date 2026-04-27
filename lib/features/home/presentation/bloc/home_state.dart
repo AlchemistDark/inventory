@@ -1,3 +1,4 @@
+import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
 import 'package:inventory_p_shalaev/features/inventory/presentation/bloc/inventory_common_models.dart';
 
@@ -52,8 +53,7 @@ class HomeNotFound extends HomeState {
 /// State when an error occurred
 class HomeError extends HomeState with ErrorStateMixin {
   @override
-  final String message;
+  final AppFailure failure;
 
-  const HomeError(this.message);
+  const HomeError(this.failure);
 }
-

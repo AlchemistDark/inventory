@@ -1,11 +1,14 @@
-import 'package:inventory_p_shalaev/features/employees/domain/entities/employee_entity.dart';
-import 'package:inventory_p_shalaev/features/employees/domain/repositories/employee_repository.dart';
-import 'package:inventory_p_shalaev/features/employees/data/datasources/employees_local_datasource.dart';
-import 'package:inventory_p_shalaev/features/employees/data/models/employee_model.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
+/// Implementation of the [EmployeeRepository] interface.
+///
+/// Handles data mapping between [EmployeeEntity] and [EmployeeModel]
+/// and coordinates data operations using [EmployeesLocalDataSource].
 class EmployeeRepositoryImpl implements EmployeeRepository {
+  /// The local data source for employee records.
   final EmployeesLocalDataSource localDataSource;
 
+  /// Creates an [EmployeeRepositoryImpl] with the provided [localDataSource].
   EmployeeRepositoryImpl(this.localDataSource);
 
   @override
