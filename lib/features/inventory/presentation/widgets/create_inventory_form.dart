@@ -41,6 +41,7 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
         if (state is InventoryFormMetadataLoaded && widget.editTarget == null) {
           setState(() {
             selectedEmployeeId ??= state.defaultEmployeeId;
+            selectedCategoryId ??= state.defaultCategoryId;
           });
         }
       },
@@ -52,6 +53,9 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
         final employees = state is InventoryFormMetadataLoaded
             ? state.employees
             : <EmployeeModel>[];
+        final categories = state is InventoryFormMetadataLoaded
+            ? state.categories
+            : <CategoryModel>[];
 
         return CreateInventoryFormBody(
           formKey: formKey,
@@ -65,6 +69,7 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
           selectedCategoryId: selectedCategoryId,
           selectedRoomId: selectedRoomId,
           employees: employees,
+          categories: categories,
           onSelectDate: () => selectDate(),
           onSubmit: _submitForm,
           onCancel: () => Navigator.pop(context),

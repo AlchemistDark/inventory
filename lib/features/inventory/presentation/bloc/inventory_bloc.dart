@@ -24,6 +24,9 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
   /// Data source for employee data, used to load responsible persons.
   final EmployeesLocalDataSource employeesDataSource;
 
+  /// Data source for category data, used for classification and filtering.
+  final CategoriesLocalDataSource categoriesDataSource;
+
   /// Creates [InventoryBloc] with required dependencies and sets the initial state.
   InventoryBloc({
     required this.searchByNameUseCase,
@@ -31,6 +34,7 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
     required this.createInventoryUseCase,
     required this.updateInventoryUseCase,
     required this.employeesDataSource,
+    required this.categoriesDataSource,
   }) : super(const InventoryInitial()) {
     on<InitializeInventoriesEvent>(_onInitialize);
     on<LoadInventoriesEvent>(_onLoadInventories);
@@ -56,10 +60,13 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
       emit(const InventoryLoading());
       final inventories = await getInventoriesUseCase();
       final employees = await employeesDataSource.getEmployees();
+      final categories = await categoriesDataSource.getCategories();
 
       emit(InventoriesLoaded(
         inventories: inventories,
+        filteredInventories: inventories,
         employees: employees,
+        categories: categories,
       ));
     } catch (e) {
       emit(const InventoryError(AppFailure.database));
@@ -76,10 +83,20 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
       try {
         final results = await searchByNameUseCase(event.query);
 
+        var filtered = results;
+        if (currentState.categoryFilter != null) {
+          filtered = filtered
+              .where((i) => i.categoryId == currentState.categoryFilter)
+              .toList();
+        }
+
         emit(InventoriesLoaded(
           inventories: results,
+          filteredInventories: filtered,
           employees: currentState.employees,
+          categories: currentState.categories,
           searchQuery: event.query,
+          categoryFilter: currentState.categoryFilter,
         ));
       } catch (e) {
         emit(const InventoryError(AppFailure.database));
@@ -102,8 +119,11 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
 
       emit(InventoriesLoaded(
         inventories: currentState.inventories,
+        filteredInventories: filtered,
         employees: currentState.employees,
+        categories: currentState.categories,
         searchQuery: currentState.searchQuery,
+        categoryFilter: event.categoryId,
       ));
     }
   }

@@ -27,19 +27,29 @@ class InventoryFormMetadataLoaded extends InventoryFormState {
   /// List of available employees.
   final List<EmployeeModel> employees;
 
+  /// List of available categories.
+  final List<CategoryModel> categories;
+
   /// The ID of the default employee to be pre-selected (e.g., 'Administrator').
   final int? defaultEmployeeId;
+
+  /// The ID of the default category to be pre-selected (e.g., 'Undefined').
+  final int? defaultCategoryId;
 
   @override
   List<Object?> get props => [
         employees,
+        categories,
         defaultEmployeeId,
+        defaultCategoryId,
       ];
 
   /// Creates an [InventoryFormMetadataLoaded] state with metadata and defaults.
   const InventoryFormMetadataLoaded({
     required this.employees,
+    required this.categories,
     this.defaultEmployeeId,
+    this.defaultCategoryId,
   });
 }
 

@@ -13,6 +13,9 @@ abstract final class ServiceLocator {
     getIt.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
     // Data Sources
+    getIt.registerLazySingleton<CategoriesLocalDataSource>(
+      () => CategoriesLocalDataSourceImpl(getIt()),
+    );
     getIt.registerLazySingleton<EmployeesLocalDataSource>(
       () => EmployeesLocalDataSourceImpl(getIt()),
     );
@@ -26,6 +29,9 @@ abstract final class ServiceLocator {
     );
     getIt.registerLazySingleton<EmployeeRepository>(
       () => EmployeeRepositoryImpl(getIt()),
+    );
+    getIt.registerLazySingleton<CategoriesRepository>(
+      () => CategoriesRepositoryImpl(getIt()),
     );
 
     // Use Cases
@@ -43,6 +49,13 @@ abstract final class ServiceLocator {
     getIt.registerLazySingleton(() => GetEmployeesUseCase(getIt()));
     getIt.registerLazySingleton(() => DeleteEmployeeUseCase(getIt()));
 
+    // Categories
+    getIt.registerLazySingleton(() => GetCategoriesUseCase(getIt()));
+    getIt.registerLazySingleton(() => CreateCategoryUseCase(getIt()));
+    getIt.registerLazySingleton(() => UpdateCategoryUseCase(getIt()));
+    getIt.registerLazySingleton(() => DeleteCategoryUseCase(getIt()));
+    getIt.registerLazySingleton(() => SearchCategoriesUseCase(getIt()));
+
     // BLoCs
     getIt.registerFactory(
       () => HomeBloc(
@@ -59,12 +72,14 @@ abstract final class ServiceLocator {
         createInventoryUseCase: getIt(),
         updateInventoryUseCase: getIt(),
         employeesDataSource: getIt(),
+        categoriesDataSource: getIt(),
       ),
     );
 
     getIt.registerFactory(
       () => InventoryFormBloc(
         employeesDataSource: getIt(),
+        categoriesDataSource: getIt(),
         createInventoryUseCase: getIt(),
         updateInventoryUseCase: getIt(),
       ),
@@ -85,6 +100,10 @@ abstract final class ServiceLocator {
         updateEmployeeUseCase: getIt(),
         deleteEmployeeUseCase: getIt(),
       ),
+    );
+
+    getIt.registerFactory(
+      () => CategoriesBloc(getCategoriesUseCase: getIt(), repository: getIt()),
     );
 
     return Future.value();

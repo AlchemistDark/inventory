@@ -13,8 +13,15 @@ class DatabaseSeeder {
   /// This should always run regardless of build mode.
   static Future<void> seedDefaults(
     EmployeesLocalDataSource employeesDataSource,
+    CategoriesLocalDataSource categoriesDataSource,
   ) async {
     try {
+      // Initialize default category if empty
+      final categories = await categoriesDataSource.getCategories();
+      if (categories.isEmpty) {
+        await categoriesDataSource.createCategory('Не определено');
+      }
+
       // Initialize default employee if empty
       final employees = await employeesDataSource.getEmployees();
       if (employees.isEmpty) {

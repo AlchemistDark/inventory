@@ -11,6 +11,12 @@ void main() async {
   // Initialize dependencies via service locator
   await ServiceLocator.setup();
 
+  // Initialize default data (categories, positions, rooms, admin employee)
+  await DatabaseSeeder.seedDefaults(
+    ServiceLocator.getIt<EmployeesLocalDataSource>(),
+    ServiceLocator.getIt<CategoriesLocalDataSource>(),
+  );
+
   // Seed test inventory data in debug mode only
   if (kDebugMode) {
     await DatabaseSeeder.seedTestInventory(
@@ -33,6 +39,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<EmployeesLocalDataSource>(
           create: (_) => ServiceLocator.getIt<EmployeesLocalDataSource>(),
         ),
+        RepositoryProvider<CategoriesLocalDataSource>(
+          create: (_) => ServiceLocator.getIt<CategoriesLocalDataSource>(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -53,6 +62,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => ServiceLocator.getIt<EmployeesBloc>()
               ..add(LoadEmployeesEvent()),
+          ),
+          BlocProvider(
+            create: (context) => ServiceLocator.getIt<CategoriesBloc>()
+              ..add(const LoadCategoriesEvent()),
           ),
         ],
         child: MaterialApp(

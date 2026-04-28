@@ -74,7 +74,40 @@ class _InventoryListHeaderState extends State<InventoryListHeader> {
           BlocBuilder<InventoryBloc, InventoryState>(
             builder: (context, state) {
               if (state is InventoriesLoaded) {
-                return const Text('Не реализовано');
+                return DropdownButtonFormField<int?>(
+                  initialValue: state.categoryFilter,
+                  decoration: InputDecoration(
+                    labelText: l10n.invList_filterByCategoryLabel,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                      value: null,
+                      child: Text(l10n.invList_showAllCategories),
+                    ),
+                    ...state.categories.map(
+                      (c) => DropdownMenuItem(
+                        value: c.id,
+                        child: Text(c.name),
+                      ),
+                    ),
+                  ],
+                  onChanged: (val) {
+                    if (val == null) {
+                      context
+                          .read<InventoryBloc>()
+                          .add(const ClearFiltersEvent());
+                    } else {
+                      context
+                          .read<InventoryBloc>()
+                          .add(FilterInventoriesByCategoryEvent(val));
+                    }
+                  },
+                );
               }
 
               return const SizedBox();

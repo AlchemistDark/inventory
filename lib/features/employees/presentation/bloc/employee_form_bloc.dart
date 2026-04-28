@@ -26,10 +26,10 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
     on<SubmitEmployeeForm>(_onSubmit);
   }
 
-  Future<void> _onInitialize(
+  void _onInitialize(
     InitializeEmployeeForm event,
     Emitter<EmployeeFormState> emit,
-  ) async {
+  ){
     emit(const EmployeeFormLoading());
     try {
 

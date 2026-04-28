@@ -1,3 +1,20 @@
+export 'categories/data/datasources/categories_local_datasource.dart';
+export 'categories/data/models/category_model.dart';
+export 'categories/data/repositories/categories_repository_impl.dart';
+export 'categories/domain/entities/category_entity.dart';
+export 'categories/domain/repositories/categories_repository.dart';
+export 'categories/domain/usecases/create_category_usecase.dart';
+export 'categories/domain/usecases/delete_category_usecase.dart';
+export 'categories/domain/usecases/get_categories_usecase.dart';
+export 'categories/domain/usecases/get_category_usecase.dart';
+export 'categories/domain/usecases/search_categories_usecase.dart';
+export 'categories/domain/usecases/update_category_usecase.dart';
+export 'categories/presentation/bloc/categories_bloc.dart';
+export 'categories/presentation/bloc/categories_event.dart';
+export 'categories/presentation/bloc/categories_state.dart';
+export 'categories/presentation/pages/categories_page.dart';
+export 'categories/presentation/widgets/category_form_dialog.dart';
+
 // Employees
 export 'employees/data/datasources/employees_local_datasource.dart';
 export 'employees/data/models/employee_model.dart';

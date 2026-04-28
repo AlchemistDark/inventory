@@ -40,7 +40,7 @@ class HomeBottomNavigation extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute<void>(
-          builder: (context) => Text('Не реализовано'),
+          builder: (context) => const Text('Не реализовано'),
         ),
       );
     }

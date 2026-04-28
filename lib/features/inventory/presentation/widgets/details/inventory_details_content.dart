@@ -11,6 +11,7 @@ class InventoryDetailsContent extends StatelessWidget {
   const InventoryDetailsContent({
     required this.inventory,
     required this.employeeName,
+    required this.categoryName,
     super.key,
   });
 
@@ -19,6 +20,9 @@ class InventoryDetailsContent extends StatelessWidget {
 
   /// The name of the employee responsible for this item.
   final String employeeName;
+
+  /// The category name of the item.
+  final String categoryName;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +68,7 @@ class InventoryDetailsContent extends StatelessWidget {
           ),
           DetailRow(
             label: l10n.invList_detailCategoryLabel,
-            value: ' ',
+            value: categoryName,
             icon: Icons.category,
           ),
           DetailRow(

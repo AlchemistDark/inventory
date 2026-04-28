@@ -27,30 +27,49 @@ class InventoriesLoaded extends InventoryState {
   /// The full list of all inventory items.
   final List<InventoryEntity> inventories;
 
+  /// The list of inventory items after applying search and category filters.
+  final List<InventoryEntity> filteredInventories;
+
   /// List of available employees for selection.
   final List<EmployeeModel> employees;
+
+  /// List of available categories for selection and filtering.
+  final List<CategoryModel> categories;
 
   /// The current active search query, if any.
   final String? searchQuery;
 
+  /// The ID of the currently selected category filter, if any.
+  final int? categoryFilter;
+
   /// A lookup map for employees by their ID.
   final Map<int, String> employeeMap;
 
+  /// A lookup map for categories by their ID.
+  final Map<int, String> categoryMap;
 
   @override
   List<Object?> get props => [
         inventories,
+        filteredInventories,
         employees,
+        categories,
         searchQuery,
+        categoryFilter,
         employeeMap,
+        categoryMap,
       ];
 
   /// Creates an [InventoriesLoaded] state with all required data.
   InventoriesLoaded({
     required this.inventories,
+    required this.filteredInventories,
     required this.employees,
+    required this.categories,
     this.searchQuery,
-  })  : employeeMap = {for (final e in employees) e.id: e.name};
+    this.categoryFilter,
+  })  : employeeMap = {for (final e in employees) e.id: e.name},
+        categoryMap = {for (final c in categories) c.id: c.name};
 }
 
 /// State representing that a new inventory item has been successfully created.

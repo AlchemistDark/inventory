@@ -39,7 +39,7 @@ class AppDrawer extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (context) => const Text('Не реализовано'),
+                  builder: (context) => const CategoriesPage(),
                 ),
               );
             },

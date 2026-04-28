@@ -11,6 +11,9 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
   /// Data source for loading employees.
   final EmployeesLocalDataSource employeesDataSource;
 
+  /// Data source for loading categories.
+  final CategoriesLocalDataSource categoriesDataSource;
+
   /// Use case for creating a new inventory item.
   final CreateInventoryUseCase createInventoryUseCase;
 
@@ -20,6 +23,7 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
   /// Creates an [InventoryFormBloc] with all required dependencies.
   InventoryFormBloc({
     required this.employeesDataSource,
+    required this.categoriesDataSource,
     required this.createInventoryUseCase,
     required this.updateInventoryUseCase,
   }) : super(const InventoryFormInitial()) {
@@ -34,14 +38,20 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
     emit(const InventoryFormLoading());
     try {
       final employees = await employeesDataSource.getEmployees();
+      final categories = await categoriesDataSource.getCategories();
 
       // Find default values based on conventional names
+      // ToDo Убрать 'Администратор' и 'Не определено'
       final defaultEmployeeId =
           employees.where((e) => e.name == 'Администратор').firstOrNull?.id;
+      final defaultCategoryId =
+          categories.where((c) => c.name == 'Не определено').firstOrNull?.id;
 
       emit(InventoryFormMetadataLoaded(
         employees: employees,
+        categories: categories,
         defaultEmployeeId: defaultEmployeeId,
+        defaultCategoryId: defaultCategoryId,
       ));
     } catch (e) {
       emit(const InventoryFormError(AppFailure.database));

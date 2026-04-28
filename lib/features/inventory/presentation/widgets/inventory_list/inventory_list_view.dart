@@ -20,7 +20,26 @@ class InventoryListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final displayList = state.filteredInventories;
 
-    return const Text('Не реализовано');
+    if (displayList.isEmpty) {
+      return Center(child: Text(l10n.invList_noItemsFilterMessage));
+    }
+
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      itemCount: displayList.length,
+      itemBuilder: (context, index) {
+        final item = displayList[index];
+        final employeeName =
+            state.employeeMap[item.employeeId] ?? l10n.invList_notSpecifiedMale;
+
+        return InventoryListItem(
+          inventory: item,
+          employeeName: employeeName,
+          roomName: ' ',
+        );
+      },
+    );
   }
 }

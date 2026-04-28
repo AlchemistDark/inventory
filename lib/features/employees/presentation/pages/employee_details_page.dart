@@ -39,9 +39,9 @@ class EmployeeDetailsPage extends StatelessWidget {
 
             return CustomScrollView(
               slivers: [
-                SliverPadding(
+                const SliverPadding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   sliver: SliverToBoxAdapter(
                     child: EmployeeInfoCard(
                     ),
