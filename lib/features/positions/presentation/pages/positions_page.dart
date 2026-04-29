@@ -25,6 +25,16 @@ class PositionsPage extends StatelessWidget {
           } else {
             context.read<PositionsBloc>().add(UpdatePositionEvent(newPosition));
           }
+          final l10n = AppLocalizations.of(context)!;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                position == null
+                    ? l10n.positions_created
+                    : l10n.positions_updated,
+              ),
+            ),
+          );
         },
       ),
     );

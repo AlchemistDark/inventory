@@ -121,11 +121,15 @@
   "categories_editTitle": "Редактировать категорию",
   "categories_nameLabel": "Название",
   "categories_descriptionLabel": "Описание",
+  "categories_created": "Категория создана",
+  "categories_updated": "Данные категории обновлены",
 
   "positions_emptyList": "Список должностей пуст",
   "positions_newTitle": "Новая должность",
   "positions_editTitle": "Редактировать должность",
   "positions_nameLabel": "Название",
+  "positions_created": "Должность создана",
+  "positions_updated": "Данные должности обновлены",
 
   "rooms_emptyList": "Список помещений пуст",
   "rooms_newTitle": "Новое помещение",

@@ -121,11 +121,15 @@
   "categories_editTitle": "Edit Category",
   "categories_nameLabel": "Name",
   "categories_descriptionLabel": "Description",
+  "categories_created": "Category created",
+  "categories_updated": "Category updated",
 
   "positions_emptyList": "Positions list is empty",
   "positions_newTitle": "New Position",
   "positions_editTitle": "Edit Position",
   "positions_nameLabel": "Name",
+  "positions_created": "Position created",
+  "positions_updated": "Position updated",
 
   "rooms_emptyList": "Rooms list is empty",
   "rooms_newTitle": "New Room",

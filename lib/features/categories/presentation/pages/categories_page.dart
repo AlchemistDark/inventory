@@ -29,6 +29,16 @@ class CategoriesPage extends StatelessWidget {
               UpdateCategoryEvent(newCategory),
             );
           }
+          final l10n = AppLocalizations.of(context)!;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                category == null
+                    ? l10n.categories_created
+                    : l10n.categories_updated,
+              ),
+            ),
+          );
         },
       ),
     );

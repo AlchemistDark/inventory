@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      drawer: const AppDrawer(),
+      endDrawer: const AppDrawer(),
       appBar: AppBar(
         title: Text(l10n.home_appBarTitle),
         centerTitle: true,
