@@ -15,6 +15,12 @@ class AppTheme {
   /// Slightly darker grey for icons in fields.
   static final Color greyDarkColor = Colors.grey[600]!;
 
+  /// Standard white color.
+  static const Color whiteColor = Colors.white;
+
+  /// Semi-transparent black for scanner barrier or backgrounds.
+  static const Color scanBarrierColor = Colors.black12;
+
   /// Light grey for grab handles and dividers.
   static final Color greyLightColor = Colors.grey[300]!;
 
