@@ -1,18 +1,32 @@
 import '../models/room_model.dart';
 import 'package:inventory_p_shalaev/core/core.dart';
 
+/// Abstract data source for local room operations.
 abstract class RoomsLocalDataSource {
+  /// Inserts a new room record into the database.
   Future<RoomModel> createRoom(RoomModel model);
+
+  /// Retrieves all room records from the database.
   Future<List<RoomModel>> getRooms();
+
+  /// Retrieves a specific room by its unique ID.
   Future<RoomModel?> getRoomById(int id);
+
+  /// Searches for rooms with names matching the query string.
   Future<List<RoomModel>> searchRooms(String query);
+
+  /// Updates an existing room record in the database.
   Future<void> updateRoom(RoomModel model);
+
+  /// Deletes a room record from the database by its ID.
   Future<void> deleteRoom(int id);
 }
 
+/// Implementation of [RoomsLocalDataSource] using SQLite.
 class RoomsLocalDataSourceImpl implements RoomsLocalDataSource {
   final DatabaseHelper _databaseHelper;
 
+  /// Creates a [RoomsLocalDataSourceImpl] with the given [DatabaseHelper].
   RoomsLocalDataSourceImpl(this._databaseHelper);
 
   @override

@@ -1,4 +1,4 @@
-import '../entities/position_entity.dart';
+import 'package:inventory_p_shalaev/features/positions/domain/entities/position_entity.dart';
 
 /// Abstract repository for managing employee positions.
 abstract class PositionRepository {

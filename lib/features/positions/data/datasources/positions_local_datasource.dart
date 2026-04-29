@@ -1,18 +1,32 @@
 import 'package:inventory_p_shalaev/features/positions/data/models/position_model.dart';
 import 'package:inventory_p_shalaev/core/database/database_helper.dart';
 
+/// Abstract data source for local position operations.
 abstract class PositionsLocalDataSource {
+  /// Inserts a new position record into the database.
   Future<PositionModel> createPosition(PositionModel model);
+
+  /// Retrieves all position records from the database.
   Future<List<PositionModel>> getPositions();
+
+  /// Retrieves a specific position by its unique ID.
   Future<PositionModel?> getPositionById(int id);
+
+  /// Searches for positions with names matching the query string.
   Future<List<PositionModel>> searchPositions(String query);
+
+  /// Updates an existing position record in the database.
   Future<void> updatePosition(PositionModel model);
+
+  /// Deletes a position record from the database by its ID.
   Future<void> deletePosition(int id);
 }
 
+/// Implementation of [PositionsLocalDataSource] using SQLite.
 class PositionsLocalDataSourceImpl implements PositionsLocalDataSource {
   final DatabaseHelper _databaseHelper;
 
+  /// Creates a [PositionsLocalDataSourceImpl] with the given [DatabaseHelper].
   PositionsLocalDataSourceImpl(this._databaseHelper);
 
   @override

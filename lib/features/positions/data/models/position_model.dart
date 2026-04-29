@@ -1,10 +1,17 @@
-import '../../domain/entities/position_entity.dart';
+import 'package:inventory_p_shalaev/features/positions/domain/entities/position_entity.dart';
 
+/// Data model for employee positions, providing serialization to/from database maps.
 class PositionModel {
+  /// Unique identifier for the position.
   final int id;
+
+  /// Name of the position.
   final String name;
+
+  /// Timestamp when the position was created.
   final DateTime createdAt;
 
+  /// Creates a [PositionModel].
   PositionModel({
     required this.id,
     required this.name,

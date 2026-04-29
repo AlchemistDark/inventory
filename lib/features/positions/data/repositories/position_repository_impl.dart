@@ -1,7 +1,4 @@
-import 'package:inventory_p_shalaev/features/positions/data/datasources/positions_local_datasource.dart';
-import 'package:inventory_p_shalaev/features/positions/data/models/position_model.dart';
-import 'package:inventory_p_shalaev/features/positions/domain/entities/position_entity.dart';
-import 'package:inventory_p_shalaev/features/positions/domain/repositories/position_repository.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
 /// Implementation of [PositionRepository] using a local data source.
 class PositionRepositoryImpl implements PositionRepository {

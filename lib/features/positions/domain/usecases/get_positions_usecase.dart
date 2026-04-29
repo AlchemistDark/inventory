@@ -1,5 +1,4 @@
-import '../entities/position_entity.dart';
-import '../repositories/position_repository.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
 /// Use case for retrieving all available positions.
 class GetPositionsUseCase {

@@ -1,9 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/core/core.dart';
-import 'package:inventory_p_shalaev/features/positions/domain/repositories/position_repository.dart';
-import 'package:inventory_p_shalaev/features/positions/domain/usecases/get_positions_usecase.dart';
-import 'package:inventory_p_shalaev/features/positions/presentation/bloc/positions_event.dart';
-import 'package:inventory_p_shalaev/features/positions/presentation/bloc/positions_state.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
 /// BLoC for managing the state and operations of the positions list.
 class PositionsBloc extends Bloc<PositionsEvent, PositionsState> {
