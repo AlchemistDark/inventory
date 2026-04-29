@@ -68,6 +68,7 @@
   "invList_noInventoryNumber": "N/A",
   "invList_inventoryNumberPrefix": "Inv. №: ",
   "invList_itemAddedMessage": "Item added",
+  "invList_itemUpdatedMessage": "Item updated",
   "invList_filterByCategoryLabel": "Filter by category",
   "invList_showAllCategories": "All categories",
   "invList_searchHint": "Search by barcode, inventory number or name",
@@ -131,6 +132,8 @@
   "rooms_editTitle": "Edit Room",
   "rooms_nameLabel": "Name",
   "rooms_descriptionLabel": "Description",
+  "rooms_created": "Room created",
+  "rooms_updated": "Room updated",
 
   "common_error": "Error: {message}",
   "@common_error": {

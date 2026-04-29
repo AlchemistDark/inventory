@@ -36,9 +36,14 @@ class PositionModel {
     createdAt: createdAt,
   );
 
-  Map<String, dynamic> toMap() => {
-    'id': id,
-    'name': name,
-    'createdAt': createdAt.millisecondsSinceEpoch,
-  };
+  Map<String, dynamic> toMap() {
+    final map = <String, dynamic>{
+      'name': name,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+    };
+    if (id > 0) {
+      map['id'] = id;
+    }
+    return map;
+  }
 }

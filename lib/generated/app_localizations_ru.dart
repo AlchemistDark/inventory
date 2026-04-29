@@ -18,7 +18,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get home_searchTitle => 'Поиск предмета';
 
   @override
-  String get home_scanButton => 'Скан';
+  String get home_scanButton => 'Сканировать';
 
   @override
   String get home_searchFieldLabel => 'Введите название или номер';
@@ -177,6 +177,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get invList_itemAddedMessage => 'Предмет добавлен';
+
+  @override
+  String get invList_itemUpdatedMessage => 'Предмет обновлен';
 
   @override
   String get invList_filterByCategoryLabel => 'Фильтр по категории';
@@ -356,6 +359,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get rooms_descriptionLabel => 'Описание';
+
+  @override
+  String get rooms_created => 'Помещение создано';
+
+  @override
+  String get rooms_updated => 'Данные помещения обновлены';
 
   @override
   String common_error(String message) {

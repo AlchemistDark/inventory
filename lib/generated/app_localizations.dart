@@ -119,7 +119,7 @@ abstract class AppLocalizations {
   /// No description provided for @home_scanButton.
   ///
   /// In ru, this message translates to:
-  /// **'Скан'**
+  /// **'Сканировать'**
   String get home_scanButton;
 
   /// No description provided for @home_searchFieldLabel.
@@ -409,6 +409,12 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Предмет добавлен'**
   String get invList_itemAddedMessage;
+
+  /// No description provided for @invList_itemUpdatedMessage.
+  ///
+  /// In ru, this message translates to:
+  /// **'Предмет обновлен'**
+  String get invList_itemUpdatedMessage;
 
   /// No description provided for @invList_filterByCategoryLabel.
   ///
@@ -763,6 +769,18 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Описание'**
   String get rooms_descriptionLabel;
+
+  /// No description provided for @rooms_created.
+  ///
+  /// In ru, this message translates to:
+  /// **'Помещение создано'**
+  String get rooms_created;
+
+  /// No description provided for @rooms_updated.
+  ///
+  /// In ru, this message translates to:
+  /// **'Данные помещения обновлены'**
+  String get rooms_updated;
 
   /// No description provided for @common_error.
   ///

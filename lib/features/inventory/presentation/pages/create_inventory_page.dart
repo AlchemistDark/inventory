@@ -36,6 +36,15 @@ class CreateInventoryPage extends StatelessWidget {
             // Navigate back and refresh the inventory list on success.
             Navigator.pop(context);
             context.read<InventoryBloc>().add(const LoadInventoriesEvent());
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  editTarget == null
+                      ? l10n.invList_itemAddedMessage
+                      : l10n.invList_itemUpdatedMessage,
+                ),
+              ),
+            );
           } else if (state is InventoryFormError) {
             // Show error message using the theme-defined snackbar style.
             ScaffoldMessenger.of(context).showSnackBar(

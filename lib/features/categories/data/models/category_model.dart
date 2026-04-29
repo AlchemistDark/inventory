@@ -43,11 +43,14 @@ class CategoryModel {
 
   /// Converts the model to a database map
   Map<String, dynamic> toMap() {
-    return {
-      'id': id,
+    final map = <String, dynamic>{
       'name': name,
       'createdAt': createdAt.millisecondsSinceEpoch,
     };
+    if (id > 0) {
+      map['id'] = id;
+    }
+    return map;
   }
 
   @override

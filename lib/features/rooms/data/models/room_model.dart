@@ -47,10 +47,15 @@ class RoomModel {
   );
 
   /// Converts the model to a database map
-  Map<String, dynamic> toMap() => {
-    'id': id,
-    'name': name,
-    'description': description,
-    'createdAt': createdAt.millisecondsSinceEpoch,
-  };
+  Map<String, dynamic> toMap() {
+    final map = <String, dynamic>{
+      'name': name,
+      'description': description,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+    };
+    if (id > 0) {
+      map['id'] = id;
+    }
+    return map;
+  }
 }

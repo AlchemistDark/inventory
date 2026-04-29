@@ -44,6 +44,15 @@ class _RoomFormPageState extends State<RoomFormPage> {
       }
 
       Navigator.pop(context);
+      
+      final l10n = AppLocalizations.of(context)!;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(widget.room == null
+              ? l10n.rooms_created
+              : l10n.rooms_updated),
+        ),
+      );
     }
   }
 

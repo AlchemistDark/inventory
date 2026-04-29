@@ -3,7 +3,7 @@
   "home_appBarTitle": "Управление Инвентарем",
   "home_menuUnderDevelopment": "Меню (в разработке)",
   "home_searchTitle": "Поиск предмета",
-  "home_scanButton": "Скан",
+  "home_scanButton": "Сканировать",
   "home_searchFieldLabel": "Введите название или номер",
   "home_searchButton": "Найти",
   "home_barcodeDialogTitle": "Сканирование штрихкода",
@@ -68,6 +68,7 @@
   "invList_noInventoryNumber": "Б/Н",
   "invList_inventoryNumberPrefix": "Инв. №: ",
   "invList_itemAddedMessage": "Предмет добавлен",
+  "invList_itemUpdatedMessage": "Предмет обновлен",
   "invList_filterByCategoryLabel": "Фильтр по категории",
   "invList_showAllCategories": "Все категории",
   "invList_searchHint": "Поиск по штрихкоду, инвентарному номеру или названию",
@@ -131,6 +132,8 @@
   "rooms_editTitle": "Редактировать помещение",
   "rooms_nameLabel": "Название",
   "rooms_descriptionLabel": "Описание",
+  "rooms_created": "Помещение создано",
+  "rooms_updated": "Данные помещения обновлены",
 
   "common_error": "Ошибка: {message}",
   "@common_error": {

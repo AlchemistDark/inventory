@@ -50,11 +50,16 @@ class EmployeeModel {
     createdAt: createdAt,
   );
 
-  Map<String, dynamic> toMap() => {
-    'id': id,
-    'name': name,
-    'positionId': positionId,
-    'roomId': roomId,
-    'createdAt': createdAt.millisecondsSinceEpoch,
-  };
+  Map<String, dynamic> toMap() {
+    final map = <String, dynamic>{
+      'name': name,
+      'positionId': positionId,
+      'roomId': roomId,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+    };
+    if (id > 0) {
+      map['id'] = id;
+    }
+    return map;
+  }
 }

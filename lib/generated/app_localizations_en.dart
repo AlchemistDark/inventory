@@ -177,6 +177,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get invList_itemAddedMessage => 'Item added';
 
   @override
+  String get invList_itemUpdatedMessage => 'Item updated';
+
+  @override
   String get invList_filterByCategoryLabel => 'Filter by category';
 
   @override
@@ -353,6 +356,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rooms_descriptionLabel => 'Description';
+
+  @override
+  String get rooms_created => 'Room created';
+
+  @override
+  String get rooms_updated => 'Room updated';
 
   @override
   String common_error(String message) {
