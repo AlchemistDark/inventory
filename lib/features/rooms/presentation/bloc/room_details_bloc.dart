@@ -1,9 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/core/core.dart';
-import '../../../inventory/domain/usecases/get_inventories_use_case.dart';
-import '../../../employees/domain/usecases/get_employees_usecase.dart';
-import 'room_details_event.dart';
-import 'room_details_state.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
 /// BLoC for managing room details (inventory and employees)
 class RoomDetailsBloc extends Bloc<RoomDetailsEvent, RoomDetailsState> {

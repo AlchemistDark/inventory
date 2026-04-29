@@ -1,15 +1,19 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
+/// Page displaying detailed information about a room, including its inventory and employees.
+///
+/// Uses a [TabController] to switch between inventory and employee lists.
 class RoomDetailsPage extends StatefulWidget {
+  /// Creates a [RoomDetailsPage].
   const RoomDetailsPage({
     required this.room,
     super.key,
   });
 
+  /// The room entity whose details are being displayed.
   final RoomEntity room;
 
   @override

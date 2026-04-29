@@ -1,5 +1,5 @@
-import '../models/room_model.dart';
 import 'package:inventory_p_shalaev/core/core.dart';
+import 'package:inventory_p_shalaev/features/rooms/data/models/room_model.dart';
 
 /// Abstract data source for local room operations.
 abstract class RoomsLocalDataSource {

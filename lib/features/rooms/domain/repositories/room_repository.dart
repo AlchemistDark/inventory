@@ -1,4 +1,4 @@
-import '../entities/room_entity.dart';
+import 'package:inventory_p_shalaev/features/rooms/domain/entities/room_entity.dart';
 
 /// Abstract repository for managing rooms/facilities.
 abstract class RoomRepository {

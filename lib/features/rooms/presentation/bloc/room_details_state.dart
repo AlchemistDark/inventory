@@ -1,7 +1,5 @@
-import 'package:equatable/equatable.dart';
 import 'package:inventory_p_shalaev/core/core.dart';
-import '../../../inventory/domain/entities/inventory_entity.dart';
-import '../../../employees/domain/entities/employee_entity.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
 /// Base class for all room details states
 abstract class RoomDetailsState extends Equatable {

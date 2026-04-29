@@ -1,7 +1,4 @@
-import 'package:inventory_p_shalaev/features/rooms/domain/entities/room_entity.dart';
-import 'package:inventory_p_shalaev/features/rooms/domain/repositories/room_repository.dart';
-import 'package:inventory_p_shalaev/features/rooms/data/datasources/rooms_local_datasource.dart';
-import 'package:inventory_p_shalaev/features/rooms/data/models/room_model.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
 /// Implementation of [RoomRepository] using a local data source.
 class RoomRepositoryImpl implements RoomRepository {

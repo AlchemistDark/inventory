@@ -1,4 +1,4 @@
-import '../../domain/entities/room_entity.dart';
+import 'package:inventory_p_shalaev/features/rooms/domain/entities/room_entity.dart';
 
 /// Data model representing a room for data layer operations
 class RoomModel {

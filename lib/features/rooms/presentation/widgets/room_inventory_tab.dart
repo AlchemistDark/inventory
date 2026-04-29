@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
+/// A tab view displaying the list of inventory items located in a specific room.
 class RoomInventoryTab extends StatelessWidget {
+  /// Creates a [RoomInventoryTab].
   const RoomInventoryTab({required this.inventory, super.key});
 
+  /// The list of inventory items to display.
   final List<InventoryEntity> inventory;
 
   @override

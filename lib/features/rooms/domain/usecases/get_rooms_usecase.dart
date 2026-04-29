@@ -1,5 +1,4 @@
-import 'package:inventory_p_shalaev/features/rooms/domain/entities/room_entity.dart';
-import 'package:inventory_p_shalaev/features/rooms/domain/repositories/room_repository.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
 /// Use case for retrieving all available rooms.
 class GetRoomsUseCase {

@@ -1,9 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/core/core.dart';
-import 'rooms_event.dart';
-import 'rooms_state.dart';
-import '../../domain/usecases/get_rooms_usecase.dart';
-import '../../domain/repositories/room_repository.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
 /// BLoC for managing the state and operations of the rooms list.
 class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
