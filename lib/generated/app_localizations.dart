@@ -716,6 +716,18 @@ abstract class AppLocalizations {
   /// **'Описание'**
   String get categories_descriptionLabel;
 
+  /// No description provided for @categories_created.
+  ///
+  /// In ru, this message translates to:
+  /// **'Категория создана'**
+  String get categories_created;
+
+  /// No description provided for @categories_updated.
+  ///
+  /// In ru, this message translates to:
+  /// **'Данные категории обновлены'**
+  String get categories_updated;
+
   /// No description provided for @positions_emptyList.
   ///
   /// In ru, this message translates to:
@@ -739,6 +751,18 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Название'**
   String get positions_nameLabel;
+
+  /// No description provided for @positions_created.
+  ///
+  /// In ru, this message translates to:
+  /// **'Должность создана'**
+  String get positions_created;
+
+  /// No description provided for @positions_updated.
+  ///
+  /// In ru, this message translates to:
+  /// **'Данные должности обновлены'**
+  String get positions_updated;
 
   /// No description provided for @rooms_emptyList.
   ///

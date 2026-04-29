@@ -334,6 +334,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get categories_descriptionLabel => 'Описание';
 
   @override
+  String get categories_created => 'Категория создана';
+
+  @override
+  String get categories_updated => 'Данные категории обновлены';
+
+  @override
   String get positions_emptyList => 'Список должностей пуст';
 
   @override
@@ -344,6 +350,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get positions_nameLabel => 'Название';
+
+  @override
+  String get positions_created => 'Должность создана';
+
+  @override
+  String get positions_updated => 'Данные должности обновлены';
 
   @override
   String get rooms_emptyList => 'Список помещений пуст';

@@ -331,6 +331,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get categories_descriptionLabel => 'Description';
 
   @override
+  String get categories_created => 'Category created';
+
+  @override
+  String get categories_updated => 'Category updated';
+
+  @override
   String get positions_emptyList => 'Positions list is empty';
 
   @override
@@ -341,6 +347,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get positions_nameLabel => 'Name';
+
+  @override
+  String get positions_created => 'Position created';
+
+  @override
+  String get positions_updated => 'Position updated';
 
   @override
   String get rooms_emptyList => 'Rooms list is empty';
