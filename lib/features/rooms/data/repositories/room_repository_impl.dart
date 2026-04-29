@@ -3,9 +3,12 @@ import 'package:inventory_p_shalaev/features/rooms/domain/repositories/room_repo
 import 'package:inventory_p_shalaev/features/rooms/data/datasources/rooms_local_datasource.dart';
 import 'package:inventory_p_shalaev/features/rooms/data/models/room_model.dart';
 
+/// Implementation of [RoomRepository] using a local data source.
 class RoomRepositoryImpl implements RoomRepository {
+  /// The local data source for rooms.
   final RoomsLocalDataSource localDataSource;
 
+  /// Creates a [RoomRepositoryImpl].
   RoomRepositoryImpl(this.localDataSource);
 
   @override

@@ -5,10 +5,15 @@ import 'rooms_state.dart';
 import '../../domain/usecases/get_rooms_usecase.dart';
 import '../../domain/repositories/room_repository.dart';
 
+/// BLoC for managing the state and operations of the rooms list.
 class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
+  /// Use case for retrieving rooms.
   final GetRoomsUseCase getRoomsUseCase;
+
+  /// Repository for other room operations (create, update, delete).
   final RoomRepository repository;
 
+  /// Creates a [RoomsBloc] with the required dependencies.
   RoomsBloc({
     required this.getRoomsUseCase,
     required this.repository,

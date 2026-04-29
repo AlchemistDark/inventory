@@ -3,9 +3,12 @@ import 'package:inventory_p_shalaev/features/positions/data/models/position_mode
 import 'package:inventory_p_shalaev/features/positions/domain/entities/position_entity.dart';
 import 'package:inventory_p_shalaev/features/positions/domain/repositories/position_repository.dart';
 
+/// Implementation of [PositionRepository] using a local data source.
 class PositionRepositoryImpl implements PositionRepository {
+  /// The local data source for positions.
   final PositionsLocalDataSource localDataSource;
 
+  /// Creates a [PositionRepositoryImpl].
   const PositionRepositoryImpl(this.localDataSource);
 
   @override

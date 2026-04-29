@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:inventory_p_shalaev/features/positions/domain/entities/position_entity.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
+/// A dialog for creating or editing an employee position.
 class PositionFormDialog extends StatefulWidget {
+  /// Creates a [PositionFormDialog].
   const PositionFormDialog({
     required this.onSave,
     this.position,
     super.key,
   });
 
+  /// The position to edit, or null if creating a new one.
   final PositionEntity? position;
+
+  /// Callback called when the user saves the form.
   final void Function(String name) onSave;
 
   @override

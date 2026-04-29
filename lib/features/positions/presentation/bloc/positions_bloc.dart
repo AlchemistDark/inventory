@@ -5,10 +5,15 @@ import 'package:inventory_p_shalaev/features/positions/domain/usecases/get_posit
 import 'package:inventory_p_shalaev/features/positions/presentation/bloc/positions_event.dart';
 import 'package:inventory_p_shalaev/features/positions/presentation/bloc/positions_state.dart';
 
+/// BLoC for managing the state and operations of the positions list.
 class PositionsBloc extends Bloc<PositionsEvent, PositionsState> {
+  /// Use case for retrieving positions.
   final GetPositionsUseCase getPositionsUseCase;
+
+  /// Repository for other position operations (create, update, delete).
   final PositionRepository repository;
 
+  /// Creates a [PositionsBloc] with the required dependencies.
   PositionsBloc({
     required this.getPositionsUseCase,
     required this.repository,
