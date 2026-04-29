@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
@@ -11,6 +12,7 @@ class InventoryDetailsContent extends StatelessWidget {
   const InventoryDetailsContent({
     required this.inventory,
     required this.employeeName,
+    required this.roomName,
     required this.categoryName,
     super.key,
   });
@@ -20,6 +22,9 @@ class InventoryDetailsContent extends StatelessWidget {
 
   /// The name of the employee responsible for this item.
   final String employeeName;
+
+  /// The name of the room where the item is located.
+  final String roomName;
 
   /// The category name of the item.
   final String categoryName;
@@ -58,7 +63,7 @@ class InventoryDetailsContent extends StatelessWidget {
           ),
           DetailRow(
             label: l10n.invList_detailRoomLabel,
-            value: ' ',
+            value: roomName,
             icon: Icons.room,
           ),
           DetailRow(
@@ -73,7 +78,8 @@ class InventoryDetailsContent extends StatelessWidget {
           ),
           DetailRow(
             label: l10n.invList_detailDateLabel,
-            value: inventory.dateAdded.toString().split(' ').first,
+            value: DateFormat.yMd(Localizations.localeOf(context).toString())
+                .format(inventory.dateAdded),
             icon: Icons.calendar_today,
           ),
           // Description section is only shown if it contains text.

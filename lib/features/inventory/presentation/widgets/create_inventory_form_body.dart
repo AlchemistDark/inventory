@@ -18,6 +18,7 @@ class CreateInventoryFormBody extends StatelessWidget {
     required this.selectedDate,
     required this.employees,
     required this.categories,
+    required this.rooms,
     required this.onSelectDate,
     required this.onSubmit,
     required this.onCancel,
@@ -67,6 +68,9 @@ class CreateInventoryFormBody extends StatelessWidget {
   /// List of categories to populate the selection field.
   final List<CategoryModel> categories;
 
+  /// List of rooms to populate the selection field.
+  final List<RoomModel> rooms;
+
   /// Callback to trigger date selection.
   final VoidCallback onSelectDate;
 
@@ -111,6 +115,7 @@ class CreateInventoryFormBody extends StatelessWidget {
             SelectionSection(
               employees: employees,
               categories: categories,
+              rooms: rooms,
               selectedEmployeeId: selectedEmployeeId,
               selectedCategoryId: selectedCategoryId,
               selectedRoomId: selectedRoomId,

@@ -1,4 +1,4 @@
-import '../../domain/entities/category_entity.dart';
+import 'package:inventory_p_shalaev/features/categories/domain/entities/category_entity.dart';
 
 /// Data model representing a category for data layer operations
 class CategoryModel {

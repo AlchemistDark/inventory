@@ -18,9 +18,9 @@ class CreateInventoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Load metadata needed for the form dropdowns immediately.
-    context.read<InventoryFormBloc>().add(const LoadFormMetadataEvent());
     final l10n = AppLocalizations.of(context)!;
+    // Load metadata needed for the form dropdowns immediately.
+    context.read<InventoryFormBloc>().add(LoadFormMetadataEvent(l10n));
 
     return Scaffold(
       appBar: AppBar(

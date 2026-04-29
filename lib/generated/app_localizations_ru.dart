@@ -384,6 +384,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get common_notDefined => 'Не определено';
 
   @override
+  String get common_administrator => 'Администратор';
+
+  @override
   String get common_inventoryNumberPrefix => 'Инв. №: ';
 
   @override

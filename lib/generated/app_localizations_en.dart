@@ -381,6 +381,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_notDefined => 'Not defined';
 
   @override
+  String get common_administrator => 'Administrator';
+
+  @override
   String get common_inventoryNumberPrefix => 'Inv. №: ';
 
   @override

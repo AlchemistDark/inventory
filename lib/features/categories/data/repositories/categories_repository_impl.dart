@@ -1,10 +1,11 @@
-import '../../domain/entities/category_entity.dart';
-import '../../domain/repositories/categories_repository.dart';
-import '../datasources/categories_local_datasource.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
+/// Implementation of [CategoriesRepository] using a local data source
 class CategoriesRepositoryImpl implements CategoriesRepository {
+  /// The local data source for categories
   final CategoriesLocalDataSource localDataSource;
 
+  /// Creates a [CategoriesRepositoryImpl]
   CategoriesRepositoryImpl(this.localDataSource);
 
   @override

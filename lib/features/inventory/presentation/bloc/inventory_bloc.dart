@@ -27,6 +27,9 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
   /// Data source for category data, used for classification and filtering.
   final CategoriesLocalDataSource categoriesDataSource;
 
+  /// Data source for room data, used to assign items to locations.
+  final RoomsLocalDataSource roomsDataSource;
+
   /// Creates [InventoryBloc] with required dependencies and sets the initial state.
   InventoryBloc({
     required this.searchByNameUseCase,
@@ -35,6 +38,7 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
     required this.updateInventoryUseCase,
     required this.employeesDataSource,
     required this.categoriesDataSource,
+    required this.roomsDataSource,
   }) : super(const InventoryInitial()) {
     on<InitializeInventoriesEvent>(_onInitialize);
     on<LoadInventoriesEvent>(_onLoadInventories);
@@ -61,12 +65,14 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
       final inventories = await getInventoriesUseCase();
       final employees = await employeesDataSource.getEmployees();
       final categories = await categoriesDataSource.getCategories();
+      final rooms = await roomsDataSource.getRooms();
 
       emit(InventoriesLoaded(
         inventories: inventories,
         filteredInventories: inventories,
         employees: employees,
         categories: categories,
+        rooms: rooms,
       ));
     } catch (e) {
       emit(const InventoryError(AppFailure.database));
@@ -95,6 +101,7 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
           filteredInventories: filtered,
           employees: currentState.employees,
           categories: currentState.categories,
+          rooms: currentState.rooms,
           searchQuery: event.query,
           categoryFilter: currentState.categoryFilter,
         ));
@@ -122,6 +129,7 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
         filteredInventories: filtered,
         employees: currentState.employees,
         categories: currentState.categories,
+        rooms: currentState.rooms,
         searchQuery: currentState.searchQuery,
         categoryFilter: event.categoryId,
       ));

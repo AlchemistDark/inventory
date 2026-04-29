@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:inventory_p_shalaev/features/categories/domain/entities/category_entity.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
+/// A dialog for creating or editing a category
 class CategoryFormDialog extends StatefulWidget {
+  /// Creates a [CategoryFormDialog]
   const CategoryFormDialog({
     required this.onSave,
     this.category,
     super.key,
   });
 
+  /// The category to edit, or null if creating a new one
   final CategoryEntity? category;
+
+  /// Callback called when the user saves the form
   final void Function(String name, String? description) onSave;
 
   @override

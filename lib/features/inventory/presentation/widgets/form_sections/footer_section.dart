@@ -55,7 +55,8 @@ class FooterSection extends StatelessWidget {
         // Interactive field for date selection.
         InventoryActionField(
           label: l10n.invForm_dateAddedLabel,
-          valueText: DateFormat('dd.MM.yyyy').format(selectedDate),
+          valueText: DateFormat.yMd(Localizations.localeOf(context).toString())
+              .format(selectedDate),
           icon: Icons.calendar_today,
           onTap: onSelectDate,
         ),

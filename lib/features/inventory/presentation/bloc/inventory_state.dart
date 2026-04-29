@@ -1,5 +1,9 @@
 import 'package:inventory_p_shalaev/core/core.dart';
-import 'package:inventory_p_shalaev/features/features.dart';
+import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
+import 'package:inventory_p_shalaev/features/inventory/presentation/bloc/inventory_common_models.dart';
+import 'package:inventory_p_shalaev/features/employees/data/models/employee_model.dart';
+import 'package:inventory_p_shalaev/features/categories/data/models/category_model.dart';
+import 'package:inventory_p_shalaev/features/rooms/data/models/room_model.dart';
 
 /// Base class for all states of the inventory management feature.
 abstract class InventoryState extends Equatable {
@@ -36,6 +40,9 @@ class InventoriesLoaded extends InventoryState {
   /// List of available categories for selection and filtering.
   final List<CategoryModel> categories;
 
+  /// List of available rooms for selection.
+  final List<RoomModel> rooms;
+
   /// The current active search query, if any.
   final String? searchQuery;
 
@@ -48,16 +55,21 @@ class InventoriesLoaded extends InventoryState {
   /// A lookup map for categories by their ID.
   final Map<int, String> categoryMap;
 
+  /// A lookup map for rooms by their ID.
+  final Map<int, String> roomMap;
+
   @override
   List<Object?> get props => [
         inventories,
         filteredInventories,
         employees,
         categories,
+        rooms,
         searchQuery,
         categoryFilter,
         employeeMap,
         categoryMap,
+        roomMap,
       ];
 
   /// Creates an [InventoriesLoaded] state with all required data.
@@ -66,10 +78,12 @@ class InventoriesLoaded extends InventoryState {
     required this.filteredInventories,
     required this.employees,
     required this.categories,
+    required this.rooms,
     this.searchQuery,
     this.categoryFilter,
   })  : employeeMap = {for (final e in employees) e.id: e.name},
-        categoryMap = {for (final c in categories) c.id: c.name};
+        categoryMap = {for (final c in categories) c.id: c.name},
+        roomMap = {for (final r in rooms) r.id: r.name};
 }
 
 /// State representing that a new inventory item has been successfully created.

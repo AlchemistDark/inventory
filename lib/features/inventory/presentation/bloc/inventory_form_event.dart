@@ -1,4 +1,5 @@
 import 'package:inventory_p_shalaev/features/features.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 /// Base class for all events related to the inventory creation and editing form.
 abstract class InventoryFormEvent extends Equatable {
@@ -11,8 +12,14 @@ abstract class InventoryFormEvent extends Equatable {
 
 /// Event to load metadata required by the form (employees, categories, rooms).
 class LoadFormMetadataEvent extends InventoryFormEvent {
+  /// Localization instance.
+  final AppLocalizations l10n;
+
+  @override
+  List<Object?> get props => [l10n];
+
   /// Creates a [LoadFormMetadataEvent].
-  const LoadFormMetadataEvent();
+  const LoadFormMetadataEvent(this.l10n);
 }
 
 /// Event to submit the inventory form for either creation or updating.

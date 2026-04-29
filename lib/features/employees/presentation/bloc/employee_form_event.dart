@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:inventory_p_shalaev/features/employees/domain/entities/employee_entity.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 /// Base class for all employee form-related events.
 abstract class EmployeeFormEvent extends Equatable {
@@ -14,10 +15,13 @@ class InitializeEmployeeForm extends EmployeeFormEvent {
   /// The employee to edit, or null for creating a new one.
   final EmployeeEntity? employee;
 
-  @override
-  List<Object?> get props => [employee];
+  /// Localization instance.
+  final AppLocalizations l10n;
 
-  const InitializeEmployeeForm({this.employee});
+  @override
+  List<Object?> get props => [employee, l10n];
+
+  const InitializeEmployeeForm({required this.l10n, this.employee});
 }
 
 /// Event triggered when the employee name input changes.

@@ -7,6 +7,12 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
   /// Use case for fetching all employees.
   final GetEmployeesUseCase getEmployeesUseCase;
 
+  /// Use case for fetching available positions.
+  final GetPositionsUseCase getPositionsUseCase;
+
+  /// Use case for fetching available rooms.
+  final GetRoomsUseCase getRoomsUseCase;
+
   /// Use case for fetching inventory assigned to an employee.
   final GetInventoryByEmployeeIdUseCase getInventoryByEmployeeIdUseCase;
 
@@ -22,6 +28,8 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
   /// Creates an [EmployeesBloc] with the required use cases.
   EmployeesBloc({
     required this.getEmployeesUseCase,
+    required this.getPositionsUseCase,
+    required this.getRoomsUseCase,
     required this.getInventoryByEmployeeIdUseCase,
     required this.createEmployeeUseCase,
     required this.updateEmployeeUseCase,
@@ -43,9 +51,31 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
     emit(EmployeesLoading());
     try {
       final employees = await getEmployeesUseCase();
+      final positions = await getPositionsUseCase();
+      final rooms = await getRoomsUseCase();
+
+      final positionModels = positions
+          .map((e) => PositionModel(
+                id: e.id,
+                name: e.name,
+                createdAt: e.createdAt,
+              ))
+          .toList();
+
+      final roomModels = rooms
+          .map((e) => RoomModel(
+                id: e.id,
+                name: e.name,
+                description: e.description,
+                createdAt: e.createdAt,
+              ))
+          .toList();
+
       emit(EmployeesLoaded(
         allEmployees: employees,
         filteredEmployees: employees,
+        positions: positionModels,
+        rooms: roomModels,
       ));
     } catch (e) {
       emit(const EmployeesError(AppFailure.database));

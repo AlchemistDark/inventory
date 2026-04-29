@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
 
 /// A reusable row for displaying a labeled value with an optional icon.
 ///
@@ -29,7 +29,11 @@ class DetailRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 20, color: Colors.blue),
+            Icon(
+              icon,
+              size: 20,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             const SizedBox(width: 16),
           ],
           Expanded(
@@ -40,7 +44,7 @@ class DetailRow extends StatelessWidget {
                   label,
                   style: TextStyle(
                     fontSize: 12,
-                    color: Colors.grey[600],
+                    color: AppTheme.greyDarkColor,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

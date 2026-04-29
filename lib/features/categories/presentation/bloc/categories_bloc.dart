@@ -1,14 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/core/core.dart';
-import 'package:inventory_p_shalaev/features/categories/domain/repositories/categories_repository.dart';
-import 'package:inventory_p_shalaev/features/categories/domain/usecases/get_categories_usecase.dart';
-import 'package:inventory_p_shalaev/features/categories/presentation/bloc/categories_event.dart';
-import 'package:inventory_p_shalaev/features/categories/presentation/bloc/categories_state.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
+/// BLoC for managing the state and operations of the categories list
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
+  /// Use case for retrieving categories
   final GetCategoriesUseCase getCategoriesUseCase;
+
+  /// Repository for other category operations (create, update, delete)
   final CategoriesRepository repository;
 
+  /// Creates a [CategoriesBloc] with the required dependencies
   CategoriesBloc({
     required this.getCategoriesUseCase,
     required this.repository,

@@ -33,11 +33,13 @@ class InventoryListView extends StatelessWidget {
         final item = displayList[index];
         final employeeName =
             state.employeeMap[item.employeeId] ?? l10n.invList_notSpecifiedMale;
+        final roomName =
+            state.roomMap[item.roomId] ?? l10n.invList_notSpecified;
 
         return InventoryListItem(
           inventory: item,
           employeeName: employeeName,
-          roomName: ' ',
+          roomName: roomName,
         );
       },
     );

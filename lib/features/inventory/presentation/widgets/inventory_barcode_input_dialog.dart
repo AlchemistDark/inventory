@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 /// A dialog that allows users to input a barcode manually or scan it using the camera.
@@ -73,7 +73,7 @@ class _InventoryBarcodeInputDialogState
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Colors.black12,
+                color: AppTheme.scanBarrierColor,
               ),
               clipBehavior: Clip.antiAlias,
               child: MobileScanner(

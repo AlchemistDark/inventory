@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -62,7 +62,7 @@ class _BarcodeScannerDialogState extends State<BarcodeScannerDialog> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: Colors.black12,
+                  color: AppTheme.scanBarrierColor,
                 ),
                 clipBehavior: Clip.antiAlias,
                 child: MobileScanner(

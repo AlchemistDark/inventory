@@ -23,6 +23,12 @@ class EmployeesLoaded extends EmployeesState {
   /// List of employees matching the current search and filter criteria.
   final List<EmployeeEntity> filteredEmployees;
 
+  /// List of available positions for filtering.
+  final List<PositionModel> positions;
+
+  /// List of available rooms.
+  final List<RoomModel> rooms;
+
   /// Inventory assigned to the currently selected employee.
   final List<InventoryEntity> selectedEmployeeInventory;
 
@@ -39,6 +45,8 @@ class EmployeesLoaded extends EmployeesState {
   List<Object?> get props => [
         allEmployees,
         filteredEmployees,
+        positions,
+        rooms,
         selectedEmployeeInventory,
         searchQuery,
         positionFilter,
@@ -49,6 +57,8 @@ class EmployeesLoaded extends EmployeesState {
   const EmployeesLoaded({
     required this.allEmployees,
     required this.filteredEmployees,
+    required this.positions,
+    this.rooms = const [],
     this.selectedEmployeeInventory = const [],
     this.searchQuery = '',
     this.positionFilter,
@@ -59,6 +69,8 @@ class EmployeesLoaded extends EmployeesState {
   EmployeesLoaded copyWith({
     List<EmployeeEntity>? allEmployees,
     List<EmployeeEntity>? filteredEmployees,
+    List<PositionModel>? positions,
+    List<RoomModel>? rooms,
     List<InventoryEntity>? selectedEmployeeInventory,
     String? searchQuery,
     int? positionFilter,
@@ -67,6 +79,8 @@ class EmployeesLoaded extends EmployeesState {
     return EmployeesLoaded(
       allEmployees: allEmployees ?? this.allEmployees,
       filteredEmployees: filteredEmployees ?? this.filteredEmployees,
+      positions: positions ?? this.positions,
+      rooms: rooms ?? this.rooms,
       selectedEmployeeInventory:
           selectedEmployeeInventory ?? this.selectedEmployeeInventory,
       searchQuery: searchQuery ?? this.searchQuery,

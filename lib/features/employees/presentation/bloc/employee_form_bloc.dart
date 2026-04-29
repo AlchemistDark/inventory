@@ -4,6 +4,11 @@ import 'package:inventory_p_shalaev/features/features.dart';
 
 /// BLoC responsible for managing the state of the employee creation and editing form.
 class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
+  /// Use case for fetching available positions.
+  final GetPositionsUseCase getPositionsUseCase;
+
+  /// Use case for fetching available rooms.
+  final GetRoomsUseCase getRoomsUseCase;
 
   /// Use case for creating a new employee.
   final CreateEmployeeUseCase createEmployeeUseCase;
@@ -16,6 +21,8 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
 
   /// Creates an [EmployeeFormBloc] with the required use cases.
   EmployeeFormBloc({
+    required this.getPositionsUseCase,
+    required this.getRoomsUseCase,
     required this.createEmployeeUseCase,
     required this.updateEmployeeUseCase,
   }) : super(const EmployeeFormInitial()) {
@@ -26,17 +33,64 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
     on<SubmitEmployeeForm>(_onSubmit);
   }
 
-  void _onInitialize(
+  Future<void> _onInitialize(
     InitializeEmployeeForm event,
     Emitter<EmployeeFormState> emit,
-  ){
+  ) async {
     emit(const EmployeeFormLoading());
     try {
+      final positions = await getPositionsUseCase();
+      final rooms = await getRoomsUseCase();
+
+      final positionModels = positions
+          .map((e) => PositionModel(
+                id: e.id,
+                name: e.name,
+                createdAt: e.createdAt,
+              ))
+          .toList();
+
+      final roomModels = rooms
+          .map((e) => RoomModel(
+                id: e.id,
+                name: e.name,
+                description: e.description,
+                createdAt: e.createdAt,
+              ))
+          .toList();
 
       _editingId = event.employee?.id;
 
+      // Find default position (first match or fallback to first)
+      int? defaultPositionId;
+      try {
+        defaultPositionId = positionModels
+            .firstWhere((p) => p.name.contains(event.l10n.common_administrator))
+            .id;
+      } catch (_) {
+        if (positionModels.isNotEmpty) {
+          defaultPositionId = positionModels.first.id;
+        }
+      }
+
+      // Find default room (first match or fallback to first)
+      int? defaultRoomId;
+      try {
+        defaultRoomId = roomModels
+            .firstWhere((r) => r.name.contains(event.l10n.common_notDefined))
+            .id;
+      } catch (_) {
+        if (roomModels.isNotEmpty) {
+          defaultRoomId = roomModels.first.id;
+        }
+      }
+
       emit(EmployeeFormMetadataLoaded(
+        positions: positionModels,
+        rooms: roomModels,
         name: event.employee?.name ?? '',
+        selectedPositionId: event.employee?.positionId ?? defaultPositionId,
+        selectedRoomId: event.employee?.roomId ?? defaultRoomId,
         isEditing: event.employee != null,
       ));
     } catch (e) {

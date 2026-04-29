@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
 
 /// A vertical layout widget for displaying a label and its corresponding value.
 ///
@@ -33,7 +33,7 @@ class DetailSection extends StatelessWidget {
             label,
             style: TextStyle(
               fontSize: 12,
-              color: Colors.grey[600],
+              color: AppTheme.greyDarkColor,
               fontWeight: FontWeight.w500,
             ),
           ),

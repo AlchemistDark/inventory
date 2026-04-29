@@ -42,6 +42,7 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
           setState(() {
             selectedEmployeeId ??= state.defaultEmployeeId;
             selectedCategoryId ??= state.defaultCategoryId;
+            selectedRoomId ??= state.defaultRoomId;
           });
         }
       },
@@ -56,6 +57,8 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
         final categories = state is InventoryFormMetadataLoaded
             ? state.categories
             : <CategoryModel>[];
+        final rooms =
+            state is InventoryFormMetadataLoaded ? state.rooms : <RoomModel>[];
 
         return CreateInventoryFormBody(
           formKey: formKey,
@@ -70,6 +73,7 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
           selectedRoomId: selectedRoomId,
           employees: employees,
           categories: categories,
+          rooms: rooms,
           onSelectDate: () => selectDate(),
           onSubmit: _submitForm,
           onCancel: () => Navigator.pop(context),

@@ -11,6 +11,7 @@ class SelectionSection extends StatelessWidget {
   const SelectionSection({
     required this.employees,
     required this.categories,
+    required this.rooms,
     required this.onEmployeeSelected,
     required this.onCategorySelected,
     required this.onRoomSelected,
@@ -25,6 +26,9 @@ class SelectionSection extends StatelessWidget {
 
   /// List of categories for the selection field.
   final List<CategoryModel> categories;
+
+  /// List of rooms for the selection field.
+  final List<RoomModel> rooms;
 
   /// The ID of the currently selected employee.
   final int? selectedEmployeeId;
@@ -55,6 +59,9 @@ class SelectionSection extends StatelessWidget {
     final catName =
         categories.where((c) => c.id == selectedCategoryId).firstOrNull?.name ??
             l10n.invForm_notSelected;
+    final roomName =
+        rooms.where((r) => r.id == selectedRoomId).firstOrNull?.name ??
+            l10n.invForm_notSelected;
 
     return Column(
       children: [
@@ -80,6 +87,18 @@ class SelectionSection extends StatelessWidget {
           itemName: (c) => c.name,
           itemId: (c) => c.id,
           onSelected: onCategorySelected,
+        ),
+        const SizedBox(height: 16),
+        // Selection field for the item's location (room).
+        InventorySelectionField<RoomModel>(
+          label: l10n.invForm_roomLabel,
+          selectedName: roomName,
+          icon: Icons.room,
+          items: rooms,
+          selectedId: selectedRoomId,
+          itemName: (r) => r.name,
+          itemId: (r) => r.id,
+          onSelected: onRoomSelected,
         ),
       ],
     );

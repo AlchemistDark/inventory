@@ -36,6 +36,12 @@ class EmployeeFormLoading extends EmployeeFormState {
 
 /// State containing all metadata (positions, rooms) and current field values.
 class EmployeeFormMetadataLoaded extends EmployeeFormState {
+  /// List of available positions for selection.
+  final List<PositionModel> positions;
+
+  /// List of available rooms for selection.
+  final List<RoomModel> rooms;
+
   /// Current name input value.
   final String name;
 
@@ -53,6 +59,8 @@ class EmployeeFormMetadataLoaded extends EmployeeFormState {
 
   @override
   List<Object?> get props => [
+        positions,
+        rooms,
         name,
         selectedPositionId,
         selectedRoomId,
@@ -62,6 +70,8 @@ class EmployeeFormMetadataLoaded extends EmployeeFormState {
 
   /// Creates an [EmployeeFormMetadataLoaded] state.
   const EmployeeFormMetadataLoaded({
+    required this.positions,
+    required this.rooms,
     this.name = '',
     this.selectedPositionId,
     this.selectedRoomId,
@@ -71,6 +81,8 @@ class EmployeeFormMetadataLoaded extends EmployeeFormState {
 
   /// Creates a copy of the state with specified properties updated.
   EmployeeFormMetadataLoaded copyWith({
+    List<PositionModel>? positions,
+    List<RoomModel>? rooms,
     String? name,
     int? selectedPositionId,
     int? selectedRoomId,
@@ -78,6 +90,8 @@ class EmployeeFormMetadataLoaded extends EmployeeFormState {
     EmployeeNameValidationError? nameError,
   }) {
     return EmployeeFormMetadataLoaded(
+      positions: positions ?? this.positions,
+      rooms: rooms ?? this.rooms,
       name: name ?? this.name,
       selectedPositionId: selectedPositionId ?? this.selectedPositionId,
       selectedRoomId: selectedRoomId ?? this.selectedRoomId,

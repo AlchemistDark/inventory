@@ -6,8 +6,16 @@ import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 class EmployeeInfoCard extends StatelessWidget {
   /// Creates an [EmployeeInfoCard].
   const EmployeeInfoCard({
+    required this.positionName,
+    required this.roomName,
     super.key,
   });
+
+  /// Name of the employee's position.
+  final String positionName;
+
+  /// Name of the room where the employee is located.
+  final String roomName;
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +30,13 @@ class EmployeeInfoCard extends StatelessWidget {
             EmployeeInfoRow(
               icon: Icons.work,
               label: l10n.employees_positionLabel,
-              value: ' ',
+              value: positionName,
             ),
             const Divider(),
             EmployeeInfoRow(
               icon: Icons.room,
               label: l10n.employees_roomLabel,
-              value: ' ',
+              value: roomName,
             ),
           ],
         ),

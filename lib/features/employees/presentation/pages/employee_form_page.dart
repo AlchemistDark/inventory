@@ -14,11 +14,15 @@ class EmployeeFormPage extends StatelessWidget {
  /// Helper method to create a route for this page with a scoped [EmployeeFormBloc].
   static Route<void> route({EmployeeEntity? employee}) {
     return MaterialPageRoute<void>(
-      builder: (context) => BlocProvider(
-        create: (_) => ServiceLocator.getIt<EmployeeFormBloc>()
-          ..add(InitializeEmployeeForm(employee: employee)),
-        child: EmployeeFormPage(employee: employee),
-      ),
+      builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
+        
+        return BlocProvider(
+          create: (_) => ServiceLocator.getIt<EmployeeFormBloc>()
+            ..add(InitializeEmployeeForm(employee: employee, l10n: l10n)),
+          child: EmployeeFormPage(employee: employee),
+        );
+      },
     );
   }
 
@@ -65,72 +69,7 @@ class EmployeeFormPage extends StatelessWidget {
           body: state is EmployeeFormLoading
               ? const Center(child: CircularProgressIndicator())
               : state is EmployeeFormMetadataLoaded
-                  ? SingleChildScrollView(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          TextFormField(
-                            initialValue: employee?.name,
-                            decoration: InputDecoration(
-                              labelText: l10n.employees_nameLabel,
-                              errorText: switch (state.nameError) {
-                                EmployeeNameValidationError.tooShort =>
-                                  l10n.employees_minLength3,
-                                EmployeeNameValidationError.tooLong =>
-                                  l10n.employees_maxLength50,
-                                null => null,
-                              },
-                              prefixIcon: const Icon(Icons.person_outline),
-                            ),
-                            onChanged: (value) => context
-                                .read<EmployeeFormBloc>()
-                                .add(NameChanged(value)),
-                          ),
-                          const SizedBox(height: 20),
-                          InventorySelectionField(
-                            label: l10n.employees_positionLabel,
-                            selectedName: ' ',
-                            icon: Icons.work_outline,
-                            items: [],
-                            selectedId: state.selectedPositionId,
-                            itemName: (p) => p.name,
-                            itemId: (p) => p.id,
-                            onSelected: (id) => context
-                                .read<EmployeeFormBloc>()
-                                .add(PositionChanged(id)),
-                          ),
-                          const SizedBox(height: 20),
-                          InventorySelectionField(
-                            label: l10n.employees_roomLabel,
-                            selectedName: ' ',
-                            icon: Icons.room_outlined,
-                            items: [],
-                            selectedId: state.selectedRoomId,
-                            itemName: (r) => r.name,
-                            itemId: (r) => r.id,
-                            onSelected: (id) => context
-                                .read<EmployeeFormBloc>()
-                                .add(RoomChanged(id)),
-                          ),
-                          const SizedBox(height: 32),
-                          ElevatedButton(
-                            onPressed: () => context
-                                .read<EmployeeFormBloc>()
-                                .add(SubmitEmployeeForm()),
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                            ),
-                            child: Text(
-                              employee == null
-                                  ? l10n.common_create
-                                  : l10n.common_save,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
+                  ? EmployeeForm(state: state, employee: employee)
                   : const SizedBox.shrink(),
         );
       },

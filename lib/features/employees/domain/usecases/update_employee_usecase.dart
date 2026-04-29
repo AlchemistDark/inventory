@@ -1,5 +1,4 @@
-import 'package:inventory_p_shalaev/features/employees/domain/entities/employee_entity.dart';
-import 'package:inventory_p_shalaev/features/employees/domain/repositories/employee_repository.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
 /// Use case for updating an existing employee record.
 class UpdateEmployeeUseCase {

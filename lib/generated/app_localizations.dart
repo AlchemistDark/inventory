@@ -812,6 +812,12 @@ abstract class AppLocalizations {
   /// **'Не определено'**
   String get common_notDefined;
 
+  /// No description provided for @common_administrator.
+  ///
+  /// In ru, this message translates to:
+  /// **'Администратор'**
+  String get common_administrator;
+
   /// No description provided for @common_inventoryNumberPrefix.
   ///
   /// In ru, this message translates to:

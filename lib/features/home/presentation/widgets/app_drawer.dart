@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -24,7 +24,7 @@ class AppDrawer extends StatelessWidget {
               child: Text(
                 l10n.home_appBarTitle,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: AppTheme.whiteColor,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -52,7 +52,7 @@ class AppDrawer extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (context) => const Text('Не реализовано'),
+                  builder: (context) => const PositionsPage(),
                 ),
               );
             },

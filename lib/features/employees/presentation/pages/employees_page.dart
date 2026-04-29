@@ -26,6 +26,9 @@ class EmployeesPage extends StatelessWidget {
           }
 
           if (state is EmployeesLoaded) {
+            final positionsMap = {
+              for (final p in state.positions) p.id: p.name,
+            };
 
             return Column(
               children: [
@@ -38,7 +41,9 @@ class EmployeesPage extends StatelessWidget {
                           itemCount: state.filteredEmployees.length,
                           itemBuilder: (context, index) {
                             final employee = state.filteredEmployees[index];
-                            final positionName = ' ';
+                            final positionName =
+                                positionsMap[employee.positionId] ??
+                                    l10n.employees_unknownPosition;
 
                             return EmployeeListItem(
                               employee: employee,

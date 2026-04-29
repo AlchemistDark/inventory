@@ -47,7 +47,20 @@ class EmployeesSearchAndFilter extends StatelessWidget {
                 },
               ),
               const SizedBox(width: 8),
-
+              ...state.positions.map((position) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: FilterChip(
+                    label: Text(position.name),
+                    selected: state.positionFilter == position.id,
+                    onSelected: (_) {
+                      context.read<EmployeesBloc>().add(
+                            FilterEmployeesByPositionEvent(position.id),
+                          );
+                    },
+                  ),
+                );
+              }),
             ],
           ),
         ),

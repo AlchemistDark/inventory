@@ -14,6 +14,9 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
   /// Data source for loading categories.
   final CategoriesLocalDataSource categoriesDataSource;
 
+  /// Data source for loading rooms.
+  final RoomsLocalDataSource roomsDataSource;
+
   /// Use case for creating a new inventory item.
   final CreateInventoryUseCase createInventoryUseCase;
 
@@ -24,6 +27,7 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
   InventoryFormBloc({
     required this.employeesDataSource,
     required this.categoriesDataSource,
+    required this.roomsDataSource,
     required this.createInventoryUseCase,
     required this.updateInventoryUseCase,
   }) : super(const InventoryFormInitial()) {
@@ -39,19 +43,29 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
     try {
       final employees = await employeesDataSource.getEmployees();
       final categories = await categoriesDataSource.getCategories();
+      final rooms = await roomsDataSource.getRooms();
 
       // Find default values based on conventional names
-      // ToDo Убрать 'Администратор' и 'Не определено'
-      final defaultEmployeeId =
-          employees.where((e) => e.name == 'Администратор').firstOrNull?.id;
-      final defaultCategoryId =
-          categories.where((c) => c.name == 'Не определено').firstOrNull?.id;
+      final defaultEmployeeId = employees
+          .where((e) => e.name == event.l10n.common_administrator)
+          .firstOrNull
+          ?.id;
+      final defaultCategoryId = categories
+          .where((c) => c.name == event.l10n.common_notDefined)
+          .firstOrNull
+          ?.id;
+      final defaultRoomId = rooms
+          .where((r) => r.name == event.l10n.common_notDefined)
+          .firstOrNull
+          ?.id;
 
       emit(InventoryFormMetadataLoaded(
         employees: employees,
         categories: categories,
+        rooms: rooms,
         defaultEmployeeId: defaultEmployeeId,
         defaultCategoryId: defaultCategoryId,
+        defaultRoomId: defaultRoomId,
       ));
     } catch (e) {
       emit(const InventoryFormError(AppFailure.database));

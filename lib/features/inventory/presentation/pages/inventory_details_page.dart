@@ -63,6 +63,8 @@ class InventoryDetailsPage extends StatelessWidget {
 
             final employeeName = state.employeeMap[currentInventory.employeeId] ??
                 l10n.invList_notSpecifiedMale;
+            final roomName = state.roomMap[currentInventory.roomId] ??
+                l10n.invList_notSpecified;
             final categoryName =
                 state.categoryMap[currentInventory.categoryId] ??
                     l10n.invList_notSpecifiedFemale;
@@ -70,6 +72,7 @@ class InventoryDetailsPage extends StatelessWidget {
             return InventoryDetailsContent(
               inventory: currentInventory,
               employeeName: employeeName,
+              roomName: roomName,
               categoryName: categoryName,
             );
           }

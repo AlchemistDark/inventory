@@ -1,14 +1,16 @@
-import '../entities/category_entity.dart';
-import '../repositories/categories_repository.dart';
-import '../../../../core/exceptions/exceptions.dart';
+import 'package:inventory_p_shalaev/core/exceptions/exceptions.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
+/// Use case for creating a new category with validation
 class CreateCategoryUseCase {
+  /// The repository used for category operations
   final CategoriesRepository repository;
 
+  /// Creates a [CreateCategoryUseCase]
   CreateCategoryUseCase(this.repository);
 
   Future<CategoryEntity> call(String name) async {
-    // Валидация
+    // Validate category name
     if (name.isEmpty) {
       throw CategoryValidationException(
         message: 'Category name cannot be empty',

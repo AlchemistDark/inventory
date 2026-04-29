@@ -145,6 +145,7 @@
   "common_all": "Все",
   "common_notSelected": "Не выбрано",
   "common_notDefined": "Не определено",
+  "common_administrator": "Администратор",
   "common_inventoryNumberPrefix": "Инв. №: ",
   "common_deleteConfirmTitle": "Удалить {itemType}?",
   "@common_deleteConfirmTitle": {

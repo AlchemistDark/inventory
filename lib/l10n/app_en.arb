@@ -145,6 +145,7 @@
   "common_all": "All",
   "common_notSelected": "Not selected",
   "common_notDefined": "Not defined",
+  "common_administrator": "Administrator",
   "common_inventoryNumberPrefix": "Inv. №: ",
   "common_deleteConfirmTitle": "Delete {itemType}?",
   "@common_deleteConfirmTitle": {

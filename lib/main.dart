@@ -11,10 +11,17 @@ void main() async {
   // Initialize dependencies via service locator
   await ServiceLocator.setup();
 
+  // Load localizations for seeding default data
+  // We use the default 'ru' locale as defined in MaterialApp
+  final l10n = await AppLocalizations.delegate.load(const Locale('ru', 'RU'));
+
   // Initialize default data (categories, positions, rooms, admin employee)
   await DatabaseSeeder.seedDefaults(
     ServiceLocator.getIt<EmployeesLocalDataSource>(),
+    ServiceLocator.getIt<RoomsLocalDataSource>(),
+    ServiceLocator.getIt<PositionsLocalDataSource>(),
     ServiceLocator.getIt<CategoriesLocalDataSource>(),
+    l10n,
   );
 
   // Seed test inventory data in debug mode only
@@ -38,6 +45,12 @@ class MyApp extends StatelessWidget {
       providers: [
         RepositoryProvider<EmployeesLocalDataSource>(
           create: (_) => ServiceLocator.getIt<EmployeesLocalDataSource>(),
+        ),
+        RepositoryProvider<RoomsLocalDataSource>(
+          create: (_) => ServiceLocator.getIt<RoomsLocalDataSource>(),
+        ),
+        RepositoryProvider<PositionsLocalDataSource>(
+          create: (_) => ServiceLocator.getIt<PositionsLocalDataSource>(),
         ),
         RepositoryProvider<CategoriesLocalDataSource>(
           create: (_) => ServiceLocator.getIt<CategoriesLocalDataSource>(),
@@ -64,8 +77,19 @@ class MyApp extends StatelessWidget {
               ..add(LoadEmployeesEvent()),
           ),
           BlocProvider(
+            create: (context) =>
+                ServiceLocator.getIt<RoomsBloc>()..add(const LoadRoomsEvent()),
+          ),
+          BlocProvider(
+            create: (context) => ServiceLocator.getIt<RoomDetailsBloc>(),
+          ),
+          BlocProvider(
             create: (context) => ServiceLocator.getIt<CategoriesBloc>()
               ..add(const LoadCategoriesEvent()),
+          ),
+          BlocProvider(
+            create: (context) => ServiceLocator.getIt<PositionsBloc>()
+              ..add(const LoadPositionsEvent()),
           ),
         ],
         child: MaterialApp(

@@ -1,3 +1,4 @@
+// Categories
 export 'categories/data/datasources/categories_local_datasource.dart';
 export 'categories/data/models/category_model.dart';
 export 'categories/data/repositories/categories_repository_impl.dart';
@@ -39,6 +40,7 @@ export 'employees/presentation/widgets/employee_inventory_list.dart';
 export 'employees/presentation/widgets/employee_list_item.dart';
 export 'employees/presentation/widgets/employees_search_and_filter.dart';
 export 'employees/presentation/widgets/employee_info_row.dart';
+export 'employees/presentation/widgets/employee_form.dart';
 
 // Home
 export 'home/presentation/bloc/home_bloc.dart';
@@ -96,3 +98,35 @@ export 'inventory/presentation/widgets/inventory_list/inventory_list_view.dart';
 export 'inventory/presentation/widgets/inventory_selection_field.dart';
 export 'inventory/presentation/widgets/inventory_selection_sheet.dart';
 export 'inventory/presentation/widgets/inventory_text_field.dart';
+
+// Positions
+export 'positions/data/datasources/positions_local_datasource.dart';
+export 'positions/data/models/position_model.dart';
+export 'positions/data/repositories/position_repository_impl.dart';
+export 'positions/domain/entities/position_entity.dart';
+export 'positions/domain/repositories/position_repository.dart';
+export 'positions/domain/usecases/get_positions_usecase.dart';
+export 'positions/presentation/bloc/positions_bloc.dart';
+export 'positions/presentation/bloc/positions_event.dart';
+export 'positions/presentation/bloc/positions_state.dart';
+export 'positions/presentation/pages/positions_page.dart';
+export 'positions/presentation/widgets/position_form_dialog.dart';
+
+// Rooms
+export 'rooms/data/datasources/rooms_local_datasource.dart';
+export 'rooms/data/models/room_model.dart';
+export 'rooms/data/repositories/room_repository_impl.dart';
+export 'rooms/domain/entities/room_entity.dart';
+export 'rooms/domain/repositories/room_repository.dart';
+export 'rooms/domain/usecases/get_rooms_usecase.dart';
+export 'rooms/presentation/bloc/room_details_bloc.dart';
+export 'rooms/presentation/bloc/room_details_event.dart';
+export 'rooms/presentation/bloc/room_details_state.dart';
+export 'rooms/presentation/bloc/rooms_bloc.dart';
+export 'rooms/presentation/bloc/rooms_event.dart';
+export 'rooms/presentation/bloc/rooms_state.dart';
+export 'rooms/presentation/pages/room_details_page.dart';
+export 'rooms/presentation/pages/room_form_page.dart';
+export 'rooms/presentation/pages/rooms_page.dart';
+export 'rooms/presentation/widgets/room_employees_tab.dart';
+export 'rooms/presentation/widgets/room_inventory_tab.dart';
