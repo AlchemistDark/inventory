@@ -54,28 +54,11 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
       final positions = await getPositionsUseCase();
       final rooms = await getRoomsUseCase();
 
-      final positionModels = positions
-          .map((e) => PositionModel(
-                id: e.id,
-                name: e.name,
-                createdAt: e.createdAt,
-              ))
-          .toList();
-
-      final roomModels = rooms
-          .map((e) => RoomModel(
-                id: e.id,
-                name: e.name,
-                description: e.description,
-                createdAt: e.createdAt,
-              ))
-          .toList();
-
       emit(EmployeesLoaded(
         allEmployees: employees,
         filteredEmployees: employees,
-        positions: positionModels,
-        rooms: roomModels,
+        positions: positions,
+        rooms: rooms,
       ));
     } catch (e) {
       emit(const EmployeesError(AppFailure.database));
@@ -88,10 +71,9 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
   ) {
     if (state is EmployeesLoaded) {
       final currentState = state as EmployeesLoaded;
-      final filtered = _filterEmployees(
-        currentState.allEmployees,
-        event.query,
-        currentState.positionFilter,
+      final filtered = currentState.allEmployees.search(
+        query: event.query,
+        positionId: currentState.positionFilter,
       );
 
       emit(currentState.copyWith(
@@ -107,10 +89,9 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
   ) {
     if (state is EmployeesLoaded) {
       final currentState = state as EmployeesLoaded;
-      final filtered = _filterEmployees(
-        currentState.allEmployees,
-        currentState.searchQuery,
-        event.positionId,
+      final filtered = currentState.allEmployees.search(
+        query: currentState.searchQuery,
+        positionId: event.positionId,
       );
 
       emit(currentState.copyWith(
@@ -139,21 +120,6 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
         emit(const EmployeesError(AppFailure.database));
       }
     }
-  }
-
-  List<EmployeeEntity> _filterEmployees(
-    List<EmployeeEntity> employees,
-    String query,
-    int? positionId,
-  ) {
-    return employees.where((employee) {
-      final matchesQuery =
-          employee.name.toLowerCase().contains(query.toLowerCase());
-      final matchesPosition =
-          positionId == null || employee.positionId == positionId;
-
-      return matchesQuery && matchesPosition;
-    }).toList();
   }
 
   Future<void> _onCreateEmployee(

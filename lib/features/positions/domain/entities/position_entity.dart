@@ -39,4 +39,15 @@ extension PositionListX on Iterable<PositionEntity> {
 
     return fallback;
   }
+
+  /// Returns the ID of the position with the given [name], or null if not found.
+  int? getIdByName(String name) {
+    for (final position in this) {
+      if (position.name == name) {
+        return position.id;
+      }
+    }
+
+    return null;
+  }
 }

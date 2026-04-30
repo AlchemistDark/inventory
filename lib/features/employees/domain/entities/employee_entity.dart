@@ -47,4 +47,32 @@ extension EmployeeListX on Iterable<EmployeeEntity> {
 
     return fallback;
   }
+
+  /// Returns the ID of the employee with the given [name], or null if not found.
+  int? getIdByName(String name) {
+    for (final employee in this) {
+      if (employee.name == name) {
+        return employee.id;
+      }
+    }
+
+    return null;
+  }
+
+  /// Filters the employees by [roomId]
+  List<EmployeeEntity> filterByRoom(int roomId) {
+    return where((employee) => employee.roomId == roomId).toList();
+  }
+
+  /// Filters the employees by name [query] and [positionId]
+  List<EmployeeEntity> search({String? query, int? positionId}) {
+    return where((employee) {
+      final matchesQuery = query == null ||
+          employee.name.toLowerCase().contains(query.toLowerCase());
+      final matchesPosition =
+          positionId == null || employee.positionId == positionId;
+
+      return matchesQuery && matchesPosition;
+    }).toList();
+  }
 }

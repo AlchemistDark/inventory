@@ -43,4 +43,15 @@ extension CategoryListX on Iterable<CategoryEntity> {
 
     return fallback;
   }
+
+  /// Returns the ID of the category with the given [name], or null if not found.
+  int? getIdByName(String name) {
+    for (final category in this) {
+      if (category.name == name) {
+        return category.id;
+      }
+    }
+
+    return null;
+  }
 }

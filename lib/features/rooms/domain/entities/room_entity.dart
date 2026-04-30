@@ -43,4 +43,15 @@ extension RoomListX on Iterable<RoomEntity> {
 
     return fallback;
   }
+
+  /// Returns the ID of the room with the given [name], or null if not found.
+  int? getIdByName(String name) {
+    for (final room in this) {
+      if (room.name == name) {
+        return room.id;
+      }
+    }
+
+    return null;
+  }
 }

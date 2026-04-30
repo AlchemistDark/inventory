@@ -25,9 +25,7 @@ class InventoryDetailsPage extends StatelessWidget {
           BlocBuilder<InventoryBloc, InventoryState>(
             builder: (context, state) {
               if (state is InventoriesLoaded) {
-                final currentInventory = state.inventories
-                    .where((item) => item.id == inventoryId)
-                    .firstOrNull;
+                final currentInventory = state.inventories.getById(inventoryId);
 
                 if (currentInventory != null) {
                   return IconButton(
@@ -53,21 +51,24 @@ class InventoryDetailsPage extends StatelessWidget {
       body: BlocBuilder<InventoryBloc, InventoryState>(
         builder: (context, state) {
           if (state is InventoriesLoaded) {
-            final currentInventory = state.inventories
-                .where((item) => item.id == inventoryId)
-                .firstOrNull;
+            final currentInventory = state.inventories.getById(inventoryId);
 
             if (currentInventory == null) {
               return Center(child: Text(l10n.invList_emptyStateMessage));
             }
 
-            final employeeName = state.employeeMap[currentInventory.employeeId] ??
-                l10n.invList_notSpecifiedMale;
-            final roomName = state.roomMap[currentInventory.roomId] ??
-                l10n.invList_notSpecified;
-            final categoryName =
-                state.categoryMap[currentInventory.categoryId] ??
-                    l10n.invList_notSpecifiedFemale;
+            final employeeName = state.employees.getNameById(
+              currentInventory.employeeId,
+              fallback: l10n.invList_notSpecifiedMale,
+            );
+            final roomName = state.rooms.getNameById(
+              currentInventory.roomId,
+              fallback: l10n.invList_notSpecified,
+            );
+            final categoryName = state.categories.getNameById(
+              currentInventory.categoryId,
+              fallback: l10n.invList_notSpecifiedFemale,
+            );
 
             return InventoryDetailsContent(
               inventory: currentInventory,

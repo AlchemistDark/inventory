@@ -89,12 +89,8 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
       try {
         final results = await searchByNameUseCase(event.query);
 
-        var filtered = results;
-        if (currentState.categoryFilter != null) {
-          filtered = filtered
-              .where((i) => i.categoryId == currentState.categoryFilter)
-              .toList();
-        }
+        final filtered =
+            results.filterByCategory(currentState.categoryFilter);
 
         emit(InventoriesLoaded(
           inventories: results,
@@ -120,9 +116,8 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
     if (state is InventoriesLoaded) {
       final currentState = state as InventoriesLoaded;
 
-      var filtered = currentState.inventories;
-      filtered =
-          filtered.where((i) => i.categoryId == event.categoryId).toList();
+      final filtered =
+          currentState.inventories.filterByCategory(event.categoryId);
 
       emit(InventoriesLoaded(
         inventories: currentState.inventories,

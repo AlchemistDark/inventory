@@ -24,10 +24,10 @@ class EmployeesLoaded extends EmployeesState {
   final List<EmployeeEntity> filteredEmployees;
 
   /// List of available positions for filtering.
-  final List<PositionModel> positions;
+  final List<PositionEntity> positions;
 
   /// List of available rooms.
-  final List<RoomModel> rooms;
+  final List<RoomEntity> rooms;
 
   /// Inventory assigned to the currently selected employee.
   final List<InventoryEntity> selectedEmployeeInventory;
@@ -69,8 +69,8 @@ class EmployeesLoaded extends EmployeesState {
   EmployeesLoaded copyWith({
     List<EmployeeEntity>? allEmployees,
     List<EmployeeEntity>? filteredEmployees,
-    List<PositionModel>? positions,
-    List<RoomModel>? rooms,
+    List<PositionEntity>? positions,
+    List<RoomEntity>? rooms,
     List<InventoryEntity>? selectedEmployeeInventory,
     String? searchQuery,
     int? positionFilter,

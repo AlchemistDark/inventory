@@ -46,18 +46,11 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
       final rooms = await getRoomsUseCase();
 
       // Find default values based on conventional names
-      final defaultEmployeeId = employees
-          .where((e) => e.name == event.l10n.common_administrator)
-          .firstOrNull
-          ?.id;
-      final defaultCategoryId = categories
-          .where((c) => c.name == event.l10n.common_notDefined)
-          .firstOrNull
-          ?.id;
-      final defaultRoomId = rooms
-          .where((r) => r.name == event.l10n.common_notDefined)
-          .firstOrNull
-          ?.id;
+      final defaultEmployeeId =
+          employees.getIdByName(event.l10n.common_administrator);
+      final defaultCategoryId =
+          categories.getIdByName(event.l10n.common_notDefined);
+      final defaultRoomId = rooms.getIdByName(event.l10n.common_notDefined);
 
       emit(InventoryFormMetadataLoaded(
         employees: employees,

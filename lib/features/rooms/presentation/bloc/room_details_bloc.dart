@@ -27,10 +27,8 @@ class RoomDetailsBloc extends Bloc<RoomDetailsEvent, RoomDetailsState> {
       final allInventory = await getInventoriesUseCase();
       final allEmployees = await getEmployeesUseCase();
 
-      final roomInventory =
-          allInventory.where((i) => i.roomId == event.roomId).toList();
-      final roomEmployees =
-          allEmployees.where((e) => e.roomId == event.roomId).toList();
+      final roomInventory = allInventory.filterByRoom(event.roomId);
+      final roomEmployees = allEmployees.filterByRoom(event.roomId);
 
       emit(RoomDetailsLoaded(
         inventory: roomInventory,

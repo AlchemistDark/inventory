@@ -68,3 +68,31 @@ class InventoryEntity extends Equatable {
     this.categoryId,
   });
 }
+
+/// Extension methods for [InventoryEntity] collections
+extension InventoryListX on Iterable<InventoryEntity> {
+  /// Finds an inventory item by its [id]
+  InventoryEntity? getById(int id) {
+    for (final item in this) {
+      if (item.id == id) {
+        return item;
+      }
+    }
+
+    return null;
+  }
+
+  /// Filters the inventory items by [categoryId]
+  List<InventoryEntity> filterByCategory(int? categoryId) {
+    if (categoryId == null) {
+      return toList();
+    }
+
+    return where((item) => item.categoryId == categoryId).toList();
+  }
+
+  /// Filters the inventory items by [roomId]
+  List<InventoryEntity> filterByRoom(int roomId) {
+    return where((item) => item.roomId == roomId).toList();
+  }
+}

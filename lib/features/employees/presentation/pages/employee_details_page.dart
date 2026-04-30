@@ -36,14 +36,15 @@ class EmployeeDetailsPage extends StatelessWidget {
       body: BlocBuilder<EmployeesBloc, EmployeesState>(
         builder: (context, state) {
           if (state is EmployeesLoaded) {
-            final position = state.positions.firstWhere(
-              (p) => p.id == employee.positionId,
-              orElse: () => state.positions.first, // Fallback
+            final positionName = state.positions.getNameById(
+              employee.positionId,
+              fallback: l10n.employees_unknownPosition,
             );
 
-            final room = state.rooms
-                .where((r) => r.id == employee.roomId)
-                .firstOrNull;
+            final roomName = state.rooms.getNameById(
+              employee.roomId,
+              fallback: l10n.common_notDefined,
+            );
 
             return CustomScrollView(
               slivers: [
@@ -52,8 +53,8 @@ class EmployeeDetailsPage extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   sliver: SliverToBoxAdapter(
                     child: EmployeeInfoCard(
-                      positionName: position.name,
-                      roomName: room?.name ?? l10n.common_notDefined,
+                      positionName: positionName,
+                      roomName: roomName,
                     ),
                   ),
                 ),
