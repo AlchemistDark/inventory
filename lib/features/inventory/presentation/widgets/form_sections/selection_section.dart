@@ -52,16 +52,19 @@ class SelectionSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    // Resolve display names for current selections.
-    final empName =
-        employees.where((e) => e.id == selectedEmployeeId).firstOrNull?.name ??
-            l10n.invForm_notSelected;
-    final catName =
-        categories.where((c) => c.id == selectedCategoryId).firstOrNull?.name ??
-            l10n.invForm_notSelected;
-    final roomName =
-        rooms.where((r) => r.id == selectedRoomId).firstOrNull?.name ??
-            l10n.invForm_notSelected;
+    // Resolve display names for current selections using entity extensions.
+    final empName = employees.getNameById(
+      selectedEmployeeId,
+      fallback: l10n.invForm_notSelected,
+    );
+    final catName = categories.getNameById(
+      selectedCategoryId,
+      fallback: l10n.invForm_notSelected,
+    );
+    final roomName = rooms.getNameById(
+      selectedRoomId,
+      fallback: l10n.invForm_notSelected,
+    );
 
     return Column(
       children: [

@@ -21,3 +21,22 @@ class PositionEntity extends Equatable {
     required this.createdAt,
   });
 }
+
+/// Extension for [Iterable] of [PositionEntity] to provide utility methods.
+extension PositionListX on Iterable<PositionEntity> {
+  /// Returns the name of the position with the given [id],
+  /// or [fallback] if not found.
+  String getNameById(int? id, {required String fallback}) {
+    if (id == null) {
+      return fallback;
+    }
+
+    for (final position in this) {
+      if (position.id == id) {
+        return position.name;
+      }
+    }
+
+    return fallback;
+  }
+}

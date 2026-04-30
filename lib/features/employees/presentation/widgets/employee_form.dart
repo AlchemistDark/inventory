@@ -49,11 +49,10 @@ class EmployeeForm extends StatelessWidget {
           const SizedBox(height: 20),
           InventorySelectionField(
             label: l10n.employees_positionLabel,
-            selectedName: state.positions
-                    .where((p) => p.id == state.selectedPositionId)
-                    .firstOrNull
-                    ?.name ??
-                l10n.common_notSelected,
+            selectedName: state.positions.getNameById(
+              state.selectedPositionId,
+              fallback: l10n.common_notSelected,
+            ),
             icon: Icons.work_outline,
             items: state.positions,
             selectedId: state.selectedPositionId,
@@ -65,11 +64,10 @@ class EmployeeForm extends StatelessWidget {
           const SizedBox(height: 20),
           InventorySelectionField(
             label: l10n.employees_roomLabel,
-            selectedName: state.rooms
-                    .where((r) => r.id == state.selectedRoomId)
-                    .firstOrNull
-                    ?.name ??
-                l10n.common_notDefined,
+            selectedName: state.rooms.getNameById(
+              state.selectedRoomId,
+              fallback: l10n.common_notDefined,
+            ),
             icon: Icons.room_outlined,
             items: state.rooms,
             selectedId: state.selectedRoomId,

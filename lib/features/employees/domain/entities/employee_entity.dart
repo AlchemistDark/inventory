@@ -27,6 +27,24 @@ class EmployeeEntity extends Equatable {
     required this.name,
     required this.positionId,
     this.roomId,
-    
   });
+}
+
+/// Extension for [Iterable] of [EmployeeEntity] to provide utility methods.
+extension EmployeeListX on Iterable<EmployeeEntity> {
+  /// Returns the name of the employee with the given [id],
+  /// or [fallback] if not found.
+  String getNameById(int? id, {required String fallback}) {
+    if (id == null) {
+      return fallback;
+    }
+
+    for (final employee in this) {
+      if (employee.id == id) {
+        return employee.name;
+      }
+    }
+
+    return fallback;
+  }
 }

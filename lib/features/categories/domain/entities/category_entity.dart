@@ -25,3 +25,22 @@ class CategoryEntity extends Equatable {
     this.description,
   });
 }
+
+/// Extension for [Iterable] of [CategoryEntity] to provide utility methods.
+extension CategoryListX on Iterable<CategoryEntity> {
+  /// Returns the name of the category with the given [id],
+  /// or [fallback] if not found.
+  String getNameById(int? id, {required String fallback}) {
+    if (id == null) {
+      return fallback;
+    }
+
+    for (final category in this) {
+      if (category.id == id) {
+        return category.name;
+      }
+    }
+
+    return fallback;
+  }
+}

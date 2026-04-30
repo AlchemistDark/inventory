@@ -25,3 +25,22 @@ class RoomEntity extends Equatable {
     this.description,
   });
 }
+
+/// Extension for [Iterable] of [RoomEntity] to provide utility methods.
+extension RoomListX on Iterable<RoomEntity> {
+  /// Returns the name of the room with the given [id],
+  /// or [fallback] if not found.
+  String getNameById(int? id, {required String fallback}) {
+    if (id == null) {
+      return fallback;
+    }
+
+    for (final room in this) {
+      if (room.id == id) {
+        return room.name;
+      }
+    }
+
+    return fallback;
+  }
+}

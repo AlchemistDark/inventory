@@ -37,10 +37,10 @@ class EmployeeFormLoading extends EmployeeFormState {
 /// State containing all metadata (positions, rooms) and current field values.
 class EmployeeFormMetadataLoaded extends EmployeeFormState {
   /// List of available positions for selection.
-  final List<PositionModel> positions;
+  final List<PositionEntity> positions;
 
   /// List of available rooms for selection.
-  final List<RoomModel> rooms;
+  final List<RoomEntity> rooms;
 
   /// Current name input value.
   final String name;
@@ -81,8 +81,8 @@ class EmployeeFormMetadataLoaded extends EmployeeFormState {
 
   /// Creates a copy of the state with specified properties updated.
   EmployeeFormMetadataLoaded copyWith({
-    List<PositionModel>? positions,
-    List<RoomModel>? rooms,
+    List<PositionEntity>? positions,
+    List<RoomEntity>? rooms,
     String? name,
     int? selectedPositionId,
     int? selectedRoomId,

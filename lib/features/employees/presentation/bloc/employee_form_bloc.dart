@@ -86,8 +86,8 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
       }
 
       emit(EmployeeFormMetadataLoaded(
-        positions: positionModels,
-        rooms: roomModels,
+        positions: positions,
+        rooms: rooms,
         name: event.employee?.name ?? '',
         selectedPositionId: event.employee?.positionId ?? defaultPositionId,
         selectedRoomId: event.employee?.roomId ?? defaultRoomId,
