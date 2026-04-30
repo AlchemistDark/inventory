@@ -26,12 +26,13 @@ class EmployeeList extends StatelessWidget {
       itemCount: employees.length,
       itemBuilder: (context, index) {
         final employee = employees[index];
-        final positionName = positionsMap[employee.positionId] ??
-            l10n.employees_unknownPosition;
+        final positionNames = employee.positionIds
+            .map((id) => positionsMap[id] ?? l10n.employees_unknownPosition)
+            .join(', ');
 
         return EmployeeListItem(
           employee: employee,
-          positionName: positionName,
+          positionName: positionNames.isEmpty ? l10n.employees_unknownPosition : positionNames,
         );
       },
     );

@@ -41,7 +41,9 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
         if (state is InventoryFormMetadataLoaded && widget.editTarget == null) {
           setState(() {
             selectedEmployeeId ??= state.defaultEmployeeId;
-            selectedCategoryId ??= state.defaultCategoryId;
+            if (selectedCategoryIds.isEmpty && state.defaultCategoryId != null) {
+              selectedCategoryIds = [state.defaultCategoryId!];
+            }
             selectedRoomId ??= state.defaultRoomId;
           });
         }
@@ -70,7 +72,7 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
           descriptionController: descriptionController,
           selectedDate: selectedDate,
           selectedEmployeeId: selectedEmployeeId,
-          selectedCategoryId: selectedCategoryId,
+          selectedCategoryIds: selectedCategoryIds,
           selectedRoomId: selectedRoomId,
           employees: employees,
           categories: categories,
@@ -81,7 +83,7 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
           onBarcodeSaved: (barcode) =>
               setState(() => barcodeController.text = barcode),
           onEmployeeSelected: (id) => setState(() => selectedEmployeeId = id),
-          onCategorySelected: (id) => setState(() => selectedCategoryId = id),
+          onCategoriesSelected: (ids) => setState(() => selectedCategoryIds = ids),
           onRoomSelected: (id) => setState(() => selectedRoomId = id),
         );
       },

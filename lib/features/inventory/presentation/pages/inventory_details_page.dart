@@ -62,16 +62,15 @@ class InventoryDetailsPage extends StatelessWidget {
               currentInventory.roomId,
               fallback: l10n.invList_notSpecified,
             );
-            final categoryName = state.categories.getNameById(
-              currentInventory.categoryId,
-              fallback: l10n.invList_notSpecifiedFemale,
-            );
+            final categoryNames = currentInventory.categoryIds
+                .map((id) => state.categories.getNameById(id, fallback: l10n.invList_notSpecifiedFemale))
+                .join(', ');
 
             return InventoryDetailsContent(
               inventory: currentInventory,
               employeeName: employeeName,
               roomName: roomName,
-              categoryName: categoryName,
+              categoryName: categoryNames.isEmpty ? l10n.invList_notSpecifiedFemale : categoryNames,
             );
           }
 

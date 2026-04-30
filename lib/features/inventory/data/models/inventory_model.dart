@@ -31,8 +31,8 @@ class InventoryModel {
   /// ID of the room where item is located (optional)
   final int? roomId;
 
-  /// ID of the category (optional)
-  final int? categoryId;
+  /// IDs of the categories
+  final List<int> categoryIds;
 
   /// Timestamp of record creation
   final DateTime createdAt;
@@ -44,16 +44,16 @@ class InventoryModel {
     required this.quantity,
     required this.dateAdded,
     required this.createdAt,
+    required this.categoryIds,
     this.barcode,
     this.inventoryNumber,
     this.description,
     this.employeeId,
     this.roomId,
-    this.categoryId,
   });
 
   /// Creates an [InventoryModel] from a database map
-  factory InventoryModel.fromMap(Map<String, dynamic> map) {
+  factory InventoryModel.fromMap(Map<String, dynamic> map, {List<int> categoryIds = const []}) {
     return InventoryModel(
       id: map['id'] as int,
       barcode: map['barcode'] as String?,
@@ -64,7 +64,7 @@ class InventoryModel {
       dateAdded: DateTime.fromMillisecondsSinceEpoch(map['dateAdded'] as int),
       employeeId: map['employeeId'] as int?,
       roomId: map['roomId'] as int?,
-      categoryId: map['categoryId'] as int?,
+      categoryIds: categoryIds,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
     );
   }
@@ -81,16 +81,16 @@ class InventoryModel {
       dateAdded: entity.dateAdded,
       employeeId: entity.employeeId,
       roomId: entity.roomId,
-      categoryId: entity.categoryId,
+      categoryIds: entity.categoryIds,
       createdAt: entity.createdAt,
     );
   }
 
   /// Creates an [InventoryModel] from JSON
   factory InventoryModel.fromJson(Map<String, dynamic> json) =>
-      InventoryModel.fromMap(json);
+      InventoryModel.fromMap(json, categoryIds: List<int>.from(json['categoryIds'] ?? []));
 
-  /// Converts the model to a database map
+  /// Converts the model to a database map (excluding many-to-many categories)
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -102,13 +102,16 @@ class InventoryModel {
       'dateAdded': dateAdded.millisecondsSinceEpoch,
       'employeeId': employeeId,
       'roomId': roomId,
-      'categoryId': categoryId,
       'createdAt': createdAt.millisecondsSinceEpoch,
     };
   }
 
-  /// Converts the model to JSON
-  Map<String, dynamic> toJson() => toMap();
+  /// Converts the model to JSON including categoryIds
+  Map<String, dynamic> toJson() {
+    final map = toMap();
+    map['categoryIds'] = categoryIds;
+    return map;
+  }
 
   /// Converts the model to a domain entity
   InventoryEntity toEntity() {
@@ -122,7 +125,7 @@ class InventoryModel {
       dateAdded: dateAdded,
       employeeId: employeeId,
       roomId: roomId,
-      categoryId: categoryId,
+      categoryIds: categoryIds,
       createdAt: createdAt,
     );
   }

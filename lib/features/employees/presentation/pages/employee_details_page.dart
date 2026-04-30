@@ -36,10 +36,9 @@ class EmployeeDetailsPage extends StatelessWidget {
       body: BlocBuilder<EmployeesBloc, EmployeesState>(
         builder: (context, state) {
           if (state is EmployeesLoaded) {
-            final positionName = state.positions.getNameById(
-              employee.positionId,
-              fallback: l10n.employees_unknownPosition,
-            );
+            final positionNames = employee.positionIds
+                .map((id) => state.positions.getNameById(id, fallback: l10n.employees_unknownPosition))
+                .join(', ');
 
             final roomName = state.rooms.getNameById(
               employee.roomId,
@@ -53,7 +52,7 @@ class EmployeeDetailsPage extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   sliver: SliverToBoxAdapter(
                     child: EmployeeInfoCard(
-                      positionName: positionName,
+                      positionName: positionNames.isEmpty ? l10n.employees_unknownPosition : positionNames,
                       roomName: roomName,
                     ),
                   ),

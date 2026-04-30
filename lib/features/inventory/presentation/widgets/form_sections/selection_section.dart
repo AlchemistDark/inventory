@@ -13,10 +13,10 @@ class SelectionSection extends StatelessWidget {
     required this.categories,
     required this.rooms,
     required this.onEmployeeSelected,
-    required this.onCategorySelected,
+    required this.onCategoriesSelected,
     required this.onRoomSelected,
     this.selectedEmployeeId,
-    this.selectedCategoryId,
+    this.selectedCategoryIds = const [],
     this.selectedRoomId,
     super.key,
   });
@@ -33,8 +33,8 @@ class SelectionSection extends StatelessWidget {
   /// The ID of the currently selected employee.
   final int? selectedEmployeeId;
 
-  /// The ID of the currently selected category.
-  final int? selectedCategoryId;
+  /// The IDs of the currently selected categories.
+  final List<int> selectedCategoryIds;
 
   /// The ID of the currently selected room.
   final int? selectedRoomId;
@@ -42,8 +42,8 @@ class SelectionSection extends StatelessWidget {
   /// Callback triggered when an employee is selected.
   final void Function(int?) onEmployeeSelected;
 
-  /// Callback triggered when a category is selected.
-  final void Function(int?) onCategorySelected;
+  /// Callback triggered when categories are selected.
+  final void Function(List<int>) onCategoriesSelected;
 
   /// Callback triggered when a room is selected.
   final void Function(int?) onRoomSelected;
@@ -55,10 +55,6 @@ class SelectionSection extends StatelessWidget {
     // Resolve display names for current selections using entity extensions.
     final empName = employees.getNameById(
       selectedEmployeeId,
-      fallback: l10n.invForm_notSelected,
-    );
-    final catName = categories.getNameById(
-      selectedCategoryId,
       fallback: l10n.invForm_notSelected,
     );
     final roomName = rooms.getNameById(
@@ -81,15 +77,14 @@ class SelectionSection extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         // Selection field for the item category.
-        InventorySelectionField<CategoryEntity>(
+        InventoryMultiSelectionField<CategoryEntity>(
           label: l10n.invForm_categoryLabel,
-          selectedName: catName,
           icon: Icons.category,
           items: categories,
-          selectedId: selectedCategoryId,
+          selectedIds: selectedCategoryIds,
           itemName: (c) => c.name,
           itemId: (c) => c.id,
-          onSelected: (id) => onCategorySelected(id),
+          onChanged: onCategoriesSelected,
         ),
         const SizedBox(height: 16),
         // Selection field for the item's location (room).

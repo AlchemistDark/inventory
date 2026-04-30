@@ -24,10 +24,10 @@ class CreateInventoryFormBody extends StatelessWidget {
     required this.onCancel,
     required this.onBarcodeSaved,
     required this.onEmployeeSelected,
-    required this.onCategorySelected,
+    required this.onCategoriesSelected,
     required this.onRoomSelected,
     this.selectedEmployeeId,
-    this.selectedCategoryId,
+    this.selectedCategoryIds = const [],
     this.selectedRoomId,
     super.key,
   });
@@ -56,8 +56,8 @@ class CreateInventoryFormBody extends StatelessWidget {
   /// The ID of the currently selected employee.
   final int? selectedEmployeeId;
 
-  /// The ID of the currently selected category.
-  final int? selectedCategoryId;
+  /// The IDs of the currently selected categories.
+  final List<int> selectedCategoryIds;
 
   /// The ID of the currently selected room.
   final int? selectedRoomId;
@@ -86,8 +86,8 @@ class CreateInventoryFormBody extends StatelessWidget {
   /// Callback triggered when an employee is selected.
   final ValueChanged<int?> onEmployeeSelected;
 
-  /// Callback triggered when a category is selected.
-  final ValueChanged<int?> onCategorySelected;
+  /// Callback triggered when categories are selected.
+  final ValueChanged<List<int>> onCategoriesSelected;
 
   /// Callback triggered when a room is selected.
   final ValueChanged<int?> onRoomSelected;
@@ -117,10 +117,10 @@ class CreateInventoryFormBody extends StatelessWidget {
               categories: categories,
               rooms: rooms,
               selectedEmployeeId: selectedEmployeeId,
-              selectedCategoryId: selectedCategoryId,
+              selectedCategoryIds: selectedCategoryIds,
               selectedRoomId: selectedRoomId,
               onEmployeeSelected: onEmployeeSelected,
-              onCategorySelected: onCategorySelected,
+              onCategoriesSelected: onCategoriesSelected,
               onRoomSelected: onRoomSelected,
             ),
             const SizedBox(height: 16),

@@ -47,19 +47,15 @@ class EmployeeForm extends StatelessWidget {
                 context.read<EmployeeFormBloc>().add(NameChanged(value)),
           ),
           const SizedBox(height: 20),
-          InventorySelectionField(
+          InventoryMultiSelectionField(
             label: l10n.employees_positionLabel,
-            selectedName: state.positions.getNameById(
-              state.selectedPositionId,
-              fallback: l10n.common_notSelected,
-            ),
             icon: Icons.work_outline,
             items: state.positions,
-            selectedId: state.selectedPositionId,
+            selectedIds: state.selectedPositionIds,
             itemName: (p) => p.name,
             itemId: (p) => p.id,
-            onSelected: (id) =>
-                context.read<EmployeeFormBloc>().add(PositionChanged(id)),
+            onChanged: (ids) =>
+                context.read<EmployeeFormBloc>().add(PositionsChanged(ids)),
           ),
           const SizedBox(height: 20),
           InventorySelectionField(

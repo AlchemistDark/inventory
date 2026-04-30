@@ -8,8 +8,8 @@ class EmployeeModel {
   /// Full name of the employee
   final String name;
 
-  /// ID of the employee's position
-  final int positionId;
+  /// IDs of the employee's positions
+  final List<int> positionIds;
 
   /// ID of the employee's room (optional)
   final int? roomId;
@@ -21,7 +21,7 @@ class EmployeeModel {
   EmployeeModel({
     required this.id,
     required this.name,
-    required this.positionId,
+    required this.positionIds,
     required this.createdAt,
     this.roomId,
   });
@@ -29,15 +29,15 @@ class EmployeeModel {
   factory EmployeeModel.fromEntity(EmployeeEntity entity) => EmployeeModel(
     id: entity.id,
     name: entity.name,
-    positionId: entity.positionId,
+    positionIds: entity.positionIds,
     roomId: entity.roomId,
     createdAt: entity.createdAt,
   );
 
-  factory EmployeeModel.fromMap(Map<String, dynamic> map) => EmployeeModel(
+  factory EmployeeModel.fromMap(Map<String, dynamic> map, {List<int> positionIds = const []}) => EmployeeModel(
     id: map['id'] as int,
     name: map['name'] as String,
-    positionId: map['positionId'] as int,
+    positionIds: positionIds,
     roomId: map['roomId'] as int?,
     createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
   );
@@ -45,7 +45,7 @@ class EmployeeModel {
   EmployeeEntity toEntity() => EmployeeEntity(
     id: id,
     name: name,
-    positionId: positionId,
+    positionIds: positionIds,
     roomId: roomId,
     createdAt: createdAt,
   );
@@ -53,7 +53,6 @@ class EmployeeModel {
   Map<String, dynamic> toMap() {
     final map = <String, dynamic>{
       'name': name,
-      'positionId': positionId,
       'roomId': roomId,
       'createdAt': createdAt.millisecondsSinceEpoch,
     };

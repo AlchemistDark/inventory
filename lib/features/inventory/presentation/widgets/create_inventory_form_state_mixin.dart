@@ -34,8 +34,8 @@ mixin CreateInventoryFormStateMixin on State<CreateInventoryForm> {
   /// The currently selected employee ID.
   int? selectedEmployeeId;
 
-  /// The currently selected category ID.
-  int? selectedCategoryId;
+  /// The currently selected category IDs.
+  List<int> selectedCategoryIds = [];
 
   /// The currently selected room ID.
   int? selectedRoomId;
@@ -54,7 +54,7 @@ mixin CreateInventoryFormStateMixin on State<CreateInventoryForm> {
       descriptionController.text = widget.editTarget!.description ?? '';
       selectedDate = widget.editTarget!.dateAdded;
       selectedEmployeeId = widget.editTarget!.employeeId;
-      selectedCategoryId = widget.editTarget!.categoryId;
+      selectedCategoryIds = List<int>.from(widget.editTarget!.categoryIds);
       selectedRoomId = widget.editTarget!.roomId;
     }
   }
@@ -118,7 +118,7 @@ mixin CreateInventoryFormStateMixin on State<CreateInventoryForm> {
       dateAdded: selectedDate,
       employeeId: selectedEmployeeId,
       roomId: selectedRoomId,
-      categoryId: selectedCategoryId,
+      categoryIds: selectedCategoryIds,
       createdAt: widget.editTarget?.createdAt ?? DateTime.now(),
     );
   }

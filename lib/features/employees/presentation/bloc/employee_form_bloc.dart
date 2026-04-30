@@ -28,7 +28,7 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
   }) : super(const EmployeeFormInitial()) {
     on<InitializeEmployeeForm>(_onInitialize);
     on<NameChanged>(_onNameChanged);
-    on<PositionChanged>(_onPositionChanged);
+    on<PositionsChanged>(_onPositionsChanged);
     on<RoomChanged>(_onRoomChanged);
     on<SubmitEmployeeForm>(_onSubmit);
   }
@@ -61,7 +61,7 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
         positions: positions,
         rooms: rooms,
         name: event.employee?.name ?? '',
-        selectedPositionId: event.employee?.positionId ?? defaultPositionId,
+        selectedPositionIds: event.employee?.positionIds ?? (defaultPositionId != null ? [defaultPositionId] : []),
         selectedRoomId: event.employee?.roomId ?? defaultRoomId,
         isEditing: event.employee != null,
       ));
@@ -80,11 +80,11 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
     }
   }
 
-  void _onPositionChanged(
-      PositionChanged event, Emitter<EmployeeFormState> emit) {
+  void _onPositionsChanged(
+      PositionsChanged event, Emitter<EmployeeFormState> emit) {
     if (state is EmployeeFormMetadataLoaded) {
       final currentState = state as EmployeeFormMetadataLoaded;
-      emit(currentState.copyWith(selectedPositionId: event.positionId));
+      emit(currentState.copyWith(selectedPositionIds: event.positionIds));
     }
   }
 
@@ -109,7 +109,7 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
         return;
       }
 
-      if (currentState.selectedPositionId == null) {
+      if (currentState.selectedPositionIds.isEmpty) {
         emit(const EmployeeFormValidationFailed(
             EmployeeFormValidationError.positionRequired));
 
@@ -122,7 +122,7 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
         final employee = EmployeeEntity(
           id: _editingId ?? 0,
           name: currentState.name.trim(),
-          positionId: currentState.selectedPositionId!,
+          positionIds: currentState.selectedPositionIds,
           roomId: currentState.selectedRoomId,
           createdAt: DateTime.now(),
         );

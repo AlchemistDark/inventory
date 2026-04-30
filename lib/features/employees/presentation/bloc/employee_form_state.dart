@@ -45,8 +45,8 @@ class EmployeeFormMetadataLoaded extends EmployeeFormState {
   /// Current name input value.
   final String name;
 
-  /// Currently selected position ID.
-  final int? selectedPositionId;
+  /// Currently selected position IDs.
+  final List<int> selectedPositionIds;
 
   /// Currently selected room ID.
   final int? selectedRoomId;
@@ -62,7 +62,7 @@ class EmployeeFormMetadataLoaded extends EmployeeFormState {
         positions,
         rooms,
         name,
-        selectedPositionId,
+        selectedPositionIds,
         selectedRoomId,
         isEditing,
         nameError,
@@ -73,7 +73,7 @@ class EmployeeFormMetadataLoaded extends EmployeeFormState {
     required this.positions,
     required this.rooms,
     this.name = '',
-    this.selectedPositionId,
+    this.selectedPositionIds = const [],
     this.selectedRoomId,
     this.isEditing = false,
     this.nameError,
@@ -84,7 +84,7 @@ class EmployeeFormMetadataLoaded extends EmployeeFormState {
     List<PositionEntity>? positions,
     List<RoomEntity>? rooms,
     String? name,
-    int? selectedPositionId,
+    List<int>? selectedPositionIds,
     int? selectedRoomId,
     bool? isEditing,
     EmployeeNameValidationError? nameError,
@@ -93,7 +93,7 @@ class EmployeeFormMetadataLoaded extends EmployeeFormState {
       positions: positions ?? this.positions,
       rooms: rooms ?? this.rooms,
       name: name ?? this.name,
-      selectedPositionId: selectedPositionId ?? this.selectedPositionId,
+      selectedPositionIds: selectedPositionIds ?? this.selectedPositionIds,
       selectedRoomId: selectedRoomId ?? this.selectedRoomId,
       isEditing: isEditing ?? this.isEditing,
       nameError: nameError,

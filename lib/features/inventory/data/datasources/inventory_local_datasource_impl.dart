@@ -16,165 +16,194 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
   Future<InventoryModel> createInventory(InventoryModel model) async {
     final db = await _databaseHelper.database;
 
-    final id = await db.insert(
-      'inventory',
-      model.toDbMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-
-    if (model.categoryId != null) {
-      await db.insert(
-        'inventory_categories',
-        {
-          'inventoryId': id,
-          'categoryId': model.categoryId,
-        },
+    return await db.transaction((txn) async {
+      final id = await txn.insert(
+        'inventory',
+        model.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
-    }
 
-    return InventoryModel(
-      id: id,
-      barcode: model.barcode,
-      name: model.name,
-      inventoryNumber: model.inventoryNumber,
-      quantity: model.quantity,
-      description: model.description,
-      dateAdded: model.dateAdded,
-      employeeId: model.employeeId,
-      roomId: model.roomId,
-      categoryId: model.categoryId,
-      createdAt: DateTime.now(),
-    );
+      for (final categoryId in model.categoryIds) {
+        await txn.insert(
+          'inventory_categories',
+          {
+            'inventoryId': id,
+            'categoryId': categoryId,
+          },
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+
+      return InventoryModel(
+        id: id,
+        barcode: model.barcode,
+        name: model.name,
+        inventoryNumber: model.inventoryNumber,
+        quantity: model.quantity,
+        description: model.description,
+        dateAdded: model.dateAdded,
+        employeeId: model.employeeId,
+        roomId: model.roomId,
+        categoryIds: model.categoryIds,
+        createdAt: model.createdAt,
+      );
+    });
   }
 
   @override
   Future<List<InventoryModel>> getInventories() async {
     final db = await _databaseHelper.database;
 
-    final List<Map<String, dynamic>> maps = await db.rawQuery('''
-      SELECT i.*, ic.categoryId 
-      FROM inventory i 
-      LEFT JOIN inventory_categories ic ON i.id = ic.inventoryId
-      ORDER BY i.name ASC
-    ''');
+    final List<Map<String, dynamic>> maps = await db.query('inventory', orderBy: 'name ASC');
 
-    return List<InventoryModel>.from(
-      maps.map((map) => InventoryModel.fromMap(map)),
-    );
+    final items = <InventoryModel>[];
+    for (final map in maps) {
+      final id = map['id'] as int;
+      final categories = await db.query(
+        'inventory_categories',
+        where: 'inventoryId = ?',
+        whereArgs: [id],
+      );
+      final categoryIds = categories.map((c) => c['categoryId'] as int).toList();
+      items.add(InventoryModel.fromMap(map, categoryIds: categoryIds));
+    }
+
+    return items;
   }
 
   @override
   Future<InventoryModel?> getInventoryById(int id) async {
     final db = await _databaseHelper.database;
 
-    final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''
-      SELECT i.*, ic.categoryId 
-      FROM inventory i 
-      LEFT JOIN inventory_categories ic ON i.id = ic.inventoryId
-      WHERE i.id = ?
-    ''',
-      [id],
+    final List<Map<String, dynamic>> maps = await db.query(
+      'inventory',
+      where: 'id = ?',
+      whereArgs: [id],
     );
 
     if (maps.isEmpty) {
       return null;
     }
 
-    return InventoryModel.fromMap(maps.first);
+    final categories = await db.query(
+      'inventory_categories',
+      where: 'inventoryId = ?',
+      whereArgs: [id],
+    );
+    final categoryIds = categories.map((c) => c['categoryId'] as int).toList();
+
+    return InventoryModel.fromMap(maps.first, categoryIds: categoryIds);
   }
 
   @override
   Future<InventoryModel?> getInventoryByBarcode(String barcode) async {
     final db = await _databaseHelper.database;
 
-    final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''
-      SELECT i.*, ic.categoryId 
-      FROM inventory i 
-      LEFT JOIN inventory_categories ic ON i.id = ic.inventoryId
-      WHERE i.barcode = ? OR i.inventoryNumber = ?
-    ''',
-      [barcode, barcode],
+    final List<Map<String, dynamic>> maps = await db.query(
+      'inventory',
+      where: 'barcode = ? OR inventoryNumber = ?',
+      whereArgs: [barcode, barcode],
     );
 
     if (maps.isEmpty) {
       return null;
     }
 
-    return InventoryModel.fromMap(maps.first);
+    final id = maps.first['id'] as int;
+    final categories = await db.query(
+      'inventory_categories',
+      where: 'inventoryId = ?',
+      whereArgs: [id],
+    );
+    final categoryIds = categories.map((c) => c['categoryId'] as int).toList();
+
+    return InventoryModel.fromMap(maps.first, categoryIds: categoryIds);
   }
 
   @override
   Future<List<InventoryModel>> searchInventoriesByName(String query) async {
     final db = await _databaseHelper.database;
 
-    final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''
-      SELECT i.*, ic.categoryId 
-      FROM inventory i 
-      LEFT JOIN inventory_categories ic ON i.id = ic.inventoryId
-      WHERE i.name LIKE ? OR i.barcode LIKE ? OR i.inventoryNumber LIKE ?
-      ORDER BY i.name ASC
-    ''',
-      ['%$query%', '%$query%', '%$query%'],
+    final List<Map<String, dynamic>> maps = await db.query(
+      'inventory',
+      where: 'name LIKE ? OR barcode LIKE ? OR inventoryNumber LIKE ?',
+      whereArgs: ['%$query%', '%$query%', '%$query%'],
+      orderBy: 'name ASC',
     );
 
-    return List<InventoryModel>.from(
-      maps.map((map) => InventoryModel.fromMap(map)),
-    );
+    final items = <InventoryModel>[];
+    for (final map in maps) {
+      final id = map['id'] as int;
+      final categories = await db.query(
+        'inventory_categories',
+        where: 'inventoryId = ?',
+        whereArgs: [id],
+      );
+      final categoryIds = categories.map((c) => c['categoryId'] as int).toList();
+      items.add(InventoryModel.fromMap(map, categoryIds: categoryIds));
+    }
+
+    return items;
   }
 
   @override
   Future<List<InventoryModel>> getInventoryByEmployeeId(int employeeId) async {
     final db = await _databaseHelper.database;
 
-    final List<Map<String, dynamic>> maps = await db.rawQuery(
-      '''
-      SELECT i.*, ic.categoryId 
-      FROM inventory i 
-      LEFT JOIN inventory_categories ic ON i.id = ic.inventoryId
-      WHERE i.employeeId = ?
-      ORDER BY i.name ASC
-    ''',
-      [employeeId],
+    final List<Map<String, dynamic>> maps = await db.query(
+      'inventory',
+      where: 'employeeId = ?',
+      whereArgs: [employeeId],
+      orderBy: 'name ASC',
     );
 
-    return List<InventoryModel>.from(
-      maps.map((map) => InventoryModel.fromMap(map)),
-    );
+    final items = <InventoryModel>[];
+    for (final map in maps) {
+      final id = map['id'] as int;
+      final categories = await db.query(
+        'inventory_categories',
+        where: 'inventoryId = ?',
+        whereArgs: [id],
+      );
+      final categoryIds = categories.map((c) => c['categoryId'] as int).toList();
+      items.add(InventoryModel.fromMap(map, categoryIds: categoryIds));
+    }
+
+    return items;
   }
 
   @override
   Future<void> updateInventory(InventoryModel model) async {
     final db = await _databaseHelper.database;
 
-    await db.update(
-      'inventory',
-      model.toDbMap(),
-      where: 'id = ?',
-      whereArgs: [model.id],
-    );
+    await db.transaction((txn) async {
+      await txn.update(
+        'inventory',
+        model.toMap(),
+        where: 'id = ?',
+        whereArgs: [model.id],
+      );
 
-    // Update category link
-    await db.delete(
-      'inventory_categories',
-      where: 'inventoryId = ?',
-      whereArgs: [model.id],
-    );
-    if (model.categoryId != null) {
-      await db.insert('inventory_categories', {
-        'inventoryId': model.id,
-        'categoryId': model.categoryId,
-      });
-    }
+      // Update category links
+      await txn.delete(
+        'inventory_categories',
+        where: 'inventoryId = ?',
+        whereArgs: [model.id],
+      );
+      
+      for (final categoryId in model.categoryIds) {
+        await txn.insert('inventory_categories', {
+          'inventoryId': model.id,
+          'categoryId': categoryId,
+        });
+      }
+    });
   }
 
   @override
   Future<void> deleteInventory(int id) async {
     final db = await _databaseHelper.database;
-
     await db.delete('inventory', where: 'id = ?', whereArgs: [id]);
+    // Cascade delete handles inventory_categories
   }
 }

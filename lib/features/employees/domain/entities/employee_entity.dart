@@ -8,8 +8,8 @@ class EmployeeEntity extends Equatable {
   /// Full name of the employee
   final String name;
 
-  /// ID of the employee's position
-  final int positionId;
+  /// IDs of the employee's positions
+  final List<int> positionIds;
 
   /// ID of the employee's room (optional)
   final int? roomId;
@@ -18,14 +18,14 @@ class EmployeeEntity extends Equatable {
   final DateTime createdAt;
 
   @override
-  List<Object?> get props => [id, name, positionId, roomId, createdAt];
+  List<Object?> get props => [id, name, positionIds, roomId, createdAt];
 
   /// Creates an [EmployeeEntity] with the given parameters
   const EmployeeEntity({
     required this.createdAt,
     required this.id,
     required this.name,
-    required this.positionId,
+    required this.positionIds,
     this.roomId,
   });
 }
@@ -70,7 +70,7 @@ extension EmployeeListX on Iterable<EmployeeEntity> {
       final matchesQuery = query == null ||
           employee.name.toLowerCase().contains(query.toLowerCase());
       final matchesPosition =
-          positionId == null || employee.positionId == positionId;
+          positionId == null || employee.positionIds.contains(positionId);
 
       return matchesQuery && matchesPosition;
     }).toList();

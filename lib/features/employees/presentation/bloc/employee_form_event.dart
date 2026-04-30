@@ -35,15 +35,15 @@ class NameChanged extends EmployeeFormEvent {
   const NameChanged(this.name);
 }
 
-/// Event triggered when the selected position changes.
-class PositionChanged extends EmployeeFormEvent {
-  /// The newly selected position ID.
-  final int positionId;
+/// Event triggered when the selected positions change.
+class PositionsChanged extends EmployeeFormEvent {
+  /// The newly selected position IDs.
+  final List<int> positionIds;
 
   @override
-  List<Object?> get props => [positionId];
+  List<Object?> get props => [positionIds];
 
-  const PositionChanged(this.positionId);
+  const PositionsChanged(this.positionIds);
 }
 
 /// Event triggered when the selected room changes.

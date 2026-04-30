@@ -32,8 +32,8 @@ class InventoryEntity extends Equatable {
   /// ID of the room where item is located (optional)
   final int? roomId;
 
-  /// ID of the category (optional)
-  final int? categoryId;
+  /// IDs of the categories
+  final List<int> categoryIds;
 
   /// Timestamp of record creation
   final DateTime createdAt;
@@ -49,7 +49,7 @@ class InventoryEntity extends Equatable {
     dateAdded,
     employeeId,
     roomId,
-    categoryId,
+    categoryIds,
     createdAt,
   ];
 
@@ -60,12 +60,12 @@ class InventoryEntity extends Equatable {
     required this.quantity,
     required this.dateAdded,
     required this.createdAt,
+    required this.categoryIds,
     this.barcode,
     this.inventoryNumber,
     this.description,
     this.employeeId,
     this.roomId,
-    this.categoryId,
   });
 }
 
@@ -88,7 +88,7 @@ extension InventoryListX on Iterable<InventoryEntity> {
       return toList();
     }
 
-    return where((item) => item.categoryId == categoryId).toList();
+    return where((item) => item.categoryIds.contains(categoryId)).toList();
   }
 
   /// Filters the inventory items by [roomId]

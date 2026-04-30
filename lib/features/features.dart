@@ -98,6 +98,7 @@ export 'inventory/presentation/widgets/inventory_barcode_input_dialog.dart';
 export 'inventory/presentation/widgets/inventory_list/inventory_list_header.dart';
 export 'inventory/presentation/widgets/inventory_list/inventory_list_item.dart';
 export 'inventory/presentation/widgets/inventory_list/inventory_list_view.dart';
+export 'inventory/presentation/widgets/inventory_multi_selection_field.dart';
 export 'inventory/presentation/widgets/inventory_selection_field.dart';
 export 'inventory/presentation/widgets/inventory_selection_sheet.dart';
 export 'inventory/presentation/widgets/inventory_selection_tile.dart';

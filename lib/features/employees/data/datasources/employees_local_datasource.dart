@@ -32,23 +32,45 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
   @override
   Future<EmployeeModel> createEmployee(EmployeeModel model) async {
     final db = await _databaseHelper.database;
-    final id = await db.insert('employees', model.toMap());
+    
+    return await db.transaction((txn) async {
+      final id = await txn.insert('employees', model.toMap());
+      
+      for (final positionId in model.positionIds) {
+        await txn.insert('employee_positions', {
+          'employeeId': id,
+          'positionId': positionId,
+        });
+      }
 
-    return EmployeeModel(
-      id: id,
-      name: model.name,
-      positionId: model.positionId,
-      roomId: model.roomId,
-      createdAt: DateTime.now(),
-    );
+      return EmployeeModel(
+        id: id,
+        name: model.name,
+        positionIds: model.positionIds,
+        roomId: model.roomId,
+        createdAt: model.createdAt,
+      );
+    });
   }
 
   @override
   Future<List<EmployeeModel>> getEmployees() async {
     final db = await _databaseHelper.database;
     final maps = await db.query('employees', orderBy: 'name ASC');
+    
+    final employees = <EmployeeModel>[];
+    for (final map in maps) {
+      final id = map['id'] as int;
+      final positions = await db.query(
+        'employee_positions',
+        where: 'employeeId = ?',
+        whereArgs: [id],
+      );
+      final positionIds = positions.map((p) => p['positionId'] as int).toList();
+      employees.add(EmployeeModel.fromMap(map, positionIds: positionIds));
+    }
 
-    return List<EmployeeModel>.from(maps.map((m) => EmployeeModel.fromMap(m)));
+    return employees;
   }
 
   @override
@@ -56,7 +78,16 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
     final db = await _databaseHelper.database;
     final maps = await db.query('employees', where: 'id = ?', whereArgs: [id]);
 
-    return maps.isEmpty ? null : EmployeeModel.fromMap(maps.first);
+    if (maps.isEmpty) return null;
+
+    final positions = await db.query(
+      'employee_positions',
+      where: 'employeeId = ?',
+      whereArgs: [id],
+    );
+    final positionIds = positions.map((p) => p['positionId'] as int).toList();
+
+    return EmployeeModel.fromMap(maps.first, positionIds: positionIds);
   }
 
   @override
@@ -69,19 +100,46 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
       orderBy: 'name ASC',
     );
 
-    return List<EmployeeModel>.from(maps.map((m) => EmployeeModel.fromMap(m)));
+    final employees = <EmployeeModel>[];
+    for (final map in maps) {
+      final id = map['id'] as int;
+      final positions = await db.query(
+        'employee_positions',
+        where: 'employeeId = ?',
+        whereArgs: [id],
+      );
+      final positionIds = positions.map((p) => p['positionId'] as int).toList();
+      employees.add(EmployeeModel.fromMap(map, positionIds: positionIds));
+    }
+
+    return employees;
   }
 
   @override
   Future<void> updateEmployee(EmployeeModel model) async {
     final db = await _databaseHelper.database;
-    await db.update('employees', model.toMap(),
-        where: 'id = ?', whereArgs: [model.id]);
+    
+    await db.transaction((txn) async {
+      await txn.update('employees', model.toMap(),
+          where: 'id = ?', whereArgs: [model.id]);
+          
+      // Update positions: delete existing and insert new ones
+      await txn.delete('employee_positions', 
+          where: 'employeeId = ?', whereArgs: [model.id]);
+          
+      for (final positionId in model.positionIds) {
+        await txn.insert('employee_positions', {
+          'employeeId': model.id,
+          'positionId': positionId,
+        });
+      }
+    });
   }
 
   @override
   Future<void> deleteEmployee(int id) async {
     final db = await _databaseHelper.database;
     await db.delete('employees', where: 'id = ?', whereArgs: [id]);
+    // Note: cascade delete handles employee_positions
   }
 }
