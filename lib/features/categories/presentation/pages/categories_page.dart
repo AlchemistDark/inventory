@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
@@ -85,24 +84,10 @@ class CategoriesPage extends StatelessWidget {
               return Center(child: Text(l10n.categories_emptyList));
             }
 
-            return ListView.builder(
-              itemCount: state.categories.length,
-              itemBuilder: (context, index) {
-                final category = state.categories[index];
-
-                return ListTile(
-                  title: Text(category.name),
-                  subtitle: category.description != null
-                      ? Text(category.description!)
-                      : null,
-                  leading: const Icon(Icons.category),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete_outline),
-                    onPressed: () => _confirmDelete(context, category),
-                  ),
-                  onTap: () => _showCategoryForm(context, category),
-                );
-              },
+            return CategoryList(
+              categories: state.categories,
+              onDelete: (CategoryEntity category) => _confirmDelete(context, category),
+              onTap: (CategoryEntity category) => _showCategoryForm(context, category),
             );
           } else if (state is CategoriesError) {
             return Center(

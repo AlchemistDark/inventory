@@ -36,20 +36,9 @@ class EmployeesPage extends StatelessWidget {
                 Expanded(
                   child: state.filteredEmployees.isEmpty
                       ? Center(child: Text(l10n.employees_notFound))
-                      : ListView.builder(
-                          padding: const EdgeInsets.only(top: 8),
-                          itemCount: state.filteredEmployees.length,
-                          itemBuilder: (context, index) {
-                            final employee = state.filteredEmployees[index];
-                            final positionName =
-                                positionsMap[employee.positionId] ??
-                                    l10n.employees_unknownPosition;
-
-                            return EmployeeListItem(
-                              employee: employee,
-                              positionName: positionName,
-                            );
-                          },
+                      : EmployeeList(
+                          employees: state.filteredEmployees,
+                          positionsMap: positionsMap,
                         ),
                 ),
               ],

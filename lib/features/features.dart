@@ -15,6 +15,8 @@ export 'categories/presentation/bloc/categories_event.dart';
 export 'categories/presentation/bloc/categories_state.dart';
 export 'categories/presentation/pages/categories_page.dart';
 export 'categories/presentation/widgets/category_form_dialog.dart';
+export 'categories/presentation/widgets/category_list.dart';
+export 'categories/presentation/widgets/category_list_tile.dart';
 
 // Employees
 export 'employees/data/datasources/employees_local_datasource.dart';
@@ -41,6 +43,7 @@ export 'employees/presentation/widgets/employee_info_row.dart';
 export 'employees/presentation/widgets/employee_inventory_list.dart';
 export 'employees/presentation/widgets/employee_list_item.dart';
 export 'employees/presentation/widgets/employees_search_and_filter.dart';
+export 'employees/presentation/widgets/employee_list.dart';
 
 // Home
 export 'home/presentation/bloc/home_bloc.dart';
@@ -114,6 +117,8 @@ export 'positions/presentation/bloc/positions_event.dart';
 export 'positions/presentation/bloc/positions_state.dart';
 export 'positions/presentation/pages/positions_page.dart';
 export 'positions/presentation/widgets/position_form_dialog.dart';
+export 'positions/presentation/widgets/position_list.dart';
+export 'positions/presentation/widgets/position_list_tile.dart';
 
 // Rooms
 export 'rooms/data/datasources/rooms_local_datasource.dart';
@@ -136,3 +141,5 @@ export 'rooms/presentation/pages/room_form_page.dart';
 export 'rooms/presentation/pages/rooms_page.dart';
 export 'rooms/presentation/widgets/room_employees_tab.dart';
 export 'rooms/presentation/widgets/room_inventory_tab.dart';
+export 'rooms/presentation/widgets/room_list.dart';
+export 'rooms/presentation/widgets/room_list_tile.dart';

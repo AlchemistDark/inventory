@@ -87,21 +87,12 @@ class PositionsPage extends StatelessWidget {
               return Center(child: Text(l10n.positions_emptyList));
             }
 
-            return ListView.builder(
-              itemCount: state.positions.length,
-              itemBuilder: (context, index) {
-                final position = state.positions[index];
-
-                return ListTile(
-                  title: Text(position.name),
-                  leading: const Icon(Icons.work),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete_outline),
-                    onPressed: () => _confirmDelete(context, position),
-                  ),
-                  onTap: () => _showPositionForm(context, position),
-                );
-              },
+            return PositionList(
+              positions: state.positions,
+              onDelete: (PositionEntity position) =>
+                  _confirmDelete(context, position),
+              onTap: (PositionEntity position) =>
+                  _showPositionForm(context, position),
             );
           } else if (state is PositionsError) {
             return Center(

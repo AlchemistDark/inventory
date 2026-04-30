@@ -63,24 +63,10 @@ class RoomsPage extends StatelessWidget {
               return Center(child: Text(l10n.rooms_emptyList));
             }
 
-            return ListView.builder(
-              itemCount: state.rooms.length,
-              itemBuilder: (context, index) {
-                final room = state.rooms[index];
-
-                return ListTile(
-                  title: Text(room.name),
-                  subtitle: room.description != null
-                      ? Text(room.description!)
-                      : null,
-                  leading: const Icon(Icons.meeting_room),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete_outline),
-                    onPressed: () => _confirmDelete(context, room),
-                  ),
-                  onTap: () => _showRoomForm(context, room),
-                );
-              },
+            return RoomList(
+              rooms: state.rooms,
+              onDelete: (RoomEntity room) => _confirmDelete(context, room),
+              onTap: (RoomEntity room) => _showRoomForm(context, room),
             );
           } else if (state is RoomsError) {
             return Center(
