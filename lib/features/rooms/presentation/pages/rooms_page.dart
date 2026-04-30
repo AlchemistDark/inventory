@@ -66,7 +66,10 @@ class RoomsPage extends StatelessWidget {
             return RoomList(
               rooms: state.rooms,
               onDelete: (RoomEntity room) => _confirmDelete(context, room),
-              onTap: (RoomEntity room) => _showRoomForm(context, room),
+              onTap: (RoomEntity room) => Navigator.push(
+                context,
+                RoomDetailsPage.route(room: room),
+              ),
             );
           } else if (state is RoomsError) {
             return Center(

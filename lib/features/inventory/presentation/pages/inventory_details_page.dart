@@ -45,37 +45,65 @@ class InventoryDetailsPage extends StatelessWidget {
           ),
         ],
       ),
-      body: BlocBuilder<InventoryBloc, InventoryState>(
-        builder: (context, state) {
-          if (state is InventoriesLoaded) {
-            final currentInventory = state.inventories.getById(inventoryId);
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<EmployeesBloc, EmployeesState>(
+            listener: (context, state) {
+              if (state is EmployeesLoaded) {
+                context.read<InventoryBloc>().add(const LoadInventoriesEvent());
+              }
+            },
+          ),
+          BlocListener<RoomsBloc, RoomsState>(
+            listener: (context, state) {
+              if (state is RoomsLoaded) {
+                context.read<InventoryBloc>().add(const LoadInventoriesEvent());
+              }
+            },
+          ),
+          BlocListener<CategoriesBloc, CategoriesState>(
+            listener: (context, state) {
+              if (state is CategoriesLoaded) {
+                context.read<InventoryBloc>().add(const LoadInventoriesEvent());
+              }
+            },
+          ),
+        ],
+        child: BlocBuilder<InventoryBloc, InventoryState>(
+          builder: (context, state) {
+            if (state is InventoriesLoaded) {
+              final currentInventory = state.inventories.getById(inventoryId);
 
-            if (currentInventory == null) {
-              return Center(child: Text(l10n.invList_emptyStateMessage));
+              if (currentInventory == null) {
+                return Center(child: Text(l10n.invList_emptyStateMessage));
+              }
+
+              final employeeName = state.employees.getNameById(
+                currentInventory.employeeId,
+                fallback: l10n.invList_notSpecifiedMale,
+              );
+              final roomName = state.rooms.getNameById(
+                currentInventory.roomId,
+                fallback: l10n.invList_notSpecified,
+              );
+              final categoryNames = currentInventory.categoryIds
+                  .map((id) => state.categories.getNameById(id,
+                      fallback: l10n.invList_notSpecifiedFemale))
+                  .join(', ');
+
+              return InventoryDetailsContent(
+                inventory: currentInventory,
+                employeeName: employeeName,
+                roomName: roomName,
+                categoryName: categoryNames.isEmpty
+                    ? l10n.invList_notSpecifiedFemale
+                    : categoryNames,
+              );
             }
 
-            final employeeName = state.employees.getNameById(
-              currentInventory.employeeId,
-              fallback: l10n.invList_notSpecifiedMale,
-            );
-            final roomName = state.rooms.getNameById(
-              currentInventory.roomId,
-              fallback: l10n.invList_notSpecified,
-            );
-            final categoryNames = currentInventory.categoryIds
-                .map((id) => state.categories.getNameById(id, fallback: l10n.invList_notSpecifiedFemale))
-                .join(', ');
-
-            return InventoryDetailsContent(
-              inventory: currentInventory,
-              employeeName: employeeName,
-              roomName: roomName,
-              categoryName: categoryNames.isEmpty ? l10n.invList_notSpecifiedFemale : categoryNames,
-            );
-          }
-
-          return const Center(child: CircularProgressIndicator());
-        },
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
       ),
     );
   }

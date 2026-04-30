@@ -54,6 +54,17 @@ class _RoomDetailsPageState extends State<RoomDetailsPage>
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.room.name),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (context) => RoomFormPage(room: widget.room),
+              ),
+            ),
+          ),
+        ],
         bottom: TabBar(
           controller: _tabController,
           tabs: [
@@ -62,33 +73,57 @@ class _RoomDetailsPageState extends State<RoomDetailsPage>
           ],
         ),
       ),
-      body: BlocBuilder<RoomDetailsBloc, RoomDetailsState>(
-        builder: (context, state) {
-          if (state is RoomDetailsLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is RoomDetailsLoaded) {
-            return TabBarView(
-              controller: _tabController,
-              children: [
-                RoomInventoryTab(
-                  inventory: state.inventory,
-                  employees: state.employees,
-                  roomName: widget.room.name,
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<EmployeesBloc, EmployeesState>(
+            listener: (context, state) {
+              if (state is EmployeesLoaded) {
+                context
+                    .read<RoomDetailsBloc>()
+                    .add(LoadRoomDetailsEvent(widget.room.id));
+              }
+            },
+          ),
+          BlocListener<InventoryBloc, InventoryState>(
+            listener: (context, state) {
+              if (state is InventoriesLoaded) {
+                context
+                    .read<RoomDetailsBloc>()
+                    .add(LoadRoomDetailsEvent(widget.room.id));
+              }
+            },
+          ),
+        ],
+        child: BlocBuilder<RoomDetailsBloc, RoomDetailsState>(
+          builder: (context, state) {
+            if (state is RoomDetailsLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is RoomDetailsLoaded) {
+              return TabBarView(
+                controller: _tabController,
+                children: [
+                  RoomInventoryTab(
+                    inventory: state.inventory,
+                    employees: state.employees,
+                    roomName: widget.room.name,
+                  ),
+                  RoomEmployeesTab(
+                    employees: state.employees,
+                    positions: state.positions,
+                  ),
+                ],
+              );
+            } else if (state is RoomDetailsError) {
+              return Center(
+                child: Text(
+                  l10n.common_error(state.failure.toLocalizedString(l10n)),
                 ),
-                RoomEmployeesTab(
-                  employees: state.employees,
-                  positions: state.positions,
-                ),
-              ],
-            );
-          }
- else if (state is RoomDetailsError) {
-            return Center(
-                child: Text(l10n.common_error(state.failure.toLocalizedString(l10n))));
-          }
+              );
+            }
 
-          return const SizedBox.shrink();
-        },
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
   }

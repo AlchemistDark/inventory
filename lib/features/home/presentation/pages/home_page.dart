@@ -46,10 +46,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.pop(context); // Close dialog
           Navigator.push(
             context,
-            MaterialPageRoute<void>(
-              builder: (context) => const CreateInventoryPage(),
-              settings: RouteSettings(arguments: {'initialBarcode': query}),
-            ),
+            CreateInventoryPage.route(),
           );
         },
       ),
