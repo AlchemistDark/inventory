@@ -15,7 +15,7 @@ class CategoryFormDialog extends StatefulWidget {
   final CategoryEntity? category;
 
   /// Callback called when the user saves the form
-  final void Function(String name, String? description) onSave;
+  final ValueChanged<CategoryEntity> onSave;
 
   @override
   State<CategoryFormDialog> createState() => _CategoryFormDialogState();
@@ -69,8 +69,15 @@ class _CategoryFormDialogState extends State<CategoryFormDialog> {
         ),
         TextButton(
           onPressed: () {
-            if (_nameController?.text.isNotEmpty ?? false) {
-              widget.onSave(_nameController!.text, _descController?.text);
+            final name = _nameController?.text ?? '';
+            if (name.isNotEmpty) {
+              final category = CategoryEntity(
+                id: widget.category?.id ?? 0,
+                name: name,
+                description: _descController?.text,
+                createdAt: widget.category?.createdAt ?? DateTime.now(),
+              );
+              widget.onSave(category);
               Navigator.pop(context);
             }
           },

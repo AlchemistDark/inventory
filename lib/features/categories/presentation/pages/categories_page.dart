@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
@@ -13,21 +14,15 @@ class CategoriesPage extends StatelessWidget {
       context: context,
       builder: (dialogContext) => CategoryFormDialog(
         category: category,
-        onSave: (name, description) {
-          final newCategory = CategoryEntity(
-            id: category?.id ?? 0,
-            name: name,
-            description: description,
-            createdAt: category?.createdAt ?? DateTime.now(),
-          );
+        onSave: (CategoryEntity newCategory) {
           if (category == null) {
             context.read<CategoriesBloc>().add(
-              CreateCategoryEvent(newCategory),
-            );
+                  CreateCategoryEvent(newCategory),
+                );
           } else {
             context.read<CategoriesBloc>().add(
-              UpdateCategoryEvent(newCategory),
-            );
+                  UpdateCategoryEvent(newCategory),
+                );
           }
           final l10n = AppLocalizations.of(context)!;
           ScaffoldMessenger.of(context).showSnackBar(
@@ -65,7 +60,9 @@ class CategoriesPage extends StatelessWidget {
               categoriesBloc.add(DeleteCategoryEvent(category.id));
               Navigator.pop(dialogContext);
             },
-            style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.error),
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
             child: Text(l10n.common_delete),
           ),
         ],

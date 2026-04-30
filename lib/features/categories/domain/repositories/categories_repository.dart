@@ -11,8 +11,8 @@ abstract class CategoriesRepository {
   /// Returns a category by its unique ID
   Future<CategoryEntity?> getCategoryById(int id);
 
-  /// Updates the name of a category
-  Future<void> updateCategory(int id, String name);
+  /// Updates an existing category
+  Future<void> updateCategory(CategoryEntity category);
 
   /// Deletes a category by its ID
   Future<void> deleteCategory(int id);

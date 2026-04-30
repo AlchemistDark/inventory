@@ -30,8 +30,8 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
   }
 
   @override
-  Future<void> updateCategory(int id, String name) async {
-    await localDataSource.updateCategory(id, name);
+  Future<void> updateCategory(CategoryEntity category) async {
+    await localDataSource.updateCategory(CategoryModel.fromEntity(category));
   }
 
   @override

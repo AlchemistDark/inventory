@@ -13,8 +13,8 @@ abstract class CategoriesLocalDataSource {
   /// Returns a category by its ID, or null if not found
   Future<CategoryModel?> getCategoryById(int id);
 
-  /// Updates the name of a category with the given ID
-  Future<void> updateCategory(int id, String name);
+  /// Updates a category
+  Future<void> updateCategory(CategoryModel model);
 
   /// Deletes a category by its ID
   Future<void> deleteCategory(int id);
@@ -74,14 +74,14 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
   }
 
   @override
-  Future<void> updateCategory(int id, String name) async {
+  Future<void> updateCategory(CategoryModel model) async {
     final db = await _databaseHelper.database;
 
     await db.update(
       'categories',
-      {'name': name},
+      model.toMap(),
       where: 'id = ?',
-      whereArgs: [id],
+      whereArgs: [model.id],
     );
   }
 

@@ -23,6 +23,6 @@ class UpdateCategoryUseCase {
       );
     }
 
-    await repository.updateCategory(category.id, category.name);
+    await repository.updateCategory(category);
   }
 }

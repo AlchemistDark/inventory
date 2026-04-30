@@ -15,7 +15,7 @@ class PositionFormDialog extends StatefulWidget {
   final PositionEntity? position;
 
   /// Callback called when the user saves the form.
-  final void Function(String name) onSave;
+  final ValueChanged<String> onSave;
 
   @override
   State<PositionFormDialog> createState() => _PositionFormDialogState();
