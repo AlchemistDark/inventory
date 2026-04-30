@@ -30,14 +30,22 @@ class RoomEmployeesTab extends StatelessWidget {
       itemCount: employees.length,
       itemBuilder: (context, index) {
         final employee = employees[index];
-        final positionName = positions.getNameById(
-          employee.positionId,
-          fallback: l10n.employees_unknownPosition,
-        );
+        final positionNames = employee.positionIds
+            .map(
+              (id) => positions.getNameById(
+                id,
+                fallback: l10n.employees_unknownPosition,
+              ),
+            )
+            .join(', ');
+
+        final displayPosition = positionNames.isEmpty
+            ? l10n.employees_unknownPosition
+            : positionNames;
 
         return EmployeeListItem(
           employee: employee,
-          positionName: positionName,
+          positionName: displayPosition,
         );
       },
     );
