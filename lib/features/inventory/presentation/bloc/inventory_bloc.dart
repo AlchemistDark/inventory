@@ -21,14 +21,14 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
   /// Use case for updating an existing inventory item.
   final UpdateInventoryUseCase updateInventoryUseCase;
 
-  /// Data source for employee data, used to load responsible persons.
-  final EmployeesLocalDataSource employeesDataSource;
+  /// Use case for employee data, used to load responsible persons.
+  final GetEmployeesUseCase getEmployeesUseCase;
 
-  /// Data source for category data, used for classification and filtering.
-  final CategoriesLocalDataSource categoriesDataSource;
+  /// Use case for category data, used for classification and filtering.
+  final GetCategoriesUseCase getCategoriesUseCase;
 
-  /// Data source for room data, used to assign items to locations.
-  final RoomsLocalDataSource roomsDataSource;
+  /// Use case for room data, used to assign items to locations.
+  final GetRoomsUseCase getRoomsUseCase;
 
   /// Creates [InventoryBloc] with required dependencies and sets the initial state.
   InventoryBloc({
@@ -36,9 +36,9 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
     required this.getInventoriesUseCase,
     required this.createInventoryUseCase,
     required this.updateInventoryUseCase,
-    required this.employeesDataSource,
-    required this.categoriesDataSource,
-    required this.roomsDataSource,
+    required this.getEmployeesUseCase,
+    required this.getCategoriesUseCase,
+    required this.getRoomsUseCase,
   }) : super(const InventoryInitial()) {
     on<InitializeInventoriesEvent>(_onInitialize);
     on<LoadInventoriesEvent>(_onLoadInventories);
@@ -63,9 +63,9 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
     try {
       emit(const InventoryLoading());
       final inventories = await getInventoriesUseCase();
-      final employees = await employeesDataSource.getEmployees();
-      final categories = await categoriesDataSource.getCategories();
-      final rooms = await roomsDataSource.getRooms();
+      final employees = await getEmployeesUseCase();
+      final categories = await getCategoriesUseCase();
+      final rooms = await getRoomsUseCase();
 
       emit(InventoriesLoaded(
         inventories: inventories,

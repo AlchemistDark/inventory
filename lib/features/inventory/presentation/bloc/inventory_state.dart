@@ -1,9 +1,5 @@
 import 'package:inventory_p_shalaev/core/core.dart';
-import 'package:inventory_p_shalaev/features/inventory/domain/entities/inventory_entity.dart';
-import 'package:inventory_p_shalaev/features/inventory/presentation/bloc/inventory_common_models.dart';
-import 'package:inventory_p_shalaev/features/employees/data/models/employee_model.dart';
-import 'package:inventory_p_shalaev/features/categories/data/models/category_model.dart';
-import 'package:inventory_p_shalaev/features/rooms/data/models/room_model.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 
 /// Base class for all states of the inventory management feature.
 abstract class InventoryState extends Equatable {
@@ -35,13 +31,13 @@ class InventoriesLoaded extends InventoryState {
   final List<InventoryEntity> filteredInventories;
 
   /// List of available employees for selection.
-  final List<EmployeeModel> employees;
+  final List<EmployeeEntity> employees;
 
   /// List of available categories for selection and filtering.
-  final List<CategoryModel> categories;
+  final List<CategoryEntity> categories;
 
   /// List of available rooms for selection.
-  final List<RoomModel> rooms;
+  final List<RoomEntity> rooms;
 
   /// The current active search query, if any.
   final String? searchQuery;

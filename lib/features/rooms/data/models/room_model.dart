@@ -53,9 +53,11 @@ class RoomModel {
       'description': description,
       'createdAt': createdAt.millisecondsSinceEpoch,
     };
+
     if (id > 0) {
       map['id'] = id;
     }
+    
     return map;
   }
 }

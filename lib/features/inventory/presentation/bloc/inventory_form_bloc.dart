@@ -8,14 +8,14 @@ import 'package:inventory_p_shalaev/features/features.dart';
 /// categories, rooms) and handling the submission of new or updated
 /// inventory entities.
 class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
-  /// Data source for loading employees.
-  final EmployeesLocalDataSource employeesDataSource;
+  /// Use case for loading employees.
+  final GetEmployeesUseCase getEmployeesUseCase;
 
-  /// Data source for loading categories.
-  final CategoriesLocalDataSource categoriesDataSource;
+  /// Use case for loading categories.
+  final GetCategoriesUseCase getCategoriesUseCase;
 
-  /// Data source for loading rooms.
-  final RoomsLocalDataSource roomsDataSource;
+  /// Use case for loading rooms.
+  final GetRoomsUseCase getRoomsUseCase;
 
   /// Use case for creating a new inventory item.
   final CreateInventoryUseCase createInventoryUseCase;
@@ -25,9 +25,9 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
 
   /// Creates an [InventoryFormBloc] with all required dependencies.
   InventoryFormBloc({
-    required this.employeesDataSource,
-    required this.categoriesDataSource,
-    required this.roomsDataSource,
+    required this.getEmployeesUseCase,
+    required this.getCategoriesUseCase,
+    required this.getRoomsUseCase,
     required this.createInventoryUseCase,
     required this.updateInventoryUseCase,
   }) : super(const InventoryFormInitial()) {
@@ -41,9 +41,9 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
   ) async {
     emit(const InventoryFormLoading());
     try {
-      final employees = await employeesDataSource.getEmployees();
-      final categories = await categoriesDataSource.getCategories();
-      final rooms = await roomsDataSource.getRooms();
+      final employees = await getEmployeesUseCase();
+      final categories = await getCategoriesUseCase();
+      final rooms = await getRoomsUseCase();
 
       // Find default values based on conventional names
       final defaultEmployeeId = employees

@@ -22,13 +22,13 @@ class SelectionSection extends StatelessWidget {
   });
 
   /// List of employees for the selection field.
-  final List<EmployeeModel> employees;
+  final List<EmployeeEntity> employees;
 
   /// List of categories for the selection field.
-  final List<CategoryModel> categories;
+  final List<CategoryEntity> categories;
 
   /// List of rooms for the selection field.
-  final List<RoomModel> rooms;
+  final List<RoomEntity> rooms;
 
   /// The ID of the currently selected employee.
   final int? selectedEmployeeId;
@@ -66,7 +66,7 @@ class SelectionSection extends StatelessWidget {
     return Column(
       children: [
         // Selection field for the responsible person.
-        InventorySelectionField<EmployeeModel>(
+        InventorySelectionField<EmployeeEntity>(
           label: l10n.invForm_responsibleLabel,
           selectedName: empName,
           icon: Icons.person,
@@ -74,11 +74,11 @@ class SelectionSection extends StatelessWidget {
           selectedId: selectedEmployeeId,
           itemName: (e) => e.name,
           itemId: (e) => e.id,
-          onSelected: onEmployeeSelected,
+          onSelected: (id) => onEmployeeSelected(id),
         ),
         const SizedBox(height: 16),
         // Selection field for the item category.
-        InventorySelectionField<CategoryModel>(
+        InventorySelectionField<CategoryEntity>(
           label: l10n.invForm_categoryLabel,
           selectedName: catName,
           icon: Icons.category,
@@ -86,11 +86,11 @@ class SelectionSection extends StatelessWidget {
           selectedId: selectedCategoryId,
           itemName: (c) => c.name,
           itemId: (c) => c.id,
-          onSelected: onCategorySelected,
+          onSelected: (id) => onCategorySelected(id),
         ),
         const SizedBox(height: 16),
         // Selection field for the item's location (room).
-        InventorySelectionField<RoomModel>(
+        InventorySelectionField<RoomEntity>(
           label: l10n.invForm_roomLabel,
           selectedName: roomName,
           icon: Icons.room,
@@ -98,7 +98,7 @@ class SelectionSection extends StatelessWidget {
           selectedId: selectedRoomId,
           itemName: (r) => r.name,
           itemId: (r) => r.id,
-          onSelected: onRoomSelected,
+          onSelected: (id) => onRoomSelected(id),
         ),
       ],
     );

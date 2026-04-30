@@ -7,13 +7,21 @@ class PositionsBloc extends Bloc<PositionsEvent, PositionsState> {
   /// Use case for retrieving positions.
   final GetPositionsUseCase getPositionsUseCase;
 
-  /// Repository for other position operations (create, update, delete).
-  final PositionRepository repository;
+  /// Use case for creating a position.
+  final CreatePositionUseCase createPositionUseCase;
+
+  /// Use case for updating a position.
+  final UpdatePositionUseCase updatePositionUseCase;
+
+  /// Use case for deleting a position.
+  final DeletePositionUseCase deletePositionUseCase;
 
   /// Creates a [PositionsBloc] with the required dependencies.
   PositionsBloc({
     required this.getPositionsUseCase,
-    required this.repository,
+    required this.createPositionUseCase,
+    required this.updatePositionUseCase,
+    required this.deletePositionUseCase,
   }) : super(const PositionsInitial()) {
     on<LoadPositionsEvent>(_onLoadPositions);
     on<CreatePositionEvent>(_onCreatePosition);
@@ -39,7 +47,7 @@ class PositionsBloc extends Bloc<PositionsEvent, PositionsState> {
     Emitter<PositionsState> emit,
   ) async {
     try {
-      await repository.createPosition(event.position);
+      await createPositionUseCase(event.position);
       add(const LoadPositionsEvent());
     } catch (e) {
       emit(const PositionsError(AppFailure.database));
@@ -51,7 +59,7 @@ class PositionsBloc extends Bloc<PositionsEvent, PositionsState> {
     Emitter<PositionsState> emit,
   ) async {
     try {
-      await repository.updatePosition(event.position);
+      await updatePositionUseCase(event.position);
       add(const LoadPositionsEvent());
     } catch (e) {
       emit(const PositionsError(AppFailure.database));
@@ -63,7 +71,7 @@ class PositionsBloc extends Bloc<PositionsEvent, PositionsState> {
     Emitter<PositionsState> emit,
   ) async {
     try {
-      await repository.deletePosition(event.id);
+      await deletePositionUseCase(event.id);
       add(const LoadPositionsEvent());
     } catch (e) {
       emit(const PositionsError(AppFailure.database));

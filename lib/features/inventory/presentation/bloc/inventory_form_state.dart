@@ -25,13 +25,13 @@ class InventoryFormLoading extends InventoryFormState {
 /// State containing all metadata needed to populate form dropdowns and selection fields.
 class InventoryFormMetadataLoaded extends InventoryFormState {
   /// List of available employees.
-  final List<EmployeeModel> employees;
+  final List<EmployeeEntity> employees;
 
   /// List of available categories.
-  final List<CategoryModel> categories;
+  final List<CategoryEntity> categories;
 
   /// List of available rooms.
-  final List<RoomModel> rooms;
+  final List<RoomEntity> rooms;
 
   /// The ID of the default employee to be pre-selected (e.g., 'Administrator').
   final int? defaultEmployeeId;

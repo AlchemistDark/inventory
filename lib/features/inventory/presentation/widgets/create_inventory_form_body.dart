@@ -63,13 +63,13 @@ class CreateInventoryFormBody extends StatelessWidget {
   final int? selectedRoomId;
 
   /// List of employees to populate the selection field.
-  final List<EmployeeModel> employees;
+  final List<EmployeeEntity> employees;
 
   /// List of categories to populate the selection field.
-  final List<CategoryModel> categories;
+  final List<CategoryEntity> categories;
 
   /// List of rooms to populate the selection field.
-  final List<RoomModel> rooms;
+  final List<RoomEntity> rooms;
 
   /// Callback to trigger date selection.
   final VoidCallback onSelectDate;

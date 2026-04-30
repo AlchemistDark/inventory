@@ -53,12 +53,13 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
 
         final employees = state is InventoryFormMetadataLoaded
             ? state.employees
-            : <EmployeeModel>[];
+            : <EmployeeEntity>[];
         final categories = state is InventoryFormMetadataLoaded
             ? state.categories
-            : <CategoryModel>[];
-        final rooms =
-            state is InventoryFormMetadataLoaded ? state.rooms : <RoomModel>[];
+            : <CategoryEntity>[];
+        final rooms = state is InventoryFormMetadataLoaded
+            ? state.rooms
+            : <RoomEntity>[];
 
         return CreateInventoryFormBody(
           formKey: formKey,

@@ -9,26 +9,20 @@ class CreateCategoryUseCase {
   /// Creates a [CreateCategoryUseCase]
   CreateCategoryUseCase(this.repository);
 
-  Future<CategoryEntity> call(String name) async {
+  Future<CategoryEntity> call(CategoryEntity category) async {
     // Validate category name
-    if (name.isEmpty) {
+    if (category.name.isEmpty) {
       throw CategoryValidationException(
         message: 'Category name cannot be empty',
       );
     }
 
-    if (name.length < 3) {
+    if (category.name.length < 3) {
       throw CategoryValidationException(
         message: 'Category name must be at least 3 characters',
       );
     }
 
-    if (name.length > 50) {
-      throw CategoryValidationException(
-        message: 'Category name cannot exceed 50 characters',
-      );
-    }
-
-    return await repository.createCategory(name);
+    return await repository.createCategory(category.name);
   }
 }

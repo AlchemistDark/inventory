@@ -7,13 +7,21 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
   /// Use case for retrieving rooms.
   final GetRoomsUseCase getRoomsUseCase;
 
-  /// Repository for other room operations (create, update, delete).
-  final RoomRepository repository;
+  /// Use case for creating a room.
+  final CreateRoomUseCase createRoomUseCase;
+
+  /// Use case for updating a room.
+  final UpdateRoomUseCase updateRoomUseCase;
+
+  /// Use case for deleting a room.
+  final DeleteRoomUseCase deleteRoomUseCase;
 
   /// Creates a [RoomsBloc] with the required dependencies.
   RoomsBloc({
     required this.getRoomsUseCase,
-    required this.repository,
+    required this.createRoomUseCase,
+    required this.updateRoomUseCase,
+    required this.deleteRoomUseCase,
   }) : super(RoomsInitial()) {
     on<LoadRoomsEvent>(_onLoadRooms);
     on<CreateRoomEvent>(_onCreateRoom);
@@ -39,7 +47,7 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
     Emitter<RoomsState> emit,
   ) async {
     try {
-      await repository.createRoom(event.room);
+      await createRoomUseCase(event.room);
       add(const LoadRoomsEvent());
     } catch (e) {
       emit(const RoomsError(AppFailure.database));
@@ -51,7 +59,7 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
     Emitter<RoomsState> emit,
   ) async {
     try {
-      await repository.updateRoom(event.room);
+      await updateRoomUseCase(event.room);
       add(const LoadRoomsEvent());
     } catch (e) {
       emit(const RoomsError(AppFailure.database));
@@ -63,7 +71,7 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
     Emitter<RoomsState> emit,
   ) async {
     try {
-      await repository.deleteRoom(event.id);
+      await deleteRoomUseCase(event.id);
       add(const LoadRoomsEvent());
     } catch (e) {
       emit(const RoomsError(AppFailure.database));

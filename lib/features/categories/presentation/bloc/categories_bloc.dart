@@ -7,13 +7,21 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   /// Use case for retrieving categories
   final GetCategoriesUseCase getCategoriesUseCase;
 
-  /// Repository for other category operations (create, update, delete)
-  final CategoriesRepository repository;
+  /// Use case for creating a category
+  final CreateCategoryUseCase createCategoryUseCase;
+
+  /// Use case for updating a category
+  final UpdateCategoryUseCase updateCategoryUseCase;
+
+  /// Use case for deleting a category
+  final DeleteCategoryUseCase deleteCategoryUseCase;
 
   /// Creates a [CategoriesBloc] with the required dependencies
   CategoriesBloc({
     required this.getCategoriesUseCase,
-    required this.repository,
+    required this.createCategoryUseCase,
+    required this.updateCategoryUseCase,
+    required this.deleteCategoryUseCase,
   }) : super(const CategoriesInitial()) {
     on<LoadCategoriesEvent>(_onLoadCategories);
     on<CreateCategoryEvent>(_onCreateCategory);
@@ -39,7 +47,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     Emitter<CategoriesState> emit,
   ) async {
     try {
-      await repository.createCategory(event.category.name);
+      await createCategoryUseCase(event.category);
       add(const LoadCategoriesEvent());
     } catch (e) {
       emit(const CategoriesError(AppFailure.database));
@@ -51,7 +59,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     Emitter<CategoriesState> emit,
   ) async {
     try {
-      await repository.updateCategory(event.category.id, event.category.name);
+      await updateCategoryUseCase(event.category);
       add(const LoadCategoriesEvent());
     } catch (e) {
       emit(const CategoriesError(AppFailure.database));
@@ -63,7 +71,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     Emitter<CategoriesState> emit,
   ) async {
     try {
-      await repository.deleteCategory(event.id);
+      await deleteCategoryUseCase(event.id);
       add(const LoadCategoriesEvent());
     } catch (e) {
       emit(const CategoriesError(AppFailure.database));

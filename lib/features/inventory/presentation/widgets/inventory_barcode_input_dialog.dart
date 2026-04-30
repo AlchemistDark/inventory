@@ -27,8 +27,9 @@ class InventoryBarcodeInputDialog extends StatefulWidget {
 
 class _InventoryBarcodeInputDialogState
     extends State<InventoryBarcodeInputDialog> {
-  late final TextEditingController _barcodeController;
   final MobileScannerController _scannerController = MobileScannerController();
+  // ignore: avoid-late-keyword
+  late TextEditingController _barcodeController;
   bool _isScanning = false;
 
   @override

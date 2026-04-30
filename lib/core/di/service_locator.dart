@@ -63,6 +63,9 @@ abstract final class ServiceLocator {
 
     // Rooms
     getIt.registerLazySingleton(() => GetRoomsUseCase(getIt()));
+    getIt.registerLazySingleton(() => CreateRoomUseCase(getIt()));
+    getIt.registerLazySingleton(() => UpdateRoomUseCase(getIt()));
+    getIt.registerLazySingleton(() => DeleteRoomUseCase(getIt()));
 
     // Categories
     getIt.registerLazySingleton(() => GetCategoriesUseCase(getIt()));
@@ -73,6 +76,9 @@ abstract final class ServiceLocator {
 
     // Positions
     getIt.registerLazySingleton(() => GetPositionsUseCase(getIt()));
+    getIt.registerLazySingleton(() => CreatePositionUseCase(getIt()));
+    getIt.registerLazySingleton(() => UpdatePositionUseCase(getIt()));
+    getIt.registerLazySingleton(() => DeletePositionUseCase(getIt()));
 
     // BLoCs
     getIt.registerFactory(
@@ -89,17 +95,17 @@ abstract final class ServiceLocator {
         getInventoriesUseCase: getIt(),
         createInventoryUseCase: getIt(),
         updateInventoryUseCase: getIt(),
-        employeesDataSource: getIt(),
-        categoriesDataSource: getIt(),
-        roomsDataSource: getIt(),
+        getEmployeesUseCase: getIt(),
+        getCategoriesUseCase: getIt(),
+        getRoomsUseCase: getIt(),
       ),
     );
 
     getIt.registerFactory(
       () => InventoryFormBloc(
-        employeesDataSource: getIt(),
-        categoriesDataSource: getIt(),
-        roomsDataSource: getIt(),
+        getEmployeesUseCase: getIt(),
+        getCategoriesUseCase: getIt(),
+        getRoomsUseCase: getIt(),
         createInventoryUseCase: getIt(),
         updateInventoryUseCase: getIt(),
       ),
@@ -127,7 +133,12 @@ abstract final class ServiceLocator {
     );
 
     getIt.registerFactory(
-      () => RoomsBloc(getRoomsUseCase: getIt(), repository: getIt()),
+      () => RoomsBloc(
+        getRoomsUseCase: getIt(),
+        createRoomUseCase: getIt(),
+        updateRoomUseCase: getIt(),
+        deleteRoomUseCase: getIt(),
+      ),
     );
 
     getIt.registerFactory(
@@ -138,11 +149,21 @@ abstract final class ServiceLocator {
     );
 
     getIt.registerFactory(
-      () => CategoriesBloc(getCategoriesUseCase: getIt(), repository: getIt()),
+      () => CategoriesBloc(
+        getCategoriesUseCase: getIt(),
+        createCategoryUseCase: getIt(),
+        updateCategoryUseCase: getIt(),
+        deleteCategoryUseCase: getIt(),
+      ),
     );
 
     getIt.registerFactory(
-      () => PositionsBloc(getPositionsUseCase: getIt(), repository: getIt()),
+      () => PositionsBloc(
+        getPositionsUseCase: getIt(),
+        createPositionUseCase: getIt(),
+        updatePositionUseCase: getIt(),
+        deletePositionUseCase: getIt(),
+      ),
     );
 
     return Future.value();

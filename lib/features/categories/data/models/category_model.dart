@@ -47,9 +47,11 @@ class CategoryModel {
       'name': name,
       'createdAt': createdAt.millisecondsSinceEpoch,
     };
+
     if (id > 0) {
       map['id'] = id;
     }
+    
     return map;
   }
 

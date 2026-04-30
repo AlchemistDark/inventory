@@ -90,7 +90,7 @@ class _InventoryListHeaderState extends State<InventoryListHeader> {
                       child: Text(l10n.invList_showAllCategories),
                     ),
                     ...state.categories.map(
-                      (c) => DropdownMenuItem(
+                      (CategoryEntity c) => DropdownMenuItem(
                         value: c.id,
                         child: Text(c.name),
                       ),
