@@ -67,6 +67,12 @@
   "invList_noBarcode": "No code",
   "invList_noInventoryNumber": "N/A",
   "invList_inventoryNumberPrefix": "Inv. №: ",
+  "invList_itemQuantity": "({count}) ",
+  "@invList_itemQuantity": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "invList_itemAddedMessage": "Item added",
   "invList_itemUpdatedMessage": "Item updated",
   "invList_filterByCategoryLabel": "Filter by category",

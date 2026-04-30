@@ -27,7 +27,11 @@ class InventoryListPage extends StatelessWidget {
                 if (state is InventoryLoading) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (state is InventoriesLoaded) {
-                  return InventoryListView(state: state);
+                  return InventoryListView(
+                    items: state.filteredInventories,
+                    employees: state.employees,
+                    rooms: state.rooms,
+                  );
                 } else if (state is InventoryError) {
                   return Center(
                     child: Text(

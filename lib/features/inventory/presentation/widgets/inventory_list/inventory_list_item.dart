@@ -30,7 +30,9 @@ class InventoryListItem extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     // Format title and quantity string.
-    final qtyText = inventory.quantity > 0 ? '(${inventory.quantity}) ' : '';
+    final qtyText = inventory.quantity > 0
+        ? l10n.invList_itemQuantity(inventory.quantity)
+        : '';
     final invNumText = inventory.inventoryNumber != null
         ? '${inventory.inventoryNumber} '
         : '${l10n.invList_noInventoryNumber} ';

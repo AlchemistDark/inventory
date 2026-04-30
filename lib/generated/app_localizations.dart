@@ -404,6 +404,12 @@ abstract class AppLocalizations {
   /// **'Инв. №: '**
   String get invList_inventoryNumberPrefix;
 
+  /// No description provided for @invList_itemQuantity.
+  ///
+  /// In ru, this message translates to:
+  /// **'({count}) '**
+  String invList_itemQuantity(int count);
+
   /// No description provided for @invList_itemAddedMessage.
   ///
   /// In ru, this message translates to:

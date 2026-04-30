@@ -8,33 +8,44 @@ import 'package:inventory_p_shalaev/features/features.dart';
 /// Responsible for mapping employee and room IDs to their respective names
 /// before passing them to individual [InventoryListItem]s.
 class InventoryListView extends StatelessWidget {
-  /// Creates an [InventoryListView] with the given [state].
+  /// Creates an [InventoryListView].
   const InventoryListView({
-    required this.state,
+    required this.items,
+    required this.employees,
+    required this.rooms,
     super.key,
   });
 
-  /// The loaded state containing all inventory items and metadata.
-  final InventoriesLoaded state;
+  /// The list of inventory items to display.
+  final List<InventoryEntity> items;
+
+  /// List of employees for name lookup.
+  final List<EmployeeEntity> employees;
+
+  /// List of rooms for name lookup.
+  final List<RoomEntity> rooms;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final displayList = state.filteredInventories;
 
-    if (displayList.isEmpty) {
+    if (items.isEmpty) {
       return Center(child: Text(l10n.invList_noItemsFilterMessage));
     }
 
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      itemCount: displayList.length,
+      itemCount: items.length,
       itemBuilder: (context, index) {
-        final item = displayList[index];
-        final employeeName =
-            state.employeeMap[item.employeeId] ?? l10n.invList_notSpecifiedMale;
-        final roomName =
-            state.roomMap[item.roomId] ?? l10n.invList_notSpecified;
+        final item = items[index];
+        final employeeName = employees.getNameById(
+          item.employeeId,
+          fallback: l10n.invList_notSpecifiedMale,
+        );
+        final roomName = rooms.getNameById(
+          item.roomId,
+          fallback: l10n.invList_notSpecified,
+        );
 
         return InventoryListItem(
           inventory: item,

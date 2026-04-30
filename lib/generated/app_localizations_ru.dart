@@ -176,6 +176,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get invList_inventoryNumberPrefix => 'Инв. №: ';
 
   @override
+  String invList_itemQuantity(int count) {
+    return '($count) ';
+  }
+
+  @override
   String get invList_itemAddedMessage => 'Предмет добавлен';
 
   @override

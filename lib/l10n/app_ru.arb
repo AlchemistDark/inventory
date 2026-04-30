@@ -67,6 +67,12 @@
   "invList_noBarcode": "Нет кода",
   "invList_noInventoryNumber": "Б/Н",
   "invList_inventoryNumberPrefix": "Инв. №: ",
+  "invList_itemQuantity": "({count}) ",
+  "@invList_itemQuantity": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "invList_itemAddedMessage": "Предмет добавлен",
   "invList_itemUpdatedMessage": "Предмет обновлен",
   "invList_filterByCategoryLabel": "Фильтр по категории",
