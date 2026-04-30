@@ -8,9 +8,6 @@ class CreateInventoryPage extends StatelessWidget {
   /// Creates a [CreateInventoryPage].
   const CreateInventoryPage({super.key, this.editTarget});
 
-  /// The inventory entity to be edited, or null if creating a new item.
-  final InventoryEntity? editTarget;
-
   /// Helper method to create a route for this page with a scoped [InventoryFormBloc].
   static Route<void> route({InventoryEntity? editTarget}) {
     return MaterialPageRoute<void>(
@@ -25,6 +22,9 @@ class CreateInventoryPage extends StatelessWidget {
       },
     );
   }
+
+  /// The inventory entity to be edited, or null if creating a new item.
+  final InventoryEntity? editTarget;
 
   @override
   Widget build(BuildContext context) {

@@ -13,9 +13,6 @@ class RoomDetailsPage extends StatefulWidget {
     super.key,
   });
 
-  /// The room entity whose details are being displayed.
-  final RoomEntity room;
-
   /// Helper method to create a route for this page with a scoped [RoomDetailsBloc].
   static Route<void> route({required RoomEntity room}) {
     return MaterialPageRoute<void>(
@@ -26,6 +23,9 @@ class RoomDetailsPage extends StatefulWidget {
       ),
     );
   }
+
+  /// The room entity whose details are being displayed.
+  final RoomEntity room;
 
   @override
   State<RoomDetailsPage> createState() => _RoomDetailsPageState();
