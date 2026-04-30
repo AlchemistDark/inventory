@@ -53,9 +53,7 @@ class InventoryListPage extends StatelessWidget {
         onPressed: () {
           Navigator.push<void>(
             context,
-            MaterialPageRoute<void>(
-              builder: (context) => const CreateInventoryPage(),
-            ),
+            CreateInventoryPage.route(),
           );
         },
         child: const Icon(Icons.add),

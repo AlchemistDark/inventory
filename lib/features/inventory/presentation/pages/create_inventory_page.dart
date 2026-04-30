@@ -4,23 +4,31 @@ import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 
 /// Page for creating a new inventory item or editing an existing one.
-///
-/// Uses [InventoryFormBloc] for handling form logic and [editTarget] to
-/// determine if the page is in creation or edit mode.
 class CreateInventoryPage extends StatelessWidget {
   /// Creates a [CreateInventoryPage].
-  ///
-  /// If [editTarget] is provided, the page will be pre-populated for editing.
   const CreateInventoryPage({super.key, this.editTarget});
 
   /// The inventory entity to be edited, or null if creating a new item.
   final InventoryEntity? editTarget;
 
+  /// Helper method to create a route for this page with a scoped [InventoryFormBloc].
+  static Route<void> route({InventoryEntity? editTarget}) {
+    return MaterialPageRoute<void>(
+      builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
+
+        return BlocProvider(
+          create: (context) => ServiceLocator.getIt<InventoryFormBloc>()
+            ..add(LoadFormMetadataEvent(l10n)),
+          child: CreateInventoryPage(editTarget: editTarget),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    // Load metadata needed for the form dropdowns immediately.
-    context.read<InventoryFormBloc>().add(LoadFormMetadataEvent(l10n));
 
     return Scaffold(
       appBar: AppBar(

@@ -16,6 +16,17 @@ class RoomDetailsPage extends StatefulWidget {
   /// The room entity whose details are being displayed.
   final RoomEntity room;
 
+  /// Helper method to create a route for this page with a scoped [RoomDetailsBloc].
+  static Route<void> route({required RoomEntity room}) {
+    return MaterialPageRoute<void>(
+      builder: (context) => BlocProvider(
+        create: (context) => ServiceLocator.getIt<RoomDetailsBloc>()
+          ..add(LoadRoomDetailsEvent(room.id)),
+        child: RoomDetailsPage(room: room),
+      ),
+    );
+  }
+
   @override
   State<RoomDetailsPage> createState() => _RoomDetailsPageState();
 }
@@ -28,7 +39,6 @@ class _RoomDetailsPageState extends State<RoomDetailsPage>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    context.read<RoomDetailsBloc>().add(LoadRoomDetailsEvent(widget.room.id));
   }
 
   @override

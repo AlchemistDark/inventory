@@ -67,21 +67,12 @@ class MyApp extends StatelessWidget {
               ..add(const InitializeInventoriesEvent()),
           ),
           BlocProvider(
-            create: (context) => ServiceLocator.getIt<InventoryFormBloc>(),
-          ),
-          BlocProvider(
-            create: (context) => ServiceLocator.getIt<EmployeeFormBloc>(),
-          ),
-          BlocProvider(
             create: (context) => ServiceLocator.getIt<EmployeesBloc>()
               ..add(LoadEmployeesEvent()),
           ),
           BlocProvider(
             create: (context) =>
                 ServiceLocator.getIt<RoomsBloc>()..add(const LoadRoomsEvent()),
-          ),
-          BlocProvider(
-            create: (context) => ServiceLocator.getIt<RoomDetailsBloc>(),
           ),
           BlocProvider(
             create: (context) => ServiceLocator.getIt<CategoriesBloc>()

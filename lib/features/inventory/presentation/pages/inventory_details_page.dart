@@ -33,10 +33,7 @@ class InventoryDetailsPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push<void>(
                         context,
-                        MaterialPageRoute<void>(
-                          builder: (context) =>
-                              CreateInventoryPage(editTarget: currentInventory),
-                        ),
+                        CreateInventoryPage.route(editTarget: currentInventory),
                       );
                     },
                   );
