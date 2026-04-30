@@ -32,10 +32,10 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
   @override
   Future<EmployeeModel> createEmployee(EmployeeModel model) async {
     final db = await _databaseHelper.database;
-    
+
     return await db.transaction((txn) async {
       final id = await txn.insert('employees', model.toMap());
-      
+
       for (final positionId in model.positionIds) {
         await txn.insert('employee_positions', {
           'employeeId': id,
@@ -57,7 +57,7 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
   Future<List<EmployeeModel>> getEmployees() async {
     final db = await _databaseHelper.database;
     final maps = await db.query('employees', orderBy: 'name ASC');
-    
+
     final employees = <EmployeeModel>[];
     for (final map in maps) {
       final id = map['id'] as int;
@@ -78,7 +78,9 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
     final db = await _databaseHelper.database;
     final maps = await db.query('employees', where: 'id = ?', whereArgs: [id]);
 
-    if (maps.isEmpty) return null;
+    if (maps.isEmpty) {
+      return null;
+    }
 
     final positions = await db.query(
       'employee_positions',
@@ -118,15 +120,22 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
   @override
   Future<void> updateEmployee(EmployeeModel model) async {
     final db = await _databaseHelper.database;
-    
+
     await db.transaction((txn) async {
-      await txn.update('employees', model.toMap(),
-          where: 'id = ?', whereArgs: [model.id]);
-          
+      await txn.update(
+        'employees',
+        model.toMap(),
+        where: 'id = ?',
+        whereArgs: [model.id],
+      );
+
       // Update positions: delete existing and insert new ones
-      await txn.delete('employee_positions', 
-          where: 'employeeId = ?', whereArgs: [model.id]);
-          
+      await txn.delete(
+        'employee_positions',
+        where: 'employeeId = ?',
+        whereArgs: [model.id],
+      );
+
       for (final positionId in model.positionIds) {
         await txn.insert('employee_positions', {
           'employeeId': model.id,

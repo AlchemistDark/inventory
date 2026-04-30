@@ -24,16 +24,18 @@ class InventoryMultiSelectionSheet<T> extends StatefulWidget {
   final IconData icon;
 
   @override
-  State<InventoryMultiSelectionSheet<T>> createState() => _InventoryMultiSelectionSheetState<T>();
+  State<InventoryMultiSelectionSheet<T>> createState() =>
+      _InventoryMultiSelectionSheetState<T>();
 }
 
 class _InventoryMultiSelectionSheetState<T> extends State<InventoryMultiSelectionSheet<T>> {
+  // ignore: avoid-late-keyword
   late List<int> _currentSelectedIds;
 
   @override
   void initState() {
     super.initState();
-    _currentSelectedIds = List<int>.from(widget.initialSelectedIds);
+    _currentSelectedIds = List<int>.of(widget.initialSelectedIds);
   }
 
   @override
@@ -63,14 +65,14 @@ class _InventoryMultiSelectionSheetState<T> extends State<InventoryMultiSelectio
                 decoration: AppTheme.grabHandleDecoration,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      widget.label,
-                      style: theme.textTheme.titleLarge,
-                    ),
+                    Text(widget.label, style: theme.textTheme.titleLarge),
                     TextButton(
                       onPressed: () {
                         widget.onChanged(_currentSelectedIds);
@@ -84,9 +86,7 @@ class _InventoryMultiSelectionSheetState<T> extends State<InventoryMultiSelectio
               const Divider(height: 1),
               Expanded(
                 child: widget.items.isEmpty
-                    ? Center(
-                        child: Text(l10n.invList_noItemsFilterMessage),
-                      )
+                    ? Center(child: Text(l10n.invList_noItemsFilterMessage))
                     : ListView.builder(
                         controller: scrollController,
                         itemCount: widget.items.length,

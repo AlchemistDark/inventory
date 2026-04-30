@@ -110,6 +110,7 @@ class InventoryModel {
   Map<String, dynamic> toJson() {
     final map = toMap();
     map['categoryIds'] = categoryIds;
+
     return map;
   }
 
@@ -147,3 +148,4 @@ class InventoryModel {
     };
   }
 }
+

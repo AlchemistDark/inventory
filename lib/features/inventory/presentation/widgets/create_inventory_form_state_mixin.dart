@@ -54,7 +54,7 @@ mixin CreateInventoryFormStateMixin on State<CreateInventoryForm> {
       descriptionController.text = widget.editTarget!.description ?? '';
       selectedDate = widget.editTarget!.dateAdded;
       selectedEmployeeId = widget.editTarget!.employeeId;
-      selectedCategoryIds = List<int>.from(widget.editTarget!.categoryIds);
+      selectedCategoryIds = List<int>.of(widget.editTarget!.categoryIds);
       selectedRoomId = widget.editTarget!.roomId;
     }
   }
