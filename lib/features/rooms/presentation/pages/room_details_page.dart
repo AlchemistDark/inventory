@@ -60,11 +60,19 @@ class _RoomDetailsPageState extends State<RoomDetailsPage>
             return TabBarView(
               controller: _tabController,
               children: [
-                RoomInventoryTab(inventory: state.inventory),
-                RoomEmployeesTab(employees: state.employees),
+                RoomInventoryTab(
+                  inventory: state.inventory,
+                  employees: state.employees,
+                  roomName: widget.room.name,
+                ),
+                RoomEmployeesTab(
+                  employees: state.employees,
+                  positions: state.positions,
+                ),
               ],
             );
-          } else if (state is RoomDetailsError) {
+          }
+ else if (state is RoomDetailsError) {
             return Center(
                 child: Text(l10n.common_error(state.failure.toLocalizedString(l10n))));
           }

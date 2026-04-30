@@ -30,13 +30,21 @@ class RoomDetailsLoaded extends RoomDetailsState {
   /// List of employees assigned to the room
   final List<EmployeeEntity> employees;
 
+  /// List of all categories for display names
+  final List<CategoryEntity> categories;
+
+  /// List of all positions for display names
+  final List<PositionEntity> positions;
+
   @override
-  List<Object?> get props => [inventory, employees];
+  List<Object?> get props => [inventory, employees, categories, positions];
 
   /// Creates a [RoomDetailsLoaded] state
   const RoomDetailsLoaded({
     required this.inventory,
     required this.employees,
+    required this.categories,
+    required this.positions,
   });
 }
 

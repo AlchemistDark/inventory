@@ -145,6 +145,8 @@ abstract final class ServiceLocator {
       () => RoomDetailsBloc(
         getInventoriesUseCase: getIt(),
         getEmployeesUseCase: getIt(),
+        getCategoriesUseCase: getIt(),
+        getPositionsUseCase: getIt(),
       ),
     );
 

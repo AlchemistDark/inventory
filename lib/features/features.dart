@@ -100,6 +100,7 @@ export 'inventory/presentation/widgets/inventory_list/inventory_list_item.dart';
 export 'inventory/presentation/widgets/inventory_list/inventory_list_view.dart';
 export 'inventory/presentation/widgets/inventory_selection_field.dart';
 export 'inventory/presentation/widgets/inventory_selection_sheet.dart';
+export 'inventory/presentation/widgets/inventory_selection_tile.dart';
 export 'inventory/presentation/widgets/inventory_text_field.dart';
 
 // Positions

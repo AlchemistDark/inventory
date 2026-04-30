@@ -1,4 +1,5 @@
 import 'package:inventory_p_shalaev/core/core.dart';
+import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 /// A bottom sheet widget that displays a list of items for selection.
@@ -89,24 +90,10 @@ class InventorySelectionSheet<T> extends StatelessWidget {
                           final name = itemName(item);
                           final isSelected = selectedId == id;
 
-                          return ListTile(
-                            leading: Icon(
-                              icon,
-                              color: isSelected ? theme.colorScheme.primary : null,
-                            ),
-                            title: Text(
-                              name,
-                              style: TextStyle(
-                                color: isSelected ? theme.colorScheme.primary : null,
-                                fontWeight: isSelected ? FontWeight.bold : null,
-                              ),
-                            ),
-                            trailing: isSelected
-                                ? Icon(
-                                    Icons.check,
-                                    color: theme.colorScheme.primary,
-                                  )
-                                : null,
+                          return InventorySelectionTile(
+                            name: name,
+                            isSelected: isSelected,
+                            icon: icon,
                             onTap: () {
                               onSelected(id);
                               Navigator.pop(context);

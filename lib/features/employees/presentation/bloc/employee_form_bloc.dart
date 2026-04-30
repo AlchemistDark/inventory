@@ -42,47 +42,19 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
       final positions = await getPositionsUseCase();
       final rooms = await getRoomsUseCase();
 
-      final positionModels = positions
-          .map((e) => PositionModel(
-                id: e.id,
-                name: e.name,
-                createdAt: e.createdAt,
-              ))
-          .toList();
-
-      final roomModels = rooms
-          .map((e) => RoomModel(
-                id: e.id,
-                name: e.name,
-                description: e.description,
-                createdAt: e.createdAt,
-              ))
-          .toList();
-
       _editingId = event.employee?.id;
 
-      // Find default position (first match or fallback to first)
-      int? defaultPositionId;
-      try {
-        defaultPositionId = positionModels
-            .firstWhere((p) => p.name.contains(event.l10n.common_administrator))
-            .id;
-      } catch (_) {
-        if (positionModels.isNotEmpty) {
-          defaultPositionId = positionModels.first.id;
-        }
+      // Find default position (exact match or fallback to first)
+      int? defaultPositionId =
+          positions.getIdByName(event.l10n.common_administrator);
+      if (defaultPositionId == null && positions.isNotEmpty) {
+        defaultPositionId = positions.first.id;
       }
 
-      // Find default room (first match or fallback to first)
-      int? defaultRoomId;
-      try {
-        defaultRoomId = roomModels
-            .firstWhere((r) => r.name.contains(event.l10n.common_notDefined))
-            .id;
-      } catch (_) {
-        if (roomModels.isNotEmpty) {
-          defaultRoomId = roomModels.first.id;
-        }
+      // Find default room (exact match or fallback to first)
+      int? defaultRoomId = rooms.getIdByName(event.l10n.common_notDefined);
+      if (defaultRoomId == null && rooms.isNotEmpty) {
+        defaultRoomId = rooms.first.id;
       }
 
       emit(EmployeeFormMetadataLoaded(

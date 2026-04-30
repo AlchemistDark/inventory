@@ -10,10 +10,18 @@ class RoomDetailsBloc extends Bloc<RoomDetailsEvent, RoomDetailsState> {
   /// Use case to fetch all employees
   final GetEmployeesUseCase getEmployeesUseCase;
 
+  /// Use case to fetch all categories
+  final GetCategoriesUseCase getCategoriesUseCase;
+
+  /// Use case to fetch all positions
+  final GetPositionsUseCase getPositionsUseCase;
+
   /// Creates a [RoomDetailsBloc] with required use cases
   RoomDetailsBloc({
     required this.getInventoriesUseCase,
     required this.getEmployeesUseCase,
+    required this.getCategoriesUseCase,
+    required this.getPositionsUseCase,
   }) : super(const RoomDetailsInitial()) {
     on<LoadRoomDetailsEvent>(_onLoadDetails);
   }
@@ -26,6 +34,8 @@ class RoomDetailsBloc extends Bloc<RoomDetailsEvent, RoomDetailsState> {
     try {
       final allInventory = await getInventoriesUseCase();
       final allEmployees = await getEmployeesUseCase();
+      final categories = await getCategoriesUseCase();
+      final positions = await getPositionsUseCase();
 
       final roomInventory = allInventory.filterByRoom(event.roomId);
       final roomEmployees = allEmployees.filterByRoom(event.roomId);
@@ -33,6 +43,8 @@ class RoomDetailsBloc extends Bloc<RoomDetailsEvent, RoomDetailsState> {
       emit(RoomDetailsLoaded(
         inventory: roomInventory,
         employees: roomEmployees,
+        categories: categories,
+        positions: positions,
       ));
     } catch (e) {
       emit(const RoomDetailsError(AppFailure.database));
