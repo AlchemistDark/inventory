@@ -104,12 +104,12 @@ class _RoomDetailsPageState extends State<RoomDetailsPage>
                 children: [
                   RoomInventoryTab(
                     inventory: state.inventory,
-                    employees: state.employees,
+                    employeeMap: state.employeeMap,
                     roomName: widget.room.name,
                   ),
                   RoomEmployeesTab(
                     employees: state.employees,
-                    positions: state.positions,
+                    positionMap: state.positionMap,
                   ),
                 ],
               );

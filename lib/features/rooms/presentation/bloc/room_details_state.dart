@@ -36,8 +36,21 @@ class RoomDetailsLoaded extends RoomDetailsState {
   /// List of all positions for display names
   final List<PositionEntity> positions;
 
+  /// Map of employee IDs to names for O(1) lookup
+  final Map<int, String> employeeMap;
+
+  /// Map of position IDs to names for O(1) lookup
+  final Map<int, String> positionMap;
+
   @override
-  List<Object?> get props => [inventory, employees, categories, positions];
+  List<Object?> get props => [
+        inventory,
+        employees,
+        categories,
+        positions,
+        employeeMap,
+        positionMap,
+      ];
 
   /// Creates a [RoomDetailsLoaded] state
   const RoomDetailsLoaded({
@@ -45,6 +58,8 @@ class RoomDetailsLoaded extends RoomDetailsState {
     required this.employees,
     required this.categories,
     required this.positions,
+    required this.employeeMap,
+    required this.positionMap,
   });
 }
 

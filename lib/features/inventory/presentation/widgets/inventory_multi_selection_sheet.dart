@@ -29,8 +29,7 @@ class InventoryMultiSelectionSheet<T> extends StatefulWidget {
 }
 
 class _InventoryMultiSelectionSheetState<T> extends State<InventoryMultiSelectionSheet<T>> {
-  // ignore: avoid-late-keyword
-  late List<int> _currentSelectedIds;
+  List<int> _currentSelectedIds = [];
 
   @override
   void initState() {

@@ -41,6 +41,9 @@ class EmployeesLoaded extends EmployeesState {
   /// Whether employee details (inventory) are currently loading.
   final bool isDetailsLoading;
 
+  /// A lookup map for positions by their ID.
+  final Map<int, String> positionMap;
+
   @override
   List<Object?> get props => [
         allEmployees,
@@ -51,6 +54,7 @@ class EmployeesLoaded extends EmployeesState {
         searchQuery,
         positionFilter,
         isDetailsLoading,
+        positionMap,
       ];
 
   /// Creates an [EmployeesLoaded] state.
@@ -58,6 +62,7 @@ class EmployeesLoaded extends EmployeesState {
     required this.allEmployees,
     required this.filteredEmployees,
     required this.positions,
+    required this.positionMap,
     this.rooms = const [],
     this.selectedEmployeeInventory = const [],
     this.searchQuery = '',
@@ -70,6 +75,7 @@ class EmployeesLoaded extends EmployeesState {
     List<EmployeeEntity>? allEmployees,
     List<EmployeeEntity>? filteredEmployees,
     List<PositionEntity>? positions,
+    Map<int, String>? positionMap,
     List<RoomEntity>? rooms,
     List<InventoryEntity>? selectedEmployeeInventory,
     String? searchQuery,
@@ -80,6 +86,7 @@ class EmployeesLoaded extends EmployeesState {
       allEmployees: allEmployees ?? this.allEmployees,
       filteredEmployees: filteredEmployees ?? this.filteredEmployees,
       positions: positions ?? this.positions,
+      positionMap: positionMap ?? this.positionMap,
       rooms: rooms ?? this.rooms,
       selectedEmployeeInventory:
           selectedEmployeeInventory ?? this.selectedEmployeeInventory,

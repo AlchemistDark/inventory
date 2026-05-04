@@ -45,6 +45,8 @@ class RoomDetailsBloc extends Bloc<RoomDetailsEvent, RoomDetailsState> {
         employees: roomEmployees,
         categories: categories,
         positions: positions,
+        employeeMap: {for (final e in allEmployees) e.id: e.name},
+        positionMap: {for (final p in positions) p.id: p.name},
       ));
     } catch (e) {
       emit(const RoomDetailsError(AppFailure.database));

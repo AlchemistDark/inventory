@@ -73,6 +73,9 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
         employees: employees,
         categories: categories,
         rooms: rooms,
+        employeeMap: {for (final e in employees) e.id: e.name},
+        categoryMap: {for (final c in categories) c.id: c.name},
+        roomMap: {for (final r in rooms) r.id: r.name},
       ));
     } catch (e) {
       emit(const InventoryError(AppFailure.database));
@@ -92,14 +95,10 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
         final filtered =
             results.filterByCategory(currentState.categoryFilter);
 
-        emit(InventoriesLoaded(
+        emit(currentState.copyWith(
           inventories: results,
           filteredInventories: filtered,
-          employees: currentState.employees,
-          categories: currentState.categories,
-          rooms: currentState.rooms,
           searchQuery: event.query,
-          categoryFilter: currentState.categoryFilter,
         ));
       } catch (e) {
         emit(const InventoryError(AppFailure.database));
@@ -119,13 +118,8 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
       final filtered =
           currentState.inventories.filterByCategory(event.categoryId);
 
-      emit(InventoriesLoaded(
-        inventories: currentState.inventories,
+      emit(currentState.copyWith(
         filteredInventories: filtered,
-        employees: currentState.employees,
-        categories: currentState.categories,
-        rooms: currentState.rooms,
-        searchQuery: currentState.searchQuery,
         categoryFilter: event.categoryId,
       ));
     }

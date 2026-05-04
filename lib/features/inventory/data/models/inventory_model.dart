@@ -88,7 +88,12 @@ class InventoryModel {
 
   /// Creates an [InventoryModel] from JSON
   factory InventoryModel.fromJson(Map<String, dynamic> json) =>
-      InventoryModel.fromMap(json, categoryIds: List<int>.from(json['categoryIds'] ?? []));
+      InventoryModel.fromMap(
+        json,
+        categoryIds: List<int>.of(
+          (json['categoryIds'] as List? ?? []).cast<int>(),
+        ),
+      );
 
   /// Converts the model to a database map (excluding many-to-many categories)
   Map<String, dynamic> toMap() {

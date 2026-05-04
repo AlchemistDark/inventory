@@ -7,15 +7,15 @@ class RoomEmployeesTab extends StatelessWidget {
   /// Creates a [RoomEmployeesTab].
   const RoomEmployeesTab({
     required this.employees,
-    required this.positions,
+    required this.positionMap,
     super.key,
   });
 
   /// The list of employees to display.
   final List<EmployeeEntity> employees;
 
-  /// List of positions to lookup names.
-  final List<PositionEntity> positions;
+  /// Map of position IDs to names for O(1) lookup.
+  final Map<int, String> positionMap;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +31,7 @@ class RoomEmployeesTab extends StatelessWidget {
       itemBuilder: (context, index) {
         final employee = employees[index];
         final positionNames = employee.positionIds
-            .map(
-              (id) => positions.getNameById(
-                id,
-                fallback: l10n.employees_unknownPosition,
-              ),
-            )
+            .map((id) => positionMap[id] ?? l10n.employees_unknownPosition)
             .join(', ');
 
         final displayPosition = positionNames.isEmpty

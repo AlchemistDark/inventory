@@ -7,7 +7,7 @@ class RoomInventoryTab extends StatelessWidget {
   /// Creates a [RoomInventoryTab].
   const RoomInventoryTab({
     required this.inventory,
-    required this.employees,
+    required this.employeeMap,
     required this.roomName,
     super.key,
   });
@@ -15,8 +15,8 @@ class RoomInventoryTab extends StatelessWidget {
   /// The list of inventory items to display.
   final List<InventoryEntity> inventory;
 
-  /// The list of employees for name lookup.
-  final List<EmployeeEntity> employees;
+  /// Map of employee IDs to names for O(1) lookup.
+  final Map<int, String> employeeMap;
 
   /// The name of the current room.
   final String roomName;
@@ -34,10 +34,9 @@ class RoomInventoryTab extends StatelessWidget {
       itemCount: inventory.length,
       itemBuilder: (context, index) {
         final item = inventory[index];
-        final employeeName = employees.getNameById(
-          item.employeeId,
-          fallback: l10n.invList_notSpecifiedMale,
-        );
+        final employeeName = item.employeeId != null
+            ? (employeeMap[item.employeeId] ?? l10n.invList_notSpecifiedMale)
+            : l10n.invList_notSpecifiedMale;
 
         return InventoryListItem(
           inventory: item,

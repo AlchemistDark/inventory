@@ -4,26 +4,26 @@ import 'package:inventory_p_shalaev/features/features.dart';
 
 /// A scrollable list of inventory items.
 ///
-/// Uses [ListView.builder] to efficiently render the [state.filteredInventories].
+/// Uses [ListView.builder] to efficiently render the items.
 /// Responsible for mapping employee and room IDs to their respective names
-/// before passing them to individual [InventoryListItem]s.
+/// using pre-computed maps for O(1) lookups.
 class InventoryListView extends StatelessWidget {
   /// Creates an [InventoryListView].
   const InventoryListView({
     required this.items,
-    required this.employees,
-    required this.rooms,
+    required this.employeeMap,
+    required this.roomMap,
     super.key,
   });
 
   /// The list of inventory items to display.
   final List<InventoryEntity> items;
 
-  /// List of employees for name lookup.
-  final List<EmployeeEntity> employees;
+  /// Map of employee IDs to their names for O(1) lookup.
+  final Map<int, String> employeeMap;
 
-  /// List of rooms for name lookup.
-  final List<RoomEntity> rooms;
+  /// Map of room IDs to their names for O(1) lookup.
+  final Map<int, String> roomMap;
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +38,14 @@ class InventoryListView extends StatelessWidget {
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];
-        final employeeName = employees.getNameById(
-          item.employeeId,
-          fallback: l10n.invList_notSpecifiedMale,
-        );
-        final roomName = rooms.getNameById(
-          item.roomId,
-          fallback: l10n.invList_notSpecified,
-        );
+
+        final employeeName = item.employeeId != null
+            ? (employeeMap[item.employeeId] ?? l10n.invList_notSpecifiedMale)
+            : l10n.invList_notSpecifiedMale;
+
+        final roomName = item.roomId != null
+            ? (roomMap[item.roomId] ?? l10n.invList_notSpecified)
+            : l10n.invList_notSpecified;
 
         return InventoryListItem(
           inventory: item,

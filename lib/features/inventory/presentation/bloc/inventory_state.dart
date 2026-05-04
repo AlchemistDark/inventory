@@ -69,17 +69,45 @@ class InventoriesLoaded extends InventoryState {
       ];
 
   /// Creates an [InventoriesLoaded] state with all required data.
-  InventoriesLoaded({
+  const InventoriesLoaded({
     required this.inventories,
     required this.filteredInventories,
     required this.employees,
     required this.categories,
     required this.rooms,
+    required this.employeeMap,
+    required this.categoryMap,
+    required this.roomMap,
     this.searchQuery,
     this.categoryFilter,
-  })  : employeeMap = {for (final e in employees) e.id: e.name},
-        categoryMap = {for (final c in categories) c.id: c.name},
-        roomMap = {for (final r in rooms) r.id: r.name};
+  });
+
+  /// Creates a copy of this state with the given fields replaced by the new values.
+  InventoriesLoaded copyWith({
+    List<InventoryEntity>? inventories,
+    List<InventoryEntity>? filteredInventories,
+    List<EmployeeEntity>? employees,
+    List<CategoryEntity>? categories,
+    List<RoomEntity>? rooms,
+    Map<int, String>? employeeMap,
+    Map<int, String>? categoryMap,
+    Map<int, String>? roomMap,
+    String? searchQuery,
+    int? categoryFilter,
+  }) {
+    return InventoriesLoaded(
+      inventories: inventories ?? this.inventories,
+      filteredInventories: filteredInventories ?? this.filteredInventories,
+      employees: employees ?? this.employees,
+      categories: categories ?? this.categories,
+      rooms: rooms ?? this.rooms,
+      employeeMap: employeeMap ?? this.employeeMap,
+      categoryMap: categoryMap ?? this.categoryMap,
+      roomMap: roomMap ?? this.roomMap,
+      searchQuery: searchQuery ?? this.searchQuery,
+      categoryFilter: categoryFilter ?? this.categoryFilter,
+    );
+  }
 }
 
 /// State representing that a new inventory item has been successfully created.

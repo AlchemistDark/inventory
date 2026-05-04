@@ -59,6 +59,7 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
         filteredEmployees: employees,
         positions: positions,
         rooms: rooms,
+        positionMap: {for (final p in positions) p.id: p.name},
       ));
     } catch (e) {
       emit(const EmployeesError(AppFailure.database));

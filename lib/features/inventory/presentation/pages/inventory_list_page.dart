@@ -29,8 +29,8 @@ class InventoryListPage extends StatelessWidget {
                 } else if (state is InventoriesLoaded) {
                   return InventoryListView(
                     items: state.filteredInventories,
-                    employees: state.employees,
-                    rooms: state.rooms,
+                    employeeMap: state.employeeMap,
+                    roomMap: state.roomMap,
                   );
                 } else if (state is InventoryError) {
                   return Center(
