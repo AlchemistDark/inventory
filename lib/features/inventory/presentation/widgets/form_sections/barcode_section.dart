@@ -17,7 +17,7 @@ class BarcodeSection extends StatelessWidget {
   final TextEditingController controller;
 
   /// Callback triggered when a barcode is scanned or manually saved in the dialog.
-  final void Function(String) onBarcodeSaved;
+  final ValueChanged<String> onBarcodeSaved;
 
   @override
   Widget build(BuildContext context) {

@@ -19,6 +19,9 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
   /// The ID of the employee currently being edited, or null if creating a new one.
   int? _editingId;
 
+  /// The creation date of the employee currently being edited.
+  DateTime? _createdAt;
+
   /// Creates an [EmployeeFormBloc] with the required use cases.
   EmployeeFormBloc({
     required this.getPositionsUseCase,
@@ -43,6 +46,7 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
       final rooms = await getRoomsUseCase();
 
       _editingId = event.employee?.id;
+      _createdAt = event.employee?.createdAt;
 
       // Find default position (exact match or fallback to first)
       int? defaultPositionId =
@@ -124,7 +128,7 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
           name: currentState.name.trim(),
           positionIds: currentState.selectedPositionIds,
           roomId: currentState.selectedRoomId,
-          createdAt: DateTime.now(),
+          createdAt: _createdAt ?? DateTime.now(),
         );
 
         if (currentState.isEditing) {

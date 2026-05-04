@@ -17,7 +17,7 @@ class MultipleResultsList extends StatelessWidget {
   final List<InventoryEntity> inventories;
 
   /// Callback function triggered when an inventory item is tapped.
-  final void Function(InventoryEntity) onInventoryTap;
+  final ValueChanged<InventoryEntity> onInventoryTap;
 
   @override
   Widget build(BuildContext context) {

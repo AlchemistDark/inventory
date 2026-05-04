@@ -17,7 +17,7 @@ class HomeBottomNavigation extends StatelessWidget {
   final int currentIndex;
 
   /// Callback function triggered when a navigation item is tapped.
-  final void Function(int) onTap;
+  final ValueChanged<int> onTap;
 
   void _handleTap(BuildContext context, int index) {
     onTap(index);

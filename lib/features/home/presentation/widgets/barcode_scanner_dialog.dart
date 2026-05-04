@@ -10,7 +10,7 @@ class BarcodeScannerDialog extends StatefulWidget {
   const BarcodeScannerDialog({required this.onBarcodeSubmitted, super.key});
 
   /// Callback function triggered on barcode submission.
-  final void Function(String) onBarcodeSubmitted;
+  final ValueChanged<String> onBarcodeSubmitted;
 
   @override
   State<BarcodeScannerDialog> createState() => _BarcodeScannerDialogState();

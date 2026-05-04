@@ -34,7 +34,7 @@ class InventorySelectionSheet<T> extends StatelessWidget {
   final int Function(T) itemId;
 
   /// Callback triggered when an item is selected.
-  final void Function(int) onSelected;
+  final ValueChanged<int> onSelected;
 
   /// Icon to display next to each item.
   final IconData icon;

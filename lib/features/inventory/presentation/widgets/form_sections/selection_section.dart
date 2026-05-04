@@ -40,13 +40,13 @@ class SelectionSection extends StatelessWidget {
   final int? selectedRoomId;
 
   /// Callback triggered when an employee is selected.
-  final void Function(int?) onEmployeeSelected;
+  final ValueChanged<int?> onEmployeeSelected;
 
   /// Callback triggered when categories are selected.
-  final void Function(List<int>) onCategoriesSelected;
+  final ValueChanged<List<int>> onCategoriesSelected;
 
   /// Callback triggered when a room is selected.
-  final void Function(int?) onRoomSelected;
+  final ValueChanged<int?> onRoomSelected;
 
   @override
   Widget build(BuildContext context) {
