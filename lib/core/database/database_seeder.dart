@@ -45,7 +45,7 @@ class DatabaseSeeder {
           RoomModel(
             id: 0,
             name: l10n.common_notDefined,
-            description: 'Default room',
+            description: l10n.rooms_defaultDescription,
             createdAt: DateTime.now(),
           ),
         );
