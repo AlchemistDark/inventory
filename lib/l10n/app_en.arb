@@ -142,6 +142,7 @@
   "rooms_editTitle": "Edit Room",
   "rooms_nameLabel": "Name",
   "rooms_descriptionLabel": "Description",
+  "rooms_defaultDescription": "Default room",
   "rooms_created": "Room created",
   "rooms_updated": "Room updated",
 

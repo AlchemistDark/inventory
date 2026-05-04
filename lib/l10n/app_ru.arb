@@ -142,6 +142,7 @@
   "rooms_editTitle": "Редактировать помещение",
   "rooms_nameLabel": "Название",
   "rooms_descriptionLabel": "Описание",
+  "rooms_defaultDescription": "Помещение по умолчанию",
   "rooms_created": "Помещение создано",
   "rooms_updated": "Данные помещения обновлены",
 

@@ -27,17 +27,17 @@ class _PositionFormDialogState extends State<PositionFormDialog> {
     _controller = TextEditingController(text: widget.position?.name);
   }
 
-  @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
-  }
-
   void _onSave() {
     if (_formKey.currentState?.validate() ?? false) {
       widget.onSave(_controller!.text.trim());
       Navigator.pop(context);
     }
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
   }
 
   @override

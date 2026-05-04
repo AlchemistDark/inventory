@@ -800,6 +800,12 @@ abstract class AppLocalizations {
   /// **'Описание'**
   String get rooms_descriptionLabel;
 
+  /// No description provided for @rooms_defaultDescription.
+  ///
+  /// In ru, this message translates to:
+  /// **'Помещение по умолчанию'**
+  String get rooms_defaultDescription;
+
   /// No description provided for @rooms_created.
   ///
   /// In ru, this message translates to:

@@ -33,13 +33,6 @@ class _CategoryFormDialogState extends State<CategoryFormDialog> {
     _descController = TextEditingController(text: widget.category?.description);
   }
 
-  @override
-  void dispose() {
-    _nameController?.dispose();
-    _descController?.dispose();
-    super.dispose();
-  }
-
   void _onSave() {
     if (_formKey.currentState?.validate() ?? false) {
       widget.onSave(
@@ -48,6 +41,13 @@ class _CategoryFormDialogState extends State<CategoryFormDialog> {
       );
       Navigator.pop(context);
     }
+  }
+
+  @override
+  void dispose() {
+    _nameController?.dispose();
+    _descController?.dispose();
+    super.dispose();
   }
 
   @override

@@ -375,6 +375,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rooms_descriptionLabel => 'Description';
 
   @override
+  String get rooms_defaultDescription => 'Default room';
+
+  @override
   String get rooms_created => 'Room created';
 
   @override

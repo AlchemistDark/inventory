@@ -378,6 +378,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get rooms_descriptionLabel => 'Описание';
 
   @override
+  String get rooms_defaultDescription => 'Помещение по умолчанию';
+
+  @override
   String get rooms_created => 'Помещение создано';
 
   @override
