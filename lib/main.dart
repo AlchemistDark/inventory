@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/core/core.dart';
@@ -23,13 +22,6 @@ void main() async {
     ServiceLocator.getIt<CategoriesLocalDataSource>(),
     l10n,
   );
-
-  // Seed test inventory data in debug mode only
-  if (kDebugMode) {
-    await DatabaseSeeder.seedTestInventory(
-      ServiceLocator.getIt<InventoryRepository>(),
-    );
-  }
 
   runApp(const MyApp());
 }

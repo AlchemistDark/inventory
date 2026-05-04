@@ -4,8 +4,7 @@ import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 /// Utility class for seeding data into the database
 ///
-/// Provides methods for initializing default records needed by the application
-/// and for seeding test inventory data during development
+/// Provides methods for initializing default records needed by the application.
 class DatabaseSeeder {
   /// Initializes default data required for the application to function
   ///
@@ -66,68 +65,6 @@ class DatabaseSeeder {
       }
     } catch (e) {
       debugPrint('Error initializing default data: $e');
-    }
-  }
-
-  /// Seeds test inventory items for development and testing purposes
-  ///
-  /// Should only be called in debug mode (guarded by `kDebugMode` in `main()`)
-  static Future<void> seedTestInventory(
-    InventoryRepository inventoryRepository,
-  ) async {
-    try {
-      final existing = await inventoryRepository.getInventories();
-      if (existing.isEmpty) {
-        await inventoryRepository.createInventory(
-          InventoryEntity(
-            id: 0,
-            barcode: 'BARCODE001',
-            name: 'Dell Laptop',
-            inventoryNumber: 'INV-001',
-            quantity: 1,
-            description: 'Laptop for office',
-            dateAdded: DateTime.now(),
-            categoryIds: const [],
-            employeeId: 1,
-            roomId: 1,
-            createdAt: DateTime.now(),
-          ),
-        );
-
-        await inventoryRepository.createInventory(
-          InventoryEntity(
-            id: 0,
-            barcode: 'BARCODE002',
-            name: 'LG Monitor',
-            inventoryNumber: 'INV-002',
-            quantity: 2,
-            description: '24-inch monitor',
-            dateAdded: DateTime.now(),
-            categoryIds: const [],
-            employeeId: 1,
-            roomId: 1,
-            createdAt: DateTime.now(),
-          ),
-        );
-
-        await inventoryRepository.createInventory(
-          InventoryEntity(
-            id: 0,
-            barcode: 'BARCODE003',
-            name: 'Logitech Keyboard',
-            inventoryNumber: 'INV-003',
-            quantity: 3,
-            description: 'Mechanical keyboard',
-            dateAdded: DateTime.now(),
-            categoryIds: const [],
-            employeeId: 1,
-            roomId: 1,
-            createdAt: DateTime.now(),
-          ),
-        );
-      }
-    } catch (e) {
-      debugPrint('Error seeding test inventory: $e');
     }
   }
 }
