@@ -13,7 +13,13 @@ class CategoriesPage extends StatelessWidget {
       context: context,
       builder: (dialogContext) => CategoryFormDialog(
         category: category,
-        onSave: (CategoryEntity newCategory) {
+        onSave: (String name, String? description) {
+          final newCategory = CategoryEntity(
+            id: category?.id ?? 0,
+            name: name,
+            description: description,
+            createdAt: category?.createdAt ?? DateTime.now(),
+          );
           if (category == null) {
             context.read<CategoriesBloc>().add(
                   CreateCategoryEvent(newCategory),

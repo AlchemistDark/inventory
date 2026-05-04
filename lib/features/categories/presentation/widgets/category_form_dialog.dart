@@ -15,13 +15,14 @@ class CategoryFormDialog extends StatefulWidget {
   final CategoryEntity? category;
 
   /// Callback called when the user saves the form
-  final ValueChanged<CategoryEntity> onSave;
+  final void Function(String name, String? description) onSave;
 
   @override
   State<CategoryFormDialog> createState() => _CategoryFormDialogState();
 }
 
 class _CategoryFormDialogState extends State<CategoryFormDialog> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController? _nameController;
   TextEditingController? _descController;
 
@@ -39,28 +40,62 @@ class _CategoryFormDialogState extends State<CategoryFormDialog> {
     super.dispose();
   }
 
+  void _onSave() {
+    if (_formKey.currentState?.validate() ?? false) {
+      widget.onSave(
+        _nameController!.text.trim(),
+        _descController?.text.trim(),
+      );
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final nameController = _nameController;
+    final descController = _descController;
+
+    if (nameController == null || descController == null) {
+      return const SizedBox.shrink();
+    }
 
     return AlertDialog(
       title: Text(widget.category == null
           ? l10n.categories_newTitle
           : l10n.categories_editTitle),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(
-            controller: _nameController,
-            decoration: InputDecoration(labelText: l10n.categories_nameLabel),
-            autofocus: true,
-          ),
-          TextField(
-            controller: _descController,
-            decoration:
-                InputDecoration(labelText: l10n.categories_descriptionLabel),
-          ),
-        ],
+      content: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextFormField(
+              controller: nameController,
+              decoration: InputDecoration(
+                labelText: l10n.categories_nameLabel,
+                hintText: l10n.employees_nameLabel,
+              ),
+              autofocus: true,
+              maxLength: 50,
+              validator: (value) {
+                final text = value?.trim() ?? '';
+                if (text.length < 3) {
+                  return l10n.employees_minLength3;
+                }
+
+                return null;
+              },
+            ),
+            const SizedBox(height: 8),
+            TextFormField(
+              controller: descController,
+              decoration:
+                  InputDecoration(labelText: l10n.categories_descriptionLabel),
+              maxLines: 3,
+              minLines: 1,
+            ),
+          ],
+        ),
       ),
       actions: [
         TextButton(
@@ -68,19 +103,7 @@ class _CategoryFormDialogState extends State<CategoryFormDialog> {
           child: Text(l10n.home_cancelButton),
         ),
         TextButton(
-          onPressed: () {
-            final name = _nameController?.text ?? '';
-            if (name.isNotEmpty) {
-              final category = CategoryEntity(
-                id: widget.category?.id ?? 0,
-                name: name,
-                description: _descController?.text,
-                createdAt: widget.category?.createdAt ?? DateTime.now(),
-              );
-              widget.onSave(category);
-              Navigator.pop(context);
-            }
-          },
+          onPressed: _onSave,
           child: Text(l10n.home_saveButton),
         ),
       ],
