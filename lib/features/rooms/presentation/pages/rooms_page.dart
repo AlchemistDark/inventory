@@ -8,7 +8,7 @@ class RoomsPage extends StatelessWidget {
   /// Creates a [RoomsPage]
   const RoomsPage({super.key});
 
-  void _showRoomForm(BuildContext context, [RoomEntity? room]) {
+  static void _showRoomForm(BuildContext context, [RoomEntity? room]) {
     Navigator.push(
       context,
       MaterialPageRoute<void>(
@@ -17,16 +17,15 @@ class RoomsPage extends StatelessWidget {
     );
   }
 
-  void _confirmDelete(BuildContext context, RoomEntity room) {
+  static void _confirmDelete(BuildContext context, RoomEntity room) {
     final l10n = AppLocalizations.of(context)!;
-
-    final nameLabel = l10n.rooms_nameLabel;
+    final roomsBloc = context.read<RoomsBloc>();
+    final entityLabel = l10n.rooms_nameLabel;
 
     showDialog<void>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: Text(
-            l10n.common_deleteConfirmTitle(nameLabel)),
+        title: Text(l10n.common_deleteConfirmTitle(entityLabel)),
         content: Text(l10n.common_deleteConfirmContent(room.name)),
         actions: [
           TextButton(
@@ -35,10 +34,12 @@ class RoomsPage extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              context.read<RoomsBloc>().add(DeleteRoomEvent(room.id));
+              roomsBloc.add(DeleteRoomEvent(room.id));
               Navigator.pop(dialogContext);
             },
-            style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.error),
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
             child: Text(l10n.common_delete),
           ),
         ],

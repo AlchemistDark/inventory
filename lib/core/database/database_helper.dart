@@ -36,7 +36,15 @@ class DatabaseHelper {
         await getApplicationDocumentsDirectory();
     final String dbPath = path.join(documentsDirectory.path, 'inventory.db');
 
-    return openDatabase(dbPath, version: 3, onCreate: _onCreate, onUpgrade: _onUpgrade);
+    return openDatabase(
+      dbPath,
+      version: 4,
+      onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
+      onConfigure: (db) async {
+        await db.execute('PRAGMA foreign_keys = ON');
+      },
+    );
   }
 
   /// Upgrades the database from one version to another
@@ -63,6 +71,37 @@ class DatabaseHelper {
     if (oldVersion < 3) {
       // Add description column to categories
       await db.execute('ALTER TABLE categories ADD COLUMN description TEXT');
+    }
+
+    if (oldVersion < 4) {
+      // 1. Clean up orphaned many-to-many links that might have remained while FK were off
+      await db.execute('''
+        DELETE FROM inventory_categories 
+        WHERE categoryId NOT IN (SELECT id FROM categories)
+        OR inventoryId NOT IN (SELECT id FROM inventory)
+      ''');
+      
+      await db.execute('''
+        DELETE FROM employee_positions 
+        WHERE positionId NOT IN (SELECT id FROM positions)
+        OR employeeId NOT IN (SELECT id FROM employees)
+      ''');
+
+      // 2. Fix orphaned one-to-many links (set them to NULL if target is gone)
+      await db.execute('''
+        UPDATE inventory SET employeeId = NULL 
+        WHERE employeeId IS NOT NULL AND employeeId NOT IN (SELECT id FROM employees)
+      ''');
+      
+      await db.execute('''
+        UPDATE inventory SET roomId = NULL 
+        WHERE roomId IS NOT NULL AND roomId NOT IN (SELECT id FROM rooms)
+      ''');
+
+      await db.execute('''
+        UPDATE employees SET roomId = NULL 
+        WHERE roomId IS NOT NULL AND roomId NOT IN (SELECT id FROM rooms)
+      ''');
     }
   }
 
@@ -100,7 +139,7 @@ class DatabaseHelper {
         name TEXT NOT NULL,
         roomId INTEGER,
         createdAt INTEGER NOT NULL,
-        FOREIGN KEY(roomId) REFERENCES rooms(id)
+        FOREIGN KEY(roomId) REFERENCES rooms(id) ON DELETE SET NULL
       )
     ''');
 
@@ -126,8 +165,8 @@ class DatabaseHelper {
         employeeId INTEGER,
         roomId INTEGER,
         createdAt INTEGER NOT NULL,
-        FOREIGN KEY(employeeId) REFERENCES employees(id),
-        FOREIGN KEY(roomId) REFERENCES rooms(id)
+        FOREIGN KEY(employeeId) REFERENCES employees(id) ON DELETE SET NULL,
+        FOREIGN KEY(roomId) REFERENCES rooms(id) ON DELETE SET NULL
       )
     ''');
 

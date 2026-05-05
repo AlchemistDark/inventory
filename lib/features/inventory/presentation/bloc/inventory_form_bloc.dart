@@ -69,12 +69,29 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
     SubmitInventoryEvent event,
     Emitter<InventoryFormState> emit,
   ) async {
+    final currentState = state;
+    if (currentState is! InventoryFormMetadataLoaded) return;
+
     emit(const InventoryFormLoading());
     try {
+      // Clean categories before saving using the Domain rule
+      final cleanedInventory = event.inventory.copyWith(
+        categoryIds: InventoryEntity.cleanCategoryIds(
+          event.inventory.categoryIds,
+          currentState.defaultCategoryId,
+        ),
+      );
+
       if (event.isEdit) {
-        await updateInventoryUseCase(event.inventory);
+        await updateInventoryUseCase(
+          cleanedInventory,
+          defaultCategoryId: currentState.defaultCategoryId,
+        );
       } else {
-        await createInventoryUseCase(event.inventory);
+        await createInventoryUseCase(
+          cleanedInventory,
+          defaultCategoryId: currentState.defaultCategoryId,
+        );
       }
       emit(const InventoryFormSuccess());
     } catch (e) {

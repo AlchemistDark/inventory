@@ -83,7 +83,15 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
           onBarcodeSaved: (barcode) =>
               setState(() => barcodeController.text = barcode),
           onEmployeeSelected: (id) => setState(() => selectedEmployeeId = id),
-          onCategoriesSelected: (ids) => setState(() => selectedCategoryIds = ids),
+          onCategoriesSelected: (ids) {
+            setState(() {
+              final defaultId = state is InventoryFormMetadataLoaded
+                  ? state.defaultCategoryId
+                  : null;
+              selectedCategoryIds =
+                  InventoryEntity.cleanCategoryIds(ids, defaultId);
+            });
+          },
           onRoomSelected: (id) => setState(() => selectedRoomId = id),
         );
       },

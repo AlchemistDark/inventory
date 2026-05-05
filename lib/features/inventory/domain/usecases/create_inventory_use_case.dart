@@ -6,7 +6,13 @@ class CreateInventoryUseCase {
 
   CreateInventoryUseCase(this.repository);
 
-  Future<InventoryEntity> call(InventoryEntity entity) async {
-    return await repository.createInventory(entity);
+  Future<InventoryEntity> call(InventoryEntity entity, {int? defaultCategoryId}) async {
+    final cleanedEntity = entity.copyWith(
+      categoryIds: InventoryEntity.cleanCategoryIds(
+        entity.categoryIds,
+        defaultCategoryId,
+      ),
+    );
+    return await repository.createInventory(cleanedEntity);
   }
 }

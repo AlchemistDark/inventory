@@ -6,7 +6,13 @@ class UpdateInventoryUseCase {
 
   UpdateInventoryUseCase(this.repository);
 
-  Future<void> call(InventoryEntity entity) async {
-    return await repository.updateInventory(entity);
+  Future<void> call(InventoryEntity entity, {int? defaultCategoryId}) async {
+    final cleanedEntity = entity.copyWith(
+      categoryIds: InventoryEntity.cleanCategoryIds(
+        entity.categoryIds,
+        defaultCategoryId,
+      ),
+    );
+    return await repository.updateInventory(cleanedEntity);
   }
 }

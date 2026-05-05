@@ -39,3 +39,15 @@ class SubmitInventoryEvent extends InventoryFormEvent {
     required this.isEdit,
   });
 }
+
+/// Event to notify the BLoC that the selected categories have changed.
+class CategoryChangedEvent extends InventoryFormEvent {
+  /// The list of selected category IDs.
+  final List<int> selectedIds;
+
+  @override
+  List<Object?> get props => [selectedIds];
+
+  /// Creates a [CategoryChangedEvent].
+  const CategoryChangedEvent(this.selectedIds);
+}

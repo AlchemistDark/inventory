@@ -8,7 +8,7 @@ class CategoriesPage extends StatelessWidget {
   /// Creates a [CategoriesPage]
   const CategoriesPage({super.key});
 
-  void _showCategoryForm(BuildContext context, [CategoryEntity? category]) {
+  static void _showCategoryForm(BuildContext context, [CategoryEntity? category]) {
     showDialog<void>(
       context: context,
       builder: (dialogContext) => CategoryFormDialog(
@@ -44,16 +44,15 @@ class CategoriesPage extends StatelessWidget {
     );
   }
 
-  void _confirmDelete(BuildContext context, CategoryEntity category) {
+  static void _confirmDelete(BuildContext context, CategoryEntity category) {
     final l10n = AppLocalizations.of(context)!;
     final categoriesBloc = context.read<CategoriesBloc>();
-
-    final nameLabel = l10n.categories_nameLabel;
+    final entityLabel = l10n.categories_nameLabel;
 
     showDialog<void>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: Text(l10n.common_deleteConfirmTitle(nameLabel)),
+        title: Text(l10n.common_deleteConfirmTitle(entityLabel)),
         content: Text(l10n.common_deleteConfirmContent(category.name)),
         actions: [
           TextButton(

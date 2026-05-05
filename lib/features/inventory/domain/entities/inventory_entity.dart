@@ -67,6 +67,51 @@ class InventoryEntity extends Equatable {
     this.employeeId,
     this.roomId,
   });
+
+  /// Cleans the category IDs by removing the default category if other categories are selected.
+  /// If the list is empty, returns the default category if provided.
+  static List<int> cleanCategoryIds(List<int> ids, int? defaultId) {
+    if (defaultId == null) return ids;
+
+    if (ids.length > 1 && ids.contains(defaultId)) {
+      return ids.where((id) => id != defaultId).toList();
+    }
+
+    if (ids.isEmpty) {
+      return [defaultId];
+    }
+
+    return ids;
+  }
+
+  /// Creates a copy of this [InventoryEntity] but with the given fields replaced with the new values.
+  InventoryEntity copyWith({
+    int? id,
+    String? barcode,
+    String? name,
+    String? inventoryNumber,
+    int? quantity,
+    String? description,
+    DateTime? dateAdded,
+    int? employeeId,
+    int? roomId,
+    List<int>? categoryIds,
+    DateTime? createdAt,
+  }) {
+    return InventoryEntity(
+      id: id ?? this.id,
+      barcode: barcode ?? this.barcode,
+      name: name ?? this.name,
+      inventoryNumber: inventoryNumber ?? this.inventoryNumber,
+      quantity: quantity ?? this.quantity,
+      description: description ?? this.description,
+      dateAdded: dateAdded ?? this.dateAdded,
+      employeeId: employeeId ?? this.employeeId,
+      roomId: roomId ?? this.roomId,
+      categoryIds: categoryIds ?? this.categoryIds,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
 }
 
 /// Extension methods for [InventoryEntity] collections

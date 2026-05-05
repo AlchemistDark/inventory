@@ -8,7 +8,7 @@ class PositionsPage extends StatelessWidget {
   /// Creates a [PositionsPage]
   const PositionsPage({super.key});
 
-  void _showPositionForm(BuildContext context, [PositionEntity? position]) {
+  static void _showPositionForm(BuildContext context, [PositionEntity? position]) {
     showDialog<void>(
       context: context,
       builder: (dialogContext) => PositionFormDialog(
@@ -39,16 +39,15 @@ class PositionsPage extends StatelessWidget {
     );
   }
 
-  void _confirmDelete(BuildContext context, PositionEntity position) {
+  static void _confirmDelete(BuildContext context, PositionEntity position) {
     final l10n = AppLocalizations.of(context)!;
-
-    final nameLabel = l10n.positions_nameLabel;
+    final positionsBloc = context.read<PositionsBloc>();
+    final entityLabel = l10n.positions_nameLabel;
 
     showDialog<void>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: Text(
-            l10n.common_deleteConfirmTitle(nameLabel)),
+        title: Text(l10n.common_deleteConfirmTitle(entityLabel)),
         content: Text(l10n.common_deleteConfirmContent(position.name)),
         actions: [
           TextButton(
@@ -57,12 +56,12 @@ class PositionsPage extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              context
-                  .read<PositionsBloc>()
-                  .add(DeletePositionEvent(position.id));
+              positionsBloc.add(DeletePositionEvent(position.id));
               Navigator.pop(dialogContext);
             },
-            style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.error),
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
             child: Text(l10n.common_delete),
           ),
         ],

@@ -127,9 +127,9 @@ class InventoryDetailsPage extends StatelessWidget {
                 currentInventory.roomId,
                 fallback: l10n.invList_notSpecified,
               );
-              final categoryNames = currentInventory.categoryIds
-                  .map((id) => state.categories.getNameById(id,
-                      fallback: l10n.invList_notSpecifiedFemale))
+              final categoryNames = state.categories
+                  .where((c) => currentInventory.categoryIds.contains(c.id))
+                  .map((c) => c.name)
                   .join(', ');
 
               return InventoryDetailsContent(

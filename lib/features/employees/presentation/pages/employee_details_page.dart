@@ -80,8 +80,9 @@ class EmployeeDetailsPage extends StatelessWidget {
         final positions = state is EmployeesLoaded ? state.positions : <PositionEntity>[];
         final rooms = state is EmployeesLoaded ? state.rooms : <RoomEntity>[];
 
-        final positionNames = currentEmployee.positionIds
-            .map((id) => positions.getNameById(id, fallback: l10n.employees_unknownPosition))
+        final positionNames = positions
+            .where((p) => currentEmployee.positionIds.contains(p.id))
+            .map((p) => p.name)
             .join(', ');
 
         final roomName = rooms.getNameById(
