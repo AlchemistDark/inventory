@@ -60,3 +60,15 @@ class UpdateInventoryEvent extends InventoryEvent {
   /// Creates an [UpdateInventoryEvent].
   const UpdateInventoryEvent(this.inventory);
 }
+
+/// Event to delete an inventory item.
+class DeleteInventoryEvent extends InventoryEvent {
+  /// The ID of the inventory item to delete.
+  final int id;
+
+  @override
+  List<Object?> get props => [id];
+
+  /// Creates a [DeleteInventoryEvent].
+  const DeleteInventoryEvent(this.id);
+}

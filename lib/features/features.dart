@@ -66,6 +66,7 @@ export 'inventory/data/repositories/inventory_repository_impl.dart';
 export 'inventory/domain/entities/inventory_entity.dart';
 export 'inventory/domain/repositories/inventory_repository.dart';
 export 'inventory/domain/usecases/create_inventory_use_case.dart';
+export 'inventory/domain/usecases/delete_inventory_use_case.dart';
 export 'inventory/domain/usecases/get_inventories_use_case.dart';
 export 'inventory/domain/usecases/get_inventory_by_employee_id_usecase.dart';
 export 'inventory/domain/usecases/search_inventories_by_name_use_case.dart';

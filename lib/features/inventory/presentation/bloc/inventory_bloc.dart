@@ -21,6 +21,9 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
   /// Use case for updating an existing inventory item.
   final UpdateInventoryUseCase updateInventoryUseCase;
 
+  /// Use case for deleting an inventory item.
+  final DeleteInventoryUseCase deleteInventoryUseCase;
+
   /// Use case for employee data, used to load responsible persons.
   final GetEmployeesUseCase getEmployeesUseCase;
 
@@ -36,6 +39,7 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
     required this.getInventoriesUseCase,
     required this.createInventoryUseCase,
     required this.updateInventoryUseCase,
+    required this.deleteInventoryUseCase,
     required this.getEmployeesUseCase,
     required this.getCategoriesUseCase,
     required this.getRoomsUseCase,
@@ -47,6 +51,7 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
     on<ClearFiltersEvent>(_onClearFilters);
     on<CreateInventoryEvent>(_onCreateInventory);
     on<UpdateInventoryEvent>(_onUpdateInventory);
+    on<DeleteInventoryEvent>(_onDeleteInventory);
   }
 
   Future<void> _onInitialize(
@@ -151,6 +156,18 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
   ) async {
     try {
       await updateInventoryUseCase(event.inventory);
+      await _onLoadInventories(const LoadInventoriesEvent(), emit);
+    } catch (e) {
+      emit(const InventoryError(AppFailure.database));
+    }
+  }
+
+  Future<void> _onDeleteInventory(
+    DeleteInventoryEvent event,
+    Emitter<InventoryState> emit,
+  ) async {
+    try {
+      await deleteInventoryUseCase(event.id);
       await _onLoadInventories(const LoadInventoriesEvent(), emit);
     } catch (e) {
       emit(const InventoryError(AppFailure.database));

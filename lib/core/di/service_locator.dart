@@ -50,6 +50,7 @@ abstract final class ServiceLocator {
     // Inventory
     getIt.registerLazySingleton(() => CreateInventoryUseCase(getIt()));
     getIt.registerLazySingleton(() => UpdateInventoryUseCase(getIt()));
+    getIt.registerLazySingleton(() => DeleteInventoryUseCase(getIt()));
     getIt.registerLazySingleton(() => GetInventoriesUseCase(getIt()));
     getIt.registerLazySingleton(() => SearchInventoriesByNameUseCase(getIt()));
     getIt.registerLazySingleton(() => SearchInventoryByBarcodeUseCase(getIt()));
@@ -95,6 +96,7 @@ abstract final class ServiceLocator {
         getInventoriesUseCase: getIt(),
         createInventoryUseCase: getIt(),
         updateInventoryUseCase: getIt(),
+        deleteInventoryUseCase: getIt(),
         getEmployeesUseCase: getIt(),
         getCategoriesUseCase: getIt(),
         getRoomsUseCase: getIt(),

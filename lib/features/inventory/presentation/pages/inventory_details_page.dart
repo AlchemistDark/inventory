@@ -11,6 +11,37 @@ class InventoryDetailsPage extends StatelessWidget {
   /// Creates an [InventoryDetailsPage].
   const InventoryDetailsPage({required this.inventoryId, super.key});
 
+  static void _confirmDelete(BuildContext context, InventoryEntity inventory) {
+    final l10n = AppLocalizations.of(context)!;
+    final inventoryBloc = context.read<InventoryBloc>();
+    final entityLabel = l10n.invForm_nameFieldLabel;
+
+    showDialog<void>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n.common_deleteConfirmTitle(entityLabel)),
+        content: Text(l10n.common_deleteConfirmContent(inventory.name)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(l10n.common_cancel),
+          ),
+          TextButton(
+            onPressed: () {
+              inventoryBloc.add(DeleteInventoryEvent(inventory.id));
+              Navigator.pop(dialogContext); // Close dialog
+              Navigator.pop(context); // Go back to inventory list
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
+            child: Text(l10n.common_delete),
+          ),
+        ],
+      ),
+    );
+  }
+
   /// The unique identifier of the inventory item to display.
   final int inventoryId;
 
@@ -28,14 +59,24 @@ class InventoryDetailsPage extends StatelessWidget {
                 final currentInventory = state.inventories.getById(inventoryId);
 
                 if (currentInventory != null) {
-                  return IconButton(
-                    icon: const Icon(Icons.edit),
-                    onPressed: () {
-                      Navigator.push<void>(
-                        context,
-                        CreateInventoryPage.route(editTarget: currentInventory),
-                      );
-                    },
+                  return Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          Navigator.push<void>(
+                            context,
+                            CreateInventoryPage.route(editTarget: currentInventory),
+                          );
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete_outline),
+                        onPressed: () =>
+                            _confirmDelete(context, currentInventory),
+                      ),
+                    ],
                   );
                 }
               }

@@ -14,6 +14,37 @@ class EmployeeDetailsPage extends StatelessWidget {
     super.key,
   });
 
+  static void _confirmDelete(BuildContext context, EmployeeEntity employee) {
+    final l10n = AppLocalizations.of(context)!;
+    final employeesBloc = context.read<EmployeesBloc>();
+    final entityLabel = l10n.employees_nameLabel;
+
+    showDialog<void>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n.common_deleteConfirmTitle(entityLabel)),
+        content: Text(l10n.common_deleteConfirmContent(employee.name)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(l10n.common_cancel),
+          ),
+          TextButton(
+            onPressed: () {
+              employeesBloc.add(DeleteEmployeeEvent(employee.id));
+              Navigator.pop(dialogContext); // Close dialog
+              Navigator.pop(context); // Go back to employees list
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
+            child: Text(l10n.common_delete),
+          ),
+        ],
+      ),
+    );
+  }
+
   /// The employee to display details for.
   final EmployeeEntity employee;
 
@@ -71,6 +102,10 @@ class EmployeeDetailsPage extends StatelessWidget {
                   );
                 },
               ),
+              IconButton(
+                icon: const Icon(Icons.delete_outline),
+                onPressed: () => _confirmDelete(context, currentEmployee),
+              ),
             ],
           ),
           body: state is EmployeesLoaded
@@ -106,5 +141,5 @@ class EmployeeDetailsPage extends StatelessWidget {
       },
     ),
   );
-}
+  }
 }

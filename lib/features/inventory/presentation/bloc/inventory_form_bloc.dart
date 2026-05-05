@@ -45,7 +45,7 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
       final categories = await getCategoriesUseCase();
       final rooms = await getRoomsUseCase();
 
-      // Find default values based on conventional names
+      // Find default values based on metadata names if they exist
       final defaultEmployeeId =
           employees.getIdByName(event.l10n.common_administrator);
       final defaultCategoryId =
@@ -56,9 +56,9 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
         employees: employees,
         categories: categories,
         rooms: rooms,
-        defaultEmployeeId: defaultEmployeeId,
-        defaultCategoryId: defaultCategoryId,
-        defaultRoomId: defaultRoomId,
+        defaultEmployeeId: defaultEmployeeId ?? (employees.isNotEmpty ? employees.first.id : null),
+        defaultCategoryId: defaultCategoryId ?? (categories.isNotEmpty ? categories.first.id : null),
+        defaultRoomId: defaultRoomId ?? (rooms.isNotEmpty ? rooms.first.id : null),
       ));
     } catch (e) {
       emit(const InventoryFormError(AppFailure.database));
