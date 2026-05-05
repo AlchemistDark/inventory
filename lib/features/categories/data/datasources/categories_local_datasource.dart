@@ -4,8 +4,8 @@ import 'package:sqflite/sqflite.dart';
 
 /// Abstract interface for category local data operations
 abstract class CategoriesLocalDataSource {
-  /// Creates a new category with the given name
-  Future<CategoryModel> createCategory(String name);
+  /// Creates a new category with the given name and optional description
+  Future<CategoryModel> createCategory(String name, {String? description});
 
   /// Returns all categories sorted by name
   Future<List<CategoryModel>> getCategories();
@@ -31,15 +31,21 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
   CategoriesLocalDataSourceImpl(this._databaseHelper);
 
   @override
-  Future<CategoryModel> createCategory(String name) async {
+  Future<CategoryModel> createCategory(String name, {String? description}) async {
     final db = await _databaseHelper.database;
 
     final id = await db.insert('categories', {
       'name': name,
+      'description': description,
       'createdAt': DateTime.now().millisecondsSinceEpoch,
     }, conflictAlgorithm: ConflictAlgorithm.replace);
 
-    return CategoryModel(id: id, name: name, createdAt: DateTime.now());
+    return CategoryModel(
+      id: id,
+      name: name,
+      description: description,
+      createdAt: DateTime.now(),
+    );
   }
 
   @override

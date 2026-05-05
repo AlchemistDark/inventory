@@ -2,8 +2,8 @@ import 'package:inventory_p_shalaev/features/categories/domain/entities/category
 
 /// Abstract repository for category management
 abstract class CategoriesRepository {
-  /// Creates a new category with the given name
-  Future<CategoryEntity> createCategory(String name);
+  /// Creates a new category with the given name and description
+  Future<CategoryEntity> createCategory(String name, {String? description});
 
   /// Returns all available categories
   Future<List<CategoryEntity>> getCategories();

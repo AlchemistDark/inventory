@@ -9,8 +9,8 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
   CategoriesRepositoryImpl(this.localDataSource);
 
   @override
-  Future<CategoryEntity> createCategory(String name) async {
-    final model = await localDataSource.createCategory(name);
+  Future<CategoryEntity> createCategory(String name, {String? description}) async {
+    final model = await localDataSource.createCategory(name, description: description);
 
     return model.toEntity();
   }

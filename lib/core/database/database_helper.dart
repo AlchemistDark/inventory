@@ -36,7 +36,7 @@ class DatabaseHelper {
         await getApplicationDocumentsDirectory();
     final String dbPath = path.join(documentsDirectory.path, 'inventory.db');
 
-    return openDatabase(dbPath, version: 2, onCreate: _onCreate, onUpgrade: _onUpgrade);
+    return openDatabase(dbPath, version: 3, onCreate: _onCreate, onUpgrade: _onUpgrade);
   }
 
   /// Upgrades the database from one version to another
@@ -58,10 +58,11 @@ class DatabaseHelper {
         INSERT INTO employee_positions (employeeId, positionId)
         SELECT id, positionId FROM employees WHERE positionId IS NOT NULL
       ''');
+    }
 
-      // Note: SQLite doesn't support DROP COLUMN easily. 
-      // In a real production app we would recreate the table without positionId.
-      // For this task, we'll keep the column but stop using it, or leave as is if recreation is too risky.
+    if (oldVersion < 3) {
+      // Add description column to categories
+      await db.execute('ALTER TABLE categories ADD COLUMN description TEXT');
     }
   }
 
@@ -71,6 +72,7 @@ class DatabaseHelper {
       CREATE TABLE categories (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL UNIQUE,
+        description TEXT,
         createdAt INTEGER NOT NULL
       )
     ''');
