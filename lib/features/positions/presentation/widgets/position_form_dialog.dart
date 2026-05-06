@@ -61,14 +61,13 @@ class _PositionFormDialogState extends State<PositionFormDialog> {
           controller: controller,
           decoration: InputDecoration(
             labelText: l10n.positions_nameLabel,
-            hintText: l10n.employees_nameLabel,
           ),
           autofocus: true,
           maxLength: 50,
           validator: (value) {
             final text = value?.trim() ?? '';
             if (text.length < 3) {
-              return l10n.employees_minLength3;
+              return l10n.invForm_minLength3Error;
             }
 
             return null;

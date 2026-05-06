@@ -73,14 +73,13 @@ class _CategoryFormDialogState extends State<CategoryFormDialog> {
               controller: nameController,
               decoration: InputDecoration(
                 labelText: l10n.categories_nameLabel,
-                hintText: l10n.employees_nameLabel,
               ),
               autofocus: true,
               maxLength: 50,
               validator: (value) {
                 final text = value?.trim() ?? '';
                 if (text.length < 3) {
-                  return l10n.employees_minLength3;
+                  return l10n.invForm_minLength3Error;
                 }
 
                 return null;
