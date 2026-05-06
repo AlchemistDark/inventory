@@ -15,11 +15,11 @@ class EmployeesSearchAndFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: TextField(
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          TextField(
             decoration: InputDecoration(
               hintText: l10n.employees_searchHint,
               prefixIcon: const Icon(Icons.search),
@@ -31,40 +31,37 @@ class EmployeesSearchAndFilter extends StatelessWidget {
               context.read<EmployeesBloc>().add(SearchEmployeesEvent(value));
             },
           ),
-        ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              FilterChip(
-                label: Text(l10n.common_all),
-                selected: state.positionFilter == null,
-                onSelected: (_) {
-                  context.read<EmployeesBloc>().add(
-                        const FilterEmployeesByPositionEvent(null),
-                      );
-                },
+          const SizedBox(height: 12),
+          DropdownButtonFormField<int?>(
+            initialValue: state.positionFilter,
+            decoration: InputDecoration(
+              labelText: l10n.employees_positionLabel,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
               ),
-              const SizedBox(width: 8),
-              ...state.positions.map((position) {
-                return Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: FilterChip(
-                    label: Text(position.name),
-                    selected: state.positionFilter == position.id,
-                    onSelected: (_) {
-                      context.read<EmployeesBloc>().add(
-                            FilterEmployeesByPositionEvent(position.id),
-                          );
-                    },
-                  ),
-                );
-              }),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            ),
+            items: [
+              DropdownMenuItem(
+                value: null,
+                child: Text(l10n.common_all),
+              ),
+              ...state.positions.map(
+                (position) => DropdownMenuItem(
+                  value: position.id,
+                  child: Text(position.name),
+                ),
+              ),
             ],
+            onChanged: (value) {
+              context.read<EmployeesBloc>().add(
+                    FilterEmployeesByPositionEvent(value),
+                  );
+            },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
