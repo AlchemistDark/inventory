@@ -1,6 +1,5 @@
 import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
-import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 /// A bottom sheet widget that displays a list of items for selection.
 ///
@@ -44,7 +43,6 @@ class InventorySelectionSheet<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
 
     return DraggableScrollableSheet(

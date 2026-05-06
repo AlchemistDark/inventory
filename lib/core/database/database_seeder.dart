@@ -13,8 +13,10 @@ class DatabaseSeeder {
   /// This should always run regardless of build mode.
   static Future<void> seedDefaults(
     EmployeesLocalDataSource employeesDataSource,
+    // ignore: avoid-unused-parameters
     RoomsLocalDataSource roomsDataSource,
     PositionsLocalDataSource positionsDataSource,
+    // ignore: avoid-unused-parameters
     CategoriesLocalDataSource categoriesDataSource,
     AppLocalizations l10n,
   ) async {

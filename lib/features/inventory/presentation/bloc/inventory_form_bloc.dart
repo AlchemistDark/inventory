@@ -64,7 +64,10 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
     SubmitInventoryEvent event,
     Emitter<InventoryFormState> emit,
   ) async {
-    if (state is! InventoryFormMetadataLoaded) return;
+    if (state is! InventoryFormMetadataLoaded) {
+      
+      return;
+    }
 
     emit(const InventoryFormLoading());
     try {

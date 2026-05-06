@@ -17,7 +17,7 @@ class RoomsPage extends StatelessWidget {
     );
   }
 
-  static void _confirmDelete(BuildContext context, RoomEntity room) async {
+  static Future<void> _confirmDelete(BuildContext context, RoomEntity room) async {
     final l10n = AppLocalizations.of(context)!;
     final roomsBloc = context.read<RoomsBloc>();
 

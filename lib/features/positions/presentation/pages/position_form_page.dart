@@ -5,15 +5,16 @@ import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 /// Page for creating or editing an employee position.
 class PositionFormPage extends StatefulWidget {
+
+  /// Creates a [PositionFormPage].
+  const PositionFormPage({this.position, super.key});
+
   /// Static method to get the route for this page.
   static Route<void> route({PositionEntity? position}) {
     return MaterialPageRoute<void>(
       builder: (_) => PositionFormPage(position: position),
     );
   }
-
-  /// Creates a [PositionFormPage].
-  const PositionFormPage({this.position, super.key});
 
   /// The position to edit, or null if creating a new one.
   final PositionEntity? position;
@@ -30,12 +31,6 @@ class _PositionFormPageState extends State<PositionFormPage> {
   void initState() {
     super.initState();
     _nameController.text = widget.position?.name ?? '';
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    super.dispose();
   }
 
   void _onSave() {
@@ -65,6 +60,12 @@ class _PositionFormPageState extends State<PositionFormPage> {
         ),
       );
     }
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
   }
 
   @override
