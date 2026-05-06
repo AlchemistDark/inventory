@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
@@ -15,7 +14,7 @@ class EmployeeDetailsPage extends StatelessWidget {
     super.key,
   });
 
-  static void _confirmDelete(BuildContext context, EmployeeEntity employee) async {
+  static Future<void> _confirmDelete(BuildContext context, EmployeeEntity employee) async {
     final l10n = AppLocalizations.of(context)!;
     final employeesBloc = context.read<EmployeesBloc>();
 

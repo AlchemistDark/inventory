@@ -13,6 +13,7 @@ class CreateInventoryUseCase {
         defaultCategoryId,
       ),
     );
+
     return await repository.createInventory(cleanedEntity);
   }
 }

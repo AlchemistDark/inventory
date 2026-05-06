@@ -13,6 +13,7 @@ class UpdateInventoryUseCase {
         defaultCategoryId,
       ),
     );
+
     return await repository.updateInventory(cleanedEntity);
   }
 }

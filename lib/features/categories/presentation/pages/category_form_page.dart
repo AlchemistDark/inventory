@@ -5,15 +5,15 @@ import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 /// Page for creating or editing a category.
 class CategoryFormPage extends StatefulWidget {
+  /// Creates a [CategoryFormPage].
+  const CategoryFormPage({this.category, super.key});
+
   /// Static method to get the route for this page.
   static Route<void> route({CategoryEntity? category}) {
     return MaterialPageRoute<void>(
       builder: (_) => CategoryFormPage(category: category),
     );
   }
-
-  /// Creates a [CategoryFormPage].
-  const CategoryFormPage({this.category, super.key});
 
   /// The category to edit, or null if creating a new one.
   final CategoryEntity? category;
@@ -32,13 +32,6 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
     super.initState();
     _nameController.text = widget.category?.name ?? '';
     _descriptionController.text = widget.category?.description ?? '';
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
   }
 
   void _onSave() {
@@ -72,6 +65,13 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
   }
 
   @override
+  void dispose() {
+    _nameController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final isEditing = widget.category != null;
@@ -99,6 +99,7 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
                   if (text.length < 3) {
                     return l10n.invForm_minLength3Error;
                   }
+
                   return null;
                 },
               ),
