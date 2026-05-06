@@ -14,7 +14,7 @@ export 'categories/presentation/bloc/categories_bloc.dart';
 export 'categories/presentation/bloc/categories_event.dart';
 export 'categories/presentation/bloc/categories_state.dart';
 export 'categories/presentation/pages/categories_page.dart';
-export 'categories/presentation/widgets/category_form_dialog.dart';
+export 'categories/presentation/pages/category_form_page.dart';
 export 'categories/presentation/widgets/category_list.dart';
 export 'categories/presentation/widgets/category_list_tile.dart';
 
@@ -119,7 +119,7 @@ export 'positions/presentation/bloc/positions_bloc.dart';
 export 'positions/presentation/bloc/positions_event.dart';
 export 'positions/presentation/bloc/positions_state.dart';
 export 'positions/presentation/pages/positions_page.dart';
-export 'positions/presentation/widgets/position_form_dialog.dart';
+export 'positions/presentation/pages/position_form_page.dart';
 export 'positions/presentation/widgets/position_list.dart';
 export 'positions/presentation/widgets/position_list_tile.dart';
 

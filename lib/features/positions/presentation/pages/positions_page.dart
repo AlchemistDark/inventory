@@ -9,64 +9,25 @@ class PositionsPage extends StatelessWidget {
   const PositionsPage({super.key});
 
   static void _showPositionForm(BuildContext context, [PositionEntity? position]) {
-    showDialog<void>(
-      context: context,
-      builder: (dialogContext) => PositionFormDialog(
-        position: position,
-        onSave: (name) {
-          final newPosition = PositionEntity(
-            id: position?.id ?? 0,
-            name: name,
-            createdAt: position?.createdAt ?? DateTime.now(),
-          );
-          if (position == null) {
-            context.read<PositionsBloc>().add(CreatePositionEvent(newPosition));
-          } else {
-            context.read<PositionsBloc>().add(UpdatePositionEvent(newPosition));
-          }
-          final l10n = AppLocalizations.of(context)!;
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                position == null
-                    ? l10n.positions_created
-                    : l10n.positions_updated,
-              ),
-            ),
-          );
-        },
-      ),
+    Navigator.push<void>(
+      context,
+      PositionFormPage.route(position: position),
     );
   }
 
-  static void _confirmDelete(BuildContext context, PositionEntity position) {
+  static Future<void> _confirmDelete(BuildContext context, PositionEntity position) async {
     final l10n = AppLocalizations.of(context)!;
     final positionsBloc = context.read<PositionsBloc>();
-    final entityLabel = l10n.positions_nameLabel;
 
-    showDialog<void>(
+    final confirmed = await AppDialogs.showDeleteConfirmation(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(l10n.common_deleteConfirmTitle(entityLabel)),
-        content: Text(l10n.common_deleteConfirmContent(position.name)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: Text(l10n.common_cancel),
-          ),
-          TextButton(
-            onPressed: () {
-              positionsBloc.add(DeletePositionEvent(position.id));
-              Navigator.pop(dialogContext);
-            },
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.error,
-            ),
-            child: Text(l10n.common_delete),
-          ),
-        ],
-      ),
+      entityName: position.name,
+      entityTypeLabel: l10n.positions_nameLabel,
     );
+
+    if (confirmed == true) {
+      positionsBloc.add(DeletePositionEvent(position.id));
+    }
   }
 
   @override

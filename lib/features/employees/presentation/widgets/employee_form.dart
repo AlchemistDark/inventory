@@ -76,12 +76,8 @@ class EmployeeForm extends StatelessWidget {
           ElevatedButton(
             onPressed: () =>
                 context.read<EmployeeFormBloc>().add(SubmitEmployeeForm()),
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-            ),
             child: Text(
               employee == null ? l10n.common_create : l10n.common_save,
-              style: const TextStyle(fontSize: 16),
             ),
           ),
         ],

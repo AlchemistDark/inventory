@@ -17,34 +17,19 @@ class RoomsPage extends StatelessWidget {
     );
   }
 
-  static void _confirmDelete(BuildContext context, RoomEntity room) {
+  static void _confirmDelete(BuildContext context, RoomEntity room) async {
     final l10n = AppLocalizations.of(context)!;
     final roomsBloc = context.read<RoomsBloc>();
-    final entityLabel = l10n.rooms_nameLabel;
 
-    showDialog<void>(
+    final confirmed = await AppDialogs.showDeleteConfirmation(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(l10n.common_deleteConfirmTitle(entityLabel)),
-        content: Text(l10n.common_deleteConfirmContent(room.name)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: Text(l10n.common_cancel),
-          ),
-          TextButton(
-            onPressed: () {
-              roomsBloc.add(DeleteRoomEvent(room.id));
-              Navigator.pop(dialogContext);
-            },
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.error,
-            ),
-            child: Text(l10n.common_delete),
-          ),
-        ],
-      ),
+      entityName: room.name,
+      entityTypeLabel: l10n.rooms_nameLabel,
     );
+
+    if (confirmed == true) {
+      roomsBloc.add(DeleteRoomEvent(room.id));
+    }
   }
 
   @override

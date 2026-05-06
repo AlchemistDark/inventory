@@ -62,9 +62,6 @@ class _InventoryBarcodeInputDialogState
                 controller: _barcodeController,
                 decoration: InputDecoration(
                   labelText: l10n.invForm_barcodeFieldInDialog,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
                   prefixIcon: const Icon(Icons.qr_code),
                 ),
               ),
@@ -90,10 +87,6 @@ class _InventoryBarcodeInputDialogState
                         widget.onBarcodeSaved(_barcodeController.text);
                         Navigator.pop(context);
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                      ),
                       child: Text(l10n.home_saveButton),
                     ),
                   ),

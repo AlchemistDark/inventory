@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
@@ -11,35 +12,22 @@ class InventoryDetailsPage extends StatelessWidget {
   /// Creates an [InventoryDetailsPage].
   const InventoryDetailsPage({required this.inventoryId, super.key});
 
-  static void _confirmDelete(BuildContext context, InventoryEntity inventory) {
+  static Future<void> _confirmDelete(BuildContext context, InventoryEntity inventory) async {
     final l10n = AppLocalizations.of(context)!;
     final inventoryBloc = context.read<InventoryBloc>();
-    final entityLabel = l10n.invForm_nameFieldLabel;
 
-    showDialog<void>(
+    final confirmed = await AppDialogs.showDeleteConfirmation(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(l10n.common_deleteConfirmTitle(entityLabel)),
-        content: Text(l10n.common_deleteConfirmContent(inventory.name)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: Text(l10n.common_cancel),
-          ),
-          TextButton(
-            onPressed: () {
-              inventoryBloc.add(DeleteInventoryEvent(inventory.id));
-              Navigator.pop(dialogContext); // Close dialog
-              Navigator.pop(context); // Go back to inventory list
-            },
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.error,
-            ),
-            child: Text(l10n.common_delete),
-          ),
-        ],
-      ),
+      entityName: inventory.name,
+      entityTypeLabel: l10n.invForm_nameFieldLabel,
     );
+
+    if (confirmed == true) {
+      inventoryBloc.add(DeleteInventoryEvent(inventory.id));
+      if (context.mounted) {
+        Navigator.pop(context); // Go back to inventory list
+      }
+    }
   }
 
   /// The unique identifier of the inventory item to display.

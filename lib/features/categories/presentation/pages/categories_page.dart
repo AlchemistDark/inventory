@@ -9,69 +9,25 @@ class CategoriesPage extends StatelessWidget {
   const CategoriesPage({super.key});
 
   static void _showCategoryForm(BuildContext context, [CategoryEntity? category]) {
-    showDialog<void>(
-      context: context,
-      builder: (dialogContext) => CategoryFormDialog(
-        category: category,
-        onSave: (String name, String? description) {
-          final newCategory = CategoryEntity(
-            id: category?.id ?? 0,
-            name: name,
-            description: description,
-            createdAt: category?.createdAt ?? DateTime.now(),
-          );
-          if (category == null) {
-            context.read<CategoriesBloc>().add(
-                  CreateCategoryEvent(newCategory),
-                );
-          } else {
-            context.read<CategoriesBloc>().add(
-                  UpdateCategoryEvent(newCategory),
-                );
-          }
-          final l10n = AppLocalizations.of(context)!;
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                category == null
-                    ? l10n.categories_created
-                    : l10n.categories_updated,
-              ),
-            ),
-          );
-        },
-      ),
+    Navigator.push<void>(
+      context,
+      CategoryFormPage.route(category: category),
     );
   }
 
-  static void _confirmDelete(BuildContext context, CategoryEntity category) {
+  static Future<void> _confirmDelete(BuildContext context, CategoryEntity category) async {
     final l10n = AppLocalizations.of(context)!;
     final categoriesBloc = context.read<CategoriesBloc>();
-    final entityLabel = l10n.categories_nameLabel;
 
-    showDialog<void>(
+    final confirmed = await AppDialogs.showDeleteConfirmation(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(l10n.common_deleteConfirmTitle(entityLabel)),
-        content: Text(l10n.common_deleteConfirmContent(category.name)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: Text(l10n.common_cancel),
-          ),
-          TextButton(
-            onPressed: () {
-              categoriesBloc.add(DeleteCategoryEvent(category.id));
-              Navigator.pop(dialogContext);
-            },
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.error,
-            ),
-            child: Text(l10n.common_delete),
-          ),
-        ],
-      ),
+      entityName: category.name,
+      entityTypeLabel: l10n.categories_nameLabel,
     );
+
+    if (confirmed == true) {
+      categoriesBloc.add(DeleteCategoryEvent(category.id));
+    }
   }
 
   @override

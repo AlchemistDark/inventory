@@ -78,6 +78,11 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: borderRadius,
           ),
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       snackBarTheme: SnackBarThemeData(

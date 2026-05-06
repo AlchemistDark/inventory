@@ -82,7 +82,6 @@ class _RoomFormPageState extends State<RoomFormPage> {
                 controller: _nameController,
                 decoration: InputDecoration(
                   labelText: l10n.rooms_nameLabel,
-                  border: const OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -97,7 +96,6 @@ class _RoomFormPageState extends State<RoomFormPage> {
                 controller: _descriptionController,
                 decoration: InputDecoration(
                   labelText: l10n.rooms_descriptionLabel,
-                  border: const OutlineInputBorder(),
                 ),
                 maxLines: 3,
               ),
@@ -106,7 +104,9 @@ class _RoomFormPageState extends State<RoomFormPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: _save,
-                  child: Text(l10n.home_saveButton),
+                  child: Text(
+                    l10n.home_saveButton,
+                  ),
                 ),
               ),
             ],

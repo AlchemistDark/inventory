@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/features/features.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
@@ -14,35 +15,22 @@ class EmployeeDetailsPage extends StatelessWidget {
     super.key,
   });
 
-  static void _confirmDelete(BuildContext context, EmployeeEntity employee) {
+  static void _confirmDelete(BuildContext context, EmployeeEntity employee) async {
     final l10n = AppLocalizations.of(context)!;
     final employeesBloc = context.read<EmployeesBloc>();
-    final entityLabel = l10n.employees_nameLabel;
 
-    showDialog<void>(
+    final confirmed = await AppDialogs.showDeleteConfirmation(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(l10n.common_deleteConfirmTitle(entityLabel)),
-        content: Text(l10n.common_deleteConfirmContent(employee.name)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: Text(l10n.common_cancel),
-          ),
-          TextButton(
-            onPressed: () {
-              employeesBloc.add(DeleteEmployeeEvent(employee.id));
-              Navigator.pop(dialogContext); // Close dialog
-              Navigator.pop(context); // Go back to employees list
-            },
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.error,
-            ),
-            child: Text(l10n.common_delete),
-          ),
-        ],
-      ),
+      entityName: employee.name,
+      entityTypeLabel: l10n.employees_nameLabel,
     );
+
+    if (confirmed == true) {
+      employeesBloc.add(DeleteEmployeeEvent(employee.id));
+      if (context.mounted) {
+        Navigator.pop(context); // Go back to employees list
+      }
+    }
   }
 
   /// The employee to display details for.

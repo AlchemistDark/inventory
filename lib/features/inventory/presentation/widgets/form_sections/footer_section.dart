@@ -61,23 +61,15 @@ class FooterSection extends StatelessWidget {
           onTap: onSelectDate,
         ),
         const SizedBox(height: 24),
-        // Primary action buttons (Save and Cancel).
-        Row(
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                onPressed: onSubmit,
-                child: Text(l10n.invForm_saveButton),
-              ),
+        // Primary action button (Save).
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: onSubmit,
+            child: Text(
+              l10n.invForm_saveButton,
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: OutlinedButton(
-                onPressed: onCancel,
-                child: Text(l10n.invForm_cancelButton),
-              ),
-            ),
-          ],
+          ),
         ),
       ],
     );

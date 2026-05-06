@@ -107,9 +107,6 @@ class _BarcodeScannerDialogState extends State<BarcodeScannerDialog> {
               controller: _barcodeController,
               decoration: InputDecoration(
                 labelText: l10n.home_barcodeFieldLabel,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
                 prefixIcon: const Icon(Icons.qr_code),
               ),
               autofocus: false,
