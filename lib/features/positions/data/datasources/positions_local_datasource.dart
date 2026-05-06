@@ -79,6 +79,17 @@ class PositionsLocalDataSourceImpl implements PositionsLocalDataSource {
   @override
   Future<void> deletePosition(int id) async {
     final db = await _databaseHelper.database;
-    await db.delete('positions', where: 'id = ?', whereArgs: [id]);
+    
+    await db.transaction((txn) async {
+      // Manual cleanup for many-to-many links
+      await txn.delete(
+        'employee_positions',
+        where: 'positionId = ?',
+        whereArgs: [id],
+      );
+      
+      // Now safe to delete the position
+      await txn.delete('positions', where: 'id = ?', whereArgs: [id]);
+    });
   }
 }

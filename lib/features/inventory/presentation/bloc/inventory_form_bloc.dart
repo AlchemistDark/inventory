@@ -45,20 +45,15 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
       final categories = await getCategoriesUseCase();
       final rooms = await getRoomsUseCase();
 
-      // Find default values based on metadata names if they exist
-      final defaultEmployeeId =
-          employees.getIdByName(event.l10n.common_administrator);
-      final defaultCategoryId =
-          categories.getIdByName(event.l10n.common_notDefined);
-      final defaultRoomId = rooms.getIdByName(event.l10n.common_notDefined);
-
+      // We no longer look for "Not Defined" in DB. 
+      // Defaults are null/empty by design.
       emit(InventoryFormMetadataLoaded(
         employees: employees,
         categories: categories,
         rooms: rooms,
-        defaultEmployeeId: defaultEmployeeId ?? (employees.isNotEmpty ? employees.first.id : null),
-        defaultCategoryId: defaultCategoryId ?? (categories.isNotEmpty ? categories.first.id : null),
-        defaultRoomId: defaultRoomId ?? (rooms.isNotEmpty ? rooms.first.id : null),
+        defaultEmployeeId: null,
+        defaultCategoryId: null,
+        defaultRoomId: null,
       ));
     } catch (e) {
       emit(const InventoryFormError(AppFailure.database));
@@ -69,29 +64,21 @@ class InventoryFormBloc extends Bloc<InventoryFormEvent, InventoryFormState> {
     SubmitInventoryEvent event,
     Emitter<InventoryFormState> emit,
   ) async {
-    final currentState = state;
-    if (currentState is! InventoryFormMetadataLoaded) return;
+    if (state is! InventoryFormMetadataLoaded) return;
 
     emit(const InventoryFormLoading());
     try {
-      // Clean categories before saving using the Domain rule
+      // Clean categories before saving (e.g. remove duplicates)
       final cleanedInventory = event.inventory.copyWith(
         categoryIds: InventoryEntity.cleanCategoryIds(
           event.inventory.categoryIds,
-          currentState.defaultCategoryId,
         ),
       );
 
       if (event.isEdit) {
-        await updateInventoryUseCase(
-          cleanedInventory,
-          defaultCategoryId: currentState.defaultCategoryId,
-        );
+        await updateInventoryUseCase(cleanedInventory);
       } else {
-        await createInventoryUseCase(
-          cleanedInventory,
-          defaultCategoryId: currentState.defaultCategoryId,
-        );
+        await createInventoryUseCase(cleanedInventory);
       }
       emit(const InventoryFormSuccess());
     } catch (e) {

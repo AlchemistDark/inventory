@@ -80,6 +80,16 @@ class RoomsLocalDataSourceImpl implements RoomsLocalDataSource {
   @override
   Future<void> deleteRoom(int id) async {
     final db = await _databaseHelper.database;
-    await db.delete('rooms', where: 'id = ?', whereArgs: [id]);
+    
+    await db.transaction((txn) async {
+      // Manual cleanup for compatibility with older schemas missing ON DELETE SET NULL
+      await txn.update('employees', {'roomId': null},
+          where: 'roomId = ?', whereArgs: [id]);
+      await txn.update('inventory', {'roomId': null},
+          where: 'roomId = ?', whereArgs: [id]);
+      
+      // Now safe to delete the room
+      await txn.delete('rooms', where: 'id = ?', whereArgs: [id]);
+    });
   }
 }

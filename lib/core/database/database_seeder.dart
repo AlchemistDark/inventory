@@ -19,32 +19,16 @@ class DatabaseSeeder {
     AppLocalizations l10n,
   ) async {
     try {
-      // Initialize default category if empty
-      final categories = await categoriesDataSource.getCategories();
-      if (categories.isEmpty) {
-        await categoriesDataSource.createCategory(l10n.common_notDefined);
-      }
+      // We no longer seed "Not Defined" for categories and rooms.
+      // They are handled as null/empty in the UI.
 
-      // Initialize default position if empty
+      // Initialize default position if empty (Administrator is a real role)
       final positions = await positionsDataSource.getPositions();
       if (positions.isEmpty) {
         await positionsDataSource.createPosition(
           PositionModel(
             id: 0,
             name: l10n.common_administrator,
-            createdAt: DateTime.now(),
-          ),
-        );
-      }
-
-      // Initialize default room if empty
-      final rooms = await roomsDataSource.getRooms();
-      if (rooms.isEmpty) {
-        await roomsDataSource.createRoom(
-          RoomModel(
-            id: 0,
-            name: l10n.common_notDefined,
-            description: l10n.rooms_defaultDescription,
             createdAt: DateTime.now(),
           ),
         );
@@ -58,7 +42,7 @@ class DatabaseSeeder {
             id: 0,
             name: l10n.common_administrator,
             positionIds: const [1],
-            roomId: 1,
+            roomId: null, // No room by default
             createdAt: DateTime.now(),
           ),
         );

@@ -85,7 +85,7 @@ class EmployeeFormMetadataLoaded extends EmployeeFormState {
     List<RoomEntity>? rooms,
     String? name,
     List<int>? selectedPositionIds,
-    int? selectedRoomId,
+    int? Function()? selectedRoomId,
     bool? isEditing,
     EmployeeNameValidationError? nameError,
   }) {
@@ -94,7 +94,8 @@ class EmployeeFormMetadataLoaded extends EmployeeFormState {
       rooms: rooms ?? this.rooms,
       name: name ?? this.name,
       selectedPositionIds: selectedPositionIds ?? this.selectedPositionIds,
-      selectedRoomId: selectedRoomId ?? this.selectedRoomId,
+      selectedRoomId:
+          selectedRoomId != null ? selectedRoomId() : this.selectedRoomId,
       isEditing: isEditing ?? this.isEditing,
       nameError: nameError,
     );

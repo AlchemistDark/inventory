@@ -95,7 +95,14 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
   Future<void> deleteCategory(int id) async {
     final db = await _databaseHelper.database;
 
-    await db.delete('categories', where: 'id = ?', whereArgs: [id]);
+    await db.transaction((txn) async {
+      await txn.delete(
+        'inventory_categories',
+        where: 'categoryId = ?',
+        whereArgs: [id],
+      );
+      await txn.delete('categories', where: 'id = ?', whereArgs: [id]);
+    });
   }
 
   @override

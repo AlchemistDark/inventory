@@ -34,7 +34,7 @@ class InventorySelectionSheet<T> extends StatelessWidget {
   final int Function(T) itemId;
 
   /// Callback triggered when an item is selected.
-  final ValueChanged<int> onSelected;
+  final ValueChanged<int?> onSelected;
 
   /// Icon to display next to each item.
   final IconData icon;
@@ -77,30 +77,27 @@ class InventorySelectionSheet<T> extends StatelessWidget {
               ),
               const Divider(height: 1),
               Expanded(
-                child: items.isEmpty
-                    ? Center(
-                        child: Text(l10n.invList_noItemsFilterMessage),
-                      )
-                    : ListView.builder(
-                        controller: scrollController,
-                        itemCount: items.length,
-                        itemBuilder: (context, index) {
-                          final item = items[index];
-                          final id = itemId(item);
-                          final name = itemName(item);
-                          final isSelected = selectedId == id;
+                child: ListView.builder(
+                  controller: scrollController,
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    final item = items[index];
+                    final id = itemId(item);
+                    final name = itemName(item);
+                    final isSelected = selectedId == id;
 
-                          return InventorySelectionTile(
-                            name: name,
-                            isSelected: isSelected,
-                            icon: icon,
-                            onTap: () {
-                              onSelected(id);
-                              Navigator.pop(context);
-                            },
-                          );
-                        },
-                      ),
+                    return InventorySelectionTile(
+                      name: name,
+                      isSelected: isSelected,
+                      icon: icon,
+                      onTap: () {
+                        // Toggle behavior: if already selected, deselect it (set to null)
+                        onSelected(isSelected ? null : id);
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                ),
               ),
             ],
           ),

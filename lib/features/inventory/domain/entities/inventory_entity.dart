@@ -68,20 +68,9 @@ class InventoryEntity extends Equatable {
     this.roomId,
   });
 
-  /// Cleans the category IDs by removing the default category if other categories are selected.
-  /// If the list is empty, returns the default category if provided.
-  static List<int> cleanCategoryIds(List<int> ids, int? defaultId) {
-    if (defaultId == null) return ids;
-
-    if (ids.length > 1 && ids.contains(defaultId)) {
-      return ids.where((id) => id != defaultId).toList();
-    }
-
-    if (ids.isEmpty) {
-      return [defaultId];
-    }
-
-    return ids;
+  /// Cleans the category IDs by removing duplicates.
+  static List<int> cleanCategoryIds(List<int> ids, [int? _]) {
+    return ids.toSet().toList();
   }
 
   /// Creates a copy of this [InventoryEntity] but with the given fields replaced with the new values.

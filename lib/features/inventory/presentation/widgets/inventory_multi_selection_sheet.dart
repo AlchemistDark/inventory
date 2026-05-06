@@ -84,33 +84,31 @@ class _InventoryMultiSelectionSheetState<T> extends State<InventoryMultiSelectio
               ),
               const Divider(height: 1),
               Expanded(
-                child: widget.items.isEmpty
-                    ? Center(child: Text(l10n.invList_noItemsFilterMessage))
-                    : ListView.builder(
-                        controller: scrollController,
-                        itemCount: widget.items.length,
-                        itemBuilder: (context, index) {
-                          final item = widget.items[index];
-                          final id = widget.itemId(item);
-                          final name = widget.itemName(item);
-                          final isSelected = _currentSelectedIds.contains(id);
+                child: ListView.builder(
+                  controller: scrollController,
+                  itemCount: widget.items.length,
+                  itemBuilder: (context, index) {
+                    final item = widget.items[index];
+                    final id = widget.itemId(item);
+                    final name = widget.itemName(item);
+                    final isSelected = _currentSelectedIds.contains(id);
 
-                          return InventorySelectionTile(
-                            name: name,
-                            isSelected: isSelected,
-                            icon: widget.icon,
-                            onTap: () {
-                              setState(() {
-                                if (isSelected) {
-                                  _currentSelectedIds.remove(id);
-                                } else {
-                                  _currentSelectedIds.add(id);
-                                }
-                              });
-                            },
-                          );
-                        },
-                      ),
+                    return InventorySelectionTile(
+                      name: name,
+                      isSelected: isSelected,
+                      icon: widget.icon,
+                      onTap: () {
+                        setState(() {
+                          if (isSelected) {
+                            _currentSelectedIds.remove(id);
+                          } else {
+                            _currentSelectedIds.add(id);
+                          }
+                        });
+                      },
+                    );
+                  },
+                ),
               ),
             ],
           ),

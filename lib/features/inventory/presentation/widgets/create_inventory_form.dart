@@ -35,19 +35,7 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<InventoryFormBloc, InventoryFormState>(
-      listener: (context, state) {
-        // Set default values when metadata is loaded if we are in creation mode.
-        if (state is InventoryFormMetadataLoaded && widget.editTarget == null) {
-          setState(() {
-            selectedEmployeeId ??= state.defaultEmployeeId;
-            if (selectedCategoryIds.isEmpty && state.defaultCategoryId != null) {
-              selectedCategoryIds = [state.defaultCategoryId!];
-            }
-            selectedRoomId ??= state.defaultRoomId;
-          });
-        }
-      },
+    return BlocBuilder<InventoryFormBloc, InventoryFormState>(
       builder: (context, state) {
         if (state is InventoryFormLoading) {
           return const Center(child: CircularProgressIndicator());
@@ -85,11 +73,7 @@ class _CreateInventoryFormState extends State<CreateInventoryForm>
           onEmployeeSelected: (id) => setState(() => selectedEmployeeId = id),
           onCategoriesSelected: (ids) {
             setState(() {
-              final defaultId = state is InventoryFormMetadataLoaded
-                  ? state.defaultCategoryId
-                  : null;
-              selectedCategoryIds =
-                  InventoryEntity.cleanCategoryIds(ids, defaultId);
+              selectedCategoryIds = InventoryEntity.cleanCategoryIds(ids);
             });
           },
           onRoomSelected: (id) => setState(() => selectedRoomId = id),

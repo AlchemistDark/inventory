@@ -48,25 +48,12 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
       _editingId = event.employee?.id;
       _createdAt = event.employee?.createdAt;
 
-      // Find default position (exact match or fallback to first)
-      int? defaultPositionId =
-          positions.getIdByName(event.l10n.common_administrator);
-      if (defaultPositionId == null && positions.isNotEmpty) {
-        defaultPositionId = positions.first.id;
-      }
-
-      // Find default room (exact match or fallback to first)
-      int? defaultRoomId = rooms.getIdByName(event.l10n.common_notDefined);
-      if (defaultRoomId == null && rooms.isNotEmpty) {
-        defaultRoomId = rooms.first.id;
-      }
-
       emit(EmployeeFormMetadataLoaded(
         positions: positions,
         rooms: rooms,
         name: event.employee?.name ?? '',
-        selectedPositionIds: event.employee?.positionIds ?? (defaultPositionId != null ? [defaultPositionId] : []),
-        selectedRoomId: event.employee?.roomId ?? defaultRoomId,
+        selectedPositionIds: event.employee?.positionIds ?? [],
+        selectedRoomId: event.employee?.roomId,
         isEditing: event.employee != null,
       ));
     } catch (e) {
@@ -95,7 +82,7 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
   void _onRoomChanged(RoomChanged event, Emitter<EmployeeFormState> emit) {
     if (state is EmployeeFormMetadataLoaded) {
       final currentState = state as EmployeeFormMetadataLoaded;
-      emit(currentState.copyWith(selectedRoomId: event.roomId));
+      emit(currentState.copyWith(selectedRoomId: () => event.roomId));
     }
   }
 
@@ -109,13 +96,6 @@ class EmployeeFormBloc extends Bloc<EmployeeFormEvent, EmployeeFormState> {
       final nameError = _validateName(currentState.name);
       if (nameError != null) {
         emit(currentState.copyWith(nameError: nameError));
-
-        return;
-      }
-
-      if (currentState.selectedPositionIds.isEmpty) {
-        emit(const EmployeeFormValidationFailed(
-            EmployeeFormValidationError.positionRequired));
 
         return;
       }
