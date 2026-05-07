@@ -6,24 +6,26 @@ import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 class EmployeeInventoryList extends StatelessWidget {
   /// Creates an [EmployeeInventoryList].
   const EmployeeInventoryList({
-    required this.state,
+    required this.isDetailsLoading,
+    required this.selectedEmployeeInventory,
     super.key,
   });
 
-  /// The current state of [EmployeesBloc] containing inventory data.
-  final EmployeesLoaded state;
+  final bool isDetailsLoading;
+
+  final List<InventoryEntity> selectedEmployeeInventory;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    if (state.isDetailsLoading) {
+    if (isDetailsLoading) {
       return const SliverToBoxAdapter(
         child: Center(child: CircularProgressIndicator()),
       );
     }
 
-    if (state.selectedEmployeeInventory.isEmpty) {
+    if (selectedEmployeeInventory.isEmpty) {
       return SliverPadding(
         padding: const EdgeInsets.symmetric(vertical: 32),
         sliver: SliverToBoxAdapter(
@@ -42,7 +44,7 @@ class EmployeeInventoryList extends StatelessWidget {
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, index) {
-            final item = state.selectedEmployeeInventory[index];
+            final item = selectedEmployeeInventory[index];
 
             return Padding(
               padding: const EdgeInsets.only(bottom: 8),
@@ -67,7 +69,7 @@ class EmployeeInventoryList extends StatelessWidget {
               ),
             );
           },
-          childCount: state.selectedEmployeeInventory.length,
+          childCount: selectedEmployeeInventory.length,
         ),
       ),
     );

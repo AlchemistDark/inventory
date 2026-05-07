@@ -8,18 +8,35 @@ import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 /// This widget handles the display of input fields for name, position, and room,
 /// and communicates changes to the [EmployeeFormBloc].
 class EmployeeForm extends StatelessWidget {
+
   /// Creates an [EmployeeForm].
   const EmployeeForm({
-    required this.state,
-    this.employee,
+    required this.nameError,
+    required this.positions,
+    required this.selectedPositionIds,
+    required this.rooms,
+    required this.selectedRoomId,
+    required this.employee,
     super.key,
   });
 
-  /// The current state of the employee form.
-  final EmployeeFormMetadataLoaded state;
-
   /// The employee being edited, or null if creating a new one.
   final EmployeeEntity? employee;
+
+  /// Validation error for the employee's name, if any.
+  final EmployeeNameValidationError? nameError;
+
+  /// List of all available positions to choose from.
+  final List<PositionEntity> positions;
+
+  /// IDs of the positions currently selected for the employee.
+  final List<int> selectedPositionIds;
+
+  /// List of all available rooms to choose from.
+  final List<RoomEntity> rooms;
+
+  /// ID of the room currently selected for the employee.
+  final int? selectedRoomId;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +51,7 @@ class EmployeeForm extends StatelessWidget {
             initialValue: employee?.name,
             decoration: InputDecoration(
               labelText: l10n.employees_nameLabel,
-              errorText: switch (state.nameError) {
+              errorText: switch (nameError) {
                 EmployeeNameValidationError.tooShort =>
                   l10n.employees_minLength3,
                 EmployeeNameValidationError.tooLong =>
@@ -50,8 +67,8 @@ class EmployeeForm extends StatelessWidget {
           InventoryMultiSelectionField(
             label: l10n.employees_positionLabel,
             icon: Icons.work_outline,
-            items: state.positions,
-            selectedIds: state.selectedPositionIds,
+            items: positions,
+            selectedIds: selectedPositionIds,
             itemName: (p) => p.name,
             itemId: (p) => p.id,
             onChanged: (ids) =>
@@ -60,13 +77,13 @@ class EmployeeForm extends StatelessWidget {
           const SizedBox(height: 20),
           InventorySelectionField(
             label: l10n.employees_roomLabel,
-            selectedName: state.rooms.getNameById(
-              state.selectedRoomId,
+            selectedName: rooms.getNameById(
+              selectedRoomId,
               fallback: l10n.common_notDefined,
             ),
             icon: Icons.room_outlined,
-            items: state.rooms,
-            selectedId: state.selectedRoomId,
+            items: rooms,
+            selectedId: selectedRoomId,
             itemName: (r) => r.name,
             itemId: (r) => r.id,
             onSelected: (id) =>

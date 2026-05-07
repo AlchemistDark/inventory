@@ -32,7 +32,10 @@ class EmployeesPage extends StatelessWidget {
 
             return Column(
               children: [
-                EmployeesSearchAndFilter(state: state),
+                EmployeesSearchAndFilter(
+                    positionFilter: state.positionFilter,
+                    positions: state.positions,
+                ),
                 Expanded(
                   child: state.filteredEmployees.isEmpty
                       ? Center(child: Text(l10n.employees_notFound))

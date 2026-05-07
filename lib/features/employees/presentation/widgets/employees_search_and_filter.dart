@@ -6,10 +6,15 @@ import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 /// Widget providing search and position-based filtering for the employees list.
 class EmployeesSearchAndFilter extends StatelessWidget {
   /// Creates an [EmployeesSearchAndFilter].
-  const EmployeesSearchAndFilter({required this.state, super.key});
+  const EmployeesSearchAndFilter({
+    required this.positionFilter,
+    required this.positions,
+    super.key,
+  });
 
-  /// The current state of [EmployeesBloc] containing available positions and filters.
-  final EmployeesLoaded state;
+  final int? positionFilter;
+
+  final List<PositionEntity> positions;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,7 @@ class EmployeesSearchAndFilter extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<int?>(
-            initialValue: state.positionFilter,
+            initialValue: positionFilter,
             decoration: InputDecoration(
               labelText: l10n.employees_positionLabel,
               border: OutlineInputBorder(
@@ -47,7 +52,7 @@ class EmployeesSearchAndFilter extends StatelessWidget {
                 value: null,
                 child: Text(l10n.common_all),
               ),
-              ...state.positions.map(
+              ...positions.map(
                 (position) => DropdownMenuItem(
                   value: position.id,
                   child: Text(position.name),

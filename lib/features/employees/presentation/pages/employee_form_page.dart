@@ -11,15 +11,16 @@ class EmployeeFormPage extends StatelessWidget {
   /// Creates an [EmployeeFormPage].
   const EmployeeFormPage({this.employee, super.key});
 
- /// Helper method to create a route for this page with a scoped [EmployeeFormBloc].
+  /// Helper method to create a route for this page with a scoped [EmployeeFormBloc].
   static Route<void> route({EmployeeEntity? employee}) {
     return MaterialPageRoute<void>(
       builder: (context) {
         final l10n = AppLocalizations.of(context)!;
-        
+
         return BlocProvider(
-          create: (_) => ServiceLocator.getIt<EmployeeFormBloc>()
-            ..add(InitializeEmployeeForm(employee: employee, l10n: l10n)),
+          create: (_) =>
+              ServiceLocator.getIt<EmployeeFormBloc>()
+                ..add(InitializeEmployeeForm(employee: employee, l10n: l10n)),
           child: EmployeeFormPage(employee: employee),
         );
       },
@@ -40,9 +41,11 @@ class EmployeeFormPage extends StatelessWidget {
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(employee == null
-                  ? l10n.employees_created
-                  : l10n.employees_updated),
+              content: Text(
+                employee == null
+                    ? l10n.employees_created
+                    : l10n.employees_updated,
+              ),
             ),
           );
         } else if (state is EmployeeFormValidationFailed) {
@@ -50,9 +53,9 @@ class EmployeeFormPage extends StatelessWidget {
             EmployeeFormValidationError.positionRequired =>
               l10n.employees_selectPosition,
           };
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(message)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(message)));
         } else if (state is EmployeeFormError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.failure.toLocalizedString(l10n))),
@@ -62,15 +65,24 @@ class EmployeeFormPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(employee == null
-                ? l10n.employees_createTitle
-                : l10n.employees_editTitle),
+            title: Text(
+              employee == null
+                  ? l10n.employees_createTitle
+                  : l10n.employees_editTitle,
+            ),
           ),
           body: state is EmployeeFormLoading
               ? const Center(child: CircularProgressIndicator())
               : state is EmployeeFormMetadataLoaded
-                  ? EmployeeForm(state: state, employee: employee)
-                  : const SizedBox.shrink(),
+              ? EmployeeForm(
+                  nameError: state.nameError,
+                  positions: state.positions,
+                  selectedPositionIds: state.selectedPositionIds,
+                  rooms: state.rooms,
+                  selectedRoomId: state.selectedRoomId,
+                  employee: employee,
+                )
+              : const SizedBox.shrink(),
         );
       },
     );

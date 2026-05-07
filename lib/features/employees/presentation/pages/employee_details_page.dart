@@ -121,7 +121,10 @@ class EmployeeDetailsPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    EmployeeInventoryList(state: state),
+                    EmployeeInventoryList(
+                      isDetailsLoading: state.isDetailsLoading,
+                      selectedEmployeeInventory: state.selectedEmployeeInventory,
+                    ),
                   ],
                 )
               : const Center(child: CircularProgressIndicator()),
