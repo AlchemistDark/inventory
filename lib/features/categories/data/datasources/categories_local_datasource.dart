@@ -36,14 +36,12 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
 
     final id = await db.insert('categories', {
       'name': name,
-      'description': description,
       'createdAt': DateTime.now().millisecondsSinceEpoch,
     }, conflictAlgorithm: ConflictAlgorithm.replace);
 
     return CategoryModel(
       id: id,
       name: name,
-      description: description,
       createdAt: DateTime.now(),
     );
   }

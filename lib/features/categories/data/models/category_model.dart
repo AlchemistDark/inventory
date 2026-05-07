@@ -8,9 +8,6 @@ class CategoryModel {
   /// Name of the category
   final String name;
 
-  /// Description of the category
-  final String? description;
-
   /// Timestamp of record creation
   final DateTime createdAt;
 
@@ -19,7 +16,6 @@ class CategoryModel {
     required this.id,
     required this.name,
     required this.createdAt,
-    this.description,
   });
 
   /// Creates a model from a domain entity
@@ -27,7 +23,6 @@ class CategoryModel {
     return CategoryModel(
       id: entity.id,
       name: entity.name,
-      description: entity.description,
       createdAt: entity.createdAt,
     );
   }
@@ -37,7 +32,6 @@ class CategoryModel {
     return CategoryModel(
       id: map['id'] as int,
       name: map['name'] as String,
-      description: map['description'] as String?,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
     );
   }
@@ -47,7 +41,6 @@ class CategoryModel {
     return CategoryEntity(
       id: id,
       name: name,
-      description: description,
       createdAt: createdAt,
     );
   }
@@ -56,7 +49,6 @@ class CategoryModel {
   Map<String, dynamic> toMap() {
     final map = <String, dynamic>{
       'name': name,
-      'description': description,
       'createdAt': createdAt.millisecondsSinceEpoch,
     };
 

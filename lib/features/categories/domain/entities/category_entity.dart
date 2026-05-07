@@ -8,21 +8,17 @@ class CategoryEntity extends Equatable {
   /// Name of the category
   final String name;
 
-  /// Description of the category (optional)
-  final String? description;
-
   /// Timestamp of record creation
   final DateTime createdAt;
 
   @override
-  List<Object?> get props => [id, name, description, createdAt];
+  List<Object?> get props => [id, name, createdAt];
 
   /// Creates a [CategoryEntity] with the given parameters
   const CategoryEntity({
     required this.id,
     required this.name,
     required this.createdAt,
-    this.description,
   });
 }
 

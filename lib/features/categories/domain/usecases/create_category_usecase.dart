@@ -25,7 +25,6 @@ class CreateCategoryUseCase {
 
     return await repository.createCategory(
       category.name,
-      description: category.description,
     );
   }
 }

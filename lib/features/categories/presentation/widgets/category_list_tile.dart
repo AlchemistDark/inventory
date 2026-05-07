@@ -24,9 +24,6 @@ class CategoryListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(category.name),
-      subtitle: category.description != null
-          ? Text(category.description!)
-          : null,
       leading: const Icon(Icons.category),
       trailing: IconButton(
         icon: const Icon(Icons.delete_outline),

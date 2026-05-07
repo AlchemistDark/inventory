@@ -68,11 +68,6 @@ class DatabaseHelper {
       ''');
     }
 
-    if (oldVersion < 3) {
-      // Add description column to categories
-      await db.execute('ALTER TABLE categories ADD COLUMN description TEXT');
-    }
-
     if (oldVersion < 4) {
       // 1. Clean up orphaned many-to-many links that might have remained while FK were off
       await db.execute('''
@@ -111,7 +106,6 @@ class DatabaseHelper {
       CREATE TABLE categories (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL UNIQUE,
-        description TEXT,
         createdAt INTEGER NOT NULL
       )
     ''');

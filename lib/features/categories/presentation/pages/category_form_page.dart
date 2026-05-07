@@ -25,13 +25,11 @@ class CategoryFormPage extends StatefulWidget {
 class _CategoryFormPageState extends State<CategoryFormPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _nameController.text = widget.category?.name ?? '';
-    _descriptionController.text = widget.category?.description ?? '';
   }
 
   void _onSave() {
@@ -39,7 +37,6 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
       final category = CategoryEntity(
         id: widget.category?.id ?? 0,
         name: _nameController.text.trim(),
-        description: _descriptionController.text.trim(),
         createdAt: widget.category?.createdAt ?? DateTime.now(),
       );
 
@@ -67,7 +64,6 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
   @override
   void dispose() {
     _nameController.dispose();
-    _descriptionController.dispose();
     super.dispose();
   }
 
@@ -102,15 +98,6 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
 
                   return null;
                 },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _descriptionController,
-                decoration: InputDecoration(
-                  labelText: l10n.categories_descriptionLabel,
-                ),
-                maxLines: 5,
-                minLines: 3,
               ),
               const Spacer(),
               SizedBox(
