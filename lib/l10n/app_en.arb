@@ -158,6 +158,7 @@
   "common_create": "Create",
   "common_all": "All",
   "common_notSelected": "Not selected",
+  "common_noItems": "No items found",
   "common_notDefined": "Not defined",
   "common_administrator": "Administrator",
   "common_inventoryNumberPrefix": "Inv. №: ",

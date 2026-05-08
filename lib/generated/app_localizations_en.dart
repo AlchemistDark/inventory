@@ -407,6 +407,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_notSelected => 'Not selected';
 
   @override
+  String get common_noItems => 'No items found';
+
+  @override
   String get common_notDefined => 'Not defined';
 
   @override

@@ -860,6 +860,12 @@ abstract class AppLocalizations {
   /// **'Не выбрано'**
   String get common_notSelected;
 
+  /// No description provided for @common_noItems.
+  ///
+  /// In ru, this message translates to:
+  /// **'Список пуст'**
+  String get common_noItems;
+
   /// No description provided for @common_notDefined.
   ///
   /// In ru, this message translates to:

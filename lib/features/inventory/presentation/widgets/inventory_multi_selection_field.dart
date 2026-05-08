@@ -40,18 +40,22 @@ class InventoryMultiSelectionField<T> extends StatelessWidget {
   final ValueChanged<List<int>> onChanged;
 
   void _showSelectionSheet(BuildContext context) {
-    showModalBottomSheet(
+    showDialog(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => InventoryMultiSelectionSheet<T>(
-        label: label,
-        items: items,
-        itemName: itemName,
-        itemId: itemId,
-        initialSelectedIds: selectedIds,
-        onChanged: onChanged,
-        icon: icon,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppTheme.borderRadiusValue),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: InventoryMultiSelectionSheet<T>(
+          label: label,
+          items: items,
+          itemName: itemName,
+          itemId: itemId,
+          initialSelectedIds: selectedIds,
+          onChanged: onChanged,
+          icon: icon,
+        ),
       ),
     );
   }

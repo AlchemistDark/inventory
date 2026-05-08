@@ -42,50 +42,44 @@ class _InventoryMultiSelectionSheetState<T> extends State<InventoryMultiSelectio
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
 
-    return DraggableScrollableSheet(
-      initialChildSize: 0.6,
-      minChildSize: 0.4,
-      maxChildSize: 0.9,
-      expand: false,
-      builder: (context, scrollController) {
-        return DecoratedBox(
-          decoration: BoxDecoration(
-            color: theme.colorScheme.surface,
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(AppTheme.borderRadiusValue * 2),
-            ),
-          ),
-          child: Column(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 8, 8),
+          child: Row(
             children: [
-              const SizedBox(height: 12),
-              Container(
-                width: 40,
-                height: 4,
-                decoration: AppTheme.grabHandleDecoration,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(widget.label, style: theme.textTheme.titleLarge),
-                    TextButton(
-                      onPressed: () {
-                        widget.onChanged(_currentSelectedIds);
-                        Navigator.pop(context);
-                      },
-                      child: Text(l10n.common_save),
-                    ),
-                  ],
-                ),
-              ),
-              const Divider(height: 1),
               Expanded(
-                child: ListView.builder(
-                  controller: scrollController,
+                child: Text(
+                  widget.label,
+                  style: theme.textTheme.titleLarge,
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  widget.onChanged(_currentSelectedIds);
+                  Navigator.pop(context);
+                },
+                child: Text(l10n.common_save),
+              ),
+            ],
+          ),
+        ),
+        const Divider(height: 1),
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.5,
+          ),
+          child: widget.items.isEmpty
+              ? Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Text(
+                    l10n.common_noItems,
+                    style: TextStyle(color: theme.hintColor),
+                  ),
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
                   itemCount: widget.items.length,
                   itemBuilder: (context, index) {
                     final item = widget.items[index];
@@ -109,11 +103,9 @@ class _InventoryMultiSelectionSheetState<T> extends State<InventoryMultiSelectio
                     );
                   },
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+        ),
+        const SizedBox(height: 8),
+      ],
     );
   }
 }

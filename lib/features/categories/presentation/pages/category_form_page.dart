@@ -51,6 +51,7 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
       final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           content: Text(
             widget.category == null
                 ? l10n.categories_created

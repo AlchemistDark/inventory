@@ -158,6 +158,7 @@
   "common_create": "Создать",
   "common_all": "Все",
   "common_notSelected": "Не выбрано",
+  "common_noItems": "Список пуст",
   "common_notDefined": "Не определено",
   "common_administrator": "Администратор",
   "common_inventoryNumberPrefix": "Инв. №: ",

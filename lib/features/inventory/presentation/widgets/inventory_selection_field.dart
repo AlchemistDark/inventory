@@ -43,20 +43,24 @@ class InventorySelectionField<T> extends StatelessWidget {
   /// Callback triggered when an item is selected from the bottom sheet.
   final ValueChanged<int?> onSelected;
 
-  /// Shows the selection bottom sheet with a list of items.
+  /// Shows the selection dialog with a list of items.
   void _showSelectionSheet(BuildContext context) {
-    showModalBottomSheet(
+    showDialog(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => InventorySelectionSheet<T>(
-        label: label,
-        items: items,
-        itemName: itemName,
-        itemId: itemId,
-        onSelected: onSelected,
-        icon: icon,
-        selectedId: selectedId,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppTheme.borderRadiusValue),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: InventorySelectionSheet<T>(
+          label: label,
+          items: items,
+          itemName: itemName,
+          itemId: itemId,
+          onSelected: onSelected,
+          icon: icon,
+          selectedId: selectedId,
+        ),
       ),
     );
   }

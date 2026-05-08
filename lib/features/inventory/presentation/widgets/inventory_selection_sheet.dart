@@ -1,7 +1,8 @@
 import 'package:inventory_p_shalaev/core/core.dart';
-import 'package:inventory_p_shalaev/features/features.dart';
+import 'package:inventory_p_shalaev/features/inventory/presentation/widgets/inventory_selection_tile.dart';
+import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
-/// A bottom sheet widget that displays a list of items for selection.
+/// A widget that displays a list of items for selection in a dialog.
 ///
 /// This widget is used by [InventorySelectionField] to provide a consistent
 /// interface for choosing entities like employees, rooms, or categories.
@@ -45,38 +46,32 @@ class InventorySelectionSheet<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return DraggableScrollableSheet(
-      initialChildSize: 0.6,
-      minChildSize: 0.4,
-      maxChildSize: 0.9,
-      expand: false,
-      builder: (context, scrollController) {
-        return DecoratedBox(
-          decoration: BoxDecoration(
-            color: theme.colorScheme.surface,
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(AppTheme.borderRadiusValue * 2),
-            ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
+          child: Text(
+            label,
+            style: theme.textTheme.titleLarge,
+            textAlign: TextAlign.center,
           ),
-          child: Column(
-            children: [
-              const SizedBox(height: 12),
-              Container(
-                width: 40,
-                height: 4,
-                decoration: AppTheme.grabHandleDecoration,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  label,
-                  style: theme.textTheme.titleLarge,
-                ),
-              ),
-              const Divider(height: 1),
-              Expanded(
-                child: ListView.builder(
-                  controller: scrollController,
+        ),
+        const Divider(height: 1),
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.5,
+          ),
+          child: items.isEmpty
+              ? Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Text(
+                    AppLocalizations.of(context)!.common_noItems,
+                    style: TextStyle(color: theme.hintColor),
+                  ),
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
                   itemCount: items.length,
                   itemBuilder: (context, index) {
                     final item = items[index];
@@ -89,18 +84,15 @@ class InventorySelectionSheet<T> extends StatelessWidget {
                       isSelected: isSelected,
                       icon: icon,
                       onTap: () {
-                        // Toggle behavior: if already selected, deselect it (set to null)
                         onSelected(isSelected ? null : id);
                         Navigator.pop(context);
                       },
                     );
                   },
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+        ),
+        const SizedBox(height: 8),
+      ],
     );
   }
 }
