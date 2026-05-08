@@ -30,7 +30,7 @@ class InventorySelectionList<T> extends StatelessWidget {
   final bool Function(int id) isSelected;
 
   /// Callback when an item is tapped.
-  final void Function(int id, bool isCurrentlySelected) onItemTap;
+  final void Function({required int id, required bool isCurrentlySelected}) onItemTap;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class InventorySelectionList<T> extends StatelessWidget {
           name: name,
           isSelected: selected,
           icon: icon,
-          onTap: () => onItemTap(id, selected),
+          onTap: () => onItemTap(id: id, isCurrentlySelected: selected),
         );
       },
     );

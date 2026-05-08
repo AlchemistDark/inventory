@@ -84,9 +84,9 @@ class _InventoryMultiSelectionSheetState<T> extends State<InventoryMultiSelectio
                   itemId: widget.itemId,
                   icon: widget.icon,
                   isSelected: (id) => _currentSelectedIds.contains(id),
-                  onItemTap: (id, isSelected) {
+                  onItemTap: ({required id, required isCurrentlySelected}) {
                     setState(() {
-                      if (isSelected) {
+                      if (isCurrentlySelected) {
                         _currentSelectedIds.remove(id);
                       } else {
                         _currentSelectedIds.add(id);

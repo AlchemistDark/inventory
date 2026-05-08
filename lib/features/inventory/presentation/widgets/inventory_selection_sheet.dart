@@ -76,8 +76,8 @@ class InventorySelectionSheet<T> extends StatelessWidget {
                   itemId: itemId,
                   icon: icon,
                   isSelected: (id) => selectedId == id,
-                  onItemTap: (id, isSelected) {
-                    onSelected(isSelected ? null : id);
+                  onItemTap: ({required id, required isCurrentlySelected}) {
+                    onSelected(isCurrentlySelected ? null : id);
                     Navigator.pop(context);
                   },
                 ),
