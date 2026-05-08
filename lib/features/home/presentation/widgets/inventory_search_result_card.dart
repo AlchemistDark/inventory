@@ -49,13 +49,11 @@ class InventorySearchResultCard extends StatelessWidget {
                 '${l10n.home_quantityPrefix}${inventory.quantity}',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              if (inventory.inventoryNumber != null) ...[
-                const SizedBox(height: 4),
-                Text(
-                  '${l10n.home_inventoryNumberLabel} ${inventory.inventoryNumber}',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ],
+              const SizedBox(height: 4),
+              Text(
+                '${l10n.home_inventoryNumberLabel} ${inventory.inventoryNumber}',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
             ],
           ),
         ),

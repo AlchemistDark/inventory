@@ -105,6 +105,7 @@ class _RoomFormPageState extends State<RoomFormPage> {
                   if (value != null && value.length > 500) {
                     return l10n.invForm_maxLength500Error;
                   }
+                  
                   return null;
                 },
               ),

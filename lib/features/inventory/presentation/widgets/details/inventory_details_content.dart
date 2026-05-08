@@ -53,7 +53,7 @@ class InventoryDetailsContent extends StatelessWidget {
           ),
           DetailRow(
             label: l10n.invList_detailInventoryNumberLabel,
-            value: inventory.inventoryNumber ?? l10n.invList_notSpecifiedMale,
+            value: inventory.inventoryNumber,
             icon: Icons.tag,
           ),
           DetailRow(

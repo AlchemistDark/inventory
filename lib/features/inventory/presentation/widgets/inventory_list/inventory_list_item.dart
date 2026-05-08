@@ -33,9 +33,7 @@ class InventoryListItem extends StatelessWidget {
     final qtyText = inventory.quantity > 0
         ? l10n.invList_itemQuantity(inventory.quantity)
         : '';
-    final invNumText = inventory.inventoryNumber != null
-        ? '${inventory.inventoryNumber} '
-        : '${l10n.invList_noInventoryNumber} ';
+    final invNumText = '${inventory.inventoryNumber} ';
 
     final titleText = '$invNumText$qtyText${inventory.name}';
     final subtitleText =
