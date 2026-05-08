@@ -270,7 +270,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get invForm_maxLength50Error => 'Максимум 50 символов';
 
   @override
-  String get invForm_inventoryNumberFieldLabel => 'Инвентарный номер';
+  String get invForm_inventoryNumberFieldLabel => 'Инвентарный номер *';
+
+  @override
+  String get invForm_inventoryNumberRequiredError =>
+      'Введите инвентарный номер';
 
   @override
   String get invForm_quantityFieldLabel => 'Количество';
@@ -385,6 +389,21 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get rooms_updated => 'Данные помещения обновлены';
+
+  @override
+  String get common_position => 'должность';
+
+  @override
+  String get common_room => 'помещение';
+
+  @override
+  String get common_category => 'категорию';
+
+  @override
+  String get common_employee => 'сотрудника';
+
+  @override
+  String get common_item => 'предмет';
 
   @override
   String common_error(String message) {

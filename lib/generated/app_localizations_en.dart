@@ -267,7 +267,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get invForm_maxLength50Error => 'Maximum 50 characters';
 
   @override
-  String get invForm_inventoryNumberFieldLabel => 'Inventory number';
+  String get invForm_inventoryNumberFieldLabel => 'Inventory number *';
+
+  @override
+  String get invForm_inventoryNumberRequiredError => 'Enter inventory number';
 
   @override
   String get invForm_quantityFieldLabel => 'Quantity';
@@ -382,6 +385,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rooms_updated => 'Room updated';
+
+  @override
+  String get common_position => 'position';
+
+  @override
+  String get common_room => 'room';
+
+  @override
+  String get common_category => 'category';
+
+  @override
+  String get common_employee => 'employee';
+
+  @override
+  String get common_item => 'item';
 
   @override
   String common_error(String message) {

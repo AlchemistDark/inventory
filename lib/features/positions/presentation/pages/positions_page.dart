@@ -22,7 +22,7 @@ class PositionsPage extends StatelessWidget {
     final confirmed = await AppDialogs.showDeleteConfirmation(
       context: context,
       entityName: position.name,
-      entityTypeLabel: l10n.positions_nameLabel,
+      entityTypeLabel: l10n.common_position,
     );
 
     if (confirmed == true) {

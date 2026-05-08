@@ -103,7 +103,8 @@
   "invForm_nameRequiredError": "Введите название",
   "invForm_minLength3Error": "Минимум 3 символа",
   "invForm_maxLength50Error": "Максимум 50 символов",
-  "invForm_inventoryNumberFieldLabel": "Инвентарный номер",
+  "invForm_inventoryNumberFieldLabel": "Инвентарный номер *",
+  "invForm_inventoryNumberRequiredError": "Введите инвентарный номер",
   "invForm_quantityFieldLabel": "Количество",
   "invForm_quantityRequiredError": "Введите количество",
   "invForm_quantityRangeError": "От 1 до 999",
@@ -146,6 +147,11 @@
   "rooms_created": "Помещение создано",
   "rooms_updated": "Данные помещения обновлены",
 
+  "common_position": "должность",
+  "common_room": "помещение",
+  "common_category": "категорию",
+  "common_employee": "сотрудника",
+  "common_item": "предмет",
   "common_error": "Ошибка: {message}",
   "@common_error": {
     "placeholders": {

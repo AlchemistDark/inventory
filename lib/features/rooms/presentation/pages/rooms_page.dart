@@ -24,7 +24,7 @@ class RoomsPage extends StatelessWidget {
     final confirmed = await AppDialogs.showDeleteConfirmation(
       context: context,
       entityName: room.name,
-      entityTypeLabel: l10n.rooms_nameLabel,
+      entityTypeLabel: l10n.common_room,
     );
 
     if (confirmed == true) {

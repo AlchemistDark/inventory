@@ -49,7 +49,7 @@ mixin CreateInventoryFormStateMixin on State<CreateInventoryForm> {
     if (widget.editTarget != null) {
       barcodeController.text = widget.editTarget!.barcode ?? '';
       nameController.text = widget.editTarget!.name;
-      inventoryNumberController.text = widget.editTarget!.inventoryNumber ?? '';
+      inventoryNumberController.text = widget.editTarget!.inventoryNumber;
       quantityController.text = widget.editTarget!.quantity.toString();
       descriptionController.text = widget.editTarget!.description ?? '';
       selectedDate = widget.editTarget!.dateAdded;
@@ -108,9 +108,7 @@ mixin CreateInventoryFormStateMixin on State<CreateInventoryForm> {
           ? null
           : barcodeController.text.trim(),
       name: nameController.text.trim(),
-      inventoryNumber: inventoryNumberController.text.trim().isEmpty
-          ? null
-          : inventoryNumberController.text.trim(),
+      inventoryNumber: inventoryNumberController.text.trim(),
       quantity: int.parse(quantityController.text),
       description: descriptionController.text.trim().isEmpty
           ? null

@@ -14,8 +14,8 @@ class InventoryEntity extends Equatable {
   /// Name of the inventory item
   final String name;
 
-  /// Inventory number (optional)
-  final String? inventoryNumber;
+  /// Inventory number
+  final String inventoryNumber;
 
   /// Quantity of items
   final int quantity;
@@ -57,12 +57,12 @@ class InventoryEntity extends Equatable {
   const InventoryEntity({
     required this.id,
     required this.name,
+    required this.inventoryNumber,
     required this.quantity,
     required this.dateAdded,
     required this.createdAt,
     required this.categoryIds,
     this.barcode,
-    this.inventoryNumber,
     this.description,
     this.employeeId,
     this.roomId,

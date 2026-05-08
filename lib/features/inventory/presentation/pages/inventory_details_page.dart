@@ -18,7 +18,7 @@ class InventoryDetailsPage extends StatelessWidget {
     final confirmed = await AppDialogs.showDeleteConfirmation(
       context: context,
       entityName: inventory.name,
-      entityTypeLabel: l10n.invForm_nameFieldLabel,
+      entityTypeLabel: l10n.common_item,
     );
 
     if (confirmed == true) {

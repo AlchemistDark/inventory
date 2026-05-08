@@ -587,8 +587,14 @@ abstract class AppLocalizations {
   /// No description provided for @invForm_inventoryNumberFieldLabel.
   ///
   /// In ru, this message translates to:
-  /// **'Инвентарный номер'**
+  /// **'Инвентарный номер *'**
   String get invForm_inventoryNumberFieldLabel;
+
+  /// No description provided for @invForm_inventoryNumberRequiredError.
+  ///
+  /// In ru, this message translates to:
+  /// **'Введите инвентарный номер'**
+  String get invForm_inventoryNumberRequiredError;
 
   /// No description provided for @invForm_quantityFieldLabel.
   ///
@@ -817,6 +823,36 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Данные помещения обновлены'**
   String get rooms_updated;
+
+  /// No description provided for @common_position.
+  ///
+  /// In ru, this message translates to:
+  /// **'должность'**
+  String get common_position;
+
+  /// No description provided for @common_room.
+  ///
+  /// In ru, this message translates to:
+  /// **'помещение'**
+  String get common_room;
+
+  /// No description provided for @common_category.
+  ///
+  /// In ru, this message translates to:
+  /// **'категорию'**
+  String get common_category;
+
+  /// No description provided for @common_employee.
+  ///
+  /// In ru, this message translates to:
+  /// **'сотрудника'**
+  String get common_employee;
+
+  /// No description provided for @common_item.
+  ///
+  /// In ru, this message translates to:
+  /// **'предмет'**
+  String get common_item;
 
   /// No description provided for @common_error.
   ///

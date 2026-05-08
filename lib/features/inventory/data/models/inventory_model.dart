@@ -13,8 +13,8 @@ class InventoryModel {
   /// Name of the inventory item
   final String name;
 
-  /// Inventory number (optional)
-  final String? inventoryNumber;
+  /// Inventory number
+  final String inventoryNumber;
 
   /// Quantity of items
   final int quantity;
@@ -41,12 +41,12 @@ class InventoryModel {
   InventoryModel({
     required this.id,
     required this.name,
+    required this.inventoryNumber,
     required this.quantity,
     required this.dateAdded,
     required this.createdAt,
     required this.categoryIds,
     this.barcode,
-    this.inventoryNumber,
     this.description,
     this.employeeId,
     this.roomId,
@@ -58,7 +58,7 @@ class InventoryModel {
       id: map['id'] as int,
       barcode: map['barcode'] as String?,
       name: map['name'] as String,
-      inventoryNumber: map['inventoryNumber'] as String?,
+      inventoryNumber: map['inventoryNumber'] as String? ?? '',
       quantity: map['quantity'] as int? ?? 1,
       description: map['description'] as String?,
       dateAdded: DateTime.fromMillisecondsSinceEpoch(map['dateAdded'] as int),
@@ -153,4 +153,3 @@ class InventoryModel {
     };
   }
 }
-

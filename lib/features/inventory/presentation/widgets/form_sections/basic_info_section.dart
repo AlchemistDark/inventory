@@ -48,12 +48,19 @@ class BasicInfoSection extends StatelessWidget {
           },
         ),
         const SizedBox(height: 16),
-        // Inventory number field (optional).
+        // Inventory number field (mandatory).
         InventoryTextField(
           controller: inventoryNumberController,
           labelText: l10n.invForm_inventoryNumberFieldLabel,
           maxLength: 50,
           showCounter: true,
+          validator: (value) {
+            if (value == null || value.trim().isEmpty) {
+              return l10n.invForm_inventoryNumberRequiredError;
+            }
+
+            return null;
+          },
         ),
         const SizedBox(height: 16),
         // Quantity field with numeric keyboard and range validation (1-999).

@@ -103,7 +103,8 @@
   "invForm_nameRequiredError": "Enter name",
   "invForm_minLength3Error": "Minimum 3 characters",
   "invForm_maxLength50Error": "Maximum 50 characters",
-  "invForm_inventoryNumberFieldLabel": "Inventory number",
+  "invForm_inventoryNumberFieldLabel": "Inventory number *",
+  "invForm_inventoryNumberRequiredError": "Enter inventory number",
   "invForm_quantityFieldLabel": "Quantity",
   "invForm_quantityRequiredError": "Enter quantity",
   "invForm_quantityRangeError": "From 1 to 999",
@@ -146,6 +147,11 @@
   "rooms_created": "Room created",
   "rooms_updated": "Room updated",
 
+  "common_position": "position",
+  "common_room": "room",
+  "common_category": "category",
+  "common_employee": "employee",
+  "common_item": "item",
   "common_error": "Error: {message}",
   "@common_error": {
     "placeholders": {

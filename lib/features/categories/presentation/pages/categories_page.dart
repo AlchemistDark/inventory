@@ -22,7 +22,7 @@ class CategoriesPage extends StatelessWidget {
     final confirmed = await AppDialogs.showDeleteConfirmation(
       context: context,
       entityName: category.name,
-      entityTypeLabel: l10n.categories_nameLabel,
+      entityTypeLabel: l10n.common_category,
     );
 
     if (confirmed == true) {
