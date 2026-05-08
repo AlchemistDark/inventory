@@ -1,5 +1,5 @@
 import 'package:inventory_p_shalaev/core/core.dart';
-import 'package:inventory_p_shalaev/features/inventory/presentation/widgets/inventory_selection_tile.dart';
+import 'package:inventory_p_shalaev/features/inventory/presentation/widgets/inventory_selection_list.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 /// A widget that displays a list of items for selection in a dialog.
@@ -70,24 +70,15 @@ class InventorySelectionSheet<T> extends StatelessWidget {
                     style: TextStyle(color: theme.hintColor),
                   ),
                 )
-              : ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    final item = items[index];
-                    final id = itemId(item);
-                    final name = itemName(item);
-                    final isSelected = selectedId == id;
-
-                    return InventorySelectionTile(
-                      name: name,
-                      isSelected: isSelected,
-                      icon: icon,
-                      onTap: () {
-                        onSelected(isSelected ? null : id);
-                        Navigator.pop(context);
-                      },
-                    );
+              : InventorySelectionList<T>(
+                  items: items,
+                  itemName: itemName,
+                  itemId: itemId,
+                  icon: icon,
+                  isSelected: (id) => selectedId == id,
+                  onItemTap: (id, isSelected) {
+                    onSelected(isSelected ? null : id);
+                    Navigator.pop(context);
                   },
                 ),
         ),

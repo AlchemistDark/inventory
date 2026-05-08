@@ -1,5 +1,5 @@
 import 'package:inventory_p_shalaev/core/core.dart';
-import 'package:inventory_p_shalaev/features/inventory/presentation/widgets/inventory_selection_tile.dart';
+import 'package:inventory_p_shalaev/features/inventory/presentation/widgets/inventory_selection_list.dart';
 import 'package:inventory_p_shalaev/generated/app_localizations.dart';
 
 /// A bottom sheet that allows multiple selection of items.
@@ -78,29 +78,20 @@ class _InventoryMultiSelectionSheetState<T> extends State<InventoryMultiSelectio
                     style: TextStyle(color: theme.hintColor),
                   ),
                 )
-              : ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: widget.items.length,
-                  itemBuilder: (context, index) {
-                    final item = widget.items[index];
-                    final id = widget.itemId(item);
-                    final name = widget.itemName(item);
-                    final isSelected = _currentSelectedIds.contains(id);
-
-                    return InventorySelectionTile(
-                      name: name,
-                      isSelected: isSelected,
-                      icon: widget.icon,
-                      onTap: () {
-                        setState(() {
-                          if (isSelected) {
-                            _currentSelectedIds.remove(id);
-                          } else {
-                            _currentSelectedIds.add(id);
-                          }
-                        });
-                      },
-                    );
+              : InventorySelectionList<T>(
+                  items: widget.items,
+                  itemName: widget.itemName,
+                  itemId: widget.itemId,
+                  icon: widget.icon,
+                  isSelected: (id) => _currentSelectedIds.contains(id),
+                  onItemTap: (id, isSelected) {
+                    setState(() {
+                      if (isSelected) {
+                        _currentSelectedIds.remove(id);
+                      } else {
+                        _currentSelectedIds.add(id);
+                      }
+                    });
                   },
                 ),
         ),
