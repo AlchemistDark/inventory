@@ -52,6 +52,7 @@ class _PositionFormPageState extends State<PositionFormPage> {
       final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           content: Text(
             widget.position == null
                 ? l10n.positions_created

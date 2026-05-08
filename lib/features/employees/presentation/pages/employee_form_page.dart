@@ -41,6 +41,7 @@ class EmployeeFormPage extends StatelessWidget {
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
+              backgroundColor: Theme.of(context).colorScheme.secondary,
               content: Text(
                 employee == null
                     ? l10n.employees_created

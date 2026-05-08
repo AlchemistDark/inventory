@@ -48,6 +48,7 @@ class _RoomFormPageState extends State<RoomFormPage> {
       final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           content: Text(widget.room == null
               ? l10n.rooms_created
               : l10n.rooms_updated),
@@ -83,6 +84,7 @@ class _RoomFormPageState extends State<RoomFormPage> {
                 decoration: InputDecoration(
                   labelText: l10n.rooms_nameLabel,
                 ),
+                maxLength: 50,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return l10n.invForm_nameRequiredError;
@@ -98,6 +100,13 @@ class _RoomFormPageState extends State<RoomFormPage> {
                   labelText: l10n.rooms_descriptionLabel,
                 ),
                 maxLines: 3,
+                maxLength: 500,
+                validator: (value) {
+                  if (value != null && value.length > 500) {
+                    return l10n.invForm_maxLength500Error;
+                  }
+                  return null;
+                },
               ),
               const Spacer(),
               SizedBox(

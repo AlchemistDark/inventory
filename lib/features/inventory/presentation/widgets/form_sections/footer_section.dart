@@ -42,6 +42,8 @@ class FooterSection extends StatelessWidget {
         InventoryTextField(
           controller: descriptionController,
           maxLines: 3,
+          maxLength: 500,
+          showCounter: true,
           labelText: l10n.invForm_descriptionFieldLabel,
           validator: (value) {
             if (value != null && value.length > 500) {

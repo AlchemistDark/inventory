@@ -13,6 +13,7 @@ class InventoryTextField extends StatelessWidget {
     this.keyboardType,
     this.maxLines = 1,
     this.maxLength,
+    this.showCounter = false,
     super.key,
   });
 
@@ -34,6 +35,9 @@ class InventoryTextField extends StatelessWidget {
   /// Maximum character length allowed.
   final int? maxLength;
 
+  /// Whether to show the character counter (requires [maxLength]).
+  final bool showCounter;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -46,8 +50,8 @@ class InventoryTextField extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        // Hide the character counter if it's not explicitly needed for the design.
-        counterText: '',
+        // Show counter only if explicitly requested or if it's a multi-line field.
+        counterText: showCounter ? null : '',
       ),
       validator: validator,
     );

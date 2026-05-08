@@ -46,6 +46,7 @@ class CreateInventoryPage extends StatelessWidget {
             context.read<InventoryBloc>().add(const LoadInventoriesEvent());
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 content: Text(
                   editTarget == null
                       ? l10n.invList_itemAddedMessage

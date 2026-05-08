@@ -35,6 +35,7 @@ class BasicInfoSection extends StatelessWidget {
           controller: nameController,
           labelText: l10n.invForm_nameFieldLabel,
           maxLength: 50,
+          showCounter: true,
           validator: (value) {
             if (value == null || value.trim().isEmpty) {
               return l10n.invForm_nameRequiredError;
@@ -52,6 +53,7 @@ class BasicInfoSection extends StatelessWidget {
           controller: inventoryNumberController,
           labelText: l10n.invForm_inventoryNumberFieldLabel,
           maxLength: 50,
+          showCounter: true,
         ),
         const SizedBox(height: 16),
         // Quantity field with numeric keyboard and range validation (1-999).
