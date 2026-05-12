@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.pop(context); // Close dialog
           Navigator.push(
             context,
-            CreateInventoryPage.route(),
+            CreateInventoryPage.route(initialBarcode: query),
           );
         },
       ),

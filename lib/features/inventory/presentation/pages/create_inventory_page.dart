@@ -9,8 +9,11 @@ class CreateInventoryPage extends StatelessWidget {
   const CreateInventoryPage({super.key, this.editTarget});
 
   /// Helper method to create a route for this page with a scoped [InventoryFormBloc].
-  static Route<void> route({InventoryEntity? editTarget}) {
+  static Route<void> route({InventoryEntity? editTarget, String? initialBarcode}) {
     return MaterialPageRoute<void>(
+      settings: RouteSettings(
+        arguments: initialBarcode != null ? {'initialBarcode': initialBarcode} : null,
+      ),
       builder: (context) {
         final l10n = AppLocalizations.of(context)!;
 
