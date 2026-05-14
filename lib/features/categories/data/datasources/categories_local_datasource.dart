@@ -80,10 +80,11 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
   @override
   Future<void> updateCategory(CategoryModel model) async {
     final db = await _databaseHelper.database;
+    final updateData = model.toMap()..remove('id');
 
     await db.update(
       'categories',
-      model.toMap(),
+      updateData,
       where: 'id = ?',
       whereArgs: [model.id],
     );

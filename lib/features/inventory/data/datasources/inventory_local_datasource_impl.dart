@@ -19,7 +19,7 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
     return await db.transaction((txn) async {
       final id = await txn.insert(
         'inventory',
-        model.toMap(),
+        model.toDbMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
 
@@ -177,9 +177,12 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
     final db = await _databaseHelper.database;
 
     await db.transaction((txn) async {
+      // Exclude id from the update values to avoid issues with FK constraints
+      final updateData = model.toDbMap()..remove('id');
+      
       await txn.update(
         'inventory',
-        model.toMap(),
+        updateData,
         where: 'id = ?',
         whereArgs: [model.id],
       );
@@ -192,10 +195,14 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
       );
       
       for (final categoryId in model.categoryIds) {
-        await txn.insert('inventory_categories', {
-          'inventoryId': model.id,
-          'categoryId': categoryId,
-        });
+        await txn.insert(
+          'inventory_categories',
+          {
+            'inventoryId': model.id,
+            'categoryId': categoryId,
+          },
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
       }
     });
   }

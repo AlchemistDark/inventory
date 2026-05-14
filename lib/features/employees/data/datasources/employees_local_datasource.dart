@@ -34,13 +34,21 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
     final db = await _databaseHelper.database;
 
     return await db.transaction((txn) async {
-      final id = await txn.insert('employees', model.toMap());
+      final id = await txn.insert(
+        'employees',
+        model.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
 
       for (final positionId in model.positionIds) {
-        await txn.insert('employee_positions', {
-          'employeeId': id,
-          'positionId': positionId,
-        });
+        await txn.insert(
+          'employee_positions',
+          {
+            'employeeId': id,
+            'positionId': positionId,
+          },
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
       }
 
       return EmployeeModel(
@@ -122,9 +130,12 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
     final db = await _databaseHelper.database;
 
     await db.transaction((txn) async {
+      // Exclude id from the update values to avoid issues with PK constraints
+      final updateData = model.toMap()..remove('id');
+
       await txn.update(
         'employees',
-        model.toMap(),
+        updateData,
         where: 'id = ?',
         whereArgs: [model.id],
       );
@@ -137,10 +148,14 @@ class EmployeesLocalDataSourceImpl implements EmployeesLocalDataSource {
       );
 
       for (final positionId in model.positionIds) {
-        await txn.insert('employee_positions', {
-          'employeeId': model.id,
-          'positionId': positionId,
-        });
+        await txn.insert(
+          'employee_positions',
+          {
+            'employeeId': model.id,
+            'positionId': positionId,
+          },
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
       }
     });
   }

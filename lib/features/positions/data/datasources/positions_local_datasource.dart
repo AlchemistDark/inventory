@@ -32,7 +32,11 @@ class PositionsLocalDataSourceImpl implements PositionsLocalDataSource {
   @override
   Future<PositionModel> createPosition(PositionModel model) async {
     final db = await _databaseHelper.database;
-    final id = await db.insert('positions', model.toMap());
+    final id = await db.insert(
+      'positions',
+      model.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
 
     return PositionModel(
       id: id,
@@ -73,7 +77,15 @@ class PositionsLocalDataSourceImpl implements PositionsLocalDataSource {
   @override
   Future<void> updatePosition(PositionModel model) async {
     final db = await _databaseHelper.database;
-    await db.update('positions', model.toMap(), where: 'id = ?', whereArgs: [model.id]);
+    // Exclude id from the update values to avoid issues with PK constraints
+    final updateData = model.toMap()..remove('id');
+
+    await db.update(
+      'positions',
+      updateData,
+      where: 'id = ?',
+      whereArgs: [model.id],
+    );
   }
 
   @override

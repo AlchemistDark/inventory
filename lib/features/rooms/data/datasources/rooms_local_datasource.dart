@@ -32,7 +32,11 @@ class RoomsLocalDataSourceImpl implements RoomsLocalDataSource {
   @override
   Future<RoomModel> createRoom(RoomModel model) async {
     final db = await _databaseHelper.database;
-    final id = await db.insert('rooms', model.toMap());
+    final id = await db.insert(
+      'rooms',
+      model.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
 
     return RoomModel(
       id: id,
@@ -74,7 +78,15 @@ class RoomsLocalDataSourceImpl implements RoomsLocalDataSource {
   @override
   Future<void> updateRoom(RoomModel model) async {
     final db = await _databaseHelper.database;
-    await db.update('rooms', model.toMap(), where: 'id = ?', whereArgs: [model.id]);
+    // Exclude id from the update values to avoid issues with PK constraints
+    final updateData = model.toMap()..remove('id');
+    
+    await db.update(
+      'rooms',
+      updateData,
+      where: 'id = ?',
+      whereArgs: [model.id],
+    );
   }
 
   @override

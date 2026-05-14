@@ -21,7 +21,7 @@ class EmployeeDetailsPage extends StatelessWidget {
     final confirmed = await AppDialogs.showDeleteConfirmation(
       context: context,
       entityName: employee.name,
-      entityTypeLabel: l10n.employees_nameLabel,
+      entityTypeLabel: l10n.common_employee,
     );
 
     if (confirmed == true) {
