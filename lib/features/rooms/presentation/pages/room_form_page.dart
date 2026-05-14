@@ -82,12 +82,18 @@ class _RoomFormPageState extends State<RoomFormPage> {
               TextFormField(
                 controller: _nameController,
                 decoration: InputDecoration(
-                  labelText: l10n.rooms_nameLabel,
+                  labelText: '${l10n.rooms_nameLabel} *',
                 ),
                 maxLength: 50,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return l10n.invForm_nameRequiredError;
+                  }
+                  if (value.length < 3) {
+                    return l10n.invForm_minLength3Error;
+                  }
+                  if (value.length > 50) {
+                    return l10n.invForm_maxLength50Error;
                   }
 
                   return null;

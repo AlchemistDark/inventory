@@ -106,15 +106,24 @@ class InventoryDetailsPage extends StatelessWidget {
                 return Center(child: Text(l10n.invList_emptyStateMessage));
               }
 
-              final employeeName = state.employees.getNameById(
+              // Get actual metadata from their respective blocs to ensure sync
+              final empState = context.watch<EmployeesBloc>().state;
+              final roomState = context.watch<RoomsBloc>().state;
+              final catState = context.watch<CategoriesBloc>().state;
+
+              final employees = empState is EmployeesLoaded ? empState.allEmployees : state.employees;
+              final rooms = roomState is RoomsLoaded ? roomState.rooms : state.rooms;
+              final categories = catState is CategoriesLoaded ? catState.categories : state.categories;
+
+              final employeeName = employees.getNameById(
                 currentInventory.employeeId,
                 fallback: l10n.invList_notSpecifiedMale,
               );
-              final roomName = state.rooms.getNameById(
+              final roomName = rooms.getNameById(
                 currentInventory.roomId,
                 fallback: l10n.invList_notSpecified,
               );
-              final categoryNames = state.categories
+              final categoryNames = categories
                   .where((c) => currentInventory.categoryIds.contains(c.id))
                   .map((c) => c.name)
                   .join(', ');
