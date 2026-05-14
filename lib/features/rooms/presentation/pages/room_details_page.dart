@@ -50,17 +50,26 @@ class _RoomDetailsPageState extends State<RoomDetailsPage>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final roomsState = context.watch<RoomsBloc>().state;
+    
+    RoomEntity currentRoom = widget.room;
+    if (roomsState is RoomsLoaded) {
+      final found = roomsState.rooms.where((r) => r.id == widget.room.id).firstOrNull;
+      if (found != null) {
+        currentRoom = found;
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.room.name),
+        title: Text(currentRoom.name),
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute<void>(
-                builder: (context) => RoomFormPage(room: widget.room),
+                builder: (context) => RoomFormPage(room: currentRoom),
               ),
             ),
           ),

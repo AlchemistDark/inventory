@@ -64,8 +64,12 @@ class EmployeeDetailsPage extends StatelessWidget {
           }
         }
 
-        final positions = state is EmployeesLoaded ? state.positions : <PositionEntity>[];
-        final rooms = state is EmployeesLoaded ? state.rooms : <RoomEntity>[];
+        // Watch source blocs for reactive updates
+        final posState = context.watch<PositionsBloc>().state;
+        final roomState = context.watch<RoomsBloc>().state;
+
+        final positions = posState is PositionsLoaded ? posState.positions : const <PositionEntity>[];
+        final rooms = roomState is RoomsLoaded ? roomState.rooms : const <RoomEntity>[];
 
         final positionNames = positions
             .where((p) => currentEmployee.positionIds.contains(p.id))

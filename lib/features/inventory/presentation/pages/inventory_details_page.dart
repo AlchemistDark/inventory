@@ -111,9 +111,9 @@ class InventoryDetailsPage extends StatelessWidget {
               final roomState = context.watch<RoomsBloc>().state;
               final catState = context.watch<CategoriesBloc>().state;
 
-              final employees = empState is EmployeesLoaded ? empState.allEmployees : state.employees;
-              final rooms = roomState is RoomsLoaded ? roomState.rooms : state.rooms;
-              final categories = catState is CategoriesLoaded ? catState.categories : state.categories;
+              final employees = empState is EmployeesLoaded ? empState.allEmployees : const <EmployeeEntity>[];
+              final rooms = roomState is RoomsLoaded ? roomState.rooms : const <RoomEntity>[];
+              final categories = catState is CategoriesLoaded ? catState.categories : const <CategoryEntity>[];
 
               final employeeName = employees.getNameById(
                 currentInventory.employeeId,
