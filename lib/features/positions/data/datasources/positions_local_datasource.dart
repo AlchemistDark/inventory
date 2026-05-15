@@ -1,5 +1,6 @@
 import 'package:inventory_p_shalaev/features/positions/data/models/position_model.dart';
 import 'package:inventory_p_shalaev/core/database/database_helper.dart';
+import 'package:sqflite/sqflite.dart';
 
 /// Abstract data source for local position operations.
 abstract class PositionsLocalDataSource {

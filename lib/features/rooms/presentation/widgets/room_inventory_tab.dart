@@ -18,7 +18,7 @@ class RoomInventoryTab extends StatelessWidget {
   /// Map of employee IDs to names for O(1) lookup.
   final Map<int, String> employeeMap;
 
-  /// The name of the current room.
+  /// The name of the room.
   final String roomName;
 
   @override
@@ -33,15 +33,8 @@ class RoomInventoryTab extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       itemCount: inventory.length,
       itemBuilder: (context, index) {
-        final item = inventory[index];
-        final employeeName = item.employeeId != null
-            ? (employeeMap[item.employeeId] ?? l10n.invList_notSpecifiedMale)
-            : l10n.invList_notSpecifiedMale;
-
         return InventoryListItem(
-          inventory: item,
-          employeeName: employeeName,
-          roomName: roomName,
+          inventory: inventory[index],
         );
       },
     );
