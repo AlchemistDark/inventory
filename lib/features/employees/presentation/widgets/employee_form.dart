@@ -49,8 +49,10 @@ class EmployeeForm extends StatelessWidget {
         children: [
           TextFormField(
             initialValue: employee?.name,
+            maxLength: 50,
             decoration: InputDecoration(
               labelText: l10n.employees_nameLabel,
+              counterText: '',
               errorText: switch (nameError) {
                 EmployeeNameValidationError.tooShort =>
                   l10n.employees_minLength3,

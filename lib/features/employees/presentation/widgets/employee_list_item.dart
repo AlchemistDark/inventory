@@ -27,7 +27,11 @@ class EmployeeListItem extends StatelessWidget {
         employee.name,
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
-      subtitle: Text(positionName),
+      subtitle: Text(
+        positionName,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+      ),
       trailing: const Icon(Icons.chevron_right),
       onTap: () {
         context

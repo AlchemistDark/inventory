@@ -38,6 +38,7 @@ class EmployeesSearchAndFilter extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<int?>(
+            isExpanded: true,
             initialValue: positionFilter,
             decoration: InputDecoration(
               labelText: l10n.employees_positionLabel,
@@ -55,7 +56,10 @@ class EmployeesSearchAndFilter extends StatelessWidget {
               ...positions.map(
                 (position) => DropdownMenuItem(
                   value: position.id,
-                  child: Text(position.name),
+                  child: Text(
+                    position.name,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
             ],
