@@ -1,5 +1,6 @@
 import 'package:inventory_p_shalaev/core/core.dart';
 import 'package:inventory_p_shalaev/features/employees/data/models/employee_model.dart';
+import 'package:sqflite/sqflite.dart';
 
 /// Data source interface for managing local employee data.
 abstract class EmployeesLocalDataSource {

@@ -75,6 +75,7 @@ class _InventoryListHeaderState extends State<InventoryListHeader> {
             builder: (context, state) {
               if (state is InventoriesLoaded) {
                 return DropdownButtonFormField<int?>(
+                  isExpanded: true,
                   initialValue: state.categoryFilter,
                   decoration: InputDecoration(
                     labelText: l10n.invList_filterByCategoryLabel,
@@ -92,7 +93,10 @@ class _InventoryListHeaderState extends State<InventoryListHeader> {
                     ...state.categories.map(
                       (CategoryEntity c) => DropdownMenuItem(
                         value: c.id,
-                        child: Text(c.name),
+                        child: Text(
+                          c.name,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                   ],

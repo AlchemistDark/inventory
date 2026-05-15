@@ -11,19 +11,11 @@ class InventoryListView extends StatelessWidget {
   /// Creates an [InventoryListView].
   const InventoryListView({
     required this.items,
-    required this.employeeMap,
-    required this.roomMap,
     super.key,
   });
 
   /// The list of inventory items to display.
   final List<InventoryEntity> items;
-
-  /// Map of employee IDs to their names for O(1) lookup.
-  final Map<int, String> employeeMap;
-
-  /// Map of room IDs to their names for O(1) lookup.
-  final Map<int, String> roomMap;
 
   @override
   Widget build(BuildContext context) {
@@ -37,20 +29,8 @@ class InventoryListView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       itemCount: items.length,
       itemBuilder: (context, index) {
-        final item = items[index];
-
-        final employeeName = item.employeeId != null
-            ? (employeeMap[item.employeeId] ?? l10n.invList_notSpecifiedMale)
-            : l10n.invList_notSpecifiedMale;
-
-        final roomName = item.roomId != null
-            ? (roomMap[item.roomId] ?? l10n.invList_notSpecified)
-            : l10n.invList_notSpecified;
-
         return InventoryListItem(
-          inventory: item,
-          employeeName: employeeName,
-          roomName: roomName,
+          inventory: items[index],
         );
       },
     );
