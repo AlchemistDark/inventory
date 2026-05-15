@@ -88,7 +88,10 @@ class _InventoryListHeaderState extends State<InventoryListHeader> {
                   items: [
                     DropdownMenuItem(
                       value: null,
-                      child: Text(l10n.invList_showAllCategories),
+                      child: Text(
+                        l10n.invList_showAllCategories,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     ...state.categories.map(
                       (CategoryEntity c) => DropdownMenuItem(
@@ -100,6 +103,22 @@ class _InventoryListHeaderState extends State<InventoryListHeader> {
                       ),
                     ),
                   ],
+                  selectedItemBuilder: (BuildContext context) {
+                    return [
+                      Text(
+                        l10n.invList_showAllCategories,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      ...state.categories.map(
+                        (CategoryEntity c) => Text(
+                          c.name,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                      ),
+                    ];
+                  },
                   onChanged: (val) {
                     if (val == null) {
                       context

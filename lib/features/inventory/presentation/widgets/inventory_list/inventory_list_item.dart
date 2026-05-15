@@ -74,15 +74,22 @@ class InventoryListItem extends StatelessWidget {
                           fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
+                  const SizedBox(width: 8),
                   const Icon(Icons.chevron_right),
                 ],
               ),
               const SizedBox(height: 8),
-              Text(
-                subtitleText,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodySmall,
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      subtitleText,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

@@ -7,19 +7,11 @@ class RoomInventoryTab extends StatelessWidget {
   /// Creates a [RoomInventoryTab].
   const RoomInventoryTab({
     required this.inventory,
-    required this.employeeMap,
-    required this.roomName,
     super.key,
   });
 
   /// The list of inventory items to display.
   final List<InventoryEntity> inventory;
-
-  /// Map of employee IDs to names for O(1) lookup.
-  final Map<int, String> employeeMap;
-
-  /// The name of the room.
-  final String roomName;
 
   @override
   Widget build(BuildContext context) {
