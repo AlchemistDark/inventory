@@ -49,6 +49,7 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
     on<SearchInventoriesByNameEvent>(_onSearchByName);
     on<FilterInventoriesByCategoryEvent>(_onFilterByCategory);
     on<ClearFiltersEvent>(_onClearFilters);
+    on<RefreshInventoryMetadataEvent>(_onRefreshMetadata);
     on<CreateInventoryEvent>(_onCreateInventory);
     on<UpdateInventoryEvent>(_onUpdateInventory);
     on<DeleteInventoryEvent>(_onDeleteInventory);
@@ -135,6 +136,33 @@ class InventoryBloc extends Bloc<CoreInventoryEvent, InventoryState>
     Emitter<InventoryState> emit,
   ) async {
     await _onLoadInventories(const LoadInventoriesEvent(), emit);
+  }
+
+  Future<void> _onRefreshMetadata(
+    RefreshInventoryMetadataEvent event,
+    Emitter<InventoryState> emit,
+  ) async {
+    final currentState = state;
+    if (currentState is InventoriesLoaded) {
+      try {
+        final employees = await getEmployeesUseCase();
+        final categories = await getCategoriesUseCase();
+        final rooms = await getRoomsUseCase();
+
+        emit(currentState.copyWith(
+          employees: employees,
+          categories: categories,
+          rooms: rooms,
+          employeeMap: {for (final e in employees) e.id: e.name},
+          categoryMap: {for (final c in categories) c.id: c.name},
+          roomMap: {for (final r in rooms) r.id: r.name},
+        ));
+      } catch (e) {
+        // On error during refresh, we keep the old state but maybe log it
+      }
+    } else {
+      await _onLoadInventories(const LoadInventoriesEvent(), emit);
+    }
   }
 
   Future<void> _onCreateInventory(

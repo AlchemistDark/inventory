@@ -16,45 +16,67 @@ class InventoryListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n.invList_appBarTitle)),
-      body: Column(
-        children: [
-          const InventoryListHeader(),
-          Expanded(
-            child: BlocBuilder<InventoryBloc, InventoryState>(
-              builder: (context, state) {
-                if (state is InventoryLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (state is InventoriesLoaded) {
-                  return InventoryListView(
-                    items: state.filteredInventories,
-                  );
-                } else if (state is InventoryError) {
-                  return Center(
-                    child: Text(
-                      '${l10n.invList_errorMessagePrefix}${state.failure.toLocalizedString(l10n)}',
-                    ),
-                  );
-                }
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<CategoriesBloc, CategoriesState>(
+          listener: (context, state) {
+            if (state is CategoriesLoaded) {
+              context
+                  .read<InventoryBloc>()
+                  .add(const InitializeInventoriesEvent());
+            }
+          },
+        ),
+        BlocListener<RoomsBloc, RoomsState>(
+          listener: (context, state) {
+            if (state is RoomsLoaded) {
+              context
+                  .read<InventoryBloc>()
+                  .add(const InitializeInventoriesEvent());
+            }
+          },
+        ),
+      ],
+      child: Scaffold(
+        appBar: AppBar(title: Text(l10n.invList_appBarTitle)),
+        body: Column(
+          children: [
+            const InventoryListHeader(),
+            Expanded(
+              child: BlocBuilder<InventoryBloc, InventoryState>(
+                builder: (context, state) {
+                  if (state is InventoryLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is InventoriesLoaded) {
+                    return InventoryListView(
+                      items: state.filteredInventories,
+                    );
+                  } else if (state is InventoryError) {
+                    return Center(
+                      child: Text(
+                        '${l10n.invList_errorMessagePrefix}${state.failure.toLocalizedString(l10n)}',
+                      ),
+                    );
+                  }
 
-                return const SizedBox();
-              },
+                  return const SizedBox();
+                },
+              ),
             ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).cardTheme.color ??
-            Theme.of(context).colorScheme.surface,
-        foregroundColor: Theme.of(context).colorScheme.primary,
-        onPressed: () {
-          Navigator.push<void>(
-            context,
-            CreateInventoryPage.route(),
-          );
-        },
-        child: const Icon(Icons.add),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Theme.of(context).cardTheme.color ??
+              Theme.of(context).colorScheme.surface,
+          foregroundColor: Theme.of(context).colorScheme.primary,
+          onPressed: () {
+            Navigator.push<void>(
+              context,
+              CreateInventoryPage.route(),
+            );
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

@@ -37,6 +37,12 @@ class ClearFiltersEvent extends InventoryEvent {
   const ClearFiltersEvent();
 }
 
+/// Event to refresh only metadata (employees, categories, rooms) without resetting items or filters.
+class RefreshInventoryMetadataEvent extends InventoryEvent {
+  /// Creates a [RefreshInventoryMetadataEvent].
+  const RefreshInventoryMetadataEvent();
+}
+
 /// Event to create a new inventory item.
 class CreateInventoryEvent extends InventoryEvent {
   /// The entity containing the data for the new inventory item.
